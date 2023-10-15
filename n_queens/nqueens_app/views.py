@@ -4,6 +4,5 @@ from django.shortcuts import render
 from django.shortcuts import render
 
 
-def chess_board(request):
-    return render(request, "chess_app/chess_board.html")
-
+def nqueens_board(request):
+    return render(request, "nqueens_app/nqueens.html")

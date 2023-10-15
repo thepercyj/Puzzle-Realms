@@ -5,28 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ASE-Group-6.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/static/chess_app/js/animation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/static/chess_app/js/d3.v7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/templates/chess_app/chess_board.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_app/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_project/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_project/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_project/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_project/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/chess_project/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chess_project/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/n_queens/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/n_queens/asgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/n_queens/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/n_queens/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/n_queens/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/chess_project/chess_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +39,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "thepercyj"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="f5bf07e8-9fc4-449d-b793-ddcffa712961" />
+        <option name="url" value="https://github.com/thepercyj/ASE-Group-6.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -71,6 +81,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\University of Sussex\Advanced Software Engineering\Github Repository\ASE-Group-6\n_queens\nqueens_app" />
       <recent name="D:\University of Sussex\Advanced Software Engineering\Github Repository\ASE-Group-6\chess_project\chess_app\static\chess_app\js" />
     </key>
   </component>
