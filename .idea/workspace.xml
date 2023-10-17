@@ -4,41 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/nqueens_solver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/images/bQ.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/images/chessboard.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/images/queen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chess.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chessboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chessboard.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ASE-Group-6.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ASE-Group-6.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/static/chess_app/js/animation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/static/chess_app/js/d3.v7.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/templates/chess_app/chess_board.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_app/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_project/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_project/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_project/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_project/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/chess_project/wsgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess_project/manage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/n_queens/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/n_queens/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
