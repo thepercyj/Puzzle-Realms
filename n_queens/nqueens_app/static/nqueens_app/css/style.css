@@ -1,19 +1,45 @@
-.table-container {
-    display: inline-block;
+h1, h2, h3, p, label, input{
+    font-family: 'Open Sans', arial, sans-serif;
 }
 
-td {
-    width: 30px;
-    height: 30px;
-    text-align: center;
+h1, h2 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EAEAEA;
+    white-space: pre-wrap;
+}
+
+label {
+
+}
+
+h3 {
+    margin-left: 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.table-container {
+    display: inline-block;
+    border: 2px solid black;
+}
+
+td, tr {
+    padding: 0;
+    height: 50px;
 }
 
 .white {
-    background-color: white;
+    background-color: #b58863;
+    border-width: 0;
+    padding: 0;
 }
 
 .black {
-    background-color: green;
+    background-color: #f0d9b5;
+    border-width: 0;
+    padding: 0;
 }
 
 .solution-container {
@@ -22,5 +48,5 @@ td {
 }
 
 .solution {
-    margin: 10px; /* Adjust margin as needed */
+    margin: 0 10px 10px 0; /* Adjust margin as needed */
 }
