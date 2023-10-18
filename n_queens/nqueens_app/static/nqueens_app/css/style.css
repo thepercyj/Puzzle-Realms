@@ -1,4 +1,4 @@
-h1, h2, h3, p, label, input{
+h1, h2, h3, p, button, label, input{
     font-family: 'Open Sans', arial, sans-serif;
 }
 
@@ -8,8 +8,8 @@ h1, h2 {
     white-space: pre-wrap;
 }
 
-label {
-
+button {
+    font-size: 1em;
 }
 
 h3 {
@@ -43,7 +43,7 @@ td, tr {
 }
 
 .solution-container {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
 }
 
