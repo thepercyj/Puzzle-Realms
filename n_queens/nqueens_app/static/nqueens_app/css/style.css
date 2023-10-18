@@ -1,0 +1,26 @@
+.table-container {
+    display: inline-block;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.white {
+    background-color: white;
+}
+
+.black {
+    background-color: green;
+}
+
+.solution-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.solution {
+    margin: 10px; /* Adjust margin as needed */
+}
