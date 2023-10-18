@@ -153,3 +153,4 @@ cython_debug/
 .idea/ASE-Group-6.iml
 .idea/misc.xml
 .idea/workspace.xml
+.vscode/settings.json
