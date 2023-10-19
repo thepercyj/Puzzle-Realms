@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# initialized nqueens_app application in global Django settings to be recognized by the configurations.
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

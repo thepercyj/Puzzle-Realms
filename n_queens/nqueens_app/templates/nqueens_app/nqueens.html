@@ -8,12 +8,7 @@
     <h1>N-Queens Solver</h1>
     <p>This is a solution provided by the project group 6 of Advanced Software Engineering Module.</p>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function changeSize() {
-            var n = $('#size').val();
-            window.location.href = '/nqueens/?n=' + n;
-        }
-    </script>
+    <script src="{% static 'nqueens_app/js/script.js' %}"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
 </head>
 <body>
