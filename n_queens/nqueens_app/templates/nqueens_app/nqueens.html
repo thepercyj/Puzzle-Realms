@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N-Queens Solver</title>
+    <h1>N-Queens Solver</h1>
+    <p>This is a solution provided by the project group 6 of Advanced Software Engineering Module.</p>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'nqueens_app/js/script.js' %}"></script>
+   <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
+</head>
+<body>
+ <label for="size">Chessboard Size:</label>
+    <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
+
+<div class="solution-container">
+    {% for solution in solutions %}
+        <div class="solution">
+            <h3>Solution {{ forloop.counter }}</h3>
+            <div class="table-container">
+                <table border="1">
+                    {% for row in solution %}
+                        {% with forloop.counter as row_counter %}
+                            <tr>
+                                {% for cell in row %}
+                                    {% with forloop.counter as cell_counter %}
+                                        {% with total_counter=row_counter|add:cell_counter %}
+                                            {% if total_counter|divisibleby:2 %}
+                                                <td class="black">
+                                            {% else %}
+                                                <td class="white">
+                                            {% endif %}
+                                                {% if cell == 1 %}
+                                                    <img src="{% static 'nqueens_app/images/queen.png' %}" style="height:50px; width:50px" alt="Q">
+                                                {% endif %}
+                                            </td>
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </tr>
+                        {% endwith %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>
