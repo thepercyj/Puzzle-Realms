@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/n_queens/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/n_queens/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/n_queens/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/n_queens/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/nqueens_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/nqueens_solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/images/bQ.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/images/chessboard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chess.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chessboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chessboard.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
