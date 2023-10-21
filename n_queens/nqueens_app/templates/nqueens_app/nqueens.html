@@ -8,32 +8,7 @@
     <h1>N-Queens Solver</h1>
     <p>N-Queens Solver is a solution provided by the project group 6 of Advanced Software Engineering Module in Sussex.</p>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function changeSize() {
-            var n = $('#size').val();
-            if(n > 15){
-                alert("The size should be less than or equal to 15");
-            }else{
-                window.location.href = '/nqueens/?n=' + n;
-            }
-
-        }
-
-        function showSolutions() {
-            var solution = document.getElementById("solution-container");
-            var btn = document.getElementById("solutionBtn");
-            // hide solutions
-            if (btn.innerHTML == "Show Solutions"){
-                btn.innerHTML = "Hide Solutions";
-                solution.style.display = "flex";
-            }else{
-                // Show solutions
-                solution.style.display = "none";
-                btn.innerHTML = "Show Solutions";
-            }
-        }
-
-    </script>
+    <script src="../../static/nqueens_app/js/script.js"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
 </head>
 <body>
@@ -42,6 +17,8 @@
 
 <div class="edit-mode">
     <h2>Edit Mode</h2>
+    <div id="editableChessboard"></div>
+    <button id="validateBtn" onclick="validate()">Validate</button>
 </div>
 
  <h2>Solution Part    <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span></h2>

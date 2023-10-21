@@ -25,21 +25,20 @@ table {
     border: 2px solid black;
 }
 
-td, tr {
-    padding: 0;
-    height: 50px;
-}
-
-.white {
+.white, .white-edit {
     background-color: #b58863;
     border-width: 0;
     padding: 0;
+    height: 50px;
+    width: 50px;
 }
 
-.black {
+.black, .black-edit {
     background-color: #f0d9b5;
     border-width: 0;
     padding: 0;
+    height: 50px;
+    width: 50px;
 }
 
 .solution-container {
@@ -50,3 +49,9 @@ td, tr {
 .solution {
     margin: 0 10px 10px 0; /* Adjust margin as needed */
 }
+
+#editableChessboard {
+    display: inline-block;
+    border: 2px solid black;
+}
+
