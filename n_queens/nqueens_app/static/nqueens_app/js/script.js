@@ -1,19 +1,16 @@
-window.onload = function() {
-            generateEditableChessboard();
-        }
+window.onload = function () {
+    generateEditableChessboard();
+}
 
 function changeSize() {
     var n = $('#size').val();
-    if(n > 10){ //Restrict user for going above 10 and below 4 chess board size
+    if (n > 10) {
         alert("The size should be less than or equal to 10");
-        window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 as user tries to run for value above 10
-
-    }
-    else if(n < 4){
+        window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 if the user tries to use a value above 10
+    } else if (n < 4) {
         alert("The size should be greater than or equal to 4");
-        window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 as user tries to run for value below 4
-    }
-    else{
+        window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 if the user tries to use a value below 4
+    } else {
         window.location.href = '/nqueens/?n=' + n;
     }
 }
@@ -21,26 +18,25 @@ function changeSize() {
 function showSolutions() {
     var solution = document.getElementById("solution-container");
     var btn = document.getElementById("solutionBtn");
-    // hide solutions
-    if (btn.innerHTML == "Show Solutions"){
+
+    // Toggle solutions display
+    if (btn.innerHTML == "Show Solutions") {
         btn.innerHTML = "Hide Solutions";
         solution.style.display = "flex";
-    }else{
-        // Show solutions
-        solution.style.display = "none";
+    } else {
         btn.innerHTML = "Show Solutions";
+        solution.style.display = "none";
     }
 }
 
 function generateEditableChessboard() {
     var n = $('#size').val();
-
     var chessboardContainer = document.getElementById('editableChessboard');
 
-    // set the current content to empty
+    // Clear the existing content
     chessboardContainer.innerHTML = '';
 
-    // create a table element
+    // Create the chessboard table
     var chessboardTable = document.createElement('table');
     chessboardTable.className = "";
     var q = 0;
@@ -50,7 +46,7 @@ function generateEditableChessboard() {
         for (var j = 0; j < n; j++) {
             var cell = row.insertCell(j);
 
-            // create a text node
+            // Create a queen image element
             var imgElement = document.createElement('img');
             imgElement.src = '/static/nqueens_app/images/queen.png';
             imgElement.style.display = 'none';
@@ -64,18 +60,17 @@ function generateEditableChessboard() {
                 cell.className = "white-edit";
             }
 
+            // Add a click event listener
             cell.addEventListener('click', function () {
                 var img = this.querySelector('img');
                 if (img.style.display === 'none') {
-                    if (q < n ) {
+                    if (q < n) {
                         img.style.display = 'block';
                         q++;
                         var button = document.getElementById("validateBtn");
                         button.disabled = false;
-                    }
-                    else if ( q >= n){
-                        alert("Cannot add more queens than number of chessboard size");
-
+                    } else if (q >= n) {
+                        alert("Cannot add more queens than the chessboard size");
                     }
                 } else {
                     img.style.display = 'none';
@@ -90,7 +85,7 @@ function generateEditableChessboard() {
     chessboardContainer.appendChild(chessboardTable);
 }
 
-function validate(solutions){
+function validate(solutions) {
     var table = document.querySelector('#editableChessboard table');
     var rows = table.getElementsByTagName('tr');
     var displayStatusArray = [];
@@ -104,34 +99,32 @@ function validate(solutions){
             var cell = cells[j];
             var image = cell.querySelector('img');
             var displayStatus = image.style.display;
-            if(displayStatus == 'none'){
+            if (displayStatus == 'none') {
                 rowStatus.push(0);
-            }else{
+            } else {
                 rowStatus.push(1);
             }
         }
 
-        displayStatusArray.push(rowStatus); //User-Result variable
+        displayStatusArray.push(rowStatus); // User-Result variable
     }
 
-//Function to compare 2 objects
+    // Function to compare two objects
     function areObjectsEqual(obj1, obj2) {
         return Object.entries(obj1).toString() === Object.entries(obj2).toString();
     }
-//Iterate through all the possible solutions and match with the user's solution
-    for (sol of solutions)
-    {
-        result = areObjectsEqual(sol, displayStatusArray)
-        if(result === true)
-        {
-            alert("Congrats on solving the n-queens puzzle")
-            break;
-        }
-        else
-        {
-            alert("Sorry try again")
-            break;
+    // Iterate through all the possible solutions and match with the user's solution
+    for (sol of solutions) {
+        var result = areObjectsEqual(sol, displayStatusArray); // Calling function to match solution
+        if (result === true) {
+            solved = true; // Set the flag to true if a solution is found
+            break; // Exit the loop if a solution is found
         }
     }
-
+    if (solved) {
+        alert("Congratulations on solving the N-Queens Puzzle");
+    }
+    else {
+        alert("Sorry, please try again");
+    }
 }
