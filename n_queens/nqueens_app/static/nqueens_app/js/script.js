@@ -1,65 +1,102 @@
-function new_board() {
-    var num_sq = document.querySelector('#num_sq').value;
-    var size_sq = document.querySelector('#size_sq').value;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', `/new_board?num_sq=${num_sq}&size_sq=${size_sq}`, true);
-
-    xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status < 400) {
-            var data = JSON.parse(xhr.responseText);
-            document.getElementById('chessboard').innerHTML = data.board;
-            document.getElementById('sol-num').innerText = data.solution_number;
-        } else {
-            console.error('Error:', xhr.status);
+window.onload = function() {
+            generateEditableChessboard();
         }
-    };
 
-    xhr.send();
+function changeSize() {
+    var n = $('#size').val();
+    if(n > 15){
+        alert("The size should be less than or equal to 15");
+    }else{
+        window.location.href = '/nqueens/?n=' + n;
+    }
 }
 
-function solve() {
-    var queens = document.getElementById('num_sq').value; // Get the number of queens
-    var size = document.getElementById('size_sq').value;  // Get the size
-
-    var pos = JSON.stringify([...document.getElementById('chessboard').children].slice(-1)[0].children.map(e => parseInt(e.style.left) / parseInt(e.style.width)));
-    var solution_number = document.getElementById('sol-num').innerText;
-
-    // Send an AJAX request to Django view 'solve'
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', `/solve?queens=${queens}&size=${size}&pos=${pos}&solution_number=${solution_number}`, true);
-
-    xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status < 400) {
-            var data = JSON.parse(xhr.responseText);
-            document.getElementById('sol-num').innerText = data.solution_number;
-            data.pos.forEach((e, i) => document.getElementById(`q${i}`).style.left = `${e * size}px`);
-        } else {
-            console.error('Error:', xhr.status);
-        }
-    };
-
-    xhr.send();
+function showSolutions() {
+    var solution = document.getElementById("solution-container");
+    var btn = document.getElementById("solutionBtn");
+    // hide solutions
+    if (btn.innerHTML == "Show Solutions"){
+        btn.innerHTML = "Hide Solutions";
+        solution.style.display = "flex";
+    }else{
+        // Show solutions
+        solution.style.display = "none";
+        btn.innerHTML = "Show Solutions";
+    }
 }
 
-    function is_safe(i, j, pos) {
-        if (i === 0) return true;
+function generateEditableChessboard() {
+    var n = $('#size').val();
 
-        for (var k = i - 1; k >= 0; k--) {
-            if (pos[k] === j || Math.abs(pos[k] - j) === i - k) return false;
+    var chessboardContainer = document.getElementById('editableChessboard');
+
+    // set the current content to empty
+    chessboardContainer.innerHTML = '';
+
+    // create a table element
+    var chessboardTable = document.createElement('table');
+    chessboardTable.className = "";
+    for (var i = 0; i < n; i++) {
+        var row = chessboardTable.insertRow(i);
+        for (var j = 0; j < n; j++) {
+            var cell = row.insertCell(j);
+
+            // create a text node
+            var imgElement = document.createElement('img');
+            imgElement.src = '/static/nqueens_app/images/queen.png';
+            imgElement.style.display = 'none';
+            imgElement.style.width = '50px';
+            imgElement.style.height = '45px';
+
+            cell.appendChild(imgElement);
+
+            if((i + j) % 2== 0){
+                cell.className = "black-edit";
+            }else{
+                cell.className = "white-edit";
+            }
+
+            cell.addEventListener('click', function() {
+                var img = this.querySelector('img');
+                if (img.style.display === 'none') {
+                        img.style.display = 'block';
+                    } else {
+                        img.style.display = 'none';
+                    }
+            });
         }
-
-        return true;
     }
 
-    function calc_size(num) {
-        var s;
+    chessboardContainer.appendChild(chessboardTable);
+}
 
-        if (window.innerHeight < window.innerWidth) {
-            s = Math.round(window.innerHeight / num * 0.7);
-        } else {
-            s = Math.round(window.innerWidth / num * 0.85);
+function validate(){
+    var table = document.querySelector('#editableChessboard table');
+    var rows = table.getElementsByTagName('tr');
+    var displayStatusArray = [];
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var cells = row.getElementsByTagName('td');
+        var rowStatus = [];
+
+        for (var j = 0; j < cells.length; j++) {
+            var cell = cells[j];
+            var image = cell.querySelector('img');
+            var displayStatus = image.style.display;
+            if(displayStatus == 'none'){
+                rowStatus.push(0);
+            }else{
+                rowStatus.push(1);
+            }
         }
 
-        document.querySelector('#size_sq').value = s;
+        displayStatusArray.push(rowStatus);
     }
+
+    console.log(displayStatusArray)
+    // alert(displayStatusArray);
+    // add validate logic here
+
+    return displayStatusArray;
+}

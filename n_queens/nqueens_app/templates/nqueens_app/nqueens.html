@@ -6,12 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-Queens Solver</title>
     <h1>N-Queens Solver</h1>
-    <p style="text-align: center;">This is a solution provided by the project group 6 of Advanced Software Engineering Module.</p>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <p>N-Queens Solver is a solution provided by the project group 6 of Advanced Software Engineering Module in Sussex.</p>
     <script>
-        function changeSize() {
-            var n = $('#size').val();
-            window.location.href = '/nqueens/?n=' + n;
+        var mysolutions = [];
+        let mysolution;
+        {% for solution in solutions %}
+            mysolution = [];
+            {% for row in solution %}
+                {% for cell in row %}
+                    {% if cell == 1 %}
+                        mysolution.push(1);
+                    {% else %}
+                        mysolution.push(0);
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            mysolutions.push(mysolution);
+        {% endfor %}
+        console.log(mysolutions);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../static/nqueens_app/js/script.js"></script>
+    <script>
+        function validate_onclick(){
+            let userinput = validate();
+            let onedarray = [];
+            for(let i=0; i<userinput.length; i++){
+                for(let j=0; j<userinput[i].length; j++){
+                    onedarray.push(userinput[i][j]);
+                }
+            }
+
+            for(let i=0; i<mysolutions.length; i++){
+                if(is_correct(onedarray,  mysolutions[i])){
+                    alert("CORRECT");
+                    return;
+                }
+            }
+            let c = confirm("WRONG\n Show Solutions?");
+            if(c == true){
+                showSolutions();
+            }
+        }
+
+        function is_correct(u, s){
+            for(let i=0; i<u.length; i++){
+                if(u[i] != s[i]){
+                    return false;
+                }
+            }
+            return true;
         }
     </script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
@@ -20,12 +64,19 @@
  <label for="size">Chessboard Size:</label>
     <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
 
-<div class="solution-container">
+<div class="edit-mode">
+    <h2>Edit Mode</h2>
+    <div id="editableChessboard"></div>
+    <button id="validateBtn" onclick="validate_onclick()">Validate</button>
+</div>
+
+ <h2>Solution Part    <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span></h2>
+<div id="solution-container" class="solution-container">
     {% for solution in solutions %}
         <div class="solution">
             <h3>Solution {{ forloop.counter }}</h3>
             <div class="table-container">
-                <table border="1">
+                <table>
                     {% for row in solution %}
                         {% with forloop.counter as row_counter %}
                             <tr>
@@ -38,7 +89,7 @@
                                                 <td class="white">
                                             {% endif %}
                                                 {% if cell == 1 %}
-                                                    <img src="{% static 'nqueens_app/images/queen.png' %}" style="height:50px; width:50px" alt="Q">
+                                                    <img src="{% static 'nqueens_app/images/queen.png' %}" style="height:45px; width:50px" alt="Q">
                                                 {% endif %}
                                             </td>
                                         {% endwith %}

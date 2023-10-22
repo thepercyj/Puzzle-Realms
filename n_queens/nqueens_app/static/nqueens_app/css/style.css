@@ -1,7 +1,6 @@
 body{
 	background-image:  linear-gradient(180deg, rgba(244,244,247,1) 0%, rgba(241,246,251,1) 50%, rgba(0,212,255,1) 100%);
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
+
 }
 h1{
     text-align: center;
@@ -17,16 +16,24 @@ td {
     text-align: center;
 }
 
-.white {
-    background-color: #FEE1D3;
+.white, .white-edit {
+    background-color: #b58863;
+    border-width: 0;
+    padding: 0;
+    height: 50px;
+    width: 50px;
 }
 
-.black {
-    background-color: #DF9976;
+.black, .black-edit {
+    background-color: #f0d9b5;
+    border-width: 0;
+    padding: 0;
+    height: 50px;
+    width: 50px;
 }
 
 .solution-container {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
 }
 
