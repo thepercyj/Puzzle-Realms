@@ -4,9 +4,16 @@ window.onload = function() {
 
 function changeSize() {
     var n = $('#size').val();
-    if(n > 15){
-        alert("The size should be less than or equal to 15");
-    }else{
+    if(n > 10){ //Restrict user for going above 10 and below 4 chess board size
+        alert("The size should be less than or equal to 10");
+        window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 as user tries to run for value above 10
+
+    }
+    else if(n < 4){
+        alert("The size should be greater than or equal to 4");
+        window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 as user tries to run for value below 4
+    }
+    else{
         window.location.href = '/nqueens/?n=' + n;
     }
 }
@@ -36,6 +43,8 @@ function generateEditableChessboard() {
     // create a table element
     var chessboardTable = document.createElement('table');
     chessboardTable.className = "";
+    var q = 0;
+
     for (var i = 0; i < n; i++) {
         var row = chessboardTable.insertRow(i);
         for (var j = 0; j < n; j++) {
@@ -47,30 +56,42 @@ function generateEditableChessboard() {
             imgElement.style.display = 'none';
             imgElement.style.width = '50px';
             imgElement.style.height = '45px';
-
             cell.appendChild(imgElement);
 
-            if((i + j) % 2== 0){
+            if ((i + j) % 2 == 0) {
                 cell.className = "black-edit";
-            }else{
+            } else {
                 cell.className = "white-edit";
             }
 
-            cell.addEventListener('click', function() {
+            cell.addEventListener('click', function () {
                 var img = this.querySelector('img');
                 if (img.style.display === 'none') {
+                    if (q < n ) {
                         img.style.display = 'block';
-                    } else {
-                        img.style.display = 'none';
+                        q++;
+                        var button = document.getElementById("validateBtn");
+                        button.disabled = false;
                     }
+                    else if ( q >= n){
+                        alert("Cannot add more queens than number of chessboard size");
+
+                    }
+                } else {
+                    img.style.display = 'none';
+                    var button = document.getElementById("validateBtn");
+                    button.disabled = false;
+                    q--;
+                }
             });
         }
     }
 
+
     chessboardContainer.appendChild(chessboardTable);
 }
 
-function validate(){
+function validate(solutions){
     var table = document.querySelector('#editableChessboard table');
     var rows = table.getElementsByTagName('tr');
     var displayStatusArray = [];
@@ -93,9 +114,9 @@ function validate(){
 
         displayStatusArray.push(rowStatus);
     }
-
-    console.log(displayStatusArray)
-    alert(displayStatusArray);
+    //console.log("This is solutions",typeof(solutions))
+    console.log("This solution needs to be validated",displayStatusArray)
+    //alert(displayStatusArray);
     // add validate logic here
 
 //    return displayStatusArray;

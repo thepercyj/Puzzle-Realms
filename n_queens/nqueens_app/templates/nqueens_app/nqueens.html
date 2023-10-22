@@ -14,11 +14,13 @@
 <body>
  <label for="size">Chessboard Size:</label>
     <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
-
+<script>
+    var solutions = {{ solutions|safe }};
+</script>
 <div class="edit-mode">
     <h2>Edit Mode</h2>
     <div id="editableChessboard"></div>
-    <button id="validateBtn" onclick="validate()">Validate</button>
+    <button id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
 </div>
 
  <h2>Solution Part    <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span></h2>
