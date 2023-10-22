@@ -87,7 +87,6 @@ function generateEditableChessboard() {
         }
     }
 
-
     chessboardContainer.appendChild(chessboardTable);
 }
 
@@ -112,12 +111,27 @@ function validate(solutions){
             }
         }
 
-        displayStatusArray.push(rowStatus);
+        displayStatusArray.push(rowStatus); //User-Result variable
     }
-    //console.log("This is solutions",typeof(solutions))
-    console.log("This solution needs to be validated",displayStatusArray)
-    //alert(displayStatusArray);
-    // add validate logic here
 
-//    return displayStatusArray;
+//Function to compare 2 objects
+    function areObjectsEqual(obj1, obj2) {
+        return Object.entries(obj1).toString() === Object.entries(obj2).toString();
+    }
+//Iterate through all the possible solutions and match with the user's solution
+    for (sol of solutions)
+    {
+        result = areObjectsEqual(sol, displayStatusArray)
+        if(result === true)
+        {
+            alert("Congrats on solving the n-queens puzzle")
+            break;
+        }
+        else
+        {
+            alert("Sorry try again")
+            break;
+        }
+    }
+
 }
