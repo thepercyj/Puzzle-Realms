@@ -1,16 +1,19 @@
-window.onload = function () {
-    generateEditableChessboard();
-}
+window.onload = function() {
+            generateEditableChessboard();
+        }
 
 function changeSize() {
     var n = $('#size').val();
-    if (n > 10) {
+    if(n > 10){ //Restrict user for going above 10 and below 4 chess board size
         alert("The size should be less than or equal to 10");
-        window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 if the user tries to use a value above 10
-    } else if (n < 4) {
+        window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 as user tries to run for value above 10
+
+    }
+    else if(n < 4){
         alert("The size should be greater than or equal to 4");
-        window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 if the user tries to use a value below 4
-    } else {
+        window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 as user tries to run for value below 4
+    }
+    else{
         window.location.href = '/nqueens/?n=' + n;
     }
 }
@@ -18,25 +21,26 @@ function changeSize() {
 function showSolutions() {
     var solution = document.getElementById("solution-container");
     var btn = document.getElementById("solutionBtn");
-
-    // Toggle solutions display
-    if (btn.innerHTML == "Show Solutions") {
+    // hide solutions
+    if (btn.innerHTML == "Show Solutions"){
         btn.innerHTML = "Hide Solutions";
         solution.style.display = "flex";
-    } else {
-        btn.innerHTML = "Show Solutions";
+    }else{
+        // Show solutions
         solution.style.display = "none";
+        btn.innerHTML = "Show Solutions";
     }
 }
 
 function generateEditableChessboard() {
     var n = $('#size').val();
+
     var chessboardContainer = document.getElementById('editableChessboard');
 
-    // Clear the existing content
+    // set the current content to empty
     chessboardContainer.innerHTML = '';
 
-    // Create the chessboard table
+    // create a table element
     var chessboardTable = document.createElement('table');
     chessboardTable.className = "";
     var q = 0;
@@ -46,7 +50,7 @@ function generateEditableChessboard() {
         for (var j = 0; j < n; j++) {
             var cell = row.insertCell(j);
 
-            // Create a queen image element
+            // create a text node
             var imgElement = document.createElement('img');
             imgElement.src = '/static/nqueens_app/images/queen.png';
             imgElement.style.display = 'none';
@@ -60,23 +64,26 @@ function generateEditableChessboard() {
                 cell.className = "white-edit";
             }
 
-            // Add a click event listener
             cell.addEventListener('click', function () {
                 var img = this.querySelector('img');
                 if (img.style.display === 'none') {
-                    if (q < n) {
+                    if (q < n ) {
                         img.style.display = 'block';
                         q++;
-                        var button = document.getElementById("validateBtn");
-                        button.disabled = false;
-                    } else if (q >= n) {
-                        alert("Cannot add more queens than the chessboard size");
+                    }
+                    else if ( q >= n){
+                        alert("Cannot add more queens than number of chessboard size");
                     }
                 } else {
                     img.style.display = 'none';
+                    q--;
+                    var button = document.getElementById("validateBtn");
+                    button.disabled = true;
+                }
+                // Here the "validateBtn" button is disabled be default and only user can enable if the number of queens is equal board size else disable the button again
+                if (q == n){
                     var button = document.getElementById("validateBtn");
                     button.disabled = false;
-                    q--;
                 }
             });
         }
@@ -85,7 +92,7 @@ function generateEditableChessboard() {
     chessboardContainer.appendChild(chessboardTable);
 }
 
-function validate(solutions) {
+function validate(solutions){
     var table = document.querySelector('#editableChessboard table');
     var rows = table.getElementsByTagName('tr');
     var displayStatusArray = [];
@@ -99,16 +106,15 @@ function validate(solutions) {
             var cell = cells[j];
             var image = cell.querySelector('img');
             var displayStatus = image.style.display;
-            if (displayStatus == 'none') {
+            if(displayStatus == 'none'){
                 rowStatus.push(0);
-            } else {
+            }else{
                 rowStatus.push(1);
             }
         }
 
-        displayStatusArray.push(rowStatus); // User-Result variable
+        displayStatusArray.push(rowStatus); //User-Result variable
     }
-
     // Function to compare two objects
     function areObjectsEqual(obj1, obj2) {
         return Object.entries(obj1).toString() === Object.entries(obj2).toString();
@@ -121,8 +127,9 @@ function validate(solutions) {
             break; // Exit the loop if a solution is found
         }
     }
-    if (solved) {
+    if (typeof solved !== 'undefined') {
         alert("Congratulations on solving the N-Queens Puzzle");
+        delete solved; // Removing the solved variable once success to reset the check condition
     }
     else {
         alert("Sorry, please try again");
