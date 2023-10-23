@@ -1,53 +1,3 @@
-<<<<<<< HEAD
-body{
-	background-image:  linear-gradient(180deg, rgba(244,244,247,1) 0%, rgba(241,246,251,1) 50%, rgba(0,212,255,1) 100%);
-<<<<<<< Updated upstream
-
-=======
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
->>>>>>> Stashed changes
-}
-h1{
-    text-align: center;
-    color: #017176;
-<<<<<<< Updated upstream
-}
-.table-container {
-    display: inline-block;
-=======
->>>>>>> Stashed changes
-}
-td {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-
-<<<<<<< Updated upstream
-.white, .white-edit {
-    background-color: #b58863;
-    border-width: 0;
-    padding: 0;
-    height: 50px;
-    width: 50px;
-}
-
-.black, .black-edit {
-    background-color: #f0d9b5;
-    border-width: 0;
-    padding: 0;
-    height: 50px;
-    width: 50px;
-=======
-.white {
-    background-color: #FEE1D3;
-}
-
-.black {
-    background-color: #DF9976;
->>>>>>> Stashed changes
-=======
 /* Reset some default styles */
 html, body {
     margin: 0;
@@ -126,7 +76,6 @@ table {
 
 .play-area {
     align: center;
->>>>>>> rohan-276280
 }
 
 .solution-container {
