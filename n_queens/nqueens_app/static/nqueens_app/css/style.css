@@ -7,7 +7,7 @@ html, body {
 
 /* Center the entire page content vertically and horizontally */
 html, body {
-    height: 80%;
+    height: 130%;
     display: flex;
     flex-direction: column;
     align-items: center;
