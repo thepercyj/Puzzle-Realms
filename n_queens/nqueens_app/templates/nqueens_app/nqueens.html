@@ -5,91 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-Queens Solver</title>
-<<<<<<< HEAD
-    <h1>N-Queens Solver</h1>
-<<<<<<< Updated upstream
-    <p>N-Queens Solver is a solution provided by the project group 6 of Advanced Software Engineering Module in Sussex.</p>
-=======
-    <p style=" text-align: center;">This is a solution provided by the project group 6 of Advanced Software Engineering Module.</p>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
->>>>>>> Stashed changes
-    <script>
-        var mysolutions = [];
-        let mysolution;
-        {% for solution in solutions %}
-            mysolution = [];
-            {% for row in solution %}
-                {% for cell in row %}
-                    {% if cell == 1 %}
-                        mysolution.push(1);
-                    {% else %}
-                        mysolution.push(0);
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            mysolutions.push(mysolution);
-        {% endfor %}
-        console.log(mysolutions);
-    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../static/nqueens_app/js/script.js"></script>
-    <script>
-        function validate_onclick(){
-            let userinput = validate();
-            let onedarray = [];
-            for(let i=0; i<userinput.length; i++){
-                for(let j=0; j<userinput[i].length; j++){
-                    onedarray.push(userinput[i][j]);
-                }
-            }
-
-            for(let i=0; i<mysolutions.length; i++){
-                if(is_correct(onedarray,  mysolutions[i])){
-                    alert("CORRECT");
-                    return;
-                }
-            }
-            let c = confirm("WRONG\n Show Solutions?");
-            if(c == true){
-                showSolutions();
-            }
-        }
-
-        function is_correct(u, s){
-            for(let i=0; i<u.length; i++){
-                if(u[i] != s[i]){
-                    return false;
-                }
-            }
-            return true;
-        }
-    </script>
-=======
-    <h1>N-Queens Completion problem by Group-6</h1>
+   <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
+</head>
+<body>
+<h1>N-Queens Completion problem by Group-6</h1>
     <h3>What is N-Queens Problem ?</h3>
     <p>The N-Queens puzzle is a classic combinatorial problem that involves placing N chess queens on an N×N chessboard in such a way that no two queens threaten each other. Here's a short description of how to solve the N-Queens puzzle:
 
 Understand the Problem: First, understand the rules and constraints of the puzzle. In an N×N chessboard, you need to place N queens in a way that no two queens share the same row, column, or diagonal. The goal is to find all valid solutions.
 
 Choose a Starting Point: Start with an empty chessboard or an array to represent the board. The board is typically an N×N grid, and you'll place queens on it.</p>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../static/nqueens_app/js/script.js"></script>
->>>>>>> rohan-276280
-   <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
-</head>
-<body>
 <br>
 <div class="edit-mode">
 
-<<<<<<< HEAD
-<div class="edit-mode">
-    <h2>Edit Mode</h2>
-    <div id="editableChessboard"></div>
-    <button id="validateBtn" onclick="validate_onclick()">Validate</button>
-</div>
-
- <h2>Solution Part    <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span></h2>
-=======
     <label for="size">Select your Chessboard Size:</label> <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
     <br>
     <br>
@@ -102,7 +32,6 @@ Choose a Starting Point: Start with an empty chessboard or an array to represent
 </div>
 
 <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span>
->>>>>>> rohan-276280
 <div id="solution-container" class="solution-container">
     {% for solution in solutions %}
         <div class="solution">
