@@ -92,6 +92,7 @@ table {
     border: 2px solid black;
 }
 
+/* Style the "Show Solutions" button with rounded edges and the specified color */
 #solutionBtn {
     background-color: #017176; /* Updated color */
     color: #fff;
@@ -99,8 +100,39 @@ table {
     padding: 10px 20px;
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 30px; /* Add rounded edges */
 }
 
 #solutionBtn:hover {
     background-color: #005b85; /* Slightly darker shade on hover */
+}
+
+/* Style the "Validate" button with rounded edges and the specified color */
+#validateBtn {
+    background-color: #017176; /* Updated color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 30px; /* Add rounded edges */
+}
+
+#validateBtn:hover {
+    background-color: #005b85; /* Slightly darker shade on hover */
+}
+
+/* Style the number input */
+#size {
+    padding: 5px; /* Adjust the padding for more comfortable input */
+    font-size: 14px;
+    border: 2px solid #017176; /* Add a border with the specified color */
+    border-radius: 5px; /* Add rounded edges */
+    width: 50px; /* Set the width */
+    text-align: center; /* Center the text within the input */
+}
+
+/* Style the number input on hover */
+#size:hover {
+    border-color: #005b85; /* Change the border color on hover */
 }

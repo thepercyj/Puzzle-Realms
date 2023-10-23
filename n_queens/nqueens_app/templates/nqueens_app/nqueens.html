@@ -17,10 +17,12 @@ Choose a Starting Point: Start with an empty chessboard or an array to represent
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
 </head>
 <body>
+<br>
 <div class="edit-mode">
 
     <label for="size">Select your Chessboard Size:</label> <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
-
+    <br>
+    <br>
 <script>
     var solutions = {{ solutions|safe }};
 </script>
@@ -29,7 +31,7 @@ Choose a Starting Point: Start with an empty chessboard or an array to represent
     <button id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
 </div>
 
- <h2>Solution Part    <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span></h2>
+<span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span>
 <div id="solution-container" class="solution-container">
     {% for solution in solutions %}
         <div class="solution">
