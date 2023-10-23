@@ -21,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" afterDir="false" />
     </list>
 >>>>>>> editable-chessboard
->>>>>>> rohan-276280
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +42,8 @@
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;assignee&quot;: &quot;thepercyj&quot;
   }
-}</component>
+}
+</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -57,7 +57,8 @@
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
-}</component>
+}
+</component>
   <component name="ProjectId" id="2WmGMJF4VpYf0n96gc3bJEkq0kT" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
