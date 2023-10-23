@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-Queens Solver</title>
     <h1>N-Queens Solver</h1>
-    <p>N-Queens Solver is a solution provided by the project group 6 of Advanced Software Engineering Module in Sussex.</p>
+    <h3>Backgroud</h3>
+    <p>This challenge is over 150 years old. It is the earliest version of a mathematical question called the n-queens problem whose solution Michael Simkin, a postdoctoral fellow at Harvard University’s Center of Mathematical Sciences and Applications, zeroed in on in a paper posted in July. Instead of placing eight queens on a standard 8-by-8 chessboard (where there are 92 different configurations that work), the problem asks how many ways there are to place n queens on an n-by-n board. This could be 23 queens on a 23-by-23 board — or 1,000 on a 1,000-by-1,000 board, or any number of queens on a board of the corresponding size</p>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../static/nqueens_app/js/script.js"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
 </head>
 <body>
- <label for="size">Chessboard Size:</label>
+<div class="edit-mode">
+
+ <label for="size">Select your Chessboard Size:</label>
     <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
+
 <script>
     var solutions = {{ solutions|safe }};
 </script>
-<div class="edit-mode">
-    <h2>Edit Mode</h2>
     <div id="editableChessboard"></div>
     <button id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
 </div>
