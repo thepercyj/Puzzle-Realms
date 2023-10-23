@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-Queens Solver</title>
-    <h1>N-Queens Solver</h1>
-    <h3>Backgroud</h3>
-    <p>This challenge is over 150 years old. It is the earliest version of a mathematical question called the n-queens problem whose solution Michael Simkin, a postdoctoral fellow at Harvard University’s Center of Mathematical Sciences and Applications, zeroed in on in a paper posted in July. Instead of placing eight queens on a standard 8-by-8 chessboard (where there are 92 different configurations that work), the problem asks how many ways there are to place n queens on an n-by-n board. This could be 23 queens on a 23-by-23 board — or 1,000 on a 1,000-by-1,000 board, or any number of queens on a board of the corresponding size</p>
+    <h1>N-Queens Completion problem by Group-6</h1>
+    <h3>What is N-Queens Problem ?</h3>
+    <p>The N-Queens puzzle is a classic combinatorial problem that involves placing N chess queens on an N×N chessboard in such a way that no two queens threaten each other. Here's a short description of how to solve the N-Queens puzzle:
+
+Understand the Problem: First, understand the rules and constraints of the puzzle. In an N×N chessboard, you need to place N queens in a way that no two queens share the same row, column, or diagonal. The goal is to find all valid solutions.
+
+Choose a Starting Point: Start with an empty chessboard or an array to represent the board. The board is typically an N×N grid, and you'll place queens on it.</p>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../static/nqueens_app/js/script.js"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
@@ -15,13 +19,13 @@
 <body>
 <div class="edit-mode">
 
- <label for="size">Select your Chessboard Size:</label>
-    <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
+    <label for="size">Select your Chessboard Size:</label> <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
 
 <script>
     var solutions = {{ solutions|safe }};
 </script>
     <div id="editableChessboard"></div>
+    <br>
     <button id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
 </div>
 

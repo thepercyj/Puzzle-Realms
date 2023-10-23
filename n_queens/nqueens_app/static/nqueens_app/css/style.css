@@ -1,21 +1,52 @@
-h1, h2, h3, p, button, label, input{
-    font-family: 'Open Sans', arial, sans-serif;
+/* Reset some default styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-h1, h2 {
+/* Center the entire page content vertically and horizontally */
+html, body {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add background color and styling to the main content */
+body {
+    background-color: #f4f4f4;
+    padding: 20px;
     text-align: center;
-    color: #017176;
-    white-space: pre-wrap;
 }
 
-button {
-    font-size: 1em;
+/* Style the title and description with the specified color */
+h1 {
+    font-size: 44px;
+    color: #017176; /* Updated color */
 }
 
 h3 {
-    color: #017176;
-    white-space: pre-wrap;
-    margin-left: 10px;
+    font-size: 28px;
+    color: #017176; /* Updated color */
+}
+
+p {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+/* Style the chessboard and solution container */
+.edit-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 table {
@@ -61,9 +92,15 @@ table {
     border: 2px solid black;
 }
 
-.edit-mode {
-  align-items: center; // does vertically center the desired content
-  justify-content: center; // horizontally centers single line items
-  text-align: center;
+#solutionBtn {
+    background-color: #017176; /* Updated color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
 
+#solutionBtn:hover {
+    background-color: #005b85; /* Slightly darker shade on hover */
 }
