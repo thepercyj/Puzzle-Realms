@@ -25,21 +25,21 @@ Install PyCharm (Optional):
 If you also want to install PyCharm Community Version, go to the official PyCharm [Website](https://code.visualstudio.com/download)
 Download the installer for your operating system.
 Run the installer and follow the installation prompts.
-Install Python Packages from requirements.txt:
 
 ### Step 2
+Download our project and Extract the Zip Source Folder :
+Locate the source folder you want to extract.
+Right-click on the folder and choose "Extract" or use a zip utility program to extract the contents.
+Open the Project Folder in VSCode:
+
+### Step 3
+Install Python Packages from requirements.txt:
 Open a terminal or command prompt.
 Navigate to the project directory where requirements.txt is located.
 Run the following command to install the required packages:
 ```markdown
 pip install -r requirements.txt
 ```
-Extract the Zip Source Folder:
-
-### Step 3   
-Locate the source folder you want to extract.
-Right-click on the folder and choose "Extract" or use a zip utility program to extract the contents.
-Open the Project Folder in VSCode:
 
 ### Step 4  
 Launch VSCode.
