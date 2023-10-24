@@ -6,6 +6,12 @@ h1, h2 {
     padding-bottom: 10px;
     border-bottom: 2px solid #EAEAEA;
     white-space: pre-wrap;
+/* Center the entire page content vertically and horizontally */
+html, body {
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 button {
