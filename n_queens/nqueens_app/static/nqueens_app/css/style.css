@@ -79,6 +79,8 @@ table {
 
 .solution-container {
     display: none;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
     flex-wrap: wrap;
 }
 
