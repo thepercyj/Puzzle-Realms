@@ -1,12 +1,12 @@
 /* Reset some default styles */
-html, body {
+html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
 }
 
 /* Center the entire page content vertically and horizontally */
-html, body {
+html {
     height: 80%;
     flex-direction: column;
     align-items: center;
@@ -15,6 +15,7 @@ html, body {
 
 /* Add background color and styling to the main content */
 body {
+    justify-content: center;
     background-color: #f4f4f4;
     padding: 20px;
     text-align: center;
@@ -37,9 +38,24 @@ p {
     margin: 0;
 }
 
+b {
+    font-size: 16px;
+    color: #017176;
+#}
+
 /* Style the chessboard and solution container */
 .edit-mode {
     background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.result-mode {
+    background-color: #D0E7D2;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -80,10 +96,15 @@ table {
 .solution-container {
     display: none;
     flex-wrap: wrap;
+    text-align: center; /* Center the text within the input */
+    justify-content: center;
+
 }
 
 .solution {
     margin: 0 10px 10px 0; /* Adjust margin as needed */
+    text-align: center; /* Center the text within the input */
+
 }
 
 #editableChessboard {
@@ -141,4 +162,18 @@ table {
 /* Style the number input on hover */
 #size:hover {
     border-color: #005b85; /* Change the border color on hover */
+}
+
+.wrapper {
+    flex: 1;
+}
+
+footer {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+}
+content {
+    font-size: 16px;
+    color: #333;
 }
