@@ -1,26 +1,179 @@
-.table-container {
-    display: inline-block;
+/* Reset some default styles */
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-td {
-    width: 30px;
-    height: 30px;
+/* Center the entire page content vertically and horizontally */
+html {
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add background color and styling to the main content */
+body {
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding: 20px;
     text-align: center;
 }
 
-.white {
-    background-color: white;
+/* Style the title and description with the specified color */
+h1 {
+    font-size: 44px;
+    color: #017176; /* Updated color */
 }
 
-.black {
-    background-color: green;
+h3 {
+    font-size: 28px;
+    color: #017176; /* Updated color */
+}
+
+p {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+b {
+    font-size: 16px;
+    color: #017176;
+#}
+
+/* Style the chessboard and solution container */
+.edit-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.result-mode {
+    background-color: #D0E7D2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.table-container {
+    display: inline-block;
+    border: 2px solid black;
+}
+
+.white, .white-edit {
+    background-color: #b58863;
+    border-width: 0;
+    padding: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.black, .black-edit {
+    background-color: #f0d9b5;
+    border-width: 0;
+    padding: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.play-area {
+    align: center;
 }
 
 .solution-container {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
+    text-align: center; /* Center the text within the input */
+    justify-content: center;
+
 }
 
 .solution {
-    margin: 10px; /* Adjust margin as needed */
+    margin: 0 10px 10px 0; /* Adjust margin as needed */
+    text-align: center; /* Center the text within the input */
+
+}
+
+#editableChessboard {
+    display: inline-block;
+    border: 2px solid black;
+}
+
+/* Style the "Show Solutions" button with rounded edges and the specified color */
+#solutionBtn {
+    background-color: #017176; /* Updated color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 30px; /* Add rounded edges */
+}
+
+#solutionBtn:hover {
+    background-color: #005b85; /* Slightly darker shade on hover */
+}
+
+/* Style the "Validate" button with rounded edges and the specified color */
+#validateBtn {
+    background-color: #017176; /* Updated color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 30px; /* Add rounded edges */
+}
+/* Default style for the disabled button */
+#validateBtn:disabled {
+    background-color: gray; /* Change the background color */
+    color: white; /* Change the text color */
+}
+
+/* Style for the enabled button */
+#validateBtn:enabled {
+    background-color: green; /* Change the background color */
+    color: white; /* Change the text color */
+}
+
+/* Style the number input */
+#size {
+    padding: 5px; /* Adjust the padding for more comfortable input */
+    font-size: 14px;
+    border: 2px solid #017176; /* Add a border with the specified color */
+    border-radius: 5px; /* Add rounded edges */
+    width: 50px; /* Set the width */
+    text-align: center; /* Center the text within the input */
+}
+
+/* Style the number input on hover */
+#size:hover {
+    border-color: #005b85; /* Change the border color on hover */
+}
+
+.wrapper {
+    flex: 1;
+}
+
+footer {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+}
+content {
+    font-size: 16px;
+    color: #333;
 }
