@@ -103,7 +103,7 @@ table {
     border-radius: 30px; /* Add rounded edges */
 }
 
-#solutionBtn:hover {
+#solutionBtn: {
     background-color: #005b85; /* Slightly darker shade on hover */
 }
 
