@@ -8,7 +8,6 @@ html, body {
 /* Center the entire page content vertically and horizontally */
 html, body {
     height: 80%;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -103,7 +102,7 @@ table {
     border-radius: 30px; /* Add rounded edges */
 }
 
-#solutionBtn: {
+#solutionBtn:hover {
     background-color: #005b85; /* Slightly darker shade on hover */
 }
 
