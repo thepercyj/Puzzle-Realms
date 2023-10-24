@@ -55,7 +55,7 @@ function generateEditableChessboard() {
             imgElement.src = '/static/nqueens_app/images/queen.png';
             imgElement.style.display = 'none';
             imgElement.style.width = '50px';
-            imgElement.style.height = '45px';
+            imgElement.style.height = '50px';
             cell.appendChild(imgElement);
 
             if ((i + j) % 2 == 0) {
@@ -89,6 +89,7 @@ function generateEditableChessboard() {
         }
     }
 
+    chessboardTable.style.width = 50 * n + "px";
     chessboardContainer.appendChild(chessboardTable);
 }
 

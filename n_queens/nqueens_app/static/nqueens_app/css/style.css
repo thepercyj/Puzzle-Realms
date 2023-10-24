@@ -8,7 +8,6 @@ html, body {
 /* Center the entire page content vertically and horizontally */
 html, body {
     height: 80%;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -45,7 +44,7 @@ p {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 400px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -117,9 +116,16 @@ table {
     cursor: pointer;
     border-radius: 30px; /* Add rounded edges */
 }
+/* Default style for the disabled button */
+#validateBtn:disabled {
+    background-color: gray; /* Change the background color */
+    color: white; /* Change the text color */
+}
 
-#validateBtn:hover {
-    background-color: #005b85; /* Slightly darker shade on hover */
+/* Style for the enabled button */
+#validateBtn:enabled {
+    background-color: green; /* Change the background color */
+    color: white; /* Change the text color */
 }
 
 /* Style the number input */

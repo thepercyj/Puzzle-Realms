@@ -152,4 +152,11 @@ cython_debug/
 #.idea/
 .idea/workspace.xml
 .idea/workspace.xml
+<<<<<<< HEAD
+*.xml
+=======
 .idea/workspace.xml
+>>>>>>> rohan-276280
+.idea/workspace.xml
+.idea/workspace.xml
+*.xml
