@@ -117,9 +117,16 @@ table {
     cursor: pointer;
     border-radius: 30px; /* Add rounded edges */
 }
+/* Default style for the disabled button */
+#validateBtn:disabled {
+    background-color: gray; /* Change the background color */
+    color: white; /* Change the text color */
+}
 
-#validateBtn:hover {
-    background-color: #005b85; /* Slightly darker shade on hover */
+/* Style for the enabled button */
+#validateBtn:enabled {
+    background-color: green; /* Change the background color */
+    color: white; /* Change the text color */
 }
 
 /* Style the number input */
