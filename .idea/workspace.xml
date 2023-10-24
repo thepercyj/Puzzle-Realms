@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="" />
-=======
-    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
->>>>>>> Stashed changes
-=======
     <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/script.js" afterDir="false" />
     </list>
->>>>>>> editable-chessboard
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +59,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "editable-chessboard",
+    "git-widget-placeholder": "rohan-276280",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
@@ -103,5 +93,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
