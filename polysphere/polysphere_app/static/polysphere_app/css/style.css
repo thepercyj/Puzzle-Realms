@@ -22,3 +22,19 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/* CSS for game pieces */
+.game-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap between game pieces */
+}
+
+.game-piece {
+    width: 50px; /* Set the width of each game piece */
+    height: 50px; /* Set the height of each game piece */
+    background-color: #ffcc00; /* Set the background color */
+    border: 1px solid #000; /* Add a border (optional) */
+    text-align: center; /* Center text content (optional) */
+    line-height: 50px; /* Vertical centering of text content (optional) */
+}
