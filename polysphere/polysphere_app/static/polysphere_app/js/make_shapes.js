@@ -119,6 +119,8 @@ const shapes = [
                     rect.setAttribute('width', size);
                     rect.setAttribute('height', size);
                     rect.setAttribute('fill', fillColor);
+                    rect.setAttribute('stroke', 'black');
+                    rect.setAttribute('stroke-width', 1);
                     svg.appendChild(rect);
                 }
             }
