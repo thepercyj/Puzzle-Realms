@@ -1,0 +1,14 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(11, 50px); /* Adjust cell width as needed */
+    grid-template-rows: repeat(5, 50px); /* Adjust cell height as needed */
+    grid-gap: 5px; /* Adjust gap between cells as needed */
+}
