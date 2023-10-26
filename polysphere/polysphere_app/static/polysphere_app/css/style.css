@@ -25,3 +25,7 @@ body {
 .game-piece {
     cursor: move; /* Change cursor on drag */
 }
+
+.dragging {
+    z-index: 1000; /* You can adjust this value as needed */
+}

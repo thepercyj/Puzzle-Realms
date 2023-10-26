@@ -8,8 +8,16 @@ $(document).ready(function() {
         containment: 'body', // Optional: Restrict dragging within the body
         cursor: 'move', // Optional: Change cursor on drag
         snap: '.grid-cell', // Snap to grid cells
-        snapMode: 'inner', // Snap to the center of grid cells
-        snapTolerance: 20 // Adjust the tolerance to control snapping behavior
+        snapMode: 'inner',
+        snapTolerance: 20, 
+        start: function(event, ui) {
+            // Add the 'dragging' class when dragging starts
+            $(this).addClass('dragging');
+        },
+        stop: function(event, ui) {
+            // Remove the 'dragging' class when dragging stops
+            $(this).removeClass('dragging');
+        }
     });
 
     // Handle the drop event
