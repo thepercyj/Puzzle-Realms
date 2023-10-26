@@ -1,4 +1,8 @@
 $(document).ready(function() {
+
+    // Create and append your SVG shapes to the SVG container
+    const svgContainer = $('#svg-container');
+
     // Make game pieces draggable
     $('.game-piece').draggable({
         containment: 'body', // Optional: Restrict dragging within the body
