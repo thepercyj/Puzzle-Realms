@@ -12,3 +12,13 @@ body {
     grid-template-rows: repeat(5, 50px); /* Adjust cell height as needed */
     grid-gap: 5px; /* Adjust gap between cells as needed */
 }
+
+.grid-cell {
+    width: 50px; /* Set cell width */
+    height: 50px; /* Set cell height */
+    background-color: #eee; /* Set cell background color */
+    border: 1px solid #ccc; /* Add cell border */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
