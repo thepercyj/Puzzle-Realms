@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chess.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chessboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/static/nqueens_app/js/chessboard.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" beforeDir="false" afterPath="$PROJECT_DIR$/n_queens/nqueens_app/templates/nqueens_app/nqueens.html" afterDir="false" />
-    </list>
+    <list default="true" id="c2c6e005-e13b-4fac-8b82-008d5060a3f3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +19,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="rohan-276280" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -58,6 +55,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
@@ -82,6 +80,19 @@
   }
 }]]></component>
 >>>>>>> Stashed changes
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "editable-chessboard",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+>>>>>>> Stashed changes
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\University of Sussex\Advanced Software Engineering\Github Repository\ASE-Group-6\n_queens\nqueens_app" />
@@ -100,6 +111,21 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/Tom-276187" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
