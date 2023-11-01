@@ -165,8 +165,12 @@ cython_debug/
 .idea/workspace.xml
 >>>>>>> Stashed changes
 .idea/workspace.xml
+<<<<<<< HEAD
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
+=======
+>>>>>>> editable-chessboard
+.idea/workspace.xml
 .idea/workspace.xml

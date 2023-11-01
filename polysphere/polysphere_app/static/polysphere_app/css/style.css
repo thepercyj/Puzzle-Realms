@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr); /* Adjust this to change the number of columns */;
+    grid-template-rows: repeat(5, 1fr); /* Adjust this to change the number of rows */;
+    width: 100%; /* Adjust as needed */
+    max-width: 30px; /* Adjust as needed */
+}
+
+.grid-cell {
+    height: 30px;
+    width: 30px;
+    background-color: #f5f5f5; /* Adjust as needed */
+    aspect-ratio: 1 / 1; /* Makes it a square */
+    border: 1px solid #ccc; /* Adjust as needed */
+}
+
+.game-piece {
+    cursor: move; /* Change cursor on drag */
+}
+
+.dragging {
+    z-index: 1000; /* You can adjust this value as needed */
+}
