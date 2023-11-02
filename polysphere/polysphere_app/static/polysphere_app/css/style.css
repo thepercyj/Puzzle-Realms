@@ -2,70 +2,128 @@
 html, body {
     margin: 0;
     padding: 0;
+    background-color: #1d212b;
 }
 
-/* Create a game container with two equal parts (game-board and blank-window) */
+/* Common styles for the game container */
 .game-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     height: 586px;
     background-color: #f0f0f0;
 }
+
 /* Style the game board */
-.game-board {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
-    width: 50%; /* Adjust as needed */
+.game-container > .game-board {
     background-color: blue;
-    padding: 10px;
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
 }
+
 /* Style the blank window */
-.blank-window {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
-    width: 50%; /* Adjust as needed */
+.game-container > .blank-window {
     background-color: red;
-    padding: 10px;
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
 }
 
-.title-container{
-      text-align: center;
-      margin: auto;
-      width: 30%;
-      padding: 50px;
+/* Common styles for the title container */
+.title-container {
+    text-align: center;
+    margin: 20px auto;
+    width: 30%;
+    padding: 50px;
 }
 
-.logo{
+/* Styles for the logo */
+.logo {
     height: 50px;
     width: 390px;
+    margin: 0 auto;
+    display: block;
 }
 
+/* Styles for the game tile */
 .game-tile {
-    width: 20%; /* Adjust as needed for 5 rows and 11 columns */
-    height: 40px; /* Adjust as needed */
-    margin: auto;
+    width: 20%;
+    height: 40px;
+    background-color: #ccc;
+    margin: 34px auto;
+    color: black;
+    padding: 25px;
+    text-align: center;
 }
 
-/* Center the button container and buttons */
+/* Center the button container and style the game buttons */
 .button-container {
     text-align: center;
     margin: 20px;
 }
 
+/* Styles for the game buttons */
 .game-button {
-    background-color: #017176;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
+    background-color: #151823;
+    animation: textColor 10s ease infinite;
+    padding: 12px 24px;
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     cursor: pointer;
+
+}
+.game-button:after {
+  position: absolute;
+  content: "";
+  top: 20vw;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 90%;
+  width: 40%;
+  margin: 0 auto;
+  transform: scale(0.75);
+  -webkit-filter: blur(5vw);
+  -moz-filter: blur(5vw);
+  -ms-filter: blur(5vw);
+  filter: blur(5vw);
+  background: linear-gradient(270deg, #0fffc1, #7e0fff);
+  background-size: 200% 200%;
+  animation: animateGlow 10s ease infinite;
+}
+.game-button:hover {
+    background-color: cyan;
 }
 
-.game-button:hover {
-    background-color: #005b85;
+
+@keyframes animateGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
+@keyframes textColor {
+  0% {
+    color: #7e0fff;
+  }
+  50% {
+    color: #0fffc1;
+  }
+  100% {
+    color: #7e0fff;
+  }
+}
+
+/* Inspiration  - https://codepen.io/georgehastings/pen/xgwxgo
+
+*/
