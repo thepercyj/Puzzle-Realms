@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Puzzle</title>
+</head>
+<body>
+    <h1>Upload Puzzle</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Solve Puzzle</button>
+    </form>
+</body>
+</html>
