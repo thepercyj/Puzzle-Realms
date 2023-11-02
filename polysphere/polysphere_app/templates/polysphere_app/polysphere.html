@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Polysphere Puzzle</title>
-        <link rel="stylesheet" href="{% static 'polysphere_app/css/style.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polysphere Puzzle</title>
+    <link rel="stylesheet" href="/static/polysphere_app/css/style.css">
 
-        <!-- JQuery -->
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- JQuery -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="title-container">
+        <img class="logo" src= "/static/polysphere_app/images/Logo.png" alt="Description of the image">
+    </div>
+    <div class="game-container">
 
-    </head>
-    <body>
-        <script src="{% static 'polysphere_app/js/createGameBoard.js' %}"></script>
-        <script src="{% static 'polysphere_app/js/drag_and_drop.js' %}"></script>
-        <script src="{% static 'polysphere_app/js/make_shapes.js' %}"></script>
-    </body>
+        <div class="game-board">
+            <!-- Your game board content here (e.g., images, pieces) -->
+            <!-- Replace this with your actual game board -->
+            <!-- Repeat for other tiles -->
+        </div>
+        <div class="blank-window">
+            <!-- Your blank window content here (e.g., displayed images) -->
+            <!-- Replace this with your actual content -->
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="game-button">Solve</button>
+        <button class="game-button">Choose Next Piece</button>
+        <button class="game-button">Rotate</button>
+    </div>
+</body>
 </html>
-
