@@ -10,28 +10,36 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/split.js' %}"></script>
 </head>
 <body>
-    <div class="title-container">
-        <img class="logo" src= "/static/polysphere_app/images/Logo.png" alt="Description of the image">
+<div class="split-container">
+    <div class="split left">
+        <h1>The Designer</h1>
+        <a href="#" class="game-button">Read More</a>
     </div>
-    <div class="game-container">
+    <div class="split right">
+        <h1>The Programmer</h1>
+        <a href="#" class="game-button">Read More</a>
+    </div>
+</div>
+<!--<div class="title-container">
+    <img class="logo" src="/static/polysphere_app/images/Logo.png" alt="Description of the image">
+</div> Title disabled temporarily, needs CSS work -->
 
-        <div class="game-board">
-            <!-- Your game board content here (e.g., images, pieces) -->
-            <!-- Replace this with your actual game board -->
-            <!-- Repeat for other tiles -->
-        </div>
-        <div class="blank-window">
-            <!-- Your blank window content here (e.g., displayed images) -->
-            <!-- Replace this with your actual content -->
-        </div>
+<!-- Game Container with button Start -->
+<!--<div class="game-container">
+    <div class="game-board">
     </div>
-    <div class="button-container">
-        <button class="game-button">Solve</button>
-        <button class="game-button">Left</button>
-        <button class="game-button">Right</button>
+    <div class="blank-window">
+    </div>
+</div>
+<div class="button-container">
+    <button class="game-button">Solve</button>
+    <button class="game-button">Left</button>
+    <button class="game-button">Right</button>
+</div>-->
+<!-- Game Container with button End -->
 
-    </div>
 </body>
 </html>
