@@ -6,3 +6,8 @@ from . import views
 urlpatterns = [
     path('', views.game_board, name='game_board'),
 ]
+app_name = 'polysphere_app'
+
+urlpatterns = [
+    path('solve/', views.solve_puzzle_view, name='solve_puzzle'),
+]

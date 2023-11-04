@@ -1,5 +1,5 @@
 """
-URL configuration for polysphere project.
+URL configuration for n_queens project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -17,20 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
-from django.conf.urls.static import static
-# Routing views for the application "polysphere_app" as not using direct global approach of pointing files.
-urlpatterns = [
-    path('', include('polysphere_app.urls')),
-    #path('polysphere/', include('polysphere_app.urls')),
-    path('', include('kanoodle_solver.urls')),
-    path('admin/', admin.site.urls),
 
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-from django.urls import path, include
 
 urlpatterns = [
+    path('', include('kanoodle.urls')),
     path('admin/', admin.site.urls),
+
 ]
