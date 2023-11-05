@@ -1,18 +1,13 @@
-from django.shortcuts import render
 import sys
-from io import StringIO
 
 updates = 0
 udates = [0] * 324
 nodes = 0
 
 filename = None
-
-
 def setfilename(s):
     global filename
     filename = s
-
 
 class Column:
     def __init__(self, name=None):
@@ -62,14 +57,13 @@ class Column:
     def __str__(self):
         return self.name
 
-
 def search(k):
     global o, solutions, level, nodes
     level = k
     if root.right == root:
         printsolution(o)
         solutions += 1
-        sys.exit()  # XXX shedskin
+        sys.exit() # XXX shedskin
         return
 
     nodes += 1
@@ -84,7 +78,7 @@ def search(k):
         j = j.right
 
     ## Don't use S heuristic
-    #    c = root.right
+#    c = root.right
 
     c.cover()
     r = c.down
@@ -94,7 +88,7 @@ def search(k):
         while j != r:
             j.column.cover()
             j = j.right
-        search(k + 1)
+        search(k+1)
         level = k
         r = o.pop(-1)
         c = r.column
@@ -116,7 +110,7 @@ def search(k):
 
 
 def printsolution(o):
-    print('### solution!')
+    print ('### solution!')
     for row in o:
         r = row
         s = r.column.name
@@ -124,8 +118,7 @@ def printsolution(o):
         while r != row:
             s += ' ' + r.column.name
             r = r.right
-        print(s)
-
+        print (s)
 
 def printmatrix(root):
     c = root.right
@@ -136,62 +129,55 @@ def printmatrix(root):
             r = r.down
         c = c.right
 
-
 def printrow(r):
     s = r.column.name
     next = r.right
     while next != r:
         s += ' ' + next.column.name
         next = next.right
-    print(s)
-
+    print (s)
 
 def setroot(r):
     global root
     root = r
 
-
 solutions = 0
 o = []
 
-# #def setprintsolution(f):
-# #    global printsolution
-# #    printsolution = f
-#
+#def setprintsolution(f):
+#    global printsolution
+#    printsolution = f
+
 Lcol = 5
 Lrow = 2
 
-
-#
 ## some basic matrix operations
 
 def matrixmultiply(m, n):
-    r = [[0, 0], [0, 0]]
+    r = [[0,0], [0,0]]
     for i in range(2):
         for j in range(2):
             sum = 0
             for k in range(2):
-                sum += m[i][k] * n[k][j]
+                sum += m[i][k]*n[k][j]
             r[i][j] = sum
     return r
 
-
 def matrixact(m, v):
-    u = [0, 0]
+    u = [0,0]
     for i in range(2):
         sum = 0
         for j in range(2):
-            sum += m[i][j] * v[j]
+            sum += m[i][j]*v[j]
         u[i] = sum
     return u
 
-
 ## linear isometries to apply to kanoodle pieces
-identity = [[1, 0], [0, 1]]
-r90 = [[0, -1], [1, 0]]
-r180 = [[-1, 0], [0, -1]]
-r270 = [[0, 1], [-1, 0]]
-r1 = [[1, 0], [0, -1]]
+identity = [ [1,0], [0,1] ]
+r90 = [ [0,-1], [1,0] ]
+r180 = [ [-1, 0], [0, -1]]
+r270 = [ [0,1], [-1,0] ]
+r1 = [ [1,0], [0, -1]]
 r2 = matrixmultiply(r1, r90)
 r3 = matrixmultiply(r1, r180)
 r4 = matrixmultiply(r1, r270)
@@ -200,7 +186,6 @@ r4 = matrixmultiply(r1, r270)
 
 symmetries = [identity, r90, r180, r270, r1, r2, r3, r4]
 rotations = [identity, r90, r180, r270]
-
 
 ## classes for each of the pieces
 
@@ -229,116 +214,100 @@ class Omino:
             r.append(s)
         return r
 
-
 class A(Omino):
     def __init__(self):
         self.name = 'A'
-        self.cells = [[0, 0], [1, 0], [1, 1], [1, 2]]
+        self.cells = [[0,0], [1,0], [1,1], [1,2]]
         self.cosets = symmetries
         self.getorientations()
-
 
 class B(Omino):
     def __init__(self):
         self.name = 'B'
-        self.cells = [[0, 0], [0, 1], [1, 0], [1, 1], [1, 2]]
+        self.cells = [[0,0], [0,1], [1,0], [1,1], [1,2]]
         self.cosets = symmetries
         self.getorientations()
-
 
 class C(Omino):
     def __init__(self):
         self.name = 'C'
-        self.cells = [[0, 0], [1, 0], [1, 1], [1, 2], [1, 3]]
+        self.cells = [[0,0], [1,0], [1,1], [1,2], [1,3]]
         self.cosets = symmetries
         self.getorientations()
-
 
 class D(Omino):
     def __init__(self):
         self.name = 'D'
-        self.cells = [[0, -1], [-1, 0], [0, 0], [0, 1], [0, 2]]
+        self.cells = [ [0, -1], [-1,0], [0,0], [0,1], [0,2]]
         self.cosets = symmetries
         self.getorientations()
-
 
 class E(Omino):
     def __init__(self):
         self.name = 'E'
-        self.cells = [[0, 0], [0, 1], [1, 1], [1, 2], [1, 3]]
+        self.cells = [[0,0], [0,1], [1,1],[1,2], [1,3]]
         self.cosets = symmetries
         self.getorientations()
-
 
 class F(Omino):
     def __init__(self):
         self.name = 'F'
-        self.cells = [[0, 0], [1, 0], [0, 1]]
+        self.cells = [[0,0], [1,0],[0,1]]
         self.cosets = rotations
         self.getorientations()
-
 
 class G(Omino):
     def __init__(self):
         self.name = 'G'
-        self.cells = [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]]
+        self.cells = [[0,0],[1,0],[2,0],[2,1],[2,2]]
         self.cosets = rotations
         self.getorientations()
-
 
 class H(Omino):
     def __init__(self):
         self.name = 'H'
-        self.cells = [[0, 0], [1, 0], [1, 1], [2, 1], [2, 2]]
+        self.cells = [[0,0],[1,0],[1,1],[2,1],[2,2]]
         self.cosets = rotations
         self.getorientations()
-
 
 class I(Omino):
     def __init__(self):
         self.name = 'I'
-        self.cells = [[0, 1], [0, 0], [1, 0], [2, 0], [2, 1]]
+        self.cells = [[0,1], [0,0],[1,0],[2,0],[2,1]]
         self.cosets = rotations
         self.getorientations()
-
 
 class J(Omino):
     def __init__(self):
         self.name = 'J'
-        self.cells = [[0, 0], [0, 1], [0, 2], [0, 3]]
+        self.cells = [[0,0], [0,1], [0,2], [0,3]]
         self.cosets = [identity, r90]
         self.getorientations()
-
 
 class K(Omino):
     def __init__(self):
         self.name = 'K'
-        self.cells = [[0, 0], [1, 0], [1, 1], [0, 1]]
+        self.cells = [[0,0], [1,0],[1,1],[0,1]]
         self.cosets = [identity]
         self.getorientations()
-
 
 class L(Omino):
     def __init__(self):
         self.name = 'L'
-        self.cells = [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]]
+        self.cells = [[0,0],[-1,0],[1,0],[0,-1],[0,1]]
         self.cosets = [identity]
         self.getorientations()
 
-
 def set5x11():
-    global ominos, c1, rows, columns
+    global c1, ominos, rows, columns
     c1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
     ominos = [A(), B(), C(), D(), E(), F(), G(), H(), I(), J(), K(), L()]
     rows = 5
     columns = 11
 
-
-#
 ## set up the 5x11 board
 set5x11()
 
-#
 ## start building the matrix for the exact cover problem
 
 root = Column('root')
@@ -362,7 +331,7 @@ for col2 in c1:
 last = root
 for row in range(rows):
     for col in range(columns):
-        c = Column('[' + str(col) + ',' + str(row) + '] ')
+        c = Column('['+str(col) + ',' + str(row)+'] ')
         c.extra = [col, row]
 
         last.right.left = c
@@ -371,19 +340,17 @@ for row in range(rows):
         c.left = last
         last = c
 
-
 ## check to see if a pieces fits on the board
+
 def validatecell(c):
     if c[0] < 0 or c[0] > columns: return False
     if c[1] < 0 or c[1] > rows: return False
     return True
 
-
 def validate(orientation):
-    for line in orientation:
-        if not validatecell(line): return False
+    for cell in orientation:
+        if validatecell(cell) == False: return False
     return True
-
 
 ## construct the rows of the matrix
 
@@ -430,127 +397,12 @@ for tile in ominos:
                             column.size += 1
                     column = column.right
 
+## apply the Dancing Links algorithm to the matrix
 
-def kanoodle_solver(request):
-    output = StringIO()
-    sys.stdout = output
-
-    try:
-        setroot(root)
-        print('begin search')
-        search(0)
-        print('finished search')
-    except SystemExit:
-        pass
-
-    sys.stdout = sys.__stdout__
-    output_str = output.getvalue()
-
-    return render(request, 'kanoodle/solution.html', {'output': output_str})
-# Create your views here.
-# from .DLX import DLX
-#
-#
-# def find_solution(request):
-#     GridWidth = 11
-#     GridHeight = 5
-#
-# Pieces = [
-#     " A  \n"
-#     " A  \n"
-#     "AA  \n",
-#
-#     " B  \n"
-#     "BB  \n"
-#     "BB  \n",
-#
-#     " C  \n"
-#     " C  \n"
-#     " C  \n"
-#     "CC  \n",
-#
-#     " D  \n"
-#     " D  \n"
-#     "DD  \n"
-#     " D  \n",
-#
-#     " E  \n"
-#     " E  \n"
-#     "EE  \n"
-#     "E   \n",
-#
-#     "F   \n"
-#     "FF  \n",
-#
-#     "  G \n"
-#     "  G \n"
-#     "GGG \n",
-#
-#     "  H \n"
-#     " HH \n"
-#     "HH  \n",
-#
-#     "I I \n"
-#     "III \n",
-#
-#     "J   \n"
-#     "J   \n"
-#     "J   \n"
-#     "J   \n",
-#
-#     "KK  \n"
-#     "KK  \n",
-#
-#     " L  \n"
-#     "LLL \n"
-#     " L  \n"
-# ]
-#
-#     solutions = generate_solutions(GridWidth, GridHeight, Pieces)
-#     formatted_solutions = []
-#
-#     for solution in solutions:
-#         formatted_solution = convert_solution_to_string(solution, Pieces, GridWidth, GridHeight)
-#         formatted_solutions.append(formatted_solution)
-#
-#     context = {'solutions': formatted_solutions}
-#     return render(request, 'kanoodle/solution.html', context)
-#
-#
-# def convert_solution_to_string(solution, Pieces, GridWidth, GridHeight):
-#     formatted_solution = ""
-#     for node in solution:
-#         if isinstance(node, DLX.Data):
-#             col = node.column
-#             row = node.row
-#             value = node.value
-#             piece = Pieces[value - GridWidth * GridHeight]
-#             lines = piece.split('\n')[:-1]
-#             for line in lines:
-#                 formatted_solution += line + '\n'
-#     return formatted_solution
-#
-#
-# def generate_solutions(GridWidth, GridHeight, Pieces):
-#     dlx = DLX(GridWidth * GridHeight + len(Pieces))
-#
-#     # Generate DLX constraints based on Pieces, GridWidth, and GridHeight
-#     for idx, piece in enumerate(Pieces):
-#         lines = piece.strip().split('\n')
-#         for r, line in enumerate(lines):
-#             for c, char in enumerate(line):
-#                 if char != ' ':
-#                     col = r * GridWidth + c
-#                     value = GridWidth * GridHeight + idx
-#                     data = dlx.Data()  # Create a new Data object
-#                     data.row = r
-#                     data.column = dlx.header[col]
-#                     data.up = dlx.header[col].up
-#                     data.down = dlx.header[col]
-#                     dlx.header[col].up.down = data
-#                     dlx.header[col].up = data
-#                     dlx.header[col].size += 1
-#                     data.value = value  # Assign the value to the Data object
-#                     dlx.rows[r][col] = data  # Assign the Data object to the corresponding position
-#
-#     return dlx.search()
+try:
+    setroot(root)
+    print ('begin search')
+    search(0)
+    print ('finished search')
+except SystemExit:
+    pass
