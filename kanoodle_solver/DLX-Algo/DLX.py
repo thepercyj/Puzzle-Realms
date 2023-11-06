@@ -1,20 +1,4 @@
 class DLX:
-    class RowSupplier:
-        def isColumnOccupied(self, col):
-            pass
-
-    @staticmethod
-    def solve(rowInfo, numColumns):
-        dlx = DLX(rowInfo, numColumns)
-        return dlx.search(None)
-
-    @staticmethod
-    def solve_all(rowInfo, numColumns):
-        dlx = DLX(rowInfo, numColumns)
-        solutions = []
-        dlx.search(solutions)
-        return solutions
-
     class Cell:
         def __init__(self):
             self.up = None
@@ -42,93 +26,46 @@ class DLX:
         self.createHeaders(numColumns)
         self.createRows(rowInfo, numColumns)
 
-    def search(self, solutions):
-        partialSolution = []
-        self._search(self.columnList_, partialSolution, solutions)
-
-    def createRows(self, rowInfo, numColumns):
-        self.rows = []
-
-        for info in rowInfo:
-            row = self.Row(info)
-            for c in range(numColumns):
-                if info.isColumnOccupied(c):
-                    cell = self.Cell()
-                    cell.row = row
-                    cell.column = self.headers[c]
-                    cell.up = cell.column.root.up
-                    cell.down = cell.column.root
-                    cell.column.root.up.down = cell
-                    cell.column.root.up = cell
-                    cell.column.count += 1
-                    cell.detached = False
-                    row.cells.append(cell)
-            self.rows.append(row)
-
-    def createHeaders(self, numColumns):
-        self.columnList_ = self.Header()
-        self.columnList_.right = self.columnList_
-        self.columnList_.left = self.columnList_
-
-        self.headers = []
-        for i in range(numColumns):
-            h = self.Header()
-            h.right = self.columnList_
-            h.left = self.columnList_.left
-            self.columnList_.left.right = h
-            self.columnList_.left = h
-            self.headers.append(h)
-
-    def _search(self, columns, partial_solution, all_solutions):
-        # if all columns are eliminated, we've found a solution
+    def search(self, columns, partialSolution, allSolutions):
         if self.isColumnListEmpty(columns):
-            all_solutions.append(list(partial_solution))
-            return
-
+            return partialSolution
         column = self.selectColumn(columns)
-
-        # iterate rows in column, testing recursively with each row selected
         x = column.root.down
         while x != column.root:
-            partial_solution.append(x.row.info)
-
+            partialSolution.append(x.row.info)
             for r in x.row.cells:
                 self.eliminateColumn(r.column)
-
-            self._search(columns, partial_solution, all_solutions)
-
-            # Backtrack, reinstating removed columns
+            solution = self.search(columns, partialSolution, allSolutions)
+            if solution is not None:
+                if allSolutions is not None:
+                    allSolutions.append(list(solution))
+                else:
+                    return solution
             for r in x.row.cells:
                 self.reinstateColumn(r.column)
-
-            partial_solution.pop()
-
+            partialSolution.pop()
             x = x.down
+        return None
 
-    def isColumnListEmpty(self, column_list):
-        return column_list.right == column_list
+    def isColumnListEmpty(self, columnList):
+        return columnList.right == columnList
 
-    def selectColumn(self, column_list):
-        # find column with the least number of occupied cells
-        if self.isColumnListEmpty(column_list):
+    def selectColumn(self, columnList):
+        if self.isColumnListEmpty(columnList):
             return None
-
-        min_ = column_list.right
-        col = min_.right
-        while col != column_list:
-            if col.count < min_.count:
-                min_ = col
+        min = columnList.right
+        col = min.right
+        while col != columnList:
+            if col.count < min.count:
+                min = col
             col = col.right
-        return min_
+        return min
 
     def eliminateColumn(self, column):
-        # remove all rows with a tile in that column
         r = column.root.down
         while r != column.root:
             self.eliminateRow(r.row, column)
             r = r.down
-
-        # remove the column from columns
         column.left.right = column.right
         column.right.left = column.left
 
@@ -137,13 +74,12 @@ class DLX:
         while r != column.root:
             self.reinstateRow(r.row)
             r = r.down
-
         column.left.right = column
         column.right.left = column
 
-    def eliminateRow(self, row, skip_column):
+    def eliminateRow(self, row, skipColumn):
         for cell in row.cells:
-            if cell.column != skip_column:
+            if cell.column != skipColumn:
                 if not cell.detached:
                     cell.up.down = cell.down
                     cell.down.up = cell.up
@@ -158,3 +94,46 @@ class DLX:
                 cell.down.up = cell
                 cell.column.count += 1
                 cell.detached = False
+
+    def createRows(self, rowInfo, numColumns):
+        self.rows = []
+        for info in rowInfo:
+            row = DLX.Row(info)
+            for c in range(numColumns):
+                if info.isColumnOccupied(c):
+                    cell = DLX.Cell()
+                    cell.row = row
+                    cell.column = self.headers[c]
+                    cell.up = cell.column.root.up
+                    cell.down = cell.column.root
+                    cell.column.root.up.down = cell
+                    cell.column.root.up = cell
+                    cell.column.count += 1
+                    cell.detached = False
+                    row.cells.append(cell)
+            self.rows.append(row)
+
+    def createHeaders(self, numColumns):
+        self.columnList_ = DLX.Header()
+        self.columnList_.right = self.columnList_
+        self.columnList_.left = self.columnList_
+        self.headers = []
+        for i in range(numColumns):
+            h = DLX.Header()
+            h.right = self.columnList_
+            h.left = self.columnList_.left
+            self.columnList_.left.right = h
+            self.columnList_.left = h
+            self.headers.append(h)
+
+    @staticmethod
+    def solve(rowInfo, numColumns):
+        dlx = DLX(rowInfo, numColumns)
+        return dlx.search(None, [], None)
+
+    @staticmethod
+    def solveAll(rowInfo, numColumns):
+        solutions = []
+        dlx = DLX(rowInfo, numColumns)
+        dlx.search(solutions, [], solutions)
+        return solutions

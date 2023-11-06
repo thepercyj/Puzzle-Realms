@@ -1,5 +1,7 @@
 # Main.py
 # Created by your_distant_cousin
+import time
+
 from Kanoodle import *
 
 # Constants
@@ -58,18 +60,14 @@ Pieces = [
 
 
 def main():
-    import time
 
-    startTime = int(time.time() * 1000)
-
+    startTime = time.time()
     # answer = Kanoodle.findSolution(Pieces, GridWidth, GridHeight)
     # Assuming the Kanoodle module's functions are available
-    answer = Kanoodle.find_all_solutions(Pieces, GridWidth, GridHeight)
-
-    endTime = int(time.time() * 1000)
-
+    answer = Kanoodle.findAllSolutions(Pieces, GridWidth, GridHeight)
+    endTime = time.time()
     if answer is not None:
-        print(f"Found answer: {answer} in {endTime - startTime} ms.")
+        print("Found answer: " + answer + " in " + str(endTime - startTime) + " ms.")
 
 
 if __name__ == "__main__":
