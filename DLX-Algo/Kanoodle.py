@@ -1,6 +1,6 @@
 from typing import List
 import enum
-from .DLX import *
+import DLX
 import math
 import collections
 
@@ -108,7 +108,7 @@ class Piece:
         return signature
 
 
-class SearchRow(RowSupplier) :
+class SearchRow(DLX.RowSupplier) :
     def __init__(self, piece, rotation, col, row, flipped):
         self.piece = piece
         self.rotation = rotation

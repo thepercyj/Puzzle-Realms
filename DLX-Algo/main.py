@@ -1,6 +1,7 @@
 # Main.py
 # Created by your_distant_cousin
-
+import Kanoodle
+import DLX
 # Constants
 GridWidth = 3
 GridHeight = 3
@@ -62,7 +63,7 @@ def main():
 
     # answer = Kanoodle.findSolution(Pieces, GridWidth, GridHeight)
     # Assuming the Kanoodle module's functions are available
-    answer = Kanoodle.findAllSolutions(Pieces, GridWidth, GridHeight)
+    answer = Kanoodle.find_all_solutions(Pieces, GridWidth, GridHeight)
 
     endTime = int(time.time() * 1000)
 

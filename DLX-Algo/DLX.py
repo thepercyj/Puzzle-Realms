@@ -40,8 +40,8 @@ class DLX:
     @staticmethod
     def solveAll(rowInfo, numColumns):
         solutions = []
-        dlx = DLX()
-        dlx.search(solutions, rowInfo, numColumns)
+        dlx = DLX(rowInfo, numColumns)
+        dlx.search(solutions)
         return solutions
 
     def createRows(self, rowInfo, numColumns):
