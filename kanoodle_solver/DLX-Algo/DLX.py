@@ -9,9 +9,9 @@ class DLX:
         return dlx.search(None)
 
     @staticmethod
-    def solveAll(rowInfo, numColumns):
-        solutions = []
+    def solve_all(rowInfo, numColumns):
         dlx = DLX(rowInfo, numColumns)
+        solutions = []
         dlx.search(solutions)
         return solutions
 
@@ -44,7 +44,7 @@ class DLX:
 
     def search(self, solutions):
         partialSolution = []
-        return self.search(self.columnList_, partialSolution, solutions)
+        self._search(self.columnList_, partialSolution, solutions)
 
     def createRows(self, rowInfo, numColumns):
         self.rows = []
@@ -66,23 +66,24 @@ class DLX:
             self.rows.append(row)
 
     def createHeaders(self, numColumns):
-        self.columnList = self.Header()
-        self.columnList.right = self.columnList
-        self.columnList.left = self.columnList
+        self.columnList_ = self.Header()
+        self.columnList_.right = self.columnList_
+        self.columnList_.left = self.columnList_
 
         self.headers = []
         for i in range(numColumns):
             h = self.Header()
-            h.right = self.columnList
-            h.left = self.columnList.left
-            self.columnList.left.right = h
-            self.columnList.left = h
+            h.right = self.columnList_
+            h.left = self.columnList_.left
+            self.columnList_.left.right = h
+            self.columnList_.left = h
             self.headers.append(h)
 
-    def search(self, columns, partial_solution, all_solutions):
+    def _search(self, columns, partial_solution, all_solutions):
         # if all columns are eliminated, we've found a solution
         if self.isColumnListEmpty(columns):
-            return list(partial_solution)
+            all_solutions.append(list(partial_solution))
+            return
 
         column = self.selectColumn(columns)
 
@@ -94,12 +95,7 @@ class DLX:
             for r in x.row.cells:
                 self.eliminateColumn(r.column)
 
-            solution = self.search(columns, partial_solution, all_solutions)
-            if solution is not None:
-                if all_solutions is not None:
-                    all_solutions.append(list(solution))
-                else:
-                    return solution
+            self._search(columns, partial_solution, all_solutions)
 
             # Backtrack, reinstating removed columns
             for r in x.row.cells:
@@ -109,14 +105,12 @@ class DLX:
 
             x = x.down
 
-        return None
-
-    def isColumnListEmpty(column_list):
+    def isColumnListEmpty(self, column_list):
         return column_list.right == column_list
 
-    def selectColumn(column_list):
-        # find column with least number of occupied cells
-        if isColumnListEmpty(column_list):
+    def selectColumn(self, column_list):
+        # find column with the least number of occupied cells
+        if self.isColumnListEmpty(column_list):
             return None
 
         min_ = column_list.right
@@ -127,27 +121,27 @@ class DLX:
             col = col.right
         return min_
 
-    def eliminate_column(column):
-        # remove all rows with tile in that col
+    def eliminateColumn(self, column):
+        # remove all rows with a tile in that column
         r = column.root.down
         while r != column.root:
-            eliminate_row(r.row, column)
+            self.eliminateRow(r.row, column)
             r = r.down
 
-        # remove column from columns
+        # remove the column from columns
         column.left.right = column.right
         column.right.left = column.left
 
-    def reinstate_column(column):
+    def reinstateColumn(self, column):
         r = column.root.down
         while r != column.root:
-            reinstate_row(r.row)
+            self.reinstateRow(r.row)
             r = r.down
 
         column.left.right = column
         column.right.left = column
 
-    def eliminate_row(row, skip_column):
+    def eliminateRow(self, row, skip_column):
         for cell in row.cells:
             if cell.column != skip_column:
                 if not cell.detached:
@@ -157,7 +151,7 @@ class DLX:
                     cell.column.count -= 1
                     cell.detached = True
 
-    def reinstate_row(row):
+    def reinstateRow(self, row):
         for cell in row.cells:
             if cell.detached:
                 cell.up.down = cell
