@@ -1,5 +1,6 @@
 import dlx
 from typing import List
+from DLX import *
 
 
 class Kanoodle:
@@ -7,7 +8,7 @@ class Kanoodle:
     def findAllSolutions(pieceDescriptions, gridWidth, gridHeight):
         pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
         rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
-        solutions = dlx.DLX(rows, gridWidth * gridHeight + len(pieces))
+        solutions = DLX(gridWidth * gridHeight + len(pieces)).solveAll()
         if solutions is not None:
             return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
         return "No solution found"
