@@ -1,6 +1,6 @@
 from typing import List
 import enum
-import DLX
+import dlx
 import math
 import collections
 
@@ -108,7 +108,7 @@ class Piece:
         return signature
 
 
-class SearchRow(DLX.RowSupplier) :
+class SearchRow(dlx.RowSupplier) :
     def __init__(self, piece, rotation, col, row, flipped):
         self.piece = piece
         self.rotation = rotation
@@ -120,7 +120,7 @@ class SearchRow(DLX.RowSupplier) :
 def find_all_solutions(piece_descriptions, grid_width, grid_height):
     pieces = create_pieces(piece_descriptions, grid_width, grid_height)
     rows = create_search_rows(pieces, grid_width, grid_height)
-    solutions = DLX.solveAll(rows, grid_width * grid_height + len(pieces))
+    solutions = dlx.solve(rows, grid_width * grid_height + len(pieces))
     if solutions is not None:
         return format_grid(solutions, grid_width, grid_height)
     return "No solution found"
