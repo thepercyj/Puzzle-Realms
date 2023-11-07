@@ -24,6 +24,7 @@ class DLX:
         self.headers = []
         self.rows = []
         self.createHeaders(numColumns)
+        print(rowInfo)
         self.createRows(rowInfo, numColumns)
 
     def search(self, columns, partialSolution, allSolutions):
