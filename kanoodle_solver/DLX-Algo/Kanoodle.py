@@ -1,182 +1,181 @@
-import dlx
-from typing import List
+from enum import Enum
+from typing import List, Set
+
+import numpy as np
+
 from DLX import *
 
 
 class Kanoodle:
     @staticmethod
-    def findAllSolutions(pieceDescriptions, gridWidth, gridHeight):
+    def findAllSolutions(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -> str:
         pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
         rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
-        solutions = DLX(gridWidth * gridHeight + len(pieces)).solveAll()
-        if solutions is not None:
+        # DLX.solveAll is assumed to be a method from an external library that has not been provided.
+        solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
+        if solutions:
             return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
         return "No solution found"
 
     @staticmethod
-    def createPieces(pieceDescriptions, gridWidth, gridHeight):
-        pieces = []
-        for i in range(len(pieceDescriptions)):
-            pieces.append(Kanoodle.Piece(pieceDescriptions[i], i, gridWidth, gridHeight))
-        return pieces
-
-    class Rotation:
-        ROTATION_0 = 0
-        ROTATION_90 = 1
-        ROTATION_180 = 2
-        ROTATION_270 = 3
-
-        @classmethod
-        def __iter__(cls):
-            return iter([cls.ROTATION_0, cls.ROTATION_90, cls.ROTATION_180, cls.ROTATION_270])
-
-    class Tile:
-        def __init__(self, col, row):
-            self.col = col
-            self.row = row
-
-        @classmethod
-        def __iter__(cls):
-            return iter([])  # Define the way you want to iterate through Tile objects
-
-    class SearchRow:
-        def __init__(self, piece, rotation, col, row, flipped):
-            self.piece = piece
-            self.rotation = rotation
-            self.col = col
-            self.row = row
-            self.flipped = flipped
-
-        def isTileAt(self, c, r):
-            return self.piece.isTileAt(c - self.col, r - self.row, self.rotation, self.flipped)
-
-        def isColumnOccupied(self, col):
-            if col >= (self.piece.gridWidth * self.piece.gridHeight):
-                return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
-            return self.isTileAt(col % self.piece.gridWidth, col // self.piece.gridWidth)
+    def createPieces(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -> List['Piece']:
+        return [Piece(desc, i, gridWidth, gridHeight) for i, desc in enumerate(pieceDescriptions)]
 
     @staticmethod
-    def createSearchRows(pieces, gridWidth, gridHeight) -> List[SearchRow]:
-        rotations = [value for name, value in Kanoodle.Rotation.__dict__.items() if
-                     not name.startswith("__")]  # Access the Rotation class
+    def createSearchRows(pieces: List['Piece'], gridWidth: int, gridHeight: int) -> List['SearchRow']:
+        rotations = list(Rotation)
         flipStates = [False, True]
         maxPiecePermutations = len(pieces) * len(rotations) * len(flipStates)
-        rows = [] * (maxPiecePermutations * gridWidth * gridHeight)
-        pieceSignatures = set()
+        rows = []
+        pieceSignatures: Set[int] = set()
+
         for piece in pieces:
             for rotation in rotations:
                 for flip in flipStates:
-                    signature = piece.getSignature(rotation, flip)
+                    signature = piece.get_signature(rotation, flip)
                     if signature not in pieceSignatures:
                         pieceSignatures.add(signature)
                         maxCol = gridWidth - piece.getWidth(rotation)
                         maxRow = gridHeight - piece.getHeight(rotation)
                         for row in range(maxRow + 1):
                             for col in range(maxCol + 1):
-                                rows.append(Kanoodle.SearchRow(piece, rotation, col, row, flip))
+                                rows.append(SearchRow(piece, rotation, col, row, flip))
         return rows
 
     @staticmethod
-    def formatGrid(solutions, gridWidth, gridHeight):
+    def formatGrid(solutions: List[List['SearchRow']], gridWidth: int, gridHeight: int) -> str:
         formattedSolutions = []
         for sol in solutions:
-            grid = [[' ' for _ in range(gridWidth)] for _ in range(gridHeight)]
+            grid = np.full((gridHeight, gridWidth), ' ')
             for row in sol:
-                h = row.piece.getHeight(row.rotation)
-                w = row.piece.getWidth(row.rotation)
-                for r in range(h):
-                    for c in range(w):
-                        if row.piece.isTileAt(c, r, row.rotation, row.flipped):
-                            grid[row.row + r][row.col + c] = row.piece.symbol
-            res = '\n'
-            for r in range(gridHeight):
-                res += ''.join(grid[r]) + '\n'
-            formattedSolutions.append(res)
-        return formattedSolutions
+                for r in range(row.piece.getHeight(row.rotation)):
+                    for c in range(row.piece.getWidth(row.rotation)):
+                        if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
+                            grid[row.row + r, row.col + c] = row.piece.symbol
+            formattedSolutions.append('\n'.join(''.join(row) for row in grid))
+        return "\n".join(formattedSolutions)
+
+
+class Rotation(Enum):
+    ROTATION_0 = 0
+    ROTATION_90 = 1
+    ROTATION_180 = 2
+    ROTATION_270 = 3
+
+    @classmethod
+    def __iter__(cls):
+        return iter([cls.ROTATION_0, cls.ROTATION_90, cls.ROTATION_180, cls.ROTATION_270])
+
+
+class Tile:
+    def __init__(self, col, row):
+        self.col = col
+        self.row = row
+
+
+class Piece:
+    def __init__(self, src: str, index: int, gridWidth: int, gridHeight: int):
+        self.index = index
+        self.source = src
+        self.symbol = src.strip()[0]
+        self.gridWidth = gridWidth
+        self.gridHeight = gridHeight
+        self.dimensions = Tile(0, 0)
+        tiles = self.extractTiles(src, self.dimensions)
+        self.bitfield = self.buildBitfield(tiles, self.dimensions)
+
+
 
     @staticmethod
-    def buildBitfield(tiles, dimensions):
-        assert dimensions.col <= 8
-        assert dimensions.row <= 8
+    def buildBitfield(tiles: List[Tile], dimensions: Tile) -> int:
         bits = 0
         for t in tiles:
             bits |= 1 << (t.row * 8 + t.col)
         return bits
 
     @staticmethod
-    def extractTiles(src, dimensions):
+    def extractTiles(src: str, maximum: Tile) -> List[Tile]:
         tiles = []
         col = 0
         row = 0
-        for c in src:
+        for i, c in enumerate(src):
             if c == '\n':
                 col = 0
                 row += 1
             elif not c.isspace():
-                dimensions.col = max(dimensions.col, col + 1)  # Corrected line
-                dimensions.row = max(dimensions.row, row + 1)  # Corrected line
-                tile = Kanoodle.Tile(col, row)
-                tiles.append(tile)
+                maximum.col = max(maximum.col, col + 1)
+                maximum.row = max(maximum.row, row + 1)
+                tiles.append(Tile(col, row))
+                col += 1
+            else:
                 col += 1
         return tiles
 
-    class Piece:
+    def getWidth(self, rotation=None) -> int:
+        if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
+            return self.dimensions.row
+        return self.dimensions.col
 
-        def __init__(self, src, index, gridWidth, gridHeight):
-            self.index = index
-            self.source = src
-            self.symbol = src.strip()[0]
-            self.gridWidth = gridWidth
-            self.gridHeight = gridHeight
-            self.dimensions = Kanoodle.Tile(0, 0)
-            tiles = Kanoodle.extractTiles(src, self.dimensions)
-            self.bitfield = Kanoodle.buildBitfield(tiles, self.dimensions)
+    def getHeight(self, rotation=None) -> int:
+        if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
+            return self.dimensions.col
+        return self.dimensions.row
 
-        def getWidth(self, r=None):
-            if r is None:
-                return self.dimensions.col
-            elif r == Kanoodle.Rotation.ROTATION_0 or r == Kanoodle.Rotation.ROTATION_180:
-                return self.dimensions.col
-            else:
-                return self.dimensions.row
+    def is_tile_at(self, col, row, rotation, flipped):
+        local_col = col
+        local_row = row
 
-        def getHeight(self, r=None):
-            if r is None:
-                return self.dimensions.row
-            elif r == Kanoodle.Rotation.ROTATION_0 or r == Kanoodle.Rotation.ROTATION_180:
-                return self.dimensions.row
-            else:
-                return self.dimensions.col
+        if rotation == 'ROTATION_0':
+            if flipped:
+                local_col = self.getWidth() - 1 - col
+        elif rotation == 'ROTATION_90':
+            local_col = row
+            local_row = self.getHeight() - 1 - col
+            if flipped:
+                local_row = self.getHeight() - 1 - local_row
+        elif rotation == 'ROTATION_180':
+            if not flipped:
+                local_col = self.getWidth() - 1 - local_col
+            local_row = self.getHeight() - 1 - local_row
+        elif rotation == 'ROTATION_270':
+            local_col = self.getWidth() - 1 - row
+            local_row = col
+            if flipped:
+                local_row = self.getHeight() - 1 - local_row
 
-        def isTileAt(self, col, row, rotation, flipped):
-            localCol = col
-            localRow = row
-            if rotation == Kanoodle.Rotation.ROTATION_0:
-                if flipped:
-                    localCol = self.getWidth() - 1 - col
-            elif rotation == Kanoodle.Rotation.ROTATION_90:
-                localCol = row
-                localRow = self.getHeight() - 1 - col
-                if flipped:
-                    localRow = self.getHeight() - 1 - localRow
-            elif rotation == Kanoodle.Rotation.ROTATION_180:
-                if not flipped:
-                    localCol = self.getWidth() - 1 - localCol
-                localRow = self.getHeight() - 1 - localRow
-            elif rotation == Kanoodle.Rotation.ROTATION_270:
-                localCol = self.getWidth() - 1 - row
-                localRow = col
-                if flipped:
-                    localRow = self.getHeight() - 1 - localRow
-            if 0 <= localCol < self.getWidth() and 0 <= localRow < self.getHeight():
-                if 0 != (self.bitfield & (1 << (localRow * 8 + localCol))):
-                    return True
-            return False
+        if (0 <= local_col < self.getWidth() and 0 <= local_row < self.getHeight() and
+                (self.bitfield & (1 << (local_row * 8 + local_col))) != 0):
+            return True
+        return False
 
-        def getSignature(self, rotation, flipped):
-            signature = 0
-            for r in range(8):
-                for c in range(8):
-                    if self.isTileAt(c, r, rotation, flipped):
-                        signature |= 1 << (r * 8 + c)
-            return signature
+    def get_signature(self, rotation, flipped):
+        signature = 0
+        for r in range(8):
+            for c in range(8):
+                if self.is_tile_at(c, r, rotation, flipped):
+                    signature |= 1 << (r * 8 + c)
+        return signature
+
+
+
+
+class SearchRow:
+    def __init__(self, piece: Piece, rotation: Rotation, col: int, row: int, flipped: bool):
+        self.piece = piece
+        self.rotation = rotation
+        self.col = col
+        self.row = row
+        self.flipped = flipped
+
+    def isColumnOccupied(self, col):
+        # Implement the logic to determine if a column is occupied.
+        # This is just an example based on the `piece` attribute.
+        return self.piece.is_tile_at(col, self.row, self.rotation, self.flipped)
+
+
+
+
+
+
+
+

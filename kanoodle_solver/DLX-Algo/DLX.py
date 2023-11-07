@@ -1,131 +1,156 @@
 class DLX:
-    class Node:
+    class RowSupplier:
+        def isColumnOccupied(self, col):
+            raise NotImplementedError("Subclasses should implement this method")
+
+    @staticmethod
+    def solve(row_info, num_columns):
+        dlx = DLXImpl(row_info, num_columns)
+        return dlx.search(None)
+
+    @staticmethod
+    def solveAll(row_info, num_columns):
+        solutions = []
+        dlx = DLXImpl(row_info, num_columns)
+        dlx.search(solutions)
+        return solutions
+
+
+class DLXImpl:
+    class Cell:
         def __init__(self):
-            self.left = self
-            self.right = self
-            self.up = self
-            self.down = self
+            self.up = None
+            self.down = None
             self.column = None
+            self.row = None
+            self.detached = False
 
-    class ColumnNode(Node):
+    class Header:
         def __init__(self):
-            super().__init__()
-            self.size = 0
+            self.left = None
+            self.right = None
+            self.root = DLXImpl.Cell()
+            self.root.up = self.root
+            self.root.down = self.root
+            self.count = 0
 
-    def __init__(self, numColumns):
-        self.root = DLX.ColumnNode()
-        self.columns = [DLX.ColumnNode() for _ in range(numColumns)]
-        self.numColumns = numColumns
+    class Row:
+        def __init__(self, info):
+            self.cells = []
+            self.info = info
 
-        for i in range(numColumns):
-            self.columns[i].left = self.root.left
-            self.columns[i].right = self.root
-            self.root.left.right = self.columns[i]
-            self.root.left = self.columns[i]
+    def __init__(self, row_info, num_columns):
+        self.createHeaders(num_columns)
+        self.createRows(row_info, num_columns)
 
-    def appendRow(self, columns):
-        first = None
-        for c in columns:
-            new_node = DLX.Node()
-            new_node.column = c
+    def search(self, solutions):
+        partial_solution = []
+        return self._search(self.column_list_, partial_solution, solutions)
 
-            new_node.up = c.up
-            new_node.down = c
-            c.up.down = new_node
-            c.up = new_node
+    def createRows(self, row_info, num_columns):
+        self.rows = []
+        for info in row_info:
+            row = DLXImpl.Row(info)
+            for c in range(num_columns):
+                if info.isColumnOccupied(c):
+                    cell = DLXImpl.Cell()
+                    cell.row = row
+                    cell.column = self.headers[c]
+                    cell.up = cell.column.root.up
+                    cell.down = cell.column.root
+                    cell.column.root.up.down = cell
+                    cell.column.root.up = cell
+                    cell.column.count += 1
+                    cell.detached = False
+                    row.cells.append(cell)
+            self.rows.append(row)
 
-            if first is None:
-                first = new_node
-            else:
-                new_node.left = first.left
-                new_node.right = first
-                first.left.right = new_node
-                first.left = new_node
+    def createHeaders(self, num_columns):
+        self.column_list_ = DLXImpl.Header()
+        self.column_list_.right = self.column_list_
+        self.column_list_.left = self.column_list_
 
-            c.size += 1
+        self.headers = []
+        for _ in range(num_columns):
+            h = DLXImpl.Header()
+            h.right = self.column_list_
+            h.left = self.column_list_.left
+            self.column_list_.left.right = h
+            self.column_list_.left = h
+            self.headers.append(h)
 
-    def search(self, k, solution):
-        if self.root.right == self.root:
-            return solution
+    def _search(self, columns, partial_solution, all_solutions):
+        if self.isColumnListEmpty(columns):
+            return partial_solution
 
-        c = self.chooseColumn()
-        self.cover(c)
+        column = self.selectColumn(columns)
 
-        r = c.down
-        while r != c:
-            solution.append(r)
+        x = column.root.down
+        while x != column.root:
+            partial_solution.append(x.row.info)
 
-            j = r.right
-            while j != r:
-                self.cover(j.column)
-                j = j.right
+            for r in x.row.cells:
+                self.eliminateColumn(r.column)
 
-            result = self.search(k + 1, solution)
-            if result is not None:
-                return result
+            solution = self._search(columns, partial_solution, all_solutions)
+            if solution is not None:
+                if all_solutions is not None:
+                    all_solutions.append(list(solution))
+                else:
+                    return solution
 
-            solution.pop()
-            c = r.column
+            for r in reversed(x.row.cells):
+                self.reinstateColumn(r.column)
 
-            j = r.left
-            while j != r:
-                self.uncover(j.column)
-                j = j.left
+            partial_solution.pop()
+            x = x.down
 
-            r = r.down
-
-        self.uncover(c)
         return None
 
-    def cover(self, c):
-        c.right.left = c.left
-        c.left.right = c.right
+    def isColumnListEmpty(self, column_list):
+        return column_list.right == column_list
 
-        i = c.down
-        while i != c:
-            j = i.right
-            while j != i:
-                j.down.up = j.up
-                j.up.down = j.down
-                j.column.size -= 1
-                j = j.right
-            i = i.down
+    def selectColumn(self, column_list):
+        if self.isColumnListEmpty(column_list):
+            return None
 
-    def uncover(self, c):
-        i = c.up
-        while i != c:
-            j = i.left
-            while j != i:
-                j.down.up = j
-                j.up.down = j
-                j.column.size += 1
-                j = j.left
-            i = i.up
+        min_col = column_list.right
+        col = min_col.right
+        while col != column_list:
+            if col.count < min_col.count:
+                min_col = col
+            col = col.right
+        return min_col
 
-        c.right.left = c
-        c.left.right = c
+    def eliminateColumn(self, column):
+        r = column.root.down
+        while r != column.root:
+            self.eliminateRow(r.row, column)
+            r = r.down
+        column.left.right = column.right
+        column.right.left = column.left
 
-    def chooseColumn(self):
-        c = self.root.right
-        s = c.size
-        if s > 1:
-            while c != self.root:
-                if c.size < s:
-                    if c.size == 0:
-                        return c
-                    s = c.size
-                c = c.right
-        return c
+    def reinstateColumn(self, column):
+        r = column.root.up
+        while r != column.root:
+            self.reinstateRow(r.row)
+            r = r.up
+        column.left.right = column
+        column.right.left = column
 
-    def solve(self):
-        solution = []
-        return self.search(0, solution)
+    def eliminateRow(self, row, skip_column):
+        for cell in row.cells:
+            if cell.column != skip_column and not cell.detached:
+                cell.up.down = cell.down
+                cell.down.up = cell.up
+                assert cell.column.count > 0
+                cell.column.count -= 1
+                cell.detached = True
 
-    def solveAll(self):
-        solutions = []
-        solution = []
-        result = self.search(0, solution)
-        while result is not None:
-            solutions.append(list(solution))
-            result = self.search(0, solution)
-        return solutions
+    def reinstateRow(self, row):
+        for cell in reversed(row.cells):
+            if cell.detached:
+                cell.up.down = cell
+                cell.down.up = cell
+                cell.column.count += 1
+                cell.detached = False
