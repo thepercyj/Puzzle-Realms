@@ -1,31 +1,239 @@
-body {
+/* Reset some default styles */
+@import 'https://fonts.googleapis.com/css?family=Rubik+One';
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: offwhite;
+}
+
+/* Common styles for the game container */
+.game-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    height: 586px;
+    background-color: #f0f0f0;
 }
 
-.game-board {
-    display: grid;
-    grid-template-columns: repeat(11, 1fr); /* Adjust this to change the number of columns */;
-    grid-template-rows: repeat(5, 1fr); /* Adjust this to change the number of rows */;
-    width: 100%; /* Adjust as needed */
-    max-width: 30px; /* Adjust as needed */
+/* Style the game board */
+.game-container > .game-board {
+    background-color: blue;
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
 }
 
-.grid-cell {
-    height: 30px;
-    width: 30px;
-    background-color: #f5f5f5; /* Adjust as needed */
-    aspect-ratio: 1 / 1; /* Makes it a square */
-    border: 1px solid #ccc; /* Adjust as needed */
+/* Style the blank window */
+.game-container > .blank-window {
+    background-color: red;
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
 }
 
-.game-piece {
-    cursor: move; /* Change cursor on drag */
+/* Common styles for the title container */
+.title-container {
+    text-align: center;
+    margin: 20px auto;
+    width: 30%;
+    padding: 50px;
 }
 
-.dragging {
-    z-index: 1000; /* You can adjust this value as needed */
+/* Styles for the logo */
+.logo {
+    height: 50px;
+    width: 390px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Styles for the game tile */
+.game-tile {
+    width: 20%;
+    height: 40px;
+    background-color: #ccc;
+    margin: 34px auto;
+    color: black;
+    padding: 25px;
+    text-align: center;
+}
+
+/* Center the button container and style the game buttons */
+.button-container {
+    text-align: center;
+    margin: 20px;
+}
+
+/* Styles for the game buttons */
+.game-button {
+  display: inline-block;
+  padding: 20px 50px;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-20%, -20%);
+  background-color: #3498db;
+  text-decoration: none;
+  transition: all .5s;
+  font-size: 2vw;
+  font-family: 'Rubik One', sans-serif;
+  vertical-align: middle;
+}
+
+.game-button::before, .game-button::after {
+  position: absolute;
+  content: '';
+  transition: all .5s;
+}
+
+.game-button::before {
+  width: 100%;
+  height: 15px;
+  background-color: #fff;
+  bottom: -15px;
+  left: 8px;
+  transform: skewX(45deg);
+  background-color: #5E5757;
+}
+
+.game-button::after {
+  width: 15px;
+  height: 100%;
+  background-color: #fff;
+  right: -15px;
+  top: 8px;
+  transform: skewY(45deg);
+  background-color: #806969;
+}
+
+.game-button:active {
+  margin-left: 10px;
+	margin-top: 10px;
+}
+
+.game-button:active::before {
+  height: 5px;
+  bottom: -5px;
+  left: 3px;
+}
+
+.game-button:active:after {
+  width: 5px;
+  top: 3px;
+  right: -5px;
+}
+
+/* Spilt page css */
+:root {
+  --container-bg-color: #333;
+  --left-bg-color: rgba(223, 39, 39, 0.7);
+  --left-button-hover-color: rgba(161, 11, 11, 0.3);
+  --right-bg-color: rgba(43, 43, 43, 0.8);
+  --right-button-hover-color: rgba(92, 92, 92, 0.3);
+  --hover-width: 75%;
+  --other-width: 25%;
+  --speed: 1000ms;
+}
+
+h1 {
+  font-size: 4rem;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+
+.split-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--container-bg-color);
+}
+
+.split {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.split.left {
+  left: 0;
+  background: url("https://image.ibb.co/m56Czw/designer.jpg") center center
+    no-repeat;
+  background-size: cover;
+}
+
+.split.left:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: var(--left-bg-color);
+}
+
+.split.right {
+  right: 0;
+  background: url("https://image.ibb.co/m3ZbRb/programmer.png") center center
+    no-repeat;
+  background-size: cover;
+}
+
+.split.right:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: var(--right-bg-color);
+}
+
+.split.left,
+.split.right,
+.split.right:before,
+.split.left:before {
+  transition: var(--speed) all ease-in-out;
+}
+
+.hover-left .left {
+  width: var(--hover-width);
+}
+
+.hover-left .right {
+  width: var(--other-width);
+}
+
+.hover-left .right:before {
+  z-index: 2;
+}
+
+.hover-right .right {
+  width: var(--hover-width);
+}
+
+.hover-right .left {
+  width: var(--other-width);
+}
+
+.hover-right .left:before {
+  z-index: 2;
+}
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .button {
+    width: 12rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .button {
+    top: 70%;
+  }
 }
