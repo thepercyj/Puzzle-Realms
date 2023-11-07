@@ -22,22 +22,24 @@ Pieces = [
     # "JJ  \n"+
     # "J   \n",
 
-    " L \n"+
-    " L \n"+
-    " L \n"
+    " L  \n"+
+    " L  \n"+
+    " L  \n"
 ]
 
 def main():
     start_time = time.time()
 
     # Initialize the board with 2 pieces
-    initial_board = [[' ' for _ in range(GridWidth)] for _ in range(GridHeight)]
-    initialize_board(initial_board, GridHeight, GridWidth)
-
-    # Convert the board to a string format that matches the piece descriptions
-    board_description = ''
-    for row in initial_board:
-        board_description += ''.join(row) + '\n'
+    # initial_board = [[' ' for _ in range(GridWidth)] for _ in range(GridHeight)]
+    # Initialize the board with empty spaces
+    initial_board = [[' ' for j in range(GridWidth)] for i in range(GridHeight)]
+    initialize_board(initial_board)   # Convert the board to a string format
+    board_description = ""
+    for i in range(GridHeight):
+        for j in range(GridWidth):
+            board_description += initial_board[i][j]
+        board_description += "\n"
 
     # Add the board description to the list of pieces
     modified_pieces = Pieces + [board_description]
@@ -48,11 +50,13 @@ def main():
     end_time = time.time()
 
     if answer:
-        print(f"Found answer: {answer} in {int((end_time - start_time) * 1000)} ms.")
+        print("Found answer:\n", answer)
 
-def initialize_board(board, GridHeight, GridWidth):
+def initialize_board(board):
     # Example: Place piece I at (0, 0) and piece I at (0, 2)
     # Initialize the board with empty spaces already handled in the main function
+    print("This is board", board)
+
     board[0][0] = 'I'
     board[0][1] = 'I'
     board[1][0] = 'I'
