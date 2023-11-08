@@ -15,10 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-
+from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
+# Routing views for the application "polysphere_app" as not using direct global approach of pointing files.
 urlpatterns = [
+    path('', include('polysphere_app.urls')),
     path('admin/', admin.site.urls),
-    #path('polysphere/', include('polysphere_app.urls')),
-    path('', include('kanoodle_solver.urls')),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-
+# Routing views for the application "nqueens_app" as not using direct global approach of pointing files.
 urlpatterns = [
     path('', include('nqueens_app.urls')),
     path('admin/', admin.site.urls),

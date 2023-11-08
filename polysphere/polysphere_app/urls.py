@@ -1,8 +1,8 @@
 from django.urls import path
 from . import views
 
-app_name = 'polysphere_app'
+# The routing of the view file is defined and passed as a path inside here.
 
 urlpatterns = [
-    path('solve/', views.solve_puzzle_view, name='solve_puzzle'),
+    path('', views.game_board, name='game_board'),
 ]
