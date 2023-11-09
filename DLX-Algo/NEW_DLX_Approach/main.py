@@ -10,8 +10,8 @@ from datetime import datetime
 from kanoodle import *
 
 # Define grid dimensions
-GridWidth = 11
-GridHeight = 5
+GridWidth = 3
+GridHeight = 3
 
 # Define the pieces
 Pieces = [
@@ -23,45 +23,45 @@ Pieces = [
     "BB  \n" +
     "BB  \n",
 
-    " C  \n" +
-    " C  \n" +
-    " C  \n" +
-    "CC  \n",
-
-    " D  \n" +
-    " D  \n" +
-    "DD  \n" +
-    " D  \n",
-
-    " E  \n" +
-    " E  \n" +
-    "EE  \n" +
-    "E   \n",
-
-    "F   \n" +
-    "FF  \n",
-
-    "  G \n" +
-    "  G \n" +
-    "GGG \n",
-
-    "  H \n" +
-    " HH \n" +
-    "HH  \n",
-
-    "I I \n" +
-    "III \n",
-
-    "J   \n" +
-    "JJ  \n" +
-    "J   \n",
-
-    " KK  \n" +
-    "KK  \n",
-
-    " L  \n" +
-    "LL  \n" +
-    " LL \n"
+    # " C  \n" +
+    # " C  \n" +
+    # " C  \n" +
+    # "CC  \n",
+    #
+    # " D  \n" +
+    # " D  \n" +
+    # "DD  \n" +
+    # " D  \n",
+    #
+    # " E  \n" +
+    # " E  \n" +
+    # "EE  \n" +
+    # "E   \n",
+    #
+    # "F   \n" +
+    # "FF  \n",
+    #
+    # "  G \n" +
+    # "  G \n" +
+    # "GGG \n",
+    #
+    # "  H \n" +
+    # " HH \n" +
+    # "HH  \n",
+    #
+    # "I I \n" +
+    # "III \n",
+    #
+    # "J   \n" +
+    # "JJ  \n" +
+    # "J   \n",
+    #
+    # " KK  \n" +
+    # "KK  \n",
+    #
+    # " L  \n" +
+    # "LL  \n" +
+    # " LL \n"
 ]
 
 
@@ -94,8 +94,8 @@ def main():
     end_time = time.time()
 
     if answer:
-        current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        filename = f'output_{current_date}.txt'
+        # current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        filename = f'output.txt'
         print("Type of answer is", answer)
         # for sol in answer:
         #     for ans in sol:
@@ -106,6 +106,24 @@ def main():
                 for row in solution:
                     file.write(''.join(row) + '\n')
                 file.write('\n')
+
+    def flip_vertical(content):
+        lines = content.split('\n')
+        flipped_lines = reversed(lines)
+        return '\n'.join(flipped_lines)
+
+    # Read the original content from output.txt
+    with open('output.txt', 'r') as file:
+        original_content = file.read()
+
+    # Flip the content vertically
+    flipped_content = flip_vertical(original_content)
+
+    # Append the flipped content back to output.txt
+    with open('output.txt', 'a') as file:
+        file.write(flipped_content)
+
+    print("Data flipped and appended successfully.")
 
 
 # def initialize_board(board):
