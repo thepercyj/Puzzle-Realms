@@ -7,7 +7,7 @@ Created on Tue Nov  7 19:11:51 2023
 
 from enum import Enum
 from typing import List, Set
-from DLX import *
+from .DLX import *
 
 
 class Kanoodle:

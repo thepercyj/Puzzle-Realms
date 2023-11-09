@@ -1,175 +1,110 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.contrib.staticfiles.finders import find
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from .models import *
+import json
+import time
+from .kanoodle import Kanoodle
+from io import BytesIO
 from PIL import Image
-import io
-
-# Your pieces_data dictionary should be here.
-pieces_data = {
-    'A': {
-        'shape': 'A',
-        'grid': [
-            " A  ",
-            " A  ",
-            "AA  ",
-        ],
-        'image_path': r"blender_dummy_app\images\A-min.png",
-        'rotation': 0
-    },
-    'B': {
-        'shape': 'B',
-        'grid': [
-            " B  ",
-            "BB  ",
-            "BB  ",
-        ],
-        'image_path': r"blender_dummy_app\images\B-min.png",
-        'rotation': 0
-    },
-    'C': {
-        'shape': 'C',
-        'grid': [
-            " C  ",
-            " C  ",
-            " C  ",
-            "CC  ",
-        ],
-        'image_path': r"blender_dummy_app\images\C-min.png",
-        'rotation': 0
-    },
-    'D': {
-        'shape': 'D',
-        'grid': [
-            " D  ",
-            " D  ",
-            "DD  ",
-            " D  ",
-        ],
-        'image_path': r"blender_dummy_app\images\D-min.png",
-        'rotation': 0
-    },
-    'E': {
-        'shape': 'E',
-        'grid': [
-            " E  ",
-            " E  ",
-            "EE  ",
-            "E   ",
-        ]
-        ,
-        'image_path': r"blender_dummy_app\images\E-min.png",
-        'rotation': 0
-    },
-    'F': {
-        'shape': 'F',
-        'grid': [
-            "F   ",
-            "FF  ",
-        ],
-        'image_path': r"blender_dummy_app\images\F-min.png",
-        'rotation': 0
-    },
-    'G': {
-        'shape': 'G',
-        'grid': [
-            "  G ",
-            "  G ",
-            "GGG ",
-        ],
-        'image_path': r"blender_dummy_app\images\G-min.png",
-        'rotation': 0
-    },
-    'H': {
-        'shape': 'H',
-        'grid': [
-            "  H ",
-            " HH ",
-            "HH  ",
-        ],
-        'image_path': r"blender_dummy_app\images\H-min.png",
-        'rotation': 0
-    },
-    'I': {
-        'shape': 'I',
-        'grid': [
-            "I I ",
-            "III ",
-        ],
-        'image_path': r"blender_dummy_app\images\I-min.png",
-        'rotation': 0
-    },
-    'J': {
-        'shape': 'J',
-        'grid': [
-            " J   ",
-            "JJ   ",
-            " JJ  ",
-        ],
-        'image_path': r"blender_dummy_app\images\J-min.png",
-        'rotation': 0
-    },
-    'K': {
-        'shape': 'K',
-        'grid': [
-            " KK ",
-            "KK  ",
-        ],
-        'image_path': r"blender_dummy_app\images\K-min.png",
-        'rotation': 0
-    },
-    'L': {
-        'shape': 'L',
-        'grid': [
-            " L  ",
-            "LLL ",
-        ],
-        'image_path': r"blender_dummy_app\images\L-min.png",
-        'rotation': 0
-    },
-}
+from django.http import FileResponse
 
 
-def display_solution_view(request):
-    def display_solution(solution_matrix, pieces_data, block_size=50):
-        solution_width = len(solution_matrix[0]) * block_size
-        solution_height = len(solution_matrix) * block_size
-        solution_image = Image.new('RGB', (solution_width, solution_height),
-                                   (255, 255, 255, 0))  # Create a transparent solution image
+@require_http_methods(["POST"])
+def submit_kanoodle_problem(request):
+    data = json.loads(request.body)
+    piece_descriptions = data['piece_descriptions']
+    grid_width = data['grid_width']
+    grid_height = data['grid_height']
 
-        for row_idx, row in enumerate(solution_matrix):
-            for col_idx, piece_symbol in enumerate(row):
-                if piece_symbol in pieces_data:  # Make sure the piece symbol exists in the data
-                    piece_data = pieces_data[piece_symbol]
-                    display_piece(piece_data, row_idx, col_idx, block_size, solution_image)
+    # Create a KanoodleProblem instance and store in the database
+    problem = KanoodleProblem.objects.create(
+        piece_descriptions=json.dumps(piece_descriptions),
+        grid_width=grid_width,
+        grid_height=grid_height
+    )
 
-        image_io = io.BytesIO()
-        solution_image.save(image_io, 'PNG')
-        image_io.seek(0)
-        return HttpResponse(image_io.getvalue(), content_type='image/png')
+    # Solve the problem using Kanoodle logic
+    start_time = time.time()
+    solutions_str = Kanoodle.findAllSolutions(piece_descriptions, grid_width, grid_height)
+    end_time = time.time()
 
-    solution_matrix = [
-        ['A', 'A', 'A', 'G', 'G', 'G', 'I', 'I', 'L', 'L', 'J'],
-        ['B', 'B', 'A', 'K', 'K', 'G', 'I', 'L', 'L', 'J', 'J'],
-        ['B', 'B', 'K', 'K', 'D', 'G', 'I', 'I', 'L', 'H', 'J'],
-        ['C', 'B', 'D', 'D', 'D', 'D', 'E', 'E', 'H', 'H', 'F'],
-        ['C', 'C', 'C', 'E', 'E', 'E', 'H', 'H', 'F', 'F', 'F']
-    ]
+    # Create a KanoodleSolution instance and store in the database
+    KanoodleSolution.objects.create(problem=problem, solution_data=solutions_str)
 
-    # Call the adjusted display_solution function and return its response
-    return display_solution(solution_matrix, pieces_data)
+    # Return the response
+    return JsonResponse({
+        'problem_id': problem.id,
+        'solution': solutions_str,
+        'time_taken_ms': (end_time - start_time) * 1000
+    }, status=201)
 
 
-def solution_image_view(request):
-    # This view renders an HTML page which includes the image generated by display_solution_view
-    return render(request, 'solution_image.html')
+@require_http_methods(["GET"])
+def get_kanoodle_solution(request, problem_id):
+    try:
+        # Retrieve the problem and its solutions
+        problem = KanoodleProblem.objects.get(id=problem_id)
+        solutions = problem.solutions.all()
 
+        # Format the solutions for the response
+        solutions_data = [sol.get_solution_data() for sol in solutions]
+        return JsonResponse({
+            'problem_id': problem_id,
+            'solutions': solutions_data
+        })
+    except KanoodleProblem.DoesNotExist:
+        return JsonResponse({'error': 'Problem not found.'}, status=404)
+
+
+
+
+def get_pieces_data():
+    pieces_data = {}
+    for piece in PuzzlePiece.objects.all():
+        pieces_data[piece.shape] = {
+            'shape': piece.shape,
+            'grid': piece.get_grid(),
+            'image_path': piece.image_path,
+            'rotation': piece.rotation
+        }
+    return pieces_data
+
+def generate_solution_image(solution_matrix, pieces_data, block_size=50):
+    solution_width = len(solution_matrix[0]) * block_size
+    solution_height = len(solution_matrix) * block_size
+    solution_image = Image.new('RGBA', (solution_width, solution_height),
+                               (255, 255, 255, 0))  # Create a transparent solution image
+
+    for row_idx, row in enumerate(solution_matrix):
+        for col_idx, piece_symbol in enumerate(row):
+            if piece_symbol in pieces_data:  # Make sure the piece symbol exists in the data
+                piece_data = pieces_data[piece_symbol]
+                display_piece(piece_data, row_idx, col_idx, block_size, solution_image)
+
+
+    # Instead of showing the image, save it to an in-memory file
+    image_io = BytesIO()
+    solution_image.save(image_io, 'PNG')
+    image_io.seek(0)
+
+    return image_io
+
+
+# Django view that returns an image response
+def solution_view(request):
+    data = json.loads(request.body)
+    solution_matrix = data['solution_matrix']
+    pieces_data = get_pieces_data()
+
+    image_io = generate_solution_image(solution_matrix, pieces_data)
+    return FileResponse(image_io, as_attachment=True, filename='solution.png')
 
 def display_piece(piece_data, row, col, block_size, solution_image):
     # Open the image file corresponding to the piece
-    with Image.open(find(piece_data['image_path'])) as piece_image:
+    with Image.open(piece_data['image_path']) as piece_image:
 
         # Apply rotations to images
-        if piece_data['rotation'] is not 0:
+        if piece_data['rotation'] != 0:
             piece_image = piece_image.rotate(piece_data['rotation'], expand=True)
 
         # Resize the image if necessary
@@ -178,7 +113,5 @@ def display_piece(piece_data, row, col, block_size, solution_image):
         # Calculate the position to paste the piece image, accounting for the block size
         position = (col * block_size, row * block_size)
 
-
-
         # Paste the piece image onto the solution image at the calculated position
-        solution_image.paste(piece_image, position)  # Use mask=piece_image to handle transparency
+        solution_image.paste(piece_image, position, piece_image)  # Use mask=piece_image to handle transparency

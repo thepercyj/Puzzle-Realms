@@ -6,7 +6,7 @@ Created on Tue Nov  7 19:12:32 2023
 """
 
 import time
-from kanoodle import *
+from .kanoodle import *
 
 # Define grid dimensions
 GridWidth = 11
