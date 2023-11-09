@@ -52,16 +52,15 @@ Pieces = [
             "III \n",
 
             "J   \n"+
-            "J   \n"+
-            "J   \n"+
+            "JJ  \n"+
             "J   \n",
 
-            "KK  \n"+
+            " KK  \n"+
             "KK  \n",
 
             " L  \n"+
-            "LLL \n"+
-            " L  \n"
+            "LL  \n"+
+            " LL \n"
     ]
 
 def main():
@@ -94,7 +93,12 @@ def main():
     end_time = time.time()
 
     if answer:
-        print("Found answer:\n", len(answer), "\n in", end_time - start_time, "ms" )
+        print("Type of answer is", type(answer))
+        for sol in answer:
+            for ans in sol:
+                print(ans)
+            print("\n")
+
 
 # def initialize_board(board):
 #     # Example: Place piece I at (0, 0) and piece I at (0, 2)
