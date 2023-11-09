@@ -6,12 +6,12 @@ Created on Tue Nov  7 19:12:32 2023
 """
 
 import time
-import kanoodle
+from datetime import datetime
 from kanoodle import *
 
 # Define grid dimensions
-GridWidth = 11
-GridHeight = 5
+GridWidth = 3
+GridHeight = 3
 
 # Define the pieces
 Pieces = [
@@ -22,46 +22,46 @@ Pieces = [
             " B  \n"+
             "BB  \n"+
             "BB  \n",
-
-            " C  \n"+
-            " C  \n"+
-            " C  \n"+
-            "CC  \n",
-
-            " D  \n"+
-            " D  \n"+
-            "DD  \n"+
-            " D  \n",
-
-            " E  \n"+
-            " E  \n"+
-            "EE  \n"+
-            "E   \n",
-
-            "F   \n"+
-            "FF  \n",
-
-            "  G \n"+
-            "  G \n"+
-            "GGG \n",
-
-            "  H \n"+
-            " HH \n"+
-            "HH  \n",
-
-            "I I \n"+
-            "III \n",
-
-            "J   \n"+
-            "JJ  \n"+
-            "J   \n",
-
-            " KK  \n"+
-            "KK  \n",
-
-            " L  \n"+
-            "LL  \n"+
-            " LL \n"
+            #
+            # " C  \n"+
+            # " C  \n"+
+            # " C  \n"+
+            # "CC  \n",
+            #
+            # " D  \n"+
+            # " D  \n"+
+            # "DD  \n"+
+            # " D  \n",
+            #
+            # " E  \n"+
+            # " E  \n"+
+            # "EE  \n"+
+            # "E   \n",
+            #
+            # "F   \n"+
+            # "FF  \n",
+            #
+            # "  G \n"+
+            # "  G \n"+
+            # "GGG \n",
+            #
+            # "  H \n"+
+            # " HH \n"+
+            # "HH  \n",
+            #
+            # "I I \n"+
+            # "III \n",
+            #
+            # "J   \n"+
+            # "JJ  \n"+
+            # "J   \n",
+            #
+            # " KK  \n"+
+            # "KK  \n",
+            #
+            # " L  \n"+
+            # "LL  \n"+
+            # " LL \n"
     ]
 
 def main():
@@ -94,12 +94,18 @@ def main():
     end_time = time.time()
 
     if answer:
-        print("Type of answer is", type(answer))
-        for sol in answer:
-            for ans in sol:
-                print(ans)
-            print("\n")
-
+        current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        filename = f'output_{current_date}.txt'
+        print("Type of answer is", answer)
+        # for sol in answer:
+        #     for ans in sol:
+        #         print(ans)
+        #     print("\n")
+        with open(filename, 'w') as file:
+            for solution in answer:
+                for row in solution:
+                    file.write(''.join(row) + '\n')
+                file.write('\n')
 
 # def initialize_board(board):
 #     # Example: Place piece I at (0, 0) and piece I at (0, 2)
