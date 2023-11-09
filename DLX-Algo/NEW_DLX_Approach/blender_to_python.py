@@ -8,7 +8,7 @@ pieces_data = {
             " A  ",
             "AA  ",
         ],
-        'image_path': "images/shapes/A.png",
+        'image_path': "images/shapes/A-min.png",
         'rotation': 0
     },
     'B': {
@@ -18,7 +18,7 @@ pieces_data = {
             "BB  ",
             "BB  ",
         ],
-        'image_path': "images/shapes/B.png",
+        'image_path': "images/shapes/B-min.png",
         'rotation': 0
     },
     'C': {
@@ -29,7 +29,7 @@ pieces_data = {
             " C  ",
             "CC  ",
         ],
-        'image_path': "images/shapes/C.png",
+        'image_path': "images/shapes/C-min.png",
         'rotation': 0
     },
     'D': {
@@ -40,7 +40,7 @@ pieces_data = {
             "DD  ",
             " D  ",
         ],
-        'image_path': "images/shapes/D.png",
+        'image_path': "images/shapes/D-min.png",
         'rotation': 0
     },
     'E': {
@@ -52,7 +52,7 @@ pieces_data = {
             "E   ",
         ]
         ,
-        'image_path': "images/shapes/E.png",
+        'image_path': "images/shapes/E-min.png",
         'rotation': 0
     },
     'F': {
@@ -61,7 +61,7 @@ pieces_data = {
             "F   ",
             "FF  ",
         ],
-        'image_path': "images/shapes/F.png",
+        'image_path': "images/shapes/F-min.png",
         'rotation': 0
     },
     'G': {
@@ -71,7 +71,7 @@ pieces_data = {
             "  G ",
             "GGG ",
         ],
-        'image_path': "images/shapes/G.png",
+        'image_path': "images/shapes/G-min.png",
         'rotation': 0
     },
     'H': {
@@ -81,7 +81,7 @@ pieces_data = {
             " HH ",
             "HH  ",
         ],
-        'image_path': "images/shapes/H.png",
+        'image_path': "images/shapes/H-min.png",
         'rotation': 0
     },
     'I': {
@@ -90,7 +90,7 @@ pieces_data = {
             "I I ",
             "III ",
         ],
-        'image_path': "images/shapes/I.png",
+        'image_path': "images/shapes/I-min.png",
         'rotation': 0
     },
     'J': {
@@ -100,7 +100,7 @@ pieces_data = {
             "JJ   ",
             " JJ  ",
         ],
-        'image_path': "images/shapes/J.png",
+        'image_path': "images/shapes/J-min.png",
         'rotation': 0
     },
     'K': {
@@ -109,7 +109,7 @@ pieces_data = {
             " KK ",
             "KK  ",
         ],
-        'image_path': "images/shapes/K.png",
+        'image_path': "images/shapes/K-min.png",
         'rotation': 0
     },
     'L': {
@@ -118,7 +118,7 @@ pieces_data = {
             " L  ",
             "LLL ",
         ],
-        'image_path': "images/shapes/L.png",
+        'image_path': "images/shapes/L-min.png",
         'rotation': 0
     },
 }
