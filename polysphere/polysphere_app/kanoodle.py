@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Nov  7 19:11:51 2023
+
+@author: kadam
+"""
+
 from enum import Enum
 from typing import List, Set
-
-import numpy as np
-
 from DLX import *
 
 
@@ -45,15 +49,27 @@ class Kanoodle:
     @staticmethod
     def formatGrid(solutions: List[List['SearchRow']], gridWidth: int, gridHeight: int) -> str:
         formattedSolutions = []
+
+        # Define a helper function to format a single grid as a string
+        def formatSingleGrid(grid):
+            horizontal_line = '+' + '-' * (gridWidth) + '+'
+            formatted = [horizontal_line]
+            for row in grid:
+                formatted_row = '|' + ' '.join(row) + '|'
+                formatted.append(formatted_row)
+            formatted.append(horizontal_line)
+            return '\n'.join(formatted)
+
         for sol in solutions:
-            grid = np.full((gridHeight, gridWidth), ' ')
+            grid = [['' for _ in range(gridWidth)] for _ in range(gridHeight)]
             for row in sol:
                 for r in range(row.piece.getHeight(row.rotation)):
                     for c in range(row.piece.getWidth(row.rotation)):
                         if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
-                            grid[row.row + r, row.col + c] = row.piece.symbol
-            formattedSolutions.append('\n'.join(''.join(row) for row in grid))
-        return "\n".join(formattedSolutions)
+                            grid[row.row + r][row.col + c] = row.piece.symbol
+            formattedSolutions.append(formatSingleGrid(grid))
+
+        return '\n\n'.join(formattedSolutions)
 
 
 class Rotation(Enum):
@@ -84,8 +100,6 @@ class Piece:
         tiles = self.extractTiles(src, self.dimensions)
         self.bitfield = self.buildBitfield(tiles, self.dimensions)
 
-
-
     @staticmethod
     def buildBitfield(tiles: List[Tile], dimensions: Tile) -> int:
         bits = 0
@@ -111,41 +125,42 @@ class Piece:
                 col += 1
         return tiles
 
-    def getWidth(self, rotation=None) -> int:
+    def getWidth(self, rotation=None):
         if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
             return self.dimensions.row
         return self.dimensions.col
 
-    def getHeight(self, rotation=None) -> int:
+    def getHeight(self, rotation=None):
         if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
             return self.dimensions.col
         return self.dimensions.row
 
-    def is_tile_at(self, col, row, rotation, flipped):
+    def is_tile_at(self, col, row, rotation, flipped) -> bool:
+        flipped = bool(flipped)
         local_col = col
         local_row = row
-
-        if rotation == 'ROTATION_0':
-            if flipped:
+        if rotation == Rotation.ROTATION_0:
+            if flipped is not None:
                 local_col = self.getWidth() - 1 - col
-        elif rotation == 'ROTATION_90':
+        elif rotation == Rotation.ROTATION_90:
             local_col = row
             local_row = self.getHeight() - 1 - col
-            if flipped:
+            if flipped is not None:
                 local_row = self.getHeight() - 1 - local_row
-        elif rotation == 'ROTATION_180':
-            if not flipped:
+        elif rotation == Rotation.ROTATION_180:
+            if flipped is None:
                 local_col = self.getWidth() - 1 - local_col
             local_row = self.getHeight() - 1 - local_row
-        elif rotation == 'ROTATION_270':
+        elif rotation == Rotation.ROTATION_270:
             local_col = self.getWidth() - 1 - row
             local_row = col
-            if flipped:
+            if flipped is not None:
                 local_row = self.getHeight() - 1 - local_row
 
-        if (0 <= local_col < self.getWidth() and 0 <= local_row < self.getHeight() and
-                (self.bitfield & (1 << (local_row * 8 + local_col))) != 0):
-            return True
+        if local_col >= 0 and local_row >= 0 and local_col < self.getWidth() and local_row < self.getHeight():
+            if (0 != (self.bitfield & (1 << (local_row * 8 + local_col)))):
+                return True
+
         return False
 
     def get_signature(self, rotation, flipped):
@@ -157,9 +172,7 @@ class Piece:
         return signature
 
 
-
-
-class SearchRow:
+class SearchRow(DLX.RowSupplier):
     def __init__(self, piece: Piece, rotation: Rotation, col: int, row: int, flipped: bool):
         self.piece = piece
         self.rotation = rotation
@@ -167,15 +180,11 @@ class SearchRow:
         self.row = row
         self.flipped = flipped
 
+    def is_tile_at(self, c, r):
+        return self.piece.is_tile_at(c - self.col, r - self.row, self.rotation, self.flipped)
+
     def isColumnOccupied(self, col):
-        # Implement the logic to determine if a column is occupied.
-        # This is just an example based on the `piece` attribute.
-        return self.piece.is_tile_at(col, self.row, self.rotation, self.flipped)
+        if col >= self.piece.gridWidth * self.piece.gridHeight:
+            return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
 
-
-
-
-
-
-
-
+        return self.is_tile_at(col % self.piece.gridWidth, col // self.piece.gridWidth)

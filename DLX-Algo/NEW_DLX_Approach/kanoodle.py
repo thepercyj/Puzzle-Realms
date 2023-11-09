@@ -7,9 +7,6 @@ Created on Tue Nov  7 19:11:51 2023
 
 from enum import Enum
 from typing import List, Set
-
-import numpy as np
-
 from DLX import *
 
 
@@ -104,8 +101,6 @@ class Piece:
         tiles = self.extractTiles(src, self.dimensions)
         self.bitfield = self.buildBitfield(tiles, self.dimensions)
 
-
-
     @staticmethod
     def buildBitfield(tiles: List[Tile], dimensions: Tile) -> int:
         bits = 0
@@ -147,17 +142,14 @@ class Piece:
         local_row = row
         if rotation == Rotation.ROTATION_0:
             if flipped is not None:
-
                 local_col = self.getWidth() - 1 - col
         elif rotation == Rotation.ROTATION_90:
             local_col = row
             local_row = self.getHeight() - 1 - col
             if flipped is not None:
-
                 local_row = self.getHeight() - 1 - local_row
         elif rotation == Rotation.ROTATION_180:
             if flipped is None:
-
                 local_col = self.getWidth() - 1 - local_col
             local_row = self.getHeight() - 1 - local_row
         elif rotation == Rotation.ROTATION_270:
@@ -168,7 +160,7 @@ class Piece:
 
         if local_col >= 0 and local_row >= 0 and local_col < self.getWidth() and local_row < self.getHeight():
             if (0 != (self.bitfield & (1 << (local_row * 8 + local_col)))):
-                    return True
+                return True
 
         return False
 
@@ -179,8 +171,6 @@ class Piece:
                 if self.is_tile_at(c, r, rotation, flipped):
                     signature |= 1 << (r * 8 + c)
         return signature
-
-
 
 
 class SearchRow(DLX.RowSupplier):
@@ -199,11 +189,3 @@ class SearchRow(DLX.RowSupplier):
             return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
 
         return self.is_tile_at(col % self.piece.gridWidth, col // self.piece.gridWidth)
-
-
-
-
-
-
-
-

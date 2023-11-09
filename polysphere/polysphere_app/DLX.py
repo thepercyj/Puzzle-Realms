@@ -1,7 +1,11 @@
+from abc import ABC, abstractmethod
+
+
 class DLX:
-    class RowSupplier:
-        def isColumnOccupied(self, col):
-            raise NotImplementedError("Subclasses should implement this method")
+    class RowSupplier(ABC):
+        @abstractmethod
+        def isColumnOccupied(self, col) -> bool:
+            pass
 
     @staticmethod
     def solve(row_info, num_columns):
@@ -29,10 +33,18 @@ class DLXImpl:
         def __init__(self):
             self.left = None
             self.right = None
-            self.root = DLXImpl.Cell()
+            self.root = self.Cell()
             self.root.up = self.root
             self.root.down = self.root
             self.count = 0
+
+        class Cell:
+            def __init__(self):
+                self.up = None
+                self.down = None
+                self.column = None
+                self.row = None
+                self.detached = False
 
     class Row:
         def __init__(self, info):
@@ -69,7 +81,6 @@ class DLXImpl:
         self.column_list_ = DLXImpl.Header()
         self.column_list_.right = self.column_list_
         self.column_list_.left = self.column_list_
-
         self.headers = []
         for _ in range(num_columns):
             h = DLXImpl.Header()
@@ -78,6 +89,7 @@ class DLXImpl:
             self.column_list_.left.right = h
             self.column_list_.left = h
             self.headers.append(h)
+
 
     def _search(self, columns, partial_solution, all_solutions):
         if self.isColumnListEmpty(columns):
