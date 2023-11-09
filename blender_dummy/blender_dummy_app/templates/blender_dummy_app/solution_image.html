@@ -4,9 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Solution Image</title>
+    <style>
+  svg {
+    border: 1px solid black;
+  }
+    </style>
+    <script src="{% static 'blender_dummy_app/js/shapes.js' %}"></script>
 </head>
 <body>
     <h1>Solution Image</h1>
     <img src="{% url 'solution_view' %}" alt="Solution Image">
+
+    <svg id="svgContainer" width="800" height="100"></svg>
 </body>
 </html>
