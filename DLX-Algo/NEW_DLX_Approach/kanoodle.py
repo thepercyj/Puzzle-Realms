@@ -22,6 +22,7 @@ class Kanoodle:
         solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
         if solutions:
             return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
+
         return "No solution found"
 
     @staticmethod
@@ -52,15 +53,27 @@ class Kanoodle:
     @staticmethod
     def formatGrid(solutions: List[List['SearchRow']], gridWidth: int, gridHeight: int) -> str:
         formattedSolutions = []
+
+        # Define a helper function to format a single grid as a string
+        def formatSingleGrid(grid):
+            horizontal_line = '+' + '-' * (gridWidth) + '+'
+            formatted = [horizontal_line]
+            for row in grid:
+                formatted_row = '|' + ' '.join(row) + '|'
+                formatted.append(formatted_row)
+            formatted.append(horizontal_line)
+            return '\n'.join(formatted)
+
         for sol in solutions:
-            grid = np.full((gridHeight, gridWidth), ' ')
+            grid = [['' for _ in range(gridWidth)] for _ in range(gridHeight)]
             for row in sol:
                 for r in range(row.piece.getHeight(row.rotation)):
                     for c in range(row.piece.getWidth(row.rotation)):
                         if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
-                            grid[row.row + r, row.col + c] = row.piece.symbol
-            formattedSolutions.append('\n'.join(''.join(row) for row in grid))
-        return "\n".join(formattedSolutions)
+                            grid[row.row + r][row.col + c] = row.piece.symbol
+            formattedSolutions.append(formatSingleGrid(grid))
+
+        return '\n\n'.join(formattedSolutions)
 
 
 class Rotation(Enum):
@@ -119,13 +132,13 @@ class Piece:
         return tiles
 
     def getWidth(self, rotation=None):
-        # if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
-        #     return self.dimensions.row
+        if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
+            return self.dimensions.row
         return self.dimensions.col
 
     def getHeight(self, rotation=None):
-        # if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
-        #     return self.dimensions.col
+        if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
+            return self.dimensions.col
         return self.dimensions.row
 
     def is_tile_at(self, col, row, rotation, flipped) -> bool:
