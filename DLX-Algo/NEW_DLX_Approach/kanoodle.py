@@ -22,6 +22,7 @@ class Kanoodle:
         solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
         if solutions:
             return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
+
         return "No solution found"
 
     @staticmethod

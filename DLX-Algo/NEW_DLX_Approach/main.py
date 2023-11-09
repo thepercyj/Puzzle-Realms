@@ -95,7 +95,7 @@ def main():
     end_time = time.time()
 
     if answer:
-        print("Found answer:\n", len(answer), "\n in", end_time - start_time, "ms" )
+        print("Found answer:\n", answer, "\n in", end_time - start_time, "ms" )
 
 # def initialize_board(board):
 #     # Example: Place piece I at (0, 0) and piece I at (0, 2)
