@@ -6,7 +6,6 @@ Created on Tue Nov  7 19:12:32 2023
 """
 
 import time
-import kanoodle
 from kanoodle import *
 
 # Define grid dimensions
