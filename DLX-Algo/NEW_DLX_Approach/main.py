@@ -10,8 +10,8 @@ from datetime import datetime
 from kanoodle import *
 
 # Define grid dimensions
-GridWidth = 3
-GridHeight = 3
+GridWidth = 11
+GridHeight = 5
 
 # Define the pieces
 Pieces = [
