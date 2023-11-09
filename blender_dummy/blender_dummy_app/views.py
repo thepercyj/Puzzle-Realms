@@ -7,6 +7,7 @@ from .kanoodle import Kanoodle
 from io import BytesIO
 from PIL import Image
 from django.http import FileResponse
+from .puzzle_pieces import pieces_data
 
 
 @require_http_methods(["POST"])
@@ -59,15 +60,15 @@ def get_kanoodle_solution(request, problem_id):
 
 
 def get_pieces_data():
-    pieces_data = {}
+    puzzle_pieces_data = pieces_data
     for piece in PuzzlePiece.objects.all():
-        pieces_data[piece.shape] = {
+        puzzle_pieces_data[piece.shape] = {
             'shape': piece.shape,
             'grid': piece.get_grid(),
             'image_path': piece.image_path,
             'rotation': piece.rotation
         }
-    return pieces_data
+    return puzzle_pieces_data
 
 def generate_solution_image(solution_matrix, pieces_data, block_size=50):
     solution_width = len(solution_matrix[0]) * block_size
