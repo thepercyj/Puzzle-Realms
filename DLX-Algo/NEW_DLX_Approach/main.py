@@ -11,7 +11,7 @@ from kanoodle import *
 
 # Define grid dimensions
 GridWidth = 3
-GridHeight = 3
+GridHeight = 4
 
 # Define the pieces
 Pieces = [
@@ -19,9 +19,9 @@ Pieces = [
             " A  \n"+
             "AA  \n",
 
-            " B  \n"+
-            "BB  \n"+
-            "BB  \n",
+            # " B  \n"+
+            # "BB  \n"+
+            # "BB  \n",
             #
             # " C  \n"+
             # " C  \n"+
@@ -37,14 +37,14 @@ Pieces = [
             # " E  \n"+
             # "EE  \n"+
             # "E   \n",
-            #
-            # "F   \n"+
-            # "FF  \n",
-            #
-            # "  G \n"+
-            # "  G \n"+
-            # "GGG \n",
-            #
+
+            "F   \n"+
+            "FF  \n",
+
+            "  G \n"+
+            "  G \n"+
+            "GGG \n",
+
             # "  H \n"+
             # " HH \n"+
             # "HH  \n",
@@ -96,16 +96,16 @@ def main():
     if answer:
         current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         filename = f'output_{current_date}.txt'
-        print("Type of answer is", answer)
-        # for sol in answer:
-        #     for ans in sol:
-        #         print(ans)
-        #     print("\n")
-        with open(filename, 'w') as file:
-            for solution in answer:
-                for row in solution:
-                    file.write(''.join(row) + '\n')
-                file.write('\n')
+        print("The number of answers are", len(answer), "in", (start_time - end_time), "ms")
+        for sol in answer:
+            for ans in sol:
+                print(ans)
+            print("\n")
+        # with open(filename, 'w') as file:
+        #     for solution in answer:
+        #         for row in solution:
+        #             file.write(''.join(row) + '\n')
+        #         file.write('\n')
 
 # def initialize_board(board):
 #     # Example: Place piece I at (0, 0) and piece I at (0, 2)
