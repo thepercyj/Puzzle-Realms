@@ -16,6 +16,9 @@ from .puzzle_pieces import PuzzlePieces
 grid_width = 11
 grid_height = 5
 
+# Set global start_time
+start_time = time.time()
+end_time = 0
 
 @require_http_methods(["POST"])
 def submit_kanoodle_problem(request):
@@ -102,6 +105,7 @@ def generate_solution_image(solution_matrix, pieces_data, block_size=50):
 
 # Django view that returns an image response
 def get_list_of_solution_matrices():
+
     kanoodle_solver = Kanoodle()
 
     # Directly use the pieces_data to get the list of grids
@@ -112,6 +116,8 @@ def get_list_of_solution_matrices():
 
     # Call the findAllSolutions method with the list of grids and the puzzle dimensions
     solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
+    global end_time
+    end_time = time.time()
     solutions = solutions.split("\n\n")
     return solutions
 
@@ -119,6 +125,8 @@ def get_list_of_solution_matrices():
 def generate_solution_gallery(request):
     solutions = get_list_of_solution_matrices()
     solutions = [solution.split("\n") for solution in solutions]
+    time_taken = end_time - start_time
+    print(f"{len(solutions)} solutions found in {time_taken}")
     pieces_data = get_pieces_data()
 
     # Create a temporary directory within MEDIA_ROOT
