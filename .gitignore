@@ -168,3 +168,4 @@ cython_debug/
 *.iml
 /DLX-Algo/.idea/
 /DLX-Algo/NEW_DLX_Approach/.idea/
+/blender_dummy/media/
