@@ -4,8 +4,8 @@ def search_partial_config(partial_config, solutions):
             for j in range(len(solution[0]) - len(partial_config[0]) + 1):
                 match = True
                 for pi, row in enumerate(partial_config):
-                    for pj, char in enumerate(row):
-                        if char != ' ' and char != solution[i + pi][j + pj]:
+                    for pj, piece in enumerate(row):
+                        if piece != ' ' and piece != solution[i + pi][j + pj]:
                             match = False
                             break
                     if not match:
@@ -13,13 +13,16 @@ def search_partial_config(partial_config, solutions):
                 if match:
                     print(f"Partial configuration found in solution {idx} at position ({i + 1}, {j + 1})")
 
+
+
+
 # Given partial configuration and solutions
 partial_configuration = [
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'J'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'J', 'J'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'J'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    ['A', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'J'],
+    ['A', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'J', 'J'],
+    ['A', 'A', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'J'],
+    ['B', 'B', 'B', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['B', 'B', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 ]
 
 solutions = [
