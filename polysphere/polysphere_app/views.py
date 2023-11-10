@@ -12,8 +12,8 @@ from .kanoodle import Kanoodle
 from .models import *
 from .puzzle_pieces import PuzzlePieces
 
-grid_width = 11
-grid_height = 5
+grid_width = 3
+grid_height = 3
 
 
 @require_http_methods(["POST"])
