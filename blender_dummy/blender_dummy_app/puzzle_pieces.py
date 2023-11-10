@@ -35,7 +35,7 @@ class PuzzlePieces:
                 " C  ",
                 "CC  ",
             ],
-            'image_path': "images/shapes/C-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/C-min.png",
             'rotation': 0
         },
         'D': {
@@ -46,7 +46,7 @@ class PuzzlePieces:
                 "DD  ",
                 " D  ",
             ],
-            'image_path': "images/shapes/D-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/D-min.png",
             'rotation': 0
         },
         'E': {
@@ -58,7 +58,7 @@ class PuzzlePieces:
                 "E   ",
             ]
             ,
-            'image_path': "images/shapes/E-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/E-min.png",
             'rotation': 0
         },
         'F': {
@@ -67,7 +67,7 @@ class PuzzlePieces:
                 "F   ",
                 "FF  ",
             ],
-            'image_path': "images/shapes/F-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/F-min.png",
             'rotation': 0
         },
         'G': {
@@ -77,7 +77,7 @@ class PuzzlePieces:
                 "  G ",
                 "GGG ",
             ],
-            'image_path': "images/shapes/G-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/G-min.png",
             'rotation': 0
         },
         'H': {
@@ -87,7 +87,7 @@ class PuzzlePieces:
                 " HH ",
                 "HH  ",
             ],
-            'image_path': "images/shapes/H-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/H-min.png",
             'rotation': 0
         },
         'I': {
@@ -96,7 +96,7 @@ class PuzzlePieces:
                 "I I ",
                 "III ",
             ],
-            'image_path': "images/shapes/I-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/I-min.png",
             'rotation': 0
         },
         'J': {
@@ -106,7 +106,7 @@ class PuzzlePieces:
                 "JJ   ",
                 " JJ  ",
             ],
-            'image_path': "images/shapes/J-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/J-min.png",
             'rotation': 0
         },
         'K': {
@@ -115,7 +115,7 @@ class PuzzlePieces:
                 " KK ",
                 "KK  ",
             ],
-            'image_path': "images/shapes/K-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/K-min.png",
             'rotation': 0
         },
         'L': {
@@ -124,7 +124,7 @@ class PuzzlePieces:
                 " L  ",
                 "LLL ",
             ],
-            'image_path': "images/shapes/L-min.png",
+            'image_path': "blender_dummy_app/static/blender_dummy_app/images/L-min.png",
             'rotation': 0
         },
     }
