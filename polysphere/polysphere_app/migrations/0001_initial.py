@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('solution_data', models.TextField(help_text='Formatted string of the solution')),
-                ('problem', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='solutions', to='blender_dummy_app.kanoodleproblem')),
+                ('problem', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='solutions', to='polysphere_app.kanoodleproblem')),
             ],
         ),
     ]

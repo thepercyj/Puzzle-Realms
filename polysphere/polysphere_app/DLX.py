@@ -14,6 +14,7 @@ class DLX:
 
     @staticmethod
     def solveAll(row_info, num_columns):
+        # print(f"Debug: row_info: {row_info}, num_columns: {num_columns}")
         solutions = []
         dlx = DLXImpl(row_info, num_columns)
         dlx.search(solutions)
