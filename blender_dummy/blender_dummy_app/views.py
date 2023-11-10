@@ -1,25 +1,19 @@
+import os
 import shutil
-
-from django.conf import settings
-import tempfile
-import zipfile
-
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
-from django.views.decorators.http import require_http_methods
-from .models import *
-import json
 import time
-from .kanoodle import Kanoodle
 from io import BytesIO
 from PIL import Image
-from django.http import FileResponse
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
+from .kanoodle import Kanoodle
+from .models import *
 from .puzzle_pieces import PuzzlePieces
-import os
 
-grid_width = 3
-grid_height = 3
+grid_width = 11
+grid_height = 5
 
 
 @require_http_methods(["POST"])
@@ -69,8 +63,6 @@ def get_kanoodle_solution(request, problem_id):
         return JsonResponse({'error': 'Problem not found.'}, status=404)
 
 
-
-
 def get_pieces_data():
     puzzle_pieces_data = PuzzlePieces.pieces_data.copy()
     for piece in PuzzlePiece.objects.all():
@@ -83,19 +75,22 @@ def get_pieces_data():
 
     return puzzle_pieces_data
 
+
 def generate_solution_image(solution_matrix, pieces_data, block_size=50):
+    print(solution_matrix)
     solution_width = len(solution_matrix[0]) * block_size
     solution_height = len(solution_matrix) * block_size
     solution_image = Image.new('RGB', (solution_width, solution_height),
-                               (255, 255, 255))  # Create a transparent solution image
+                               (128, 128, 128))  # Create grey background image
 
-    # for row_idx, row in enumerate(solution_matrix):
-    #     for col_idx, piece_symbol in enumerate(row):
-    #         if piece_symbol in pieces_data:  # Make sure the piece symbol exists in the data
-    #             print(piece_symbol)
-    #             piece_symbol = pieces_data[piece_symbol]
-    #             display_piece(piece_symbol, row_idx, col_idx, block_size, solution_image)
-
+    for row_idx, row in enumerate(solution_matrix):
+        for col_idx, piece_symbol in enumerate(row):
+            if piece_symbol in pieces_data:  # Make sure the piece symbol exists in the data
+                piece_symbol = pieces_data[piece_symbol]
+                # Ensure the position is calculated correctly: (x, y) format
+                position = (col_idx * block_size, row_idx * block_size)
+                # print(f"Placeing {piece_symbol} at {position}, Image Size: {solution_image.size}")
+                display_piece(piece_symbol, position, block_size, solution_image)
 
     # Instead of showing the image, save it to an in-memory file
     image_io = BytesIO()
@@ -115,17 +110,15 @@ def get_list_of_solution_matrices():
     for grid in list_of_grids:
         grid_strings.append("\n".join(grid))
 
-
-
     # Call the findAllSolutions method with the list of grids and the puzzle dimensions
     solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
+    solutions = solutions.split("\n\n")
     return solutions
 
 
-
 def generate_solution_gallery(request):
-
     solutions = get_list_of_solution_matrices()
+    solutions = [solution.split("\n") for solution in solutions]
     pieces_data = get_pieces_data()
 
     # Create a temporary directory within MEDIA_ROOT
@@ -166,41 +159,10 @@ def clear_solutions(directory):
                 print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-def solution_view(request):
-    # Retrieve the list of solution matrices
-    solutions = get_list_of_solution_matrices()  # You need to define this function
-
-    # Create a BytesIO object to write the zip file in memory
-    in_memory_zip = BytesIO()
-
-    # Create a zip file object using the in-memory BytesIO object
-    with zipfile.ZipFile(in_memory_zip, 'w') as zf:
-        for idx, solution_matrix in enumerate(solutions):
-            pieces_data = get_pieces_data()
-            image_io = generate_solution_image(solution_matrix, pieces_data)
-            image_io.seek(0)
-            # Write the image to the zip file, naming each file using the index of the solution
-            zf.writestr(f'solution_{idx}.png', image_io.read())
-
-    # Reset file pointer
-    in_memory_zip.seek(0)
-
-    # Set up the HTTP response with the correct content-type
-    response = HttpResponse(in_memory_zip, content_type='application/zip')
-    response['Content-Disposition'] = 'attachment; filename="solutions.zip"'
-
-    return response
-
-# puzzle_piece_index = 1
-
-def display_piece(piece_data, row, col, block_size, solution_image):
-    # global puzzle_piece_index
-
+def display_piece(piece_data, position, block_size, solution_image):
     image_path = piece_data['image_path']
     # Open the image file corresponding to the piece
     with Image.open(image_path) as piece_image:
-        # piece_image.save(f'blender_dummy_app/puzzle_piece_test/puzzle_piece_{puzzle_piece_index}.png')
-
         # Apply rotations to images
         if piece_data['rotation'] != 0:
             piece_image = piece_image.rotate(piece_data['rotation'], expand=True)
@@ -208,10 +170,8 @@ def display_piece(piece_data, row, col, block_size, solution_image):
         # Resize the image if necessary
         piece_image = piece_image.resize((block_size, block_size))
 
-        # Calculate the position to paste the piece image, accounting for the block size
-        position = (col * block_size, row * block_size)
-
-        # Paste the piece image onto the solution image at the calculated position
-        solution_image.paste(piece_image, position, piece_image)  # Use mask=piece_image to handle transparency
-
-    # puzzle_piece_index += 1
+        # Check if the piece fits within the solution image
+        if position[0] + piece_image.width <= solution_image.width and position[
+            1] + piece_image.height <= solution_image.height:
+            # Paste the piece image onto the solution image at the calculated position
+            solution_image.paste(piece_image, position, piece_image)

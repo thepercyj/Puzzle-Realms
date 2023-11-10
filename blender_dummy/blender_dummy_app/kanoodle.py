@@ -17,8 +17,6 @@ class Kanoodle:
         pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
 
         rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
-        # print(f"Debug: {rows}")
-        # DLX.solveAll is assumed to be a method from an external library that has not been provided.
         solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
         if solutions:
             return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
@@ -56,23 +54,20 @@ class Kanoodle:
 
         # Define a helper function to format a single grid as a string
         def formatSingleGrid(grid):
-            horizontal_line = '+' + '-' * (gridWidth) + '+'
-            formatted = [horizontal_line]
+            formatted = []
             for row in grid:
-                formatted_row = '|' + ' '.join(row) + '|'
+                formatted_row = ''.join(row)
                 formatted.append(formatted_row)
-            formatted.append(horizontal_line)
             return '\n'.join(formatted)
 
         for sol in solutions:
-            grid = [['' for _ in range(gridWidth)] for _ in range(gridHeight)]
+            grid = [[' ' for _ in range(gridWidth)] for _ in range(gridHeight)]
             for row in sol:
                 for r in range(row.piece.getHeight(row.rotation)):
                     for c in range(row.piece.getWidth(row.rotation)):
                         if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
                             grid[row.row + r][row.col + c] = row.piece.symbol
             formattedSolutions.append(formatSingleGrid(grid))
-
         return '\n\n'.join(formattedSolutions)
 
 
