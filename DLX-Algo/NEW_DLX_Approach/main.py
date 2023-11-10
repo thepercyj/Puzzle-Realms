@@ -98,6 +98,7 @@ def main():
         filename = f'output_{current_date}.txt'
         print("The number of answers are", len(answer), "in", (start_time - end_time), "ms")
         for sol in answer:
+            #sol = reversed(sol) #Reversing each solution over the X axis
             for ans in sol:
                 print(ans)
             print("\n")

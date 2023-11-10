@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('polysphere_app.urls')),
     path('admin/', admin.site.urls),
+    path('baton/', include('baton.urls')),
 
 ]
 
