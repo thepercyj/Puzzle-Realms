@@ -77,7 +77,6 @@ def get_pieces_data():
 
 
 def generate_solution_image(solution_matrix, pieces_data, block_size=50):
-    print(solution_matrix)
     solution_width = len(solution_matrix[0]) * block_size
     solution_height = len(solution_matrix) * block_size
     solution_image = Image.new('RGB', (solution_width, solution_height),
@@ -94,7 +93,7 @@ def generate_solution_image(solution_matrix, pieces_data, block_size=50):
 
     # Instead of showing the image, save it to an in-memory file
     image_io = BytesIO()
-    solution_image.save(image_io, 'PNG')
+    solution_image.save(image_io, 'WebP')
     image_io.seek(0)
 
     return image_io
@@ -138,7 +137,7 @@ def generate_solution_gallery(request):
     # Loop through each solution, generating an image for it and adding the path to the file
     for idx, solution_matrix in enumerate(solutions):
         image_io = generate_solution_image(solution_matrix, pieces_data)
-        filename = f'solution_{idx}.png'
+        filename = f'solution_{idx}.webp'
         image_path = fs.save(filename, image_io)
         image_paths.append(fs.url(image_path))
 
