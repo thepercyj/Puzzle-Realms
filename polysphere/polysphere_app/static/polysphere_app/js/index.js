@@ -1,3 +1,7 @@
+let rotationAngle = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+let scaleXY = [[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]]
+
+
 window.onload = function() {
     // Step 1: Display all pieces
 
@@ -50,19 +54,76 @@ window.onload = function() {
         center.id = "piece-" + i;
 
         // Add corner images to the container
-        images.forEach(imageInfo => {
+        images.forEach((imageInfo) => {
             const image = document.createElement('img');
             image.className = imageInfo.class;
             image.src = imageInfo.src;
-            image.alt = imageInfo.alt;
+            image.addEventListener('click', function() {
+                switch(imageInfo.alt){
+                    case "Bottom Left":
+                        rotateAntiClock(i)
+                        break;
+                    case "Top Left":
+                        mirrorLR(i)
+                        break;
+                    case "Bottom Right":
+                        rotateClock(i)
+                        break;
+                    case "Top Right":
+                        mirrorUD(i)
+                        break;
+                    default:
+
+                        break;
+                }
+            });
+            image.setAttribute('center-id', i);
+
             image.draggable = false;
             container.appendChild(image);
-
         });
+
 
         container.appendChild(center);
 
         // Add the container to the current row
         row.appendChild(container);
+    }
+
+}
+
+function rotateClock(id) {
+    rotationAngle[id - 1] = (rotationAngle[id - 1] + 90) % 360;
+    setPiece(id);
+}
+
+function rotateAntiClock(id) {
+    rotationAngle[id - 1] = (rotationAngle[id - 1] + 270) % 360;
+    setPiece(id);
+}
+
+function mirrorLR(id) {
+    scaleXY[id - 1][0] *= -1; // Multiply by -1 to toggle between 1 and -1
+    setPiece(id);
+}
+
+function mirrorUD(id) {
+    scaleXY[id - 1][1] *= -1; // Multiply by -1 to toggle between 1 and -1
+    setPiece(id);
+}
+
+function setPiece(id) {
+    piece = document.getElementById("piece-" + id);
+    angles = rotationAngle[id - 1];
+    scaleX = scaleXY[id - 1][0];
+    scaleY = scaleXY[id - 1][1];
+    if(angles % 180 == 0){
+        piece.style.transform = "translate(-50%, -50%) rotate(" + angles + "deg)" +
+                                "scaleX(" + scaleX + ") " +
+                                "scaleY(" + scaleY + ") ";
+    }else{
+        piece.style.transform = "translate(-50%, -50%) rotate(" + angles + "deg)" +
+                                "scaleX(" + scaleY + ") " +
+                                "scaleY(" + scaleX + ") ";
     }
 }
