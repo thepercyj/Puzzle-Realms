@@ -1,0 +1,51 @@
+.container-wrapper {
+  display: flex; /* 使用弹性布局 */
+  align-items: center; /* 垂直居中容器内的内容 */
+  width: 100%; /* 使容器占据整个可用宽度 */
+  overflow-x: auto; /* 允许水平滚动，以适应容器数量超过屏幕宽度时的情况 */
+  white-space: nowrap; /* 防止容器内的内容换行 */
+}
+
+.container {
+  width: 144px; /* 设置容器宽度为图像总宽度 */
+  height: 144px; /* 设置容器高度为图像总高度 */
+  position: relative; /* 设置容器为相对定位，以便在其中放置图像 */
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.corner-image {
+  position: absolute; /* 设置角图像为绝对定位，相对于容器定位 */
+  width: 20px;
+  height: 20px;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.center-image {
+  position: absolute;
+  width: 144px;
+  height: 81px;
+  top: 50%; /* 将中心图像的顶部边缘放在容器中垂直居中位置 */
+  left: 50%; /* 将中心图像的左边缘放在容器中水平居中位置 */
+  transform: translate(-50%, -50%); /* 使用transform将中心图像的中心与容器的中心对齐 */
+}
+
