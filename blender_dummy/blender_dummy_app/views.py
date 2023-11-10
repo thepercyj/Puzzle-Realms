@@ -1,3 +1,5 @@
+import shutil
+
 from django.conf import settings
 import tempfile
 import zipfile
@@ -122,40 +124,46 @@ def get_list_of_solution_matrices():
 
 
 def generate_solution_gallery(request):
-    solutions = get_list_of_solution_matrices()  # Your function to get solutions
-    pieces_data = get_pieces_data()  # Your function to get pieces data
 
-    base_dir = os.path.dirname(__file__)  # This gets the directory where the current file is located
+    solutions = get_list_of_solution_matrices()
+    pieces_data = get_pieces_data()
 
-    # Create a temporary directory within the base_dir
-    temp_dir = os.path.join(base_dir, "test")
+    # Create a temporary directory within MEDIA_ROOT
+    media_dir = os.path.join(settings.MEDIA_ROOT)
+    if not os.path.exists(media_dir):
+        os.makedirs(media_dir)
+
     # Temporary storage for images
-    fs = FileSystemStorage(location=temp_dir)
+    fs = FileSystemStorage(location=media_dir)
+
+    # Clears the media folder of existing files before generating the new ones
+    clear_solutions(media_dir)
 
     # List to hold the paths of the generated images
     image_paths = []
 
-
-
+    # Loop through each solution, generating an image for it and adding the path to the file
     for idx, solution_matrix in enumerate(solutions):
-        solution_matrix = [
-            ['A', 'A', 'A'],
-            ['B', 'B', 'A'],
-            ['B', 'B', 'B']
-
-
-        ]
-
-        try:
-            image_io = generate_solution_image(solution_matrix, pieces_data)
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        image_io = generate_solution_image(solution_matrix, pieces_data)
         filename = f'solution_{idx}.png'
         image_path = fs.save(filename, image_io)
         image_paths.append(fs.url(image_path))
 
     # Pass the image paths to the template
     return render(request, 'blender_dummy_app/solutions.html', {'image_paths': image_paths})
+
+
+def clear_solutions(directory):
+    for filename in os.listdir(directory):
+        if filename.startswith("solution"):
+            file_path = os.path.join(directory, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 def solution_view(request):

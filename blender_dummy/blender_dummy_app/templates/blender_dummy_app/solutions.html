@@ -9,7 +9,7 @@
     <h1>Solution Gallery</h1>
     <div id="gallery">
         {% for image_path in image_paths %}
-            <img src="{{ image_path }}" alt="Solution Image">
+            <img src="{{ image_path }}" alt="{{image_path}}">
         {% endfor %}
     </div>
 </body>
