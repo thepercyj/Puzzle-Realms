@@ -166,3 +166,5 @@ cython_debug/
 >>>>>>> Stashed changes
 .idea/workspace.xml
 *.iml
+/DLX-Algo/.idea/
+/DLX-Algo/NEW_DLX_Approach/.idea/
