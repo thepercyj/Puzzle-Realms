@@ -8,13 +8,16 @@ Created on Tue Nov  7 19:11:51 2023
 from enum import Enum
 from typing import List, Set
 from .DLX import *
+import re
 
 
 class Kanoodle:
     @staticmethod
     def findAllSolutions(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -> str:
         pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
+
         rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
+        # print(f"Debug: {rows}")
         # DLX.solveAll is assumed to be a method from an external library that has not been provided.
         solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
         if solutions:

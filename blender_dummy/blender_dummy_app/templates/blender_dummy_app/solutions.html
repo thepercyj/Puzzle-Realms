@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solution Gallery</title>
+</head>
+<body>
+    <h1>Solution Gallery</h1>
+    <div id="gallery">
+        {% for image_path in image_paths %}
+            <img src="{{ image_path }}" alt="Solution Image">
+        {% endfor %}
+    </div>
+</body>
+</html>
