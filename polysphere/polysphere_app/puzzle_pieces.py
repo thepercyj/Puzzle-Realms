@@ -14,7 +14,7 @@ class PuzzlePieces:
                 " A  ",
                 "AA  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/A-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/A-min.webp",
             'rotation': 0
         },
         'B': {
@@ -24,7 +24,7 @@ class PuzzlePieces:
                 "BB  ",
                 "BB  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/B-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/B-min.webp",
             'rotation': 0
         },
         'C': {
@@ -35,7 +35,7 @@ class PuzzlePieces:
                 " C  ",
                 "CC  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/C-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/C-min.webp",
             'rotation': 0
         },
         'D': {
@@ -46,7 +46,7 @@ class PuzzlePieces:
                 "DD  ",
                 " D  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/D-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/D-min.webp",
             'rotation': 0
         },
         'E': {
@@ -58,7 +58,7 @@ class PuzzlePieces:
                 "E   ",
             ]
             ,
-            'image_path': "polysphere_app/static/polysphere_app/images/E-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/E-min.webp",
             'rotation': 0
         },
         'F': {
@@ -67,7 +67,7 @@ class PuzzlePieces:
                 "F   ",
                 "FF  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/F-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/F-min.webp",
             'rotation': 0
         },
         'G': {
@@ -77,7 +77,7 @@ class PuzzlePieces:
                 "  G ",
                 "GGG ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/G-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/G-min.webp",
             'rotation': 0
         },
         'H': {
@@ -87,7 +87,7 @@ class PuzzlePieces:
                 " HH ",
                 "HH  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/H-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/H-min.webp",
             'rotation': 0
         },
         'I': {
@@ -96,7 +96,7 @@ class PuzzlePieces:
                 "I I ",
                 "III ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/I-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/I-min.webp",
             'rotation': 0
         },
         'J': {
@@ -106,7 +106,7 @@ class PuzzlePieces:
                 "JJ   ",
                 " JJ  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/J-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/J-min.webp",
             'rotation': 0
         },
         'K': {
@@ -115,7 +115,7 @@ class PuzzlePieces:
                 " KK ",
                 "KK  ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/K-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/K-min.webp",
             'rotation': 0
         },
         'L': {
@@ -124,7 +124,7 @@ class PuzzlePieces:
                 " L  ",
                 "LLL ",
             ],
-            'image_path': "polysphere_app/static/polysphere_app/images/L-min.png",
+            'image_path': "polysphere_app/static/polysphere_app/images/L-min.webp",
             'rotation': 0
         },
     }
