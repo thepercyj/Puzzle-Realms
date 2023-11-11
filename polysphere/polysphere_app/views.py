@@ -138,7 +138,7 @@ def generate_solution_gallery(request):
     fs = FileSystemStorage(location=media_dir)
 
     # Clears the media folder of existing files before generating the new ones
-    clear_solutions(media_dir)
+    # clear_solutions(media_dir)
 
     # List to hold the paths of the generated images
     image_paths = []
