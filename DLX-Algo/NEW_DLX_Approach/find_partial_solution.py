@@ -31,7 +31,7 @@ partial_solution = [
 
 
 # Read solutions from the text file
-with open('C:/Users/kadam/Desktop/Folder-1/University/Advanced Computer Science/ASE-Group-6/DLX-Algo/NEW_DLX_Approach/output_2023-11-09_19-48-56.txt', 'r') as file:
+with open('C:/Users/kadam/Desktop/Folder-1/University/Advanced Computer Science/ASE-Group-6/DLX-Algo/NEW_DLX_Approach/final.txt', 'r') as file:
     solutions_text = file.read()
 # Split the text into individual solutions
 raw_solutions = solutions_text.strip().split('\n\n')
@@ -55,4 +55,4 @@ for solution in formatted_solutions:
 
 # Print or process the matching solutions
 for match in matching_solutions:
-    print("Match found:\n",match)
+    print("Match found:\n",match,"\n")
