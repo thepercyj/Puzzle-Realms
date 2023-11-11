@@ -6,7 +6,8 @@ Created on Tue Nov  7 19:12:32 2023
 """
 
 import time
-from .kanoodle import *
+from datetime import datetime
+from kanoodle import *
 
 # Define grid dimensions
 GridWidth = 11
@@ -52,16 +53,15 @@ Pieces = [
             "III \n",
 
             "J   \n"+
-            "J   \n"+
-            "J   \n"+
+            "JJ  \n"+
             "J   \n",
 
-            "KK  \n"+
+            " KK  \n"+
             "KK  \n",
 
             " L  \n"+
-            "LLL \n"+
-            " L  \n"
+            "LL  \n"+
+            " LL \n"
     ]
 
 def main():
@@ -94,7 +94,17 @@ def main():
     end_time = time.time()
 
     if answer:
-        print("Found answer:\n", answer, "\n in", end_time - start_time, "ms" )
+        current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        filename = f'output_{current_date}.txt'
+
+        with open(filename, 'w') as file:
+            for index, solution in enumerate(answer):
+                print("Processing solution No.", index)
+                sol = reversed(solution)  # Reversing each solution over the X axis
+                for row in sol:
+                    file.write(''.join(row) + '\n')
+                    print(row)
+                file.write('\n')
 
 # def initialize_board(board):
 #     # Example: Place piece I at (0, 0) and piece I at (0, 2)

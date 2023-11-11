@@ -94,6 +94,7 @@ class DLXImpl:
 
     def _search(self, columns, partial_solution, all_solutions):
         if self.isColumnListEmpty(columns):
+
             return partial_solution
 
         column = self.selectColumn(columns)

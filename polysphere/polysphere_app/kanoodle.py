@@ -49,7 +49,8 @@ class Kanoodle:
         return rows
 
     @staticmethod
-    def formatGrid(solutions: List[List['SearchRow']], gridWidth: int, gridHeight: int) -> str:
+    # Your existing function
+    def formatGrid(solutions: List[List['SearchRow']], gridWidth: int, gridHeight: int) -> List[List[List[str]]]:
         formattedSolutions = []
 
         # Define a helper function to format a single grid as a string
