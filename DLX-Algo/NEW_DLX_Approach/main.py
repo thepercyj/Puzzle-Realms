@@ -10,8 +10,8 @@ from datetime import datetime
 from kanoodle import *
 
 # Define grid dimensions
-GridWidth = 3
-GridHeight = 4
+GridWidth = 11
+GridHeight = 5
 
 # Define the pieces
 Pieces = [
@@ -19,24 +19,24 @@ Pieces = [
             " A  \n"+
             "AA  \n",
 
-            # " B  \n"+
-            # "BB  \n"+
-            # "BB  \n",
-            #
-            # " C  \n"+
-            # " C  \n"+
-            # " C  \n"+
-            # "CC  \n",
-            #
-            # " D  \n"+
-            # " D  \n"+
-            # "DD  \n"+
-            # " D  \n",
-            #
-            # " E  \n"+
-            # " E  \n"+
-            # "EE  \n"+
-            # "E   \n",
+            " B  \n"+
+            "BB  \n"+
+            "BB  \n",
+
+            " C  \n"+
+            " C  \n"+
+            " C  \n"+
+            "CC  \n",
+
+            " D  \n"+
+            " D  \n"+
+            "DD  \n"+
+            " D  \n",
+
+            " E  \n"+
+            " E  \n"+
+            "EE  \n"+
+            "E   \n",
 
             "F   \n"+
             "FF  \n",
@@ -45,23 +45,23 @@ Pieces = [
             "  G \n"+
             "GGG \n",
 
-            # "  H \n"+
-            # " HH \n"+
-            # "HH  \n",
-            #
-            # "I I \n"+
-            # "III \n",
-            #
-            # "J   \n"+
-            # "JJ  \n"+
-            # "J   \n",
-            #
-            # " KK  \n"+
-            # "KK  \n",
-            #
-            # " L  \n"+
-            # "LL  \n"+
-            # " LL \n"
+            "  H \n"+
+            " HH \n"+
+            "HH  \n",
+
+            "I I \n"+
+            "III \n",
+
+            "J   \n"+
+            "JJ  \n"+
+            "J   \n",
+
+            " KK  \n"+
+            "KK  \n",
+
+            " L  \n"+
+            "LL  \n"+
+            " LL \n"
     ]
 
 def main():
@@ -96,17 +96,15 @@ def main():
     if answer:
         current_date = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         filename = f'output_{current_date}.txt'
-        print("The number of answers are", len(answer), "in", (start_time - end_time), "ms")
-        for sol in answer:
-            #sol = reversed(sol) #Reversing each solution over the X axis
-            for ans in sol:
-                print(ans)
-            print("\n")
-        # with open(filename, 'w') as file:
-        #     for solution in answer:
-        #         for row in solution:
-        #             file.write(''.join(row) + '\n')
-        #         file.write('\n')
+
+        with open(filename, 'w') as file:
+            for index, solution in enumerate(answer):
+                print("Processing solution No.", index)
+                sol = reversed(solution)  # Reversing each solution over the X axis
+                for row in sol:
+                    file.write(''.join(row) + '\n')
+                    print(row)
+                file.write('\n')
 
 # def initialize_board(board):
 #     # Example: Place piece I at (0, 0) and piece I at (0, 2)
