@@ -106,7 +106,7 @@ def generate_solution_image(solution_matrix, pieces_data, block_size=50):
 # Django view that returns an image response
 def get_list_of_solution_matrices():
 
-    # kanoodle_solver = Kanoodle()
+    kanoodle_solver = Kanoodle()
 
     # Directly use the pieces_data to get the list of grids
     list_of_grids = [value['grid'] for key, value in PuzzlePieces.pieces_data.items()]
@@ -115,12 +115,10 @@ def get_list_of_solution_matrices():
         grid_strings.append("\n".join(grid))
 
     # Call the findAllSolutions method with the list of grids and the puzzle dimensions
-    # solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
-    with open(r"E:\Tom Naccarato\Documents\Advanced Software Engineering Group Project\ASE-Group-6\polysphere\polysphere_app\solutions\output_Mirrored.txt", "r") as solutions_text:
-        solutions = solutions_text.read()
+    solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
 
-    # global end_time
-    # end_time = time.time()
+    global end_time
+    end_time = time.time()
     solutions = solutions.split("\n\n")
     return solutions
 
@@ -147,7 +145,7 @@ def generate_solution_gallery(request):
     image_paths = []
 
     # Loop through each solution, generating an image for it and adding the path to the file
-    for idx, solution_matrix in enumerate(solutions, 40222):
+    for idx, solution_matrix in enumerate(solutions):
         image_io = generate_solution_image(solution_matrix, pieces_data)
         filename = f'solution_{idx}.webp'
         image_path = fs.save(filename, image_io)
