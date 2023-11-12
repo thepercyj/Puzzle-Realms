@@ -124,11 +124,11 @@ def get_list_of_solution_matrices():
 
 
 def generate_solution_gallery(request):
-    solutions = get_list_of_solution_matrices()
-    solutions = [solution.split("\n") for solution in solutions]
+    # solutions = get_list_of_solution_matrices()
+    # solutions = [solution.split("\n") for solution in solutions]
     # time_taken = end_time - start_time
     # print(f"{len(solutions)} solutions found in {time_taken}")
-    pieces_data = get_pieces_data()
+    # pieces_data = get_pieces_data()
 
     # Create a temporary directory within MEDIA_ROOT
     media_dir = os.path.join(settings.MEDIA_ROOT)
@@ -145,11 +145,11 @@ def generate_solution_gallery(request):
     image_paths = []
 
     # Loop through each solution, generating an image for it and adding the path to the file
-    for idx, solution_matrix in enumerate(solutions):
-        image_io = generate_solution_image(solution_matrix, pieces_data)
+    for idx in range(0, 80443):
+        # image_io = generate_solution_image(solution_matrix, pieces_data)
         filename = f'solution_{idx}.webp'
-        image_path = fs.save(filename, image_io)
-        image_paths.append(fs.url(image_path))
+        image_path = fs.url(filename)
+        image_paths.append(image_path)
 
     # Pass the image paths to the template
     return render(request, 'polysphere_app/solutions.html', {'image_paths': image_paths})
