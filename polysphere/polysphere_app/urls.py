@@ -1,8 +1,9 @@
+# urls.py
 from django.urls import path
 from . import views
 
-# The routing of the view file is defined and passed as a path inside here.
-
 urlpatterns = [
-    path('', views.game_board, name='game_board'),
+    path('submit_kanoodle_problem/', views.submit_kanoodle_problem, name='submit_kanoodle_problem'),
+    path('get_kanoodle_solution/<int:problem_id>/', views.get_kanoodle_solution, name='get_kanoodle_solution'),
+    path('solutions/', views.generate_solution_gallery, name='generate_solution_gallery'),
 ]
