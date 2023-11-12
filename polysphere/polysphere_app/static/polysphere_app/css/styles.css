@@ -1,0 +1,125 @@
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-family: sans-serif;
+  background: #e6e6e6;
+}
+
+puzzle-board {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 4px;
+}
+puzzle-board .puzzle-board-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+@-webkit-keyframes cell-ink-show {
+  from {
+    transform: scaleX(0) scaleY(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(sqrt(2)) scaleY(sqrt(2));
+  }
+}
+
+@keyframes cell-ink-show {
+  from {
+    transform: scaleX(0) scaleY(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  to {
+    transform: scaleX(sqrt(2)) scaleY(sqrt(2));
+  }
+}
+puzzle-board-cell {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 4px;
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  background: #cccccc;
+  overflow: hidden;
+  z-index: 1;
+}
+puzzle-board-cell .cell-ink {
+  position: absolute;
+  -webkit-animation-name: cell-ink-show;
+          animation-name: cell-ink-show;
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-timing-function: cubic-bezier(0.25, 0.5, 0.5, 0.75);
+          animation-timing-function: cubic-bezier(0.25, 0.5, 0.5, 0.75);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  opacity: 1;
+  transform: scaleX(sqrt(2)) scaleY(sqrt(2));
+  transform-origin: 50% 50%;
+}
+puzzle-board-cell .cell-ink-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1;
+}
+puzzle-board-cell .cell-ink-static {
+  position: static;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+puzzle-board-cell .cell-highlight {
+  transition-property: background;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.25, 0.5, 0.5, 1);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1;
+}
+puzzle-board-cell .cell-number {
+  display: none;
+  z-index: 1;
+}
+puzzle-board-cell[number] .cell-number {
+  display: block;
+}
+puzzle-board-cell.active .cell-highlight {
+  transition-duration: 0s;
+  background: rgba(0, 0, 0, 0.4);
+}
+puzzle-board-cell[bkgd="0"], puzzle-board-cell .cell-ink[data-bkgd="0"] {
+  background: #cccccc;
+}
+puzzle-board-cell[bkgd="1"], puzzle-board-cell .cell-ink[data-bkgd="1"] {
+  background: #404040;
+}
+puzzle-board-cell[bkgd="2"], puzzle-board-cell .cell-ink[data-bkgd="2"], puzzle-board-cell[number] {
+  background: #f2f2f2;
+}
