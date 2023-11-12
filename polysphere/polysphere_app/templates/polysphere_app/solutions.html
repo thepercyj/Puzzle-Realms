@@ -1,16 +1,64 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solution Gallery</title>
+
+    <style>
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 10px; /* Add some margin to create space */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px; /* Add some bottom margin to separate images vertically */
+        }
+    </style>
 </head>
 <body>
-    <h1>Solution Gallery</h1>
+    <h2>Solution Gallery</h2>
     <div id="gallery">
-        {% for image_path in image_paths %}
-            <img src="{{ image_path }}" alt="{{image_path}}">
+		{% for image_path in image_paths %}
+            <img src="{{ image_path }}" alt="Solution Image">
         {% endfor %}
-    </div>
+	</div>
+
+    <script>
+        function preloadImages(imageUrls, callback) {
+            let loadedCount = 0;
+
+            function loadImage(url) {
+                const img = new Image();
+                img.onload = img.onerror = function() {
+                    loadedCount++;
+                    if (loadedCount === imageUrls.length) {
+                        callback();
+                    }
+                };
+                img.src = url;
+            }
+
+            imageUrls.forEach(loadImage);
+        }
+
+        const images = {% for image_path in image_paths %} '{{ image_path }}', {% endfor %};
+
+        preloadImages(images, function() {
+            const container = document.getElementById('gallery');
+
+            // Display images
+            images.forEach(imageUrl => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                container.appendChild(img);
+            });
+        });
+    </script>
 </body>
 </html>

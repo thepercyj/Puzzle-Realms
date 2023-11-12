@@ -145,7 +145,7 @@ def generate_solution_gallery(request):
     image_paths = []
 
     # Loop through each solution, generating an image for it and adding the path to the file
-    for idx in range(0, 80443):
+    for idx in range(0, 80444):
         # image_io = generate_solution_image(solution_matrix, pieces_data)
         filename = f'solution_{idx}.webp'
         image_path = fs.url(filename)
