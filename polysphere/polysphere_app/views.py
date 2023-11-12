@@ -5,12 +5,15 @@ from io import BytesIO
 from PIL import Image
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.db.backends import mysql
+import mysql.connector
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from .kanoodle import Kanoodle
 from .models import *
 from .puzzle_pieces import PuzzlePieces
+import re
 
 # Sets the grid height and width
 grid_width = 11
@@ -184,3 +187,69 @@ def display_piece(piece_data, position, block_size, solution_image):
             1] + piece_image.height <= solution_image.height:
             # Paste the piece image onto the solution image at the calculated position
             solution_image.paste(piece_image, position, piece_image)
+
+
+def generate_regex_pattern(partial_solution):
+    pattern = ""
+    for row in partial_solution:
+        row_pattern = ""
+        for cell in row:
+            if cell == ' ':
+                row_pattern += '.'  # Any character
+            else:
+                row_pattern += cell  # Specific character
+        pattern += row_pattern + "\n"
+    return pattern.rstrip("\n")
+
+def find_partial_solutions(partial_solution):
+    regex_pattern = generate_regex_pattern(partial_solution)
+    # Opens the solutions.txt file
+    with open(
+            r'E:\Tom Naccarato\Documents\Advanced Software Engineering Group Project\ASE-Group-6\polysphere\polysphere_app\solutions\all_solutions.txt',
+            'r') as file:
+        solutions_text = file.read()
+    # Split the text into individual solutions
+    raw_solutions = solutions_text.strip().split('\n\n')
+    # Format each solution with newline characters
+    formatted_solutions = ['\n'.join(solution.split('\n')) for solution in raw_solutions]
+
+    # Matches pattern to solutions
+    matching_solutions = []
+    for solution in formatted_solutions:
+        if re.match(regex_pattern, solution, re.DOTALL):
+            matching_solutions.append(solution)
+    return matching_solutions
+
+
+def get_partial_solutions(matching_solutions):
+    # Establish database connection
+    try:
+        conn = mysql.connector.connect(host='localhost', user='root', passwd='', db='group_6_project')
+    except Exception as e:
+        print(e.args)
+
+    cursor = conn.cursor()
+
+    # Gets matching patterns from the database
+    img_paths = []
+    for match in matching_solutions:
+        query = "SELECT img_path FROM kanoodle_solver WHERE mapping LIKE %s"
+        match_with_wildcard = f"%{match}%"
+        cursor.execute(query, (match_with_wildcard,))
+        img_paths.extend([row[0] for row in cursor.fetchall()])
+    cursor.close()
+    conn.close()
+    return img_paths
+
+partial_solution = [
+    ['J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A'],
+    ['J', 'J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A'],
+    ['J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'A'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+]
+
+
+partial_solutions = find_partial_solutions(partial_solution)
+
+partial_solutions_img = get_partial_solutions(partial_solutions)
