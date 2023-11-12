@@ -86,8 +86,8 @@ def get_pieces_data():
 def generate_solution_image(solution_matrix, pieces_data, block_size=50):
     solution_width = len(solution_matrix[0]) * block_size
     solution_height = len(solution_matrix) * block_size
-    solution_image = Image.new('RGB', (solution_width, solution_height),
-                               (128, 128, 128))  # Create grey background image
+    solution_image = Image.new('RGBA', (solution_width, solution_height),
+                               (255, 255, 255, 0))  # Create transparent background image
 
     for row_idx, row in enumerate(solution_matrix):
         for col_idx, piece_symbol in enumerate(row):
@@ -118,7 +118,9 @@ def get_list_of_solution_matrices():
         grid_strings.append("\n".join(grid))
 
     # Call the findAllSolutions method with the list of grids and the puzzle dimensions
-    solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
+    # solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
+    with open(r"E:\Tom Naccarato\Documents\Advanced Software Engineering Group Project\ASE-Group-6\polysphere\polysphere_app\solutions\all_solutions.txt", "r") as solutions_text:
+        solutions = solutions_text.read()
 
     global end_time
     end_time = time.time()
@@ -127,7 +129,7 @@ def get_list_of_solution_matrices():
 
 
 def generate_solution_gallery(request):
-    # solutions = get_list_of_solution_matrices()
+    solutions = get_list_of_solution_matrices()
     # solutions = [solution.split("\n") for solution in solutions]
     # time_taken = end_time - start_time
     # print(f"{len(solutions)} solutions found in {time_taken}")
@@ -142,13 +144,13 @@ def generate_solution_gallery(request):
     fs = FileSystemStorage(location=media_dir)
 
     # Clears the media folder of existing files before generating the new ones
-    # clear_solutions(media_dir)
+    clear_solutions(media_dir)
 
     # List to hold the paths of the generated images
     image_paths = []
 
     # Loop through each solution, generating an image for it and adding the path to the file
-    for idx in range(0, 80444):
+    for idx, solution_matrix in enumerate(solutions):
         # image_io = generate_solution_image(solution_matrix, pieces_data)
         filename = f'solution_{idx}.webp'
         image_path = fs.url(filename)
