@@ -16,12 +16,14 @@
   position: relative;
   margin-top: 30px;
   margin-left: 30px;
+  user-select: none;
 }
 
 .corner-image {
   position: absolute;
   width: 30px;
   height: 30px;
+  user-select: none;
 }
 
 .top-left {
@@ -50,9 +52,14 @@
   height: 135px;
   top: 50%;
   left: 50%;
+  user-select: none;
   transform: translate(-50%, -50%);
 }
-
+#piecesContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
 
 /******* Grid *******/
 #piecesGrid {
@@ -62,6 +69,7 @@
     background: #F1F1F1;
     margin: 300px 100px 0 100px
 }
+
 .grid-cell {
     width: 45px;
     height: 45px;
