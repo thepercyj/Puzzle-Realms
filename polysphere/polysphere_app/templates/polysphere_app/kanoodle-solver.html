@@ -1,7 +1,15 @@
-<!-- A simple form to let users input their own puzzle configurations -->
-<form action="{% url 'solve_kanoodle' %}" method="post">
-  {% csrf_token %}
-  <!-- Input fields for pieces, grid width, and grid height -->
-  <!-- ... -->
-  <input type="submit" value="Solve Puzzle">
-</form>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanoodle Puzzle</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/styles.css' %}">
+</head>
+<body>
+    <puzzle-board id="board"></puzzle-board>
+
+    <script src="{% static 'polysphere_app/js/kanoodle.js' %}"></script>
+</body>
+</html>
