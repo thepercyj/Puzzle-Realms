@@ -23,6 +23,7 @@ grid_height = 5
 start_time = time.time()
 end_time = 0
 
+
 @require_http_methods(["POST"])
 def submit_kanoodle_problem(request):
     # Assume data is now coming from a predefined function or file
@@ -108,7 +109,6 @@ def generate_solution_image(solution_matrix, pieces_data, block_size=50):
 
 # Django view that returns an image response
 def get_list_of_solution_matrices():
-
     kanoodle_solver = Kanoodle()
 
     # Directly use the pieces_data to get the list of grids
@@ -201,11 +201,12 @@ def generate_regex_pattern(partial_solution):
         pattern += row_pattern + "\n"
     return pattern.rstrip("\n")
 
+
 def find_partial_solutions(partial_solution):
     regex_pattern = generate_regex_pattern(partial_solution)
     # Opens the solutions.txt file
     with open(
-            r'E:\Tom Naccarato\Documents\Advanced Software Engineering Group Project\ASE-Group-6\polysphere\polysphere_app\solutions\all_solutions.txt',
+            r'polysphere_app/solutions/all_solutions.txt',
             'r') as file:
         solutions_text = file.read()
     # Split the text into individual solutions
@@ -223,10 +224,7 @@ def find_partial_solutions(partial_solution):
 
 def get_partial_solutions(matching_solutions):
     # Establish database connection
-    try:
-        conn = mysql.connector.connect(host='localhost', user='root', passwd='', db='group_6_project')
-    except Exception as e:
-        print(e.args)
+    conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##', db='group_6_project')
 
     cursor = conn.cursor()
 
@@ -241,6 +239,7 @@ def get_partial_solutions(matching_solutions):
     conn.close()
     return img_paths
 
+
 partial_solution = [
     ['J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A'],
     ['J', 'J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A'],
@@ -248,7 +247,6 @@ partial_solution = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 ]
-
 
 partial_solutions = find_partial_solutions(partial_solution)
 
