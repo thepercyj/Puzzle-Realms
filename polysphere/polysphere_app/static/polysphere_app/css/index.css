@@ -1,0 +1,103 @@
+.dragDropContainer {
+  display: flex;
+}
+
+.container-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.container {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  margin-top: 30px;
+  margin-left: 30px;
+  user-select: none;
+}
+
+.corner-image {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  user-select: none;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.center-image {
+  position: absolute;
+  width: 240px;
+  height: 135px;
+  top: 50%;
+  left: 50%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+}
+#piecesContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/******* Grid *******/
+#piecesGrid {
+    border: 2px solid black;
+    width: 505px;
+    height: 229px;
+    background: #F1F1F1;
+    margin: 300px 100px 0 100px
+}
+
+.grid-cell {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    flex: 1 0 9%;
+}
+
+.mid-cell {
+    border-right: 1px solid grey;
+}
+
+.circle {
+    width: 45px;
+    height: 45px;
+    background-color: #CFCFCF;
+    border-radius: 50%;
+}
+
+.row1 {
+    width: 495px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.row2, .row3, .row4, .row5  {
+    width: 495px;
+    display: flex;
+    padding-right: 10px;
+    flex-wrap: nowrap;
+    border-top: 1px solid grey
+}
