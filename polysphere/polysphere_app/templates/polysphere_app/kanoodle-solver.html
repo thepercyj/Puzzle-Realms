@@ -1,0 +1,7 @@
+<!-- A simple form to let users input their own puzzle configurations -->
+<form action="{% url 'solve_kanoodle' %}" method="post">
+  {% csrf_token %}
+  <!-- Input fields for pieces, grid width, and grid height -->
+  <!-- ... -->
+  <input type="submit" value="Solve Puzzle">
+</form>

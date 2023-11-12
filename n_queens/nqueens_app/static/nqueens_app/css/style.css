@@ -95,8 +95,6 @@ table {
 
 .solution-container {
     display: none;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
     flex-wrap: wrap;
     text-align: center; /* Center the text within the input */
     justify-content: center;
