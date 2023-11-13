@@ -7,4 +7,5 @@ urlpatterns = [
     path('get_kanoodle_solution/<int:problem_id>/', views.get_kanoodle_solution, name='get_kanoodle_solution'),
     path('solutions/', views.generate_solution_gallery, name='generate_solution_gallery'),
     path('find_partial_solutions/', views.find_partial_solutions, name='find_partial_solutions'),
+    path('landing/', views.landing, name='landing'),
 ]

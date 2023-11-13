@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kanoodle Puzzle</title>
+    <title>Kanoodle Solver | ACS Group 6</title>
     <script src="{% static 'polysphere_app/js/kanoodle.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/styles.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
@@ -12,15 +12,19 @@
     <div class="wrapper">
         <div class="content">
             <img class=title-image src="{% static 'polysphere_app/images/title.webp' %}" alt="title image" >
-            <h3>What is Kanoodle Challenge ?</h3>
+            <h3>What is Kanoodle ?</h3>
             <p class="edit-mode">
                 Kanoodle is a highly visual three-dimensional puzzle game that people of any age can enjoy. To play with Kanoodle, users simply have to arrange a variety of interconnected spheres to duplicate structures in their Kanoodle book. Or, move and manipulate the spheres to create original designs!
 
                 Choose a Starting Point: Start with an empty board or an array to represent the board. The board is typically a 5x11 grid, and you'll place Kanoodle on it.
             </p>
             <br>
+            <p class="edit-mode">Welcome {{ data_from_landing }}</p>
+            <br>
             <!-- Add an image element with an ID -->
+
             <div class="display-mode">
+
                 <div class="board" id="board"></div>
                 <div>
                     <div class="imageContainer">
