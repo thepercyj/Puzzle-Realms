@@ -132,12 +132,14 @@ function applyCurrentTransformations() {
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
+    const rstboard = document.getElementById('resetBoard');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
 
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
+    rstboard.addEventListener('click', resetBoard);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
