@@ -5,6 +5,7 @@ window.onload = function () {
   ];
   let currentIndex = 0;
   let rotationAngle = 0;
+  let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
   const piecesContainer = document.getElementById('piecesContainer');
@@ -204,8 +205,9 @@ function applyCurrentTransformations() {
                     const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
                     targetCell.style.backgroundColor = gridColor[currentIndex];
                     // Update the board matrix with the color information
-                    gridData[newRow][newCol] = gridColor[currentIndex];
+                    gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
                 }
+                console.log("This is Grid data", gridData)
             }
         }
     }
