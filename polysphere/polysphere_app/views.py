@@ -24,6 +24,10 @@ start_time = time.time()
 end_time = 0
 
 
+def landing(request):
+    return render(request, 'polysphere_app/landing.html')
+
+
 @require_http_methods(["POST"])
 def submit_kanoodle_problem(request):
     # Assume data is now coming from a predefined function or file
@@ -154,11 +158,14 @@ def generate_solution_gallery(request):
         image_path = fs.url(filename)
         image_paths.append(image_path)
 
-    # Pass the image paths to the template
+        if request.method == 'POST':
+            data_from_landing = request.POST.get('data_from_landing', '')
+            return render(request, 'polysphere_app/kanoodle-solver.html', {'data_from_landing': data_from_landing})
+        else:
+            return render(request, 'polysphere_app/kanoodle-solver.html', {'data_from_landing': ''})
 
-    return render(request, 'polysphere_app/kanoodle-solver.html')
+    # return render(request, 'polysphere_app/kanoodle-solver.html')
     # return render(request, 'polysphere_app/index.html', {'image_paths': image_paths})
-
 
 
 def clear_solutions(directory):
@@ -227,7 +234,8 @@ def find_partial_solutions(partial_solution):
 
 def get_partial_solutions(matching_solutions):
     # Establish database connection
-    conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##', db='group_6_project')
+    conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##',
+                                   db='group_6_project')
 
     cursor = conn.cursor()
 

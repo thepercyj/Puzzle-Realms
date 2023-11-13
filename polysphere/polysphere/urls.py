@@ -18,10 +18,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.shortcuts import redirect
 
 urlpatterns = [
+    path('', lambda request: redirect('landing'), name='home'),
     path('admin/', admin.site.urls),
-    path('', include('polysphere_app.urls')),
+    path('landing/', include('polysphere_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     
 
