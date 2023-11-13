@@ -155,7 +155,7 @@ def generate_solution_gallery(request):
         image_paths.append(image_path)
 
     # Pass the image paths to the template
-    return render(request, 'polysphere_app/index.html')
+    return render(request, 'polysphere_app/kanoodle-solver.html')
 
 
 def clear_solutions(directory):
