@@ -1,12 +1,17 @@
-let rotationAngle = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-let scaleXY = [[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]]
-let initXY = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
-let isMouseMoveListenerAdded = [false,false,false,false,false,false,false,false,false,false,false,false];
+let rotationAngle = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+let scaleXY = [[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]];
+let initXY = [[746,82],[989,82],[1232,82],[1475,82],
+              [746,325],[989,325],[1232,325],[1451,312],
+              [722,555],[989,568],[1232,568],[1451,555]];
+let cursorOriginXY = [[[854,123],[1118,130],[1338,139],[1580,165],
+                      [834,404],[1090,359],[1332,362],[1578,339],
+                      [890,583],[1027,651],[1314,650],[1582,625]]];
 let gridData = [[null,null,null,null,null,null,null,null, null,null,null,null],
                 [null,null,null,null,null,null,null,null, null,null,null,null],
                 [null,null,null,null,null,null,null,null, null,null,null,null],
                 [null,null,null,null,null,null,null,null, null,null,null,null],
                 [null,null,null,null,null,null,null,null, null,null,null,null]]
+
 let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"]
 let pieces = [
         [[0,-1],[0,0],[0,1],
@@ -136,81 +141,131 @@ window.onload = function() {
 
         piecesContainer.appendChild(container);
 
-        // drag event
         let isDragging = false;
 
-        if(!isMouseMoveListenerAdded[i-1]){
+        center.addEventListener("mousedown", onMouseDown);
 
-            center.addEventListener("mousedown", (e) => {
-                isDragging = true;
+        function onMouseDown(e) {
+            isDragging = true;
 
-                offsetX = e.clientX - center.getBoundingClientRect().left;
-                offsetY = e.clientY - center.offsetTop;  // Use center.offsetTop instead of center.getBoundingClientRect().top
-                if(!isMouseMoveListenerAdded[i-1]){
-                    center.addEventListener("mousemove", (e) => {
-                        if (isDragging) {
-                            let unknownOffsetY = 12;
-                            let y = e.clientY - offsetY;
-                            center.style.top = (y - unknownOffsetY) + 'px';  // Fix the subtraction
+            offsetX = e.clientX - center.getBoundingClientRect().left;
+            offsetY = e.clientY - center.offsetTop;
 
-                            let unknownOffsetX = 632 + ((center.id.split("-")[1] - 1) % 4) * 280;
-                            let x = e.clientX - offsetX - unknownOffsetX;
+            document.addEventListener("mousemove", onMouseMove);
+            document.addEventListener("mouseup", onMouseUp);
+        }
 
-                            center.style.left = x + 'px';
-        //                    console.log(center.style.top, center.style.left);
-                        }
-                    });
+        function onMouseMove(e) {
+            if (isDragging) {
+                let unknownOffsetY = 12;
+                let y = e.clientY - offsetY;
+                center.style.top = (y - unknownOffsetY) + 'px';
 
-                    center.addEventListener("mouseup", (e) => {
-                        isDragging = false;
+                let unknownOffsetX = 632 + ((center.id.split("-")[1] - 1) % 4) * 280;
+                let x = e.clientX - offsetX - unknownOffsetX;
 
-                        // get the position of mouse
-                        var mouseX = e.clientX;
-                        var mouseY = e.clientY;
+                center.style.left = x + 'px';
+            }
+        }
 
-                        var piecesGrid = document.getElementById("piecesGrid"); // 请确保 piecesGrid 元素有一个 ID
+        function onMouseUp(e) {
+            isDragging = false;
 
-                        var piecesGridRect = piecesGrid.getBoundingClientRect();
+            console.log("up");
 
-                        var isInsidePiecesGrid = (
-                            mouseX > piecesGridRect.left &&
-                            mouseX < piecesGridRect.right &&
-                            mouseY > piecesGridRect.top &&
-                            mouseY < piecesGridRect.bottom
-                        );
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
 
-                        if (isInsidePiecesGrid) {
-                            console.log("Mouse is inside piecesGrid. Position (left, top):", mouseX, mouseY);
-                            // get the row and column
-                            let columnIndex = parseInt((mouseY - 302) / 46);
-                            let rowIndex = parseInt((mouseX - 120) / 46)
+            var mouseX = e.clientX;
+            var mouseY = e.clientY;
+
+            var piecesGrid = document.getElementById("piecesGrid");
+
+            var piecesGridRect = piecesGrid.getBoundingClientRect();
+
+            var isInsidePiecesGrid = (
+                mouseX > piecesGridRect.left &&
+                mouseX < piecesGridRect.right &&
+                mouseY > piecesGridRect.top &&
+                mouseY < piecesGridRect.bottom
+            );
+
+            if (isInsidePiecesGrid) {
+                console.log(mouseX,mouseY)
+                // get the row and column
+                let columnIndex = parseInt((mouseY - 342) / 46);
+                let rowIndex = parseInt((mouseX - 52) / 46)
+
+
+                console.log("Mouse is inside piecesGrid. Position (columnIndex, rowIndex):", columnIndex, rowIndex);
 
 
 
-                            if(setPieceToGrid(i, columnIndex, rowIndex)){
-                                document.getElementById(center.id).style.display = "none"
-                            }
-
-                        }else{
-                            // unable to fix the related bugs now
-//                            console.log("Mouse is outside piecesGrid. Position (left, top):", mouseX, mouseY);
-//                            center.style.left = initXY[i-1][0] + "px";
-//                            center.style.left = initXY[i-1][1] + "px";
-//                            console.log(initXY)
-
-                        }
-                    });
-                    isMouseMoveListenerAdded[i-1] = true;
+                if(setPieceToGrid(i, columnIndex, rowIndex)){
+                    document.getElementById(center.id).style.display = "none"
                 }
-            });
+
+            }
+            // Unable to fix the bugs
+//            else{
+//                console.log("Mouse is outside piecesGrid. Position (left, top):", mouseX, mouseY);
+//                center.style.left = initXY[i-1][0] + "px";
+//                center.style.left = initXY[i-1][1] + "px";
+//            }
+        }
+
+
+    }
+    // adjust pieces' size accordingly
+
+    document.getElementById("piece-8").style.width = "256px";
+    document.getElementById("piece-8").style.height = "144px";
+
+    document.getElementById("piece-9").style.width = "256px";
+    document.getElementById("piece-9").style.height = "144px";
+
+    document.getElementById("piece-12").style.width = "256px";
+    document.getElementById("piece-12").style.height = "144px";
+
+    // Add cells' doubleClick event
+    for (let i = 0; i < 11; i++) {
+        for (let j = 0; j < 5; j++) {
+            // Construct the id based on the loop indices
+            let elementId = "circle" + j + "-" + i;
+
+            // Get the element with the constructed id
+            let targetElement = document.getElementById(elementId);
+
+            // Check if the element exists
+            if (targetElement) {
+                // Add a double-click event listener to the element
+                targetElement.addEventListener("dblclick", function (event) {
+                    // Check if it's a left mouse button double-click event
+                    if (event.button === 0) {
+                        // Regular expression to match integers
+                        var regex = /(\d+)-(\d+)/;
+
+                        // Use the exec method to match the regular expression against the input string
+                        var match = regex.exec(targetElement.id);
+
+                        rowId = parseInt(match[1]);
+                        colmunId = parseInt(match[2]);
+                        console.log(rowId, colmunId);
+
+                        let pieceType = gridData[rowId][colmunId];
+                        if(pieceType != null){
+                            // 1. remove the cells with the same type
+
+                            // 2. reset the pieces.
+                        }
+
+                    }
+                });
+            }
         }
     }
-    // get pieces init position
-//    for(let i=1;i<13;i++){
-//        center = document.getElementById("piece-"+i);
-//        initXY[i-1][0] = center.getBoundingClientRect().left;
-//        initXY[i-1][1] = center.getBoundingClientRect().top;
-//    }
+
+
 }
 
 
@@ -282,7 +337,7 @@ function setPieceDrag(piece) {
     }
 }
 
-function setPieceToGrid(id,row, column){
+function setPieceToGrid(id, row, column){
 
     let piece = pieces[id-1]
     console.log(piece)
@@ -293,7 +348,7 @@ function setPieceToGrid(id,row, column){
         //           [-1,-1],     [1,-1]],
         let pieceRow = piece[i][0] + row;
         let pieceColumn = piece[i][1] + column;
-        console.log("pos:",pieceRow,pieceColumn)
+//        console.log("pos:",pieceRow,pieceColumn)
         // Check if the piece is within the grid boundaries
         if (pieceRow < 0 || pieceRow >= gridData.length || pieceColumn < 0 || pieceColumn >= gridData[0].length) {
             return false;  // Piece is out of bounds
@@ -303,12 +358,52 @@ function setPieceToGrid(id,row, column){
         if (gridData[pieceRow][pieceColumn] != null) {
             return false;  // Piece overlaps with existing block
         }
-
+    }
+    for (let i = 0; i < piece.length; i++) {
+        let pieceRow = piece[i][0] + row;
+        let pieceColumn = piece[i][1] + column;
         // Place the piece in the grid
         gridData[pieceRow][pieceColumn] = String.fromCharCode('A'.charCodeAt(0) + id - 1);
         document.getElementById("circle"+pieceRow+"-"+pieceColumn).style.backgroundColor = gridColor[id-1];
     }
+    return true;  // Piece successfully placed in the grid
+}
+
+
+function validate() {
+    // Check for null in the gridData
+    for (let i = 0; i < gridData.length; i++) {
+        for (let j = 0; j < gridData[i].length; j++) {
+            if (gridData[i][j] === null) {
+                // If null is found
+                alert("You answer is not correct!");
+                return false;
+            }
+        }
+    }
+    // If no null is found, display "Congratulations" alert
+    alert("Congratulations! You've solved a Kanoodle Puzzle!");
+    return true;
+}
+
+function showSolutions(){
+    alert("look at console.log to get the data form u would like")
+    console.log("The current grid is:", gridData);
+    let nullValue = "-";//
+
     console.log(gridData);
 
-    return true;  // Piece successfully placed in the grid
+    let dataString = "";
+
+    for (let i = 0; i < gridData.length; i++) {
+        for (let j = 0; j < gridData[i].length; j++) {
+            let cellValue = gridData[i][j];
+            if(cellValue == null){
+                cellValue = nullValue;
+            }
+            dataString += cellValue;
+        }
+    }
+
+    console.log("Or u guys prefer this form:", dataString)
 }

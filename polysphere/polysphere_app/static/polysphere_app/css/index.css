@@ -3,6 +3,10 @@
   background-image: url('../images/bgPic.png');
   padding-bottom: 50px;
 }
+
+img{
+    border: 1px solid black;
+}
 .container-wrapper {
   display: flex;
   align-items: center;
@@ -69,7 +73,7 @@
     width: 505px;
     height: 229px;
     background: #F1F1F1;
-    margin: 400px 150px 0 50px;
+    margin: 340px 150px 0 50px;
 }
 
 .grid-cell {
@@ -102,4 +106,17 @@
     padding-right: 10px;
     flex-wrap: nowrap;
     border-top: 1px solid grey
+}
+
+.btnRow {
+    margin-top: 120px;
+}
+
+#validate, #getSolutions {
+    font-size: 25px;
+    margin-left: 70px;
+    background: rgb(214, 238, 255);
+    border: none;
+    padding:10px;
+    color:red;
 }
