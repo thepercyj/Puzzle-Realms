@@ -193,6 +193,7 @@ window.onload = function() {
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
+    const rstboard = document.getElementById('resetBoard');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
     const resetbrd = document.getElementById('resetBoard');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
@@ -202,6 +203,7 @@ window.onload = function() {
 
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
+    rstboard.addEventListener('click', resetBoard);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
     resetbrd.addEventListener('click', resetBoard);
