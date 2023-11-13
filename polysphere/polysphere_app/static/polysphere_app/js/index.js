@@ -99,7 +99,7 @@ window.onload = function() {
         center.alt = "Center Image";
         center.className = "center-image";
         center.id = "piece-" + i;
-        center.style.cursor =  "grab";
+
         center.draggable = false;
 
         // Add corner images to the container
@@ -206,11 +206,11 @@ window.onload = function() {
         }
     }
     // get pieces init position
-    for(let i=1;i<13;i++){
-        center = document.getElementById("piece-"+i);
-        initXY[i-1][0] = center.getBoundingClientRect().left;
-        initXY[i-1][1] = center.getBoundingClientRect().top;
-    }
+//    for(let i=1;i<13;i++){
+//        center = document.getElementById("piece-"+i);
+//        initXY[i-1][0] = center.getBoundingClientRect().left;
+//        initXY[i-1][1] = center.getBoundingClientRect().top;
+//    }
 }
 
 
