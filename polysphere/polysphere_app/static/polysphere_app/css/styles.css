@@ -103,7 +103,7 @@ b {
 }
 
 .display-mode img {
-    max-width: 50%; /* Make the images responsive */
+    max-width: 25%; /* Make the images responsive */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: Add border-radius to the images */
 }
@@ -129,6 +129,11 @@ b {
     margin-top: 10px; /* Add space between images and buttons */
 }
 
+.imageContainer {
+display: flex;
+align-items: center;
+justify-content: center;
+}
 .button-container button {
     width: 150px; /* Adjust the width as needed */
     margin: 0 5px; /* Add margin between buttons */
