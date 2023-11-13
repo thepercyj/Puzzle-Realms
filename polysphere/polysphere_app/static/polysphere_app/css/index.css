@@ -4,9 +4,7 @@
   padding-bottom: 50px;
 }
 
-img{
-    border: 1px solid black;
-}
+
 .container-wrapper {
   display: flex;
   align-items: center;
@@ -119,4 +117,17 @@ img{
     border: none;
     padding:10px;
     color:red;
+}
+
+#solutionsPart {
+    display: none;
+    flex-wrap: wrap;
+}
+
+#solutionTitle {
+    display: none;
+}
+
+.solution-table {
+    margin:10px;
 }

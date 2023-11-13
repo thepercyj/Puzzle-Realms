@@ -265,7 +265,23 @@ window.onload = function() {
         }
     }
 
+    // test codes
 
+    let testData = [
+               [['A','A','A','A','A','A','A','A','A','A','A'],
+                ['A','A','A','A','A','A','A','A','A','A','A'],
+                ['A','A','A','A','A','A','A','A','A','A','A'],
+                ['A','A','A','A','A','A','A','A','A','A','A'],
+                ['A','A','A','A','A','A','A','A','A','A','A']],
+
+               [['A','B','C','D','E','F','G','H','I','J','K'],
+                ['B','B','B','B','B','B','B','B','B','B','L'],
+                ['B','B','B','B','B','B','B','B','B','B','B'],
+                ['B','B','B','B','B','B','B','B','B','B','B'],
+                ['B','B','B','B','B','B','B','B','B','B','B']]
+    ]
+
+    drawSolutionsGrid(testData);
 }
 
 
@@ -405,5 +421,59 @@ function showSolutions(){
         }
     }
 
-    console.log("Or u guys prefer this form:", dataString)
+    console.log("Or u guys prefer this form:", dataString);
+    document.getElementById("solutionsPart").style.display = "flex";
+    document.getElementById("solutionTitle").style.display = "block";
+
+    // to draw the result, use the function drawSolutions
+    // sample data can be found by searching "testData"
+//    drawSolutionsGrid(serverData);
 }
+
+function drawSolutions(data){
+    console.log(data);
+    let solutionsPart = document.getElementById("solutionsPart");
+
+    if (!solutionsPart) {
+        console.error("Element with id 'solutionsPart' not found.");
+        return;
+    }
+
+    // create a table
+    var table = document.createElement("table");
+    table.className = "solution-table";
+    // create cells and add color
+    for (var i = 0; i < 5; i++) {
+        var row = document.createElement("tr");
+
+        for (var j = 0; j < 11; j++) {
+            var cell = document.createElement("td");
+            var circle = document.createElement("div");
+
+            // get the value from grids and convert it to index
+            var colorIndex = String(data[i][j]).charCodeAt(0) - 'A'.charCodeAt(0);
+            var color = gridColor[colorIndex];
+
+            // set css
+            circle.style.width = "30px";
+            circle.style.height = "30px";
+            circle.style.borderRadius = "50%";
+            circle.style.backgroundColor = color;
+
+            cell.appendChild(circle);
+            row.appendChild(cell);
+        }
+
+        table.appendChild(row);
+    }
+
+    solutionsPart.appendChild(table);
+}
+
+function drawSolutionsGrid(grid){
+    for(i=0;i<grid.length;i++){
+        console.log(grid[i])
+        drawSolutions(grid[i])
+    }
+}
+
