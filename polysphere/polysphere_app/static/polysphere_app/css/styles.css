@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css?family=Rubik+One';
+
 /*
 body {
     display: flex;
@@ -274,4 +276,63 @@ b {
     padding-right: 10px;
     flex-wrap: nowrap;
     border-top: 1px solid grey
+}
+
+/*Button CSS
+/* Center the button container and style the game buttons */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.btn {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #9eeb8d;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Rubik One', sans-serif;
+  font-weight: 700;
+}
+.btn:hover, .btn:focus {
+  color: white;
+  outline: 0;
+}
+
+
+/* Styles for the game buttons */
+.third {
+  border-color: #3498db;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.third:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+/* Google font icon pack
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }

@@ -6,8 +6,7 @@
     <title>Kanoodle Puzzle</title>
     <script src="{% static 'polysphere_app/js/kanoodle.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/styles.css' %}">
-
-</head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /></head>
 <body>
 <div class="wrapper">
     <div class="content">
@@ -26,13 +25,19 @@
                     <br>
                     <br>
                     <div id="rotationButtons">
-                        <button id="rotateClockwise">Rotate 90° Clockwise</button>
-                        <button id="rotateCounterclockwise">Rotate 90° Anticlockwise</button>
-                        <button id="flipHorizontal">Flip Horizontally</button>
-                        <button id="flipVertical">Flip Vertically</button>
+                        <button class="btn third" id="rotateClockwise"><span class="material-symbols-outlined">
+rotate_right
+</span></button>
+                        <button class="btn third" id="rotateCounterclockwise"><span class="material-symbols-outlined">
+rotate_left
+</span></button>
+                        <button class="btn third" id="flipHorizontal"><span class="material-symbols-outlined">
+flip
+</span></button>
+                        <button class="btn third" id="flipVertical">Flip Vertically</button>
                         <!-- Add a button to switch to the next image -->
-                        <button id="previousImageButton">Previous Image</button>
-                        <button id="nextImageButton">Next Image</button>
+                        <button class="btn third" id="previousImageButton">Previous Image</button>
+                        <button class="btn third" id="nextImageButton">Next Image</button>
                     </div>
 
 
