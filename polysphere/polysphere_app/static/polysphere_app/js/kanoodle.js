@@ -9,7 +9,6 @@ window.onload = function () {
     const board = document.getElementById('board');
     const boardMatrix = createBoardMatrix();
 
-    let rotationAngles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let scaleXY = [[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]];
     let initXY = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]];
     let isMouseMoveListenerAdded = [false, false, false, false, false, false, false, false, false, false, false, false];
@@ -21,47 +20,48 @@ window.onload = function () {
         [null, null, null, null, null, null, null, null, null, null, null, null]
     ];
     let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
-    let pieces = [
-        [[0, -1], [0, 0], [0, 1],
-            [1, -1], [1, 1]],
+let pieces = [
+        [[0,-1],[0,0],[0,1],
+         [1,-1],     [1,1]],
 
-        [[0, 0], [0, 1],
-            [1, -2], [1, -1], [1, 0]],
+        [              [0,0],[0,1],
+         [1,-2],[1,-1],[1,0]],
 
-        [[-1, 0],
-            [0, -1], [0, 0],
-            [1, 0], [1, 1]],
+        [       [-1,0],
+         [0,-1],[0,0],
+                [1,0],[1,1]],
 
-        [[-1, 0],
-            [0, -1], [0, 0], [0, 1]],
+        [      [-1,0],
+         [0,-1],[0,0],[0,1]],
 
-        [[-1, 0],
-            [0, -1], [0, 0], [0, 1], [0, 2]],
+        [       [-1,0],
+         [0,-1],[0,0],[0,1],[0,2]],
 
-        [[0, 0], [0, 1],
-            [1, -1], [1, 0], [1, 1]],
+        [       [0,0],[0,1],
+         [1,-1],[1,0],[1,1]],
 
-        [[0, 0], [0, 1],
-            [1, -1], [1, 0]],
+        [       [0,0],[0,1],
+         [1,-1],[1,0]],
 
-        [[0, 0], [0, 1],
-            [1, 0],
-            [2, 0]],
+        [[0,0],[0,1],
+         [1,0],
+         [2,0]],
 
-        [[0, -2], [0, -1], [0, 0],
-            [1, 0],
-            [2, 0]],
+        [[0,-2],[0,-1],[0,0],
+                       [1,0],
+                       [2,0]],
 
-        [[-1, 0],
-            [0, 0], [0, 1], [0, 2], [0, 3]],
+        [[-1,0],
+         [0,0],[0,1],[0,2],[0,3]],
 
-        [[-1, 0],
-            [0, 0], [0, 1]],
+        [[-1,0],
+         [0,0],[0,1]],
 
-        [[-1, -1], [-1, 0],
-            [0, 0], [0, 1],
-            [1, 1]],
-    ];
+        [[-1,-1],[-1,0],
+                 [0,0],[0,1],
+                       [1,1]],
+
+]
 
     // Stores the orientation and flip status of the pieces
     let pieceRotation = new Array(12).fill(0)
@@ -180,24 +180,25 @@ function applyCurrentTransformations() {
         const pieceId = event.target.id.replace('piece-', 'shape-')
         const pieceIndex = imageIds.indexOf((pieceId));
         pieceRotation[pieceIndex] = rotationAngle;
+
     }
 
     function drop(event) {
         event.preventDefault();
         const cell = event.target;
-
+        console.log("Rotations ->" , pieceRotation);
+        console.log("Vertical flips ->",verticalFlip);
+        console.log("Horizontal flips ->", horizontalFlip);
         const row = parseInt(cell.dataset.row);
         const col = parseInt(cell.dataset.col);
 
         if (cell.classList.contains('cell')) {
-            const pieceCoords = pieces[currentIndex];
-            const rotatedPieceCoords = rotateCoords(pieceCoords, pieceRotation[currentIndex])
-            const flippedPieceCoords = applyFlips(rotatedPieceCoords, currentIndex)
+            const transformedPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
 
             // Check if the cells for the new piece are unoccupied
-            if (isSpaceAvailable(row, col, flippedPieceCoords)) {
+            if (isSpaceAvailable(row, col, transformedPieceCoords)) {
                 // Iterate through the coordinates of the current piece
-                for (const coord of flippedPieceCoords) {
+                for (const coord of transformedPieceCoords) {
                     const newRow = row + coord[0];
                     const newCol = col + coord[1];
 
@@ -237,38 +238,40 @@ function applyCurrentTransformations() {
         currentImage.style.top = '0';
     }
 
-    function rotateCoords(coords, angle) {
-        return coords.map(coord => {
-                switch (angle) {
-                    case 90:
-                        return [-coord[1], coord[0]];
-                    case 180:
-                        return [-coord[0], -coord[1]];
-                    case 270:
-                        return [coord[1], -coord[0]];
-                    default:
-                        return coord;
-                }
+    function transformCoords(coords, index) {
+    // First apply rotation
+        let rotatedCoords = coords.map(coord => {
+            let [x, y] = coord;
+            switch (pieceRotation[index]) {
+                case 90:
+                    return [y, -x];
+                case 180:
+                    return [-x, -y];
+                case 270:
+                    return [-y, x];
+                default:
+                    return [x, y];
             }
-        );
+        });
+
+    // Then apply flips
+    console.log(horizontalFlip[index])
+    if (horizontalFlip[index]) {
+        rotatedCoords = flipHorizontalCoords(rotatedCoords);
+    }
+    if (verticalFlip[index]) {
+        rotatedCoords = flipVerticalCoords(rotatedCoords);
+    }
+    return rotatedCoords;
+}
+
+    function flipHorizontalCoords(coords) {
+        return coords.map(([x, y]) => [-x, y]);
     }
 
-    function applyFlips(coords, index) {
-        let transformedCoords = coords;
-        if (horizontalFlip[index]) {
-            transformedCoords = transformedCoords.map(coord => [-coord[0], coord[1]]);
-        }
-        if (verticalFlip[index]) {
-            transformedCoords = transformedCoords.map(coord => [coord[0], -coord[1]]);
-        }
-        return transformedCoords;
-    }
+    function flipVerticalCoords(coords) {
+        coords = coords.map(([x, y]) => [-x, -y]);
+        return flipHorizontalCoords(coords)
 
-    function flipCoordsHorizontally(coords) {
-        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
-    }
-
-    function flipCoordsVertically(coords) {
-        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
     }
 }
