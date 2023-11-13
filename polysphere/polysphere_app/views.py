@@ -155,7 +155,10 @@ def generate_solution_gallery(request):
         image_paths.append(image_path)
 
     # Pass the image paths to the template
+
     return render(request, 'polysphere_app/kanoodle-solver.html')
+    # return render(request, 'polysphere_app/index.html', {'image_paths': image_paths})
+
 
 
 def clear_solutions(directory):
@@ -222,8 +225,7 @@ def find_partial_solutions(partial_solution):
     return matching_solutions
 
 
-def get_partial_solutions(partial_solutions):
-    matching_solutions = find_partial_solutions(partial_solutions)
+def get_partial_solutions(matching_solutions):
     # Establish database connection
     conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##', db='group_6_project')
 
@@ -249,5 +251,6 @@ partial_solution = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 ]
 
+partial_solutions = find_partial_solutions(partial_solution)
 
-partial_solutions_img = get_partial_solutions(partial_solution)
+partial_solutions_img = get_partial_solutions(partial_solutions)

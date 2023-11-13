@@ -3,47 +3,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polysphere Puzzle</title>
-    <link rel="stylesheet" href="/static/polysphere_app/css/styles.css">
+    <title>Still Trying</title>
+    <script src="{% static 'polysphere_app/js/index.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/index.css' %}">
 
-    <!-- JQuery -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-<div class="split-container">
-    <div class="split left">
-        <h1>The Designer</h1>
-        <a href="#" class="game-button">Read More</a>
-    </div>
-    <div class="split right">
-        <h1>The Programmer</h1>
-        <a href="#" class="game-button">Read More</a>
-    </div>
-</div>
-<div class="title-container">
-    <img class="logo" src="/static/polysphere_app/images/Logo.png" alt="Description of the image">
-</div>
+    <div class="dragDropContainer" >
+        <div id="piecesGrid">
+            <div class="row1">
+                <div class="grid-cell mid-cell"><div id="circle0-0" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-2" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-1" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-3" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-4" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-5" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-6" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-7" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-8" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle0-9" class="circle"></div></div>
+                <div class="grid-cell"><div id="circle0-10" class="circle"></div></div>
+            </div>
+            <div class="row2">
+                <div class="grid-cell mid-cell"><div id="circle1-0" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-1" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-2" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-3" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-4" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-5" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-6" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-7" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-8" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle1-9" class="circle"></div></div>
+                <div class="grid-cell"><div id="circle1-10" class="circle"></div></div>
+            </div>
+            <div class="row3">
+                <div class="grid-cell mid-cell"><div id="circle2-0" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-1" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-2" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-3" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-4" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-5" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-6" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-7" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-8" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle2-9" class="circle"></div></div>
+                <div class="grid-cell "><div id="circle2-10" class="circle"></div></div>
+            </div>
+            <div class="row4">
+                <div class="grid-cell mid-cell"><div id="circle3-0" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-1" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-2" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-3" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-4" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-5" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-6" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-7" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-8" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle3-9" class="circle"></div></div>
+                <div  class="grid-cell"><div id="circle3-10"class="circle"></div></div>
+            </div>
+            <div class="row5">
+                <div class="grid-cell mid-cell"><div id="circle4-0" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-1" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-2" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-3" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-4" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-5" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-6" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-7" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-8" class="circle"></div></div>
+                <div class="grid-cell mid-cell"><div id="circle4-9" class="circle"></div></div>
+                <div class="grid-cell"><div id="circle4-10" class="circle"></div></div>
+            </div>
+        </div>
+        <div id="piecesContainer">
 
-<!-- Game Container with button Start -->
-<div class="game-container">
-    <div class="game-board">
+        </div>
+
     </div>
-    <div class="blank-window">
-    </div>
-</div>
-<div class="result-container">
-</div>
-<br>
-<br>
-<div class="button-container">
-    <button id = "btn-third" class="btn third">Solve</button>
-    <button class="btn third">Show all solutions</button>
-    <button class="btn third">Reset</button>
-</div>
-<!-- Game Container with button End -->
 
 </body>
 </html>
