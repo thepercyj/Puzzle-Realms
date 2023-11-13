@@ -103,7 +103,7 @@ b {
 }
 
 .display-mode img {
-    max-width: 25%; /* Make the images responsive */
+    max-width: 40%; /* Make the images responsive */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: Add border-radius to the images */
 }
