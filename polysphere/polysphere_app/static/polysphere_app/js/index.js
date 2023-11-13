@@ -2,12 +2,12 @@ let rotationAngle = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 let scaleXY = [[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]]
 let initXY = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
 let isMouseMoveListenerAdded = [false,false,false,false,false,false,false,false,false,false,false,false];
-let gridData = [[null,null,null,null,null,null,null,null, null,null,null],
-                [null,null,null,null,null,null,null,null, null,null,null],
-                [null,null,null,null,null,null,null,null, null,null,null],
-                [null,null,null,null,null,null,null,null, null,null,null],
-                [null,null,null,null,null,null,null,null, null,null,null]]
-let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191"]
+let gridData = [[null,null,null,null,null,null,null,null, null,null,null,null],
+                [null,null,null,null,null,null,null,null, null,null,null,null],
+                [null,null,null,null,null,null,null,null, null,null,null,null],
+                [null,null,null,null,null,null,null,null, null,null,null,null],
+                [null,null,null,null,null,null,null,null, null,null,null,null]]
+let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"]
 let pieces = [
         [[0,-1],[0,0],[0,1],
          [1,-1],     [1,1]],
