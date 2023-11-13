@@ -1,0 +1,237 @@
+/* Reset some default styles */
+@import 'https://fonts.googleapis.com/css?family=Rubik+One';
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: offwhite;
+}
+
+/* Common styles for the game container */
+.game-container {
+    display: flex;
+    justify-content: center;
+    height: 586px;
+    background-color: #f0f0f0;
+}
+
+/* Style the game board */
+.game-container > .game-board {
+    background-color: blue;
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+}
+
+/* Style the blank window */
+.game-container > .blank-window {
+    background-color: red;
+    width: 50%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+}
+
+/* Style the combined container */
+.result-container {
+  height: 586px;
+  background-color: green; /* You can set the background color as desired */
+  width: 100%;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+}
+
+/* Common styles for the title container */
+.title-container {
+    text-align: center;
+    margin: 20px auto;
+    width: 30%;
+    padding: 50px;
+}
+
+/* Styles for the logo */
+.logo {
+    height: 50px;
+    width: 390px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Styles for the game tile */
+.game-tile {
+    width: 20%;
+    height: 40px;
+    background-color: #ccc;
+    margin: 34px auto;
+    color: black;
+    padding: 25px;
+    text-align: center;
+}
+
+/* Center the button container and style the game buttons */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.btn {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #9eeb8d;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Rubik One', sans-serif;
+  font-weight: 700;
+}
+.btn:hover, .btn:focus {
+  color: white;
+  outline: 0;
+}
+
+
+/* Styles for the game buttons */
+.third {
+  border-color: #3498db;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.third:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+/* Spilt page css */
+:root {
+  --container-bg-color: #333;
+  --left-bg-color: rgba(223, 39, 39, 0.7);
+  --left-button-hover-color: rgba(161, 11, 11, 0.3);
+  --right-bg-color: rgba(43, 43, 43, 0.8);
+  --right-button-hover-color: rgba(92, 92, 92, 0.3);
+  --hover-width: 75%;
+  --other-width: 25%;
+  --speed: 1000ms;
+}
+
+h1 {
+  font-size: 4rem;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+
+.split-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--container-bg-color);
+}
+
+.split {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.split.left {
+  left: 0;
+  background: url("https://image.ibb.co/m56Czw/designer.jpg") center center
+    no-repeat;
+  background-size: cover;
+}
+
+.split.left:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: var(--left-bg-color);
+}
+
+.split.right {
+  right: 0;
+  background: url("https://image.ibb.co/m3ZbRb/programmer.png") center center
+    no-repeat;
+  background-size: cover;
+}
+
+.split.right:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: var(--right-bg-color);
+}
+
+.split.left,
+.split.right,
+.split.right:before,
+.split.left:before {
+  transition: var(--speed) all ease-in-out;
+}
+
+.hover-left .left {
+  width: var(--hover-width);
+}
+
+.hover-left .right {
+  width: var(--other-width);
+}
+
+.hover-left .right:before {
+  z-index: 2;
+}
+
+.hover-right .right {
+  width: var(--hover-width);
+}
+
+.hover-right .left {
+  width: var(--other-width);
+}
+
+.hover-right .left:before {
+  z-index: 2;
+}
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .button {
+    width: 12rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .button {
+    top: 70%;
+  }
+}
+
+canvas {
+  display: block;
+}
