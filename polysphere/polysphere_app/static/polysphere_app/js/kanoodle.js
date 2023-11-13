@@ -134,7 +134,7 @@ function applyCurrentTransformations() {
     const resetbrd = document.getElementById('resetBoard');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
-
+    
 
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
