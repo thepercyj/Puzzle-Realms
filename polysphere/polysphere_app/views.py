@@ -222,7 +222,8 @@ def find_partial_solutions(partial_solution):
     return matching_solutions
 
 
-def get_partial_solutions(matching_solutions):
+def get_partial_solutions(partial_solutions):
+    matching_solutions = find_partial_solutions(partial_solutions)
     # Establish database connection
     conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##', db='group_6_project')
 
@@ -248,6 +249,5 @@ partial_solution = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 ]
 
-partial_solutions = find_partial_solutions(partial_solution)
 
-partial_solutions_img = get_partial_solutions(partial_solutions)
+partial_solutions_img = get_partial_solutions(partial_solution)

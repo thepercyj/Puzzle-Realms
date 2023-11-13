@@ -186,8 +186,8 @@ window.onload = function() {
                             let rowIndex = parseInt((mouseX - 120) / 46)
 
 
-
-                            if(setPieceToGrid(i, columnIndex, rowIndex)){
+                            const [PiecesSetToGrid, gridData] = setPieceToGrid(i, columnIndex, rowIndex);
+                            if(PiecesSetToGrid){
                                 document.getElementById(center.id).style.display = "none"
                             }
 
@@ -211,6 +211,32 @@ window.onload = function() {
         initXY[i-1][0] = center.getBoundingClientRect().left;
         initXY[i-1][1] = center.getBoundingClientRect().top;
     }
+
+    //Adding Event Listener for button click Solve
+    $("#btn-third").click(function () {
+            // Get the JavaScript variable (Partial configuration)
+            const [PiecesSetToGrid, gridData] = setPieceToGrid(i, columnIndex, rowIndex);
+            var partial_configuration = gridData;
+
+            if (partial_configuration) {
+            // Send AJAX request
+            $.ajax({
+                type: "POST",
+                url: "{% url 'my_django_view' %}",  // Replace with the actual URL of your Django view
+                data: {'myData': JSON.stringify(partial_configuration)},  // Convert list to JSON string
+                dataType: 'json',
+                success: function (result) {
+                    // Handle the result returned from the Django view. Here we take the output of the get_partial_solutions function
+                    console.log(result);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+            } else {
+                console.log("please provide some partial configuration")
+            }
+        });
 }
 
 
@@ -310,5 +336,5 @@ function setPieceToGrid(id,row, column){
     }
     console.log(gridData);
 
-    return true;  // Piece successfully placed in the grid
+    return true, gridData;  // Piece successfully placed in the grid
 }
