@@ -1,0 +1,277 @@
+/*
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+*/
+.board {
+    display: grid;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #696464;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.cell:hover {
+    background-color: lightgray;
+}
+
+
+
+
+
+/*-----------------------------*/
+
+
+/* Reset some default styles*/
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the entire page content vertically and horizontally*/
+html {
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add background color and styling to the main content*/
+body {
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style the title and description with the specified color */
+h1 {
+    font-size: 44px;
+    color: #017176; /* Updated color */
+}
+
+h3 {
+    font-size: 28px;
+    color: #017176; /* Updated color */
+}
+
+p {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+b {
+    font-size: 16px;
+    color: #017176;
+#}
+
+/* Style the chessboard and solution container */
+.display-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
+}
+
+.display-mode img {
+    max-width: 50%; /* Make the images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Add border-radius to the images */
+}
+
+.button-container {
+    grid-column: span 2; /* Make the container span both columns */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align to the bottom of the container */
+    margin-top: 10px; /* Add space between images and buttons */
+}
+
+.button-container button {
+    width: 150px; /* Adjust the width as needed */
+    margin: 0 5px; /* Add margin between buttons */
+}
+
+.display-mode {
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+.image-container {
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+.corner-image {
+    position: absolute;
+}
+
+#rotationButtons {
+    grid-column: span 2; /* Make the buttons span both columns */
+    text-align: center; /* Center-align the buttons */
+}
+
+#rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.edit-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.result-mode {
+    background-color: #D0E7D2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.footer {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: center;
+}
+.content {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+}
+
+
+/*-----------------------------*/
+
+
+.container-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.container {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  margin-top: 30px;
+  margin-left: 30px;
+  user-select: none;
+}
+
+.corner-image {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  user-select: none;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.center-image {
+  position: absolute;
+  width: 240px;
+  height: 135px;
+  top: 50%;
+  left: 50%;
+  user-select: none;
+  transform: translate(-50%, -50%);
+}
+#piecesContainer {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+}
+
+/******* Grid *******/
+#piecesGrid {
+    border: 2px solid black;
+    width: 505px;
+    height: 229px;
+    background: #F1F1F1;
+    margin: 300px 100px 0 100px
+}
+
+.grid-cell {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    flex: 1 0 9%;
+}
+
+.mid-cell {
+    border-right: 1px solid grey;
+}
+
+.circle {
+    width: 45px;
+    height: 45px;
+    background-color: #CFCFCF;
+    border-radius: 50%;
+}
+
+.row1 {
+    width: 495px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.row2, .row3, .row4, .row5  {
+    width: 495px;
+    display: flex;
+    padding-right: 10px;
+    flex-wrap: nowrap;
+    border-top: 1px solid grey
+}

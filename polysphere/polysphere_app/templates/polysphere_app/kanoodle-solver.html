@@ -1,7 +1,55 @@
-<!-- A simple form to let users input their own puzzle configurations -->
-<form action="{% url 'solve_kanoodle' %}" method="post">
-  {% csrf_token %}
-  <!-- Input fields for pieces, grid width, and grid height -->
-  <!-- ... -->
-  <input type="submit" value="Solve Puzzle">
-</form>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kanoodle Puzzle</title>
+    <script src="{% static 'polysphere_app/js/kanoodle.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/styles.css' %}">
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <h1>Master the Board: Kanoodle Challenge</h1>
+        <h3>What is Kanoodle Challenge ?</h3>
+        <p class="edit-mode">Kanoodle is a highly visual three dimensional puzzle game that people of any age can enjoy. To play with Kanoodle, users simply have to arrange a variety of interconnected spheres to duplicate structures in their Kanoodle book. Or, move and manipulate the spheres to create original designs!
+
+        Choose a Starting Point: Start with an empty board or an array to represent the board. The board is typically an 5x11 grid, and you'll place kanoodle on it.</p>
+        <br>
+            <!-- Add an image element with an ID -->
+        <div class="display-mode">
+            <div class="board" id="board"></div>
+                <div>
+                    <img id="currentImage" src="{% static 'polysphere_app/images/shapes/shape-1.png' %}" alt="Current Image">
+                    <!-- Add rotation buttons -->
+                    <br>
+                    <br>
+                    <div id="rotationButtons">
+                        <button id="rotateClockwise">Rotate 90° Clockwise</button>
+                        <button id="rotateCounterclockwise">Rotate 90° Anticlockwise</button>
+                        <button id="flipHorizontal">Flip Horizontally</button>
+                        <button id="flipVertical">Flip Vertically</button>
+                        <!-- Add a button to switch to the next image -->
+                        <button id="previousImageButton">Previous Image</button>
+                        <button id="nextImageButton">Next Image</button>
+                    </div>
+
+
+                </div>
+<!--            <div class="dragDropContainer" >-->
+<!--                <div id="piecesContainer">-->
+
+<!--                </div>-->
+
+<!--            </div>-->
+
+        </div>
+        <footer class="edit-mode">
+            <p>&copy; Group-6 ACS</p>
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>
