@@ -271,4 +271,59 @@ function applyCurrentTransformations() {
     function flipCoordsVertically(coords) {
         return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
     }
+    function resetBoard() {
+        console.log('resetBoard')
+        document.getElementById('resetBoard').addEventListener('click', resetBoard);
+        // Clear the board colors and data
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 11; col++) {
+                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                cell.style.backgroundColor = '#FFF';
+                gridData[row][col] = null;
+            }
+
+        }
+
+        // Reset the pieces on the board
+        for (let i = 0; i < pieces.length; i++) {
+            const pieceIndex = i;
+            const coords = pieces[pieceIndex];
+
+            // Reset piece position
+            const initialX = initXY[pieceIndex][0];
+            const initialY = initXY[pieceIndex][1];
+            const piece = document.getElementById(`piece-${pieceIndex + 1}`);
+            piece.style.left = initialX + 'px';
+            piece.style.top = initialY + 'px';
+
+            // Reset rotation, flips, and transformation
+            rotationAngle = 0; // Reset rotation
+            horizontalFlip[pieceIndex] = false;
+            verticalFlip[pieceIndex] = false;
+
+            // Apply transformations
+            applyTransformations(piece, coords, rotationAngle, horizontalFlip[pieceIndex], verticalFlip[pieceIndex]);
+
+            // Reset drag data
+            piece.dataset.dragged = 'false';
+        }
+    }
+    function applyTransformations(piece, coords, rotationAngle, horizontalFlip, verticalFlip) {
+    const rotatedPieceCoords = rotateCoords(coords, rotationAngle);
+    const flippedPieceCoords = applyFlips(rotatedPieceCoords, rotationAngle, horizontalFlip, verticalFlip);
+
+    // Apply transformations to the piece
+    for (let i = 0; i < coords.length; i++) {
+            const x = coords[i][0] * 50; // Adjust this value based on your piece size
+            const y = coords[i][1] * 50; // Adjust this value based on your piece size
+            const rotatedX = rotatedPieceCoords[i][0] * 50;
+            const rotatedY = rotatedPieceCoords[i][1] * 50;
+            const flippedX = flippedPieceCoords[i][0] * 50;
+            const flippedY = flippedPieceCoords[i][1] * 50;
+
+            const transform = `translate(${flippedX - rotatedX}px, ${flippedY - rotatedY}px) rotate(${rotationAngle}deg)`;
+
+            piece.style.transform = transform;
+        }
+    }
 }
