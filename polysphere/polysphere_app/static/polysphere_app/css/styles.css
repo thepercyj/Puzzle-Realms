@@ -100,6 +100,19 @@ b {
     border-radius: 5px; /* Optional: Add border-radius to the images */
 }
 
+.result-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
+}
+
 .button-container {
     grid-column: span 2; /* Make the container span both columns */
     display: flex;
@@ -130,6 +143,10 @@ b {
     text-align: center; /* Center-align the buttons */
 }
 
+#rotationButtons button {
+    display: inline-block; /* Ensure buttons are inline-block elements */
+    margin: 5px; /* Add margin between buttons if needed */
+}
 #rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
     margin: 5px;
     padding: 8px;
