@@ -1,14 +1,21 @@
 @import 'https://fonts.googleapis.com/css?family=Rubik+One';
 
-/*
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+html, body{
+height: 100%; /* Stretches html and body to full height */
+margin: 0; /* Removes default margin */
+padding: 0; /* Removes default padding */
 }
-*/
+
+
+body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(11, 50px);
@@ -54,14 +61,16 @@ html {
 body {
     justify-content: center;
     background-color: #f4f4f4;
-    padding: 20px;
+    padding-top: 20px;
     text-align: center;
 }
 
 /* Style the title and description with the specified color */
-h1 {
-    font-size: 44px;
-    color: #017176; /* Updated color */
+.title-image {
+    max-width: 70vw;
+    padding-top: 10vw;
+
+     /* Updated color */
 }
 
 h3 {
@@ -86,7 +95,7 @@ b {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
+    max-width: 70vw;
     margin: 0 auto;
     text-align: left;
     display: grid;
@@ -105,7 +114,7 @@ b {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
+    max-width: 70vw;
     margin: 0 auto;
     text-align: left;
     display: grid;
@@ -159,7 +168,7 @@ b {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 1000px;
+    max-width: 70vw;
     margin: 0 auto;
 }
 
@@ -169,7 +178,7 @@ b {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 1000px;
+    max-width: 70vw;
     margin: 0 auto;
 }
 
@@ -178,11 +187,11 @@ b {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100vw;
 }
 
 .footer {
     background-color: #f4f4f4;
-    padding: 10px;
     text-align: center;
 }
 .content {
@@ -204,7 +213,7 @@ b {
 }
 
 .container {
-  width: 240px;
+  max-width: 240px;
   height: 240px;
   position: relative;
   margin-top: 30px;
