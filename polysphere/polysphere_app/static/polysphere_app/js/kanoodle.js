@@ -1,26 +1,23 @@
 window.onload = function () {
-    // Set up the image IDs and current index
-    const imageIds = ["shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6", "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"];
-    let currentIndex = 0;
-    let rotationAngle = 0;
+  const imageIds = [
+    "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
+    "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
+  ];
+  let currentIndex = 0;
+  let rotationAngle = 0;
 
-    const currentImage = document.getElementById('currentImage');
-    const piecesContainer = document.getElementById('piecesContainer');
-    const board = document.getElementById('board');
-    const boardMatrix = createBoardMatrix();
+  const currentImage = document.getElementById('currentImage');
+  const piecesContainer = document.getElementById('piecesContainer');
+  const board = document.getElementById('board');
+  const boardMatrix = createBoardMatrix();
 
-    let rotationAngles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    let scaleXY = [[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]];
-    let initXY = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]];
-    let isMouseMoveListenerAdded = [false, false, false, false, false, false, false, false, false, false, false, false];
-    let gridData = [
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null]
-    ];
-    let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
+  let rotationAngles = Array(12).fill(0);
+  let scaleXY = Array.from({ length: 12 }, () => [1, 1]);
+  let initXY = Array.from({ length: 12 }, () => [0, 0]);
+  let isMouseMoveListenerAdded = Array(12).fill(false);
+
+  let gridData = Array.from({ length: 5 }, () => Array(11).fill(null));
+  let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
     let pieces = [
         [[0, -1], [0, 0], [0, 1],
             [1, -1], [1, 1]],
@@ -133,6 +130,7 @@ function applyCurrentTransformations() {
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
+    const resetbrd = document.getElementById('resetBoard');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
 
@@ -140,6 +138,7 @@ function applyCurrentTransformations() {
     nextImageButton.addEventListener('click', nextImage);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
+    resetbrd.addEventListener('click', resetBoard);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
     flipVerticalButton.addEventListener('click', flipVertical);
 
@@ -271,9 +270,9 @@ function applyCurrentTransformations() {
     function flipCoordsVertically(coords) {
         return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
     }
+
     function resetBoard() {
-        console.log('resetBoard')
-        document.getElementById('resetBoard').addEventListener('click', resetBoard);
+        console.log("Resetting something..");
         // Clear the board colors and data
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 11; col++) {
@@ -283,7 +282,7 @@ function applyCurrentTransformations() {
             }
 
         }
-
+        console.log("Resetting grid data..",gridData);
         // Reset the pieces on the board
         for (let i = 0; i < pieces.length; i++) {
             const pieceIndex = i;
@@ -308,6 +307,7 @@ function applyCurrentTransformations() {
             piece.dataset.dragged = 'false';
         }
     }
+
     function applyTransformations(piece, coords, rotationAngle, horizontalFlip, verticalFlip) {
     const rotatedPieceCoords = rotateCoords(coords, rotationAngle);
     const flippedPieceCoords = applyFlips(rotatedPieceCoords, rotationAngle, horizontalFlip, verticalFlip);
