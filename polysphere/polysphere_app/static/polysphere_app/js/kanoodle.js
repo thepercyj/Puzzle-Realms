@@ -1,133 +1,72 @@
-window.onload = function() {
-        const imageIds = [
-            "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
-            "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
-        ];
-        let currentIndex = 0;
-        let rotationAngle = 0;
-        let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
-        let moveHistory = [];
+window.onload = function () {
+    // Set up the image IDs and current index
+    const imageIds = ["shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6", "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"];
+    let currentIndex = 0;
+    let rotationAngle = 0;
 
+    const currentImage = document.getElementById('currentImage');
+    const piecesContainer = document.getElementById('piecesContainer');
+    const board = document.getElementById('board');
+    const boardMatrix = createBoardMatrix();
 
-        const currentImage = document.getElementById('currentImage');
-        const piecesContainer = document.getElementById('piecesContainer');
-        const board = document.getElementById('board');
-        const boardMatrix = createBoardMatrix();
-
-        let rotationAngles = Array(12).fill(0);
-        let scaleXY = Array.from({
-            length: 12
-        }, () => [1, 1]);
-        let initXY = Array.from({
-            length: 12
-        }, () => [0, 0]);
-        let isMouseMoveListenerAdded = Array(12).fill(false);
-
-        let gridData = Array.from({
-            length: 5
-        }, () => Array(11).fill(null));
-        let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
-    let pieces = [
-        [[0, -1], [0, 0], [0, 1],
-            [1, -1], [1, 1]],
-
-        [[0, 0], [0, 1],
-            [1, -2], [1, -1], [1, 0]],
-
-        [[-1, 0],
-            [0, -1], [0, 0],
-            [1, 0], [1, 1]],
-
-        [[-1, 0],
-            [0, -1], [0, 0], [0, 1]],
-
-        [[-1, 0],
-            [0, -1], [0, 0], [0, 1], [0, 2]],
-
-        [[0, 0], [0, 1],
-            [1, -1], [1, 0], [1, 1]],
-
-        [[0, 0], [0, 1],
-            [1, -1], [1, 0]],
-
-        [[0, 0], [0, 1],
-            [1, 0],
-            [2, 0]],
-
-        [[0, -2], [0, -1], [0, 0],
-            [1, 0],
-            [2, 0]],
-
-        [[-1, 0],
-            [0, 0], [0, 1], [0, 2], [0, 3]],
-
-        [[-1, 0],
-            [0, 0], [0, 1]],
-
-        [[-1, -1], [-1, 0],
-            [0, 0], [0, 1],
-            [1, 1]],
+    let scaleXY = [[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]];
+    let initXY = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]];
+    let isMouseMoveListenerAdded = [false, false, false, false, false, false, false, false, false, false, false, false];
+    let gridData = [
+        [null, null, null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null, null, null]
     ];
+    let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
+let pieces = [
+        [[0,-1],[0,0],[0,1],
+         [1,-1],     [1,1]],
+
+        [              [0,0],[0,1],
+         [1,-2],[1,-1],[1,0]],
+
+        [       [-1,0],
+         [0,-1],[0,0],
+                [1,0],[1,1]],
+
+        [      [-1,0],
+         [0,-1],[0,0],[0,1]],
+
+        [       [-1,0],
+         [0,-1],[0,0],[0,1],[0,2]],
+
+        [       [0,0],[0,1],
+         [1,-1],[1,0],[1,1]],
+
+        [       [0,0],[0,1],
+         [1,-1],[1,0]],
+
+        [[0,0],[0,1],
+         [1,0],
+         [2,0]],
+
+        [[0,-2],[0,-1],[0,0],
+                       [1,0],
+                       [2,0]],
+
+        [[-1,0],
+         [0,0],[0,1],[0,2],[0,3]],
+
+        [[-1,0],
+         [0,0],[0,1]],
+
+        [[-1,-1],[-1,0],
+                 [0,0],[0,1],
+                       [1,1]],
+
+]
 
     // Stores the orientation and flip status of the pieces
     let pieceRotation = new Array(12).fill(0)
     let horizontalFlip = new Array(12).fill(false)
     let verticalFlip = new Array(12).fill(false)
-
-    function storeMoveState() {
-        const state = {
-            gridData: JSON.parse(JSON.stringify(gridData)), // Deep copy the gridData
-            pieceRotation: [...pieceRotation],
-            horizontalFlip: [...horizontalFlip],
-            verticalFlip: [...verticalFlip],
-            rotationAngle: rotationAngle
-        };
-        moveHistory.push(state);
-    }
-
-    function undoMove() {
-        if (moveHistory.length > 0) {
-            const prevState = moveHistory.pop();
-            gridData = JSON.parse(JSON.stringify(prevState.gridData)); // Restore gridData
-            pieceRotation = [...prevState.pieceRotation];
-            horizontalFlip = [...prevState.horizontalFlip];
-            verticalFlip = [...prevState.verticalFlip];
-            rotationAngle = prevState.rotationAngle;
-
-            updateBoard(); // Update the visual representation of the board
-        }
-    }
-
-    function updateBoard() {
-        // Clear the board colors and data
-        for (let row = 0; row < 5; row++) {
-            for (let col = 0; col < 11; col++) {
-                const cell = document.querySelector(.cell[data - row = "${row}"][data - col = "${col}"]);
-                cell.style.backgroundColor = gridData[row][col] || '';
-            }
-        }
-        // Reset the pieces on the board
-        for (let i = 0; i < pieces.length; i++) {
-            const pieceIndex = i;
-            const coords = pieces[pieceIndex];
-
-            // Reset piece position
-            const initialX = initXY[pieceIndex][0];
-            const initialY = initXY[pieceIndex][1];
-            const piece = document.getElementById(piece - $ {
-                pieceIndex + 1
-            });
-            piece.style.left = initialX + 'px';
-            piece.style.top = initialY + 'px';
-
-            // Apply transformations
-            applyTransformations(piece, coords, rotationAngle, horizontalFlip[pieceIndex], verticalFlip[pieceIndex]);
-
-            // Reset drag data
-            piece.dataset.dragged = 'false';
-        }
-    }
-
 
     function createBoardMatrix() {
         const matrix = [];
@@ -159,7 +98,7 @@ window.onload = function() {
 
     function rotateClockwise() {
         rotationAngle = (rotationAngle + 90) % 360;
-        pieceRotation[currentIndex] = rotationAngle
+        pieceRotation[currentIndex]  = rotationAngle
         updateImage();
     }
 
@@ -170,46 +109,39 @@ window.onload = function() {
     }
 
     function flipHorizontal() {
-        horizontalFlip[currentIndex] = !horizontalFlip[currentIndex];
-        applyCurrentTransformations(); // Apply current transformations to the image
-    }
+    horizontalFlip[currentIndex] = !horizontalFlip[currentIndex];
+    applyCurrentTransformations(); // Apply current transformations to the image
+}
 
-    function flipVertical() {
-        verticalFlip[currentIndex] = !verticalFlip[currentIndex];
-        applyCurrentTransformations(); // Apply current transformations to the image
-    }
+function flipVertical() {
+    verticalFlip[currentIndex] = !verticalFlip[currentIndex];
+    applyCurrentTransformations(); // Apply current transformations to the image
+}
 
-    function applyCurrentTransformations() {
-        let transform = `rotate(${rotationAngle}deg)`;
-        if (horizontalFlip[currentIndex]) {
-            transform += ' scaleX(-1)';
-        }
-        if (verticalFlip[currentIndex]) {
-            transform += ' scaleY(-1)';
-        }
-        currentImage.style.transform = transform;
+function applyCurrentTransformations() {
+    let transform = `rotate(${rotationAngle}deg)`;
+    if (horizontalFlip[currentIndex]) {
+        transform += ' scaleX(-1)';
     }
+    if (verticalFlip[currentIndex]) {
+        transform += ' scaleY(-1)';
+    }
+    currentImage.style.transform = transform;
+}
 
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
-    const rstboard = document.getElementById('resetBoard');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
-    const resetbrd = document.getElementById('resetBoard');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
-    const undoButton = document.getElementById('undoButton');
-
 
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
-    rstboard.addEventListener('click', resetBoard);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
-    resetbrd.addEventListener('click', resetBoard);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
     flipVerticalButton.addEventListener('click', flipVertical);
-    undoButton.addEventListener('click', undoMove);
 
     updateImage();
 
@@ -248,24 +180,25 @@ window.onload = function() {
         const pieceId = event.target.id.replace('piece-', 'shape-')
         const pieceIndex = imageIds.indexOf((pieceId));
         pieceRotation[pieceIndex] = rotationAngle;
+
     }
 
     function drop(event) {
         event.preventDefault();
         const cell = event.target;
-
+        console.log("Rotations ->" , pieceRotation);
+        console.log("Vertical flips ->",verticalFlip);
+        console.log("Horizontal flips ->", horizontalFlip);
         const row = parseInt(cell.dataset.row);
         const col = parseInt(cell.dataset.col);
 
         if (cell.classList.contains('cell')) {
-            const pieceCoords = pieces[currentIndex];
-            const rotatedPieceCoords = rotateCoords(pieceCoords, pieceRotation[currentIndex])
-            const flippedPieceCoords = applyFlips(rotatedPieceCoords, currentIndex)
+            const transformedPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
 
             // Check if the cells for the new piece are unoccupied
-            if (isSpaceAvailable(row, col, flippedPieceCoords)) {
+            if (isSpaceAvailable(row, col, transformedPieceCoords)) {
                 // Iterate through the coordinates of the current piece
-                for (const coord of flippedPieceCoords) {
+                for (const coord of transformedPieceCoords) {
                     const newRow = row + coord[0];
                     const newCol = col + coord[1];
 
@@ -273,7 +206,7 @@ window.onload = function() {
                     const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
                     targetCell.style.backgroundColor = gridColor[currentIndex];
                     // Update the board matrix with the color information
-                    gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
+                    gridData[newRow][newCol] = gridColor[currentIndex];
                 }
             }
         }
@@ -305,92 +238,40 @@ window.onload = function() {
         currentImage.style.top = '0';
     }
 
-    function rotateCoords(coords, angle) {
-        return coords.map(coord => {
-            switch (angle) {
+    function transformCoords(coords, index) {
+    // First apply rotation
+        let rotatedCoords = coords.map(coord => {
+            let [x, y] = coord;
+            switch (pieceRotation[index]) {
                 case 90:
-                    return [-coord[1], coord[0]];
+                    return [y, -x];
                 case 180:
-                    return [-coord[0], -coord[1]];
+                    return [-x, -y];
                 case 270:
-                    return [coord[1], -coord[0]];
+                    return [-y, x];
                 default:
-                    return coord;
+                    return [x, y];
             }
         });
+
+    // Then apply flips
+    console.log(horizontalFlip[index])
+    if (horizontalFlip[index]) {
+        rotatedCoords = flipHorizontalCoords(rotatedCoords);
+    }
+    if (verticalFlip[index]) {
+        rotatedCoords = flipVerticalCoords(rotatedCoords);
+    }
+    return rotatedCoords;
+}
+
+    function flipHorizontalCoords(coords) {
+        return coords.map(([x, y]) => [-x, y]);
     }
 
-    function applyFlips(coords, index) {
-        let transformedCoords = coords;
-        if (horizontalFlip[index]) {
-            transformedCoords = transformedCoords.map(coord => [-coord[0], coord[1]]);
-        }
-        if (verticalFlip[index]) {
-            transformedCoords = transformedCoords.map(coord => [coord[0], -coord[1]]);
-        }
-        return transformedCoords;
+    function flipVerticalCoords(coords) {
+        coords = coords.map(([x, y]) => [-x, -y]);
+        return flipHorizontalCoords(coords)
+
     }
-
-    function flipCoordsHorizontally(coords) {
-        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
-    }
-
-    function flipCoordsVertically(coords) {
-        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
-    }
-
-    function resetBoard() {
-        console.log("Grid data..", gridData);
-        // Clear the board colors and data
-        for (let row = 0; row < 5; row++) {
-            for (let col = 0; col < 11; col++) {
-                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-                cell.style.backgroundColor = '#FFF';
-                gridData[row][col] = null;
-            }
-
-        }
-        // Reset the pieces on the board
-        for (let i = 0; i < pieces.length; i++) {
-            const pieceIndex = i;
-            const coords = pieces[pieceIndex];
-
-            // Reset piece position
-            const initialX = initXY[pieceIndex][0];
-            const initialY = initXY[pieceIndex][1];
-            const piece = document.getElementById(`piece-${pieceIndex + 1}`);
-            piece.style.left = initialX + 'px';
-            piece.style.top = initialY + 'px';
-
-            // Reset rotation, flips, and transformation
-            rotationAngle = 0; // Reset rotation
-            horizontalFlip[pieceIndex] = false;
-            verticalFlip[pieceIndex] = false;
-
-            // Apply transformations
-            applyTransformations(piece, coords, rotationAngle, horizontalFlip[pieceIndex], verticalFlip[pieceIndex]);
-
-            // Reset drag data
-            piece.dataset.dragged = 'false';
-        }
-    }
-
-    function applyTransformations(piece, coords, rotationAngle, horizontalFlip, verticalFlip) {
-        const rotatedPieceCoords = rotateCoords(coords, rotationAngle);
-        const flippedPieceCoords = applyFlips(rotatedPieceCoords, rotationAngle, horizontalFlip, verticalFlip);
-
-        // Apply transformations to the piece
-        for (let i = 0; i < coords.length; i++) {
-            const x = coords[i][0] * 50; // Adjust this value based on your piece size
-            const y = coords[i][1] * 50; // Adjust this value based on your piece size
-            const rotatedX = rotatedPieceCoords[i][0] * 50;
-            const rotatedY = rotatedPieceCoords[i][1] * 50;
-            const flippedX = flippedPieceCoords[i][0] * 50;
-            const flippedY = flippedPieceCoords[i][1] * 50;
-
-            const transform = `translate(${flippedX - rotatedX}px, ${flippedY - rotatedY}px) rotate(${rotationAngle}deg)`;
-
-            piece.style.transform = transform;
-        }
-    }
- }
+}
