@@ -108,6 +108,13 @@ b {
     border-radius: 5px; /* Optional: Add border-radius to the images */
 }
 
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* Use 100% of the viewport height */
+}
+
 .result-mode {
     background-color: #fff;
     padding: 20px;
@@ -134,6 +141,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
+
 .button-container button {
     width: 150px; /* Adjust the width as needed */
     margin: 0 5px; /* Add margin between buttons */
@@ -175,6 +183,7 @@ justify-content: center;
     max-width: 70vw;
     margin: 0 auto;
 }
+
 
 .result-mode {
     background-color: #D0E7D2;
@@ -358,6 +367,7 @@ justify-content: center;
   box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
 
+
 /* Google font icon pack
 .material-symbols-outlined {
   font-variation-settings:
@@ -365,4 +375,75 @@ justify-content: center;
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+*/
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+.futuristic-text-field {
+    position: relative;
+    width: 300px;
+    display: inline-block;
+}
+
+.futuristic-text-field input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+}
+
+.futuristic-text-field input:focus {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.futuristic-text-field label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+    color: #fff;
+    pointer-events: none;
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.futuristic-text-field input:focus + label,
+.futuristic-text-field input:not(:placeholder-shown) + label {
+    transform: translateY(-100%) scale(0.8);
+    font-size: 12px;
+    color: #aaa;
+}
+
+.game-text {
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
 }

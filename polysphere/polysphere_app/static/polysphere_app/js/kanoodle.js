@@ -1,28 +1,26 @@
 window.onload = function () {
-    // Set up the image IDs and current index
-    const imageIds = ["shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6", "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"];
-    let currentIndex = 0;
-    let rotationAngle = 0;
+  const imageIds = [
+    "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
+    "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
+  ];
+  let currentIndex = 0;
+  let rotationAngle = 0;
 
-    const currentImage = document.getElementById('currentImage');
-    const piecesContainer = document.getElementById('piecesContainer');
-    const board = document.getElementById('board');
-    const boardMatrix = createBoardMatrix();
+  const currentImage = document.getElementById('currentImage');
+  const piecesContainer = document.getElementById('piecesContainer');
+  const board = document.getElementById('board');
+  const boardMatrix = createBoardMatrix();
 
-    let scaleXY = [[1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1], [1, 1]];
-    let initXY = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]];
-    let isMouseMoveListenerAdded = [false, false, false, false, false, false, false, false, false, false, false, false];
-    let gridData = [
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null, null, null, null, null]
-    ];
-    let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
-let pieces = [
-        [[0,-1],[0,0],[0,1],
-         [1,-1],     [1,1]],
+  let rotationAngles = Array(12).fill(0);
+  let scaleXY = Array.from({ length: 12 }, () => [1, 1]);
+  let initXY = Array.from({ length: 12 }, () => [0, 0]);
+  let isMouseMoveListenerAdded = Array(12).fill(false);
+
+  let gridData = Array.from({ length: 5 }, () => Array(11).fill(null));
+  let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
+    let pieces = [
+        [[0, -1], [0, 0], [0, 1],
+            [1, -1], [1, 1]],
 
         [              [0,0],[0,1],
          [1,-2],[1,-1],[1,0]],
@@ -132,14 +130,18 @@ function applyCurrentTransformations() {
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
+    const rstboard = document.getElementById('resetBoard');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
+    const resetbrd = document.getElementById('resetBoard');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
 
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
+    rstboard.addEventListener('click', resetBoard);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
+    resetbrd.addEventListener('click', resetBoard);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
     flipVerticalButton.addEventListener('click', flipVertical);
 
@@ -273,5 +275,61 @@ function applyCurrentTransformations() {
         coords = coords.map(([x, y]) => [-x, -y]);
         return flipHorizontalCoords(coords)
 
+    }
+
+    function resetBoard() {
+        console.log("Resetting something..");
+        // Clear the board colors and data
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 11; col++) {
+                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                cell.style.backgroundColor = '#FFF';
+                gridData[row][col] = null;
+            }
+
+        }
+        console.log("Resetting grid data..",gridData);
+        // Reset the pieces on the board
+        for (let i = 0; i < pieces.length; i++) {
+            const pieceIndex = i;
+            const coords = pieces[pieceIndex];
+
+            // Reset piece position
+            const initialX = initXY[pieceIndex][0];
+            const initialY = initXY[pieceIndex][1];
+            const piece = document.getElementById(`piece-${pieceIndex + 1}`);
+            piece.style.left = initialX + 'px';
+            piece.style.top = initialY + 'px';
+
+            // Reset rotation, flips, and transformation
+            rotationAngle = 0; // Reset rotation
+            horizontalFlip[pieceIndex] = false;
+            verticalFlip[pieceIndex] = false;
+
+            // Apply transformations
+            applyTransformations(piece, coords, rotationAngle, horizontalFlip[pieceIndex], verticalFlip[pieceIndex]);
+
+            // Reset drag data
+            piece.dataset.dragged = 'false';
+        }
+    }
+
+    function applyTransformations(piece, coords, rotationAngle, horizontalFlip, verticalFlip) {
+    const rotatedPieceCoords = rotateCoords(coords, rotationAngle);
+    const flippedPieceCoords = applyFlips(rotatedPieceCoords, rotationAngle, horizontalFlip, verticalFlip);
+
+    // Apply transformations to the piece
+    for (let i = 0; i < coords.length; i++) {
+            const x = coords[i][0] * 50; // Adjust this value based on your piece size
+            const y = coords[i][1] * 50; // Adjust this value based on your piece size
+            const rotatedX = rotatedPieceCoords[i][0] * 50;
+            const rotatedY = rotatedPieceCoords[i][1] * 50;
+            const flippedX = flippedPieceCoords[i][0] * 50;
+            const flippedY = flippedPieceCoords[i][1] * 50;
+
+            const transform = `translate(${flippedX - rotatedX}px, ${flippedY - rotatedY}px) rotate(${rotationAngle}deg)`;
+
+            piece.style.transform = transform;
+        }
     }
 }
