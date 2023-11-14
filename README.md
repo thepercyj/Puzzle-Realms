@@ -2,26 +2,18 @@
 This is the repository for the module Advanced Software Engineering of Group 6
  
 # Project Description
- # N-Queen Puzzle
-A group project of web-based N-Queens Puzzle Solver using Django and Python. 
-Design an algorithm for solving the N-Queens puzzle for any board size N.
-Provide a user-friendly interface that allows users to enter the value of N and see the solution.
-Implement the optimization techniques to improve the algorithm's efficiency.
-
- # Kanoodle Solver
-Build a solver for the Kanoodle puzzle, which requires you to fit 12 different pieces into a specified board arrangement.
-Create a user interface that enables users to arrange and visualize Kanoodle pieces on the board.
-To identify optimal solutions for diverse Kanoodle puzzle combinations, use AI approaches such as backtracking or evolutionary algorithms.
+This is a group project for Group-6 in Advanced Software Engineering which delivers web applications to solve various puzzle problems using efficient algorithms.
 
 # What is an N-Queens Puzzle?
-The N-queens puzzle is a classic problem in combinatorial mathematics and computer science, also known as chess puzzles in this context, entail arranging or picking items based on certain rules or limitations. Chess puzzles are concerned with the positioning and movement of the pieces of chess on a chessboard. The goal of the N-Queens puzzle is to arrange N chess queens on a NxN chessboard so that no two queens threaten each other. This means that no two queens can be in the same row, column, or diagonal at the same time. The task is to identify all potential configurations that satisfy these constraints.
+The N-queens puzzle is a classic problem in combinatorial mathematics and computer science, also known as chess puzzles in this context, entail arranging or picking items based on certain rules or limitations. Chess puzzles are concerned with the positioning and movement of the pieces of chess on a chessboard. The goal of the N-Queens puzzle is to arrange N chess queens on a NxN chessboard so that no two queens threaten each other. This means that no two queens can be in the same row, column, or diagonal at the same time. The task is to identify all potential configurations that satisfy these constraints. We developed a web-based N-Queens Puzzle Solver using Django which is designed using an backtracking algorithm for solving the N-Queens puzzle for any board size N instead of brute-force algorithm
+The web UI provides a user-friendly interface that allows users to enter the queens on the interactive chessboard in order to solve the n-queens puzzle.
 
 # What is a Kanoodle solver?
-Kanoodle is placing a set of 11 pieces into a three-dimensional puzzle board. The pieces have different forms, and the goal is to arrange them so that they fit together. Pattern Matching Puzzles frequently need spatial reasoning, vision, and strategic thinking. Identifying and managing patterns in a spatial context is required to solve them. Arranging parts to match a precise pattern, building structures, or accomplishing objectives within a limited space can all be challenging.
+Kanoodle is placing a set of 11 pieces into a three-dimensional puzzle board. The pieces have different forms, and the goal is to arrange them so that they fit together. Pattern Matching Puzzles frequently need spatial reasoning, vision, and strategic thinking. Identifying and managing patterns in a spatial context is required to solve them. Arranging parts to match a precise pattern, building structures, or accomplishing objectives within a limited space can all be challenging. A web-based UI was built for the kanoodle puzzle solver, which requires you to fit 12 different pieces into a specified board arrangement.It consists of a interactive user interface that enables users to arrange and visualize Kanoodle pieces on the board.
+To identify optimal solutions for diverse Kanoodle puzzle combinations, we used backtracking algorithm using the Donal Knuth's Dancing link algorithm.
 
 # Objectives
-Create a web-based intelligent puzzle solver application that can solve two classic puzzles: the N-Queens puzzle and the Kanoodle puzzle. The project's goal is to show how different problem-solving methodologies, algorithms, and artificial intelligence (AI) principles can be used to solve these difficult puzzles.
-To evaluate the performance and optimize the algorithm.
+Create web-based intelligent puzzle solver application that can solve classic puzzles such as the N-Queens puzzle and the Kanoodle puzzle. The project's goal is to show how different problem-solving methodologies efficient algorithms can be combined to create Web based games to solve these difficult puzzles.
 
  # Steps to run the N-Queen project & Kanoodle project locally
 
