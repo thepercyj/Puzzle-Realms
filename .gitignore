@@ -165,3 +165,7 @@ cython_debug/
 .idea/workspace.xml
 >>>>>>> Stashed changes
 .idea/workspace.xml
+*.iml
+/DLX-Algo/.idea/
+/DLX-Algo/NEW_DLX_Approach/.idea/
+/polysphere/media/
