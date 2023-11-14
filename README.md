@@ -3,10 +3,10 @@ This is the repository for the module Advanced Software Engineering of Group 6
  
 # Project Description
  # N-Queen Puzzle
-A group project of web-based N-Queens Puzzle Solver using Django and Python.
-Design an algorithm for solving the N-Queens puzzle for any N.
-Provide a user-friendly interface that allows users to enter the value of N and see the solution.
-Implement the optimization techniques to improve the algorithm's efficiency.
+-A group project of web-based N-Queens Puzzle Solver using Django and Python. 
+-Design an algorithm for solving the N-Queens puzzle for any board size N.
+-Provide a user-friendly interface that allows users to enter the value of N and see the solution.
+-Implement the optimization techniques to improve the algorithm's efficiency.
 
  # Kanoodle Solver
 -Build a solver for the Kanoodle puzzle, which requires you to fit 12 different pieces into a specified board arrangement.
@@ -14,10 +14,10 @@ Implement the optimization techniques to improve the algorithm's efficiency.
 -To identify optimal solutions for diverse Kanoodle puzzle combinations, use AI approaches such as backtracking or evolutionary algorithms.
 
 # What is an N-Queens Puzzle?
-The N-queens puzzle is a classic problem in combinatorial mathematics and computer science. It's a puzzle that involves placing N chess queens on an N×N chessboard in such a way that no two queens threaten each other. In other words, no two queens should be in the same row, column, or diagonal.
+The N-queens puzzle is a classic problem in combinatorial mathematics and computer science, also known as chess puzzles in this context, entail arranging or picking items based on certain rules or limitations. Chess puzzles are concerned with the positioning and movement of the pieces of chess on a chessboard. The goal of the N-Queens puzzle is to arrange N chess queens on a NxN chessboard so that no two queens threaten each other. This means that no two queens can be in the same row, column, or diagonal at the same time. The task is to identify all potential configurations that satisfy these constraints.
 
 # What is a Kanoodle solver?
-Kanoodle is a solo puzzle solver in which players must arrange colorful pieces in precise combinations depending on predefined patterns or criteria. A tiny, portable box containing the collection of 12 multi-colored puzzle parts and an instruction guide with several puzzles or challenges are the standard of the puzzle.
+Kanoodle is placing a set of 11 pieces into a three-dimensional puzzle board. The pieces have different forms, and the goal is to arrange them so that they fit together. Pattern Matching Puzzles frequently need spatial reasoning, vision, and strategic thinking. Identifying and managing patterns in a spatial context is required to solve them. Arranging parts to match a precise pattern, building structures, or accomplishing objectives within a limited space can all be challenging.
 
 # Objectives
 Create a web-based intelligent puzzle solver application that can solve two classic puzzles: the N-Queens puzzle and the Kanoodle puzzle. The project's goal is to show how different problem-solving methodologies, algorithms, and artificial intelligence (AI) principles can be used to solve these difficult puzzles.
