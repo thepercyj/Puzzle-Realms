@@ -3,15 +3,15 @@ This is the repository for the module Advanced Software Engineering of Group 6
  
 # Project Description
  # N-Queen Puzzle
--A group project of web-based N-Queens Puzzle Solver using Django and Python. 
--Design an algorithm for solving the N-Queens puzzle for any board size N.
--Provide a user-friendly interface that allows users to enter the value of N and see the solution.
--Implement the optimization techniques to improve the algorithm's efficiency.
+A group project of web-based N-Queens Puzzle Solver using Django and Python. 
+Design an algorithm for solving the N-Queens puzzle for any board size N.
+Provide a user-friendly interface that allows users to enter the value of N and see the solution.
+Implement the optimization techniques to improve the algorithm's efficiency.
 
  # Kanoodle Solver
--Build a solver for the Kanoodle puzzle, which requires you to fit 12 different pieces into a specified board arrangement.
--Create a user interface that enables users to arrange and visualize Kanoodle pieces on the board.
--To identify optimal solutions for diverse Kanoodle puzzle combinations, use AI approaches such as backtracking or evolutionary algorithms.
+Build a solver for the Kanoodle puzzle, which requires you to fit 12 different pieces into a specified board arrangement.
+Create a user interface that enables users to arrange and visualize Kanoodle pieces on the board.
+To identify optimal solutions for diverse Kanoodle puzzle combinations, use AI approaches such as backtracking or evolutionary algorithms.
 
 # What is an N-Queens Puzzle?
 The N-queens puzzle is a classic problem in combinatorial mathematics and computer science, also known as chess puzzles in this context, entail arranging or picking items based on certain rules or limitations. Chess puzzles are concerned with the positioning and movement of the pieces of chess on a chessboard. The goal of the N-Queens puzzle is to arrange N chess queens on a NxN chessboard so that no two queens threaten each other. This means that no two queens can be in the same row, column, or diagonal at the same time. The task is to identify all potential configurations that satisfy these constraints.
