@@ -5,10 +5,11 @@ window.onload = function () {
   ];
   let currentIndex = 0;
   let rotationAngle = 0;
-  let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
+  let alphabets = ["I", "E", "L", "J", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
   const piecesContainer = document.getElementById('piecesContainer');
+  const solutionsContainer = document.getElementById('solutionContainer')
   const board = document.getElementById('board');
   const boardMatrix = createBoardMatrix();
 
@@ -127,7 +128,7 @@ function applyCurrentTransformations() {
     }
     currentImage.style.transform = transform;
 }
-
+    // Get buttons from template
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
@@ -137,7 +138,7 @@ function applyCurrentTransformations() {
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
 
-
+    // Add event listeners for button functions
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
@@ -336,6 +337,10 @@ function applyCurrentTransformations() {
     }
 
     function sendPartialConfiguration(gridData){
+        while (solutionContainer.firstChild) {
+            solutionContainer.removeChild(solutionContainer.firstChild);
+        }
+
         // Sends Partial configuration to the backend
         fetch('/landing/solutions/find_partial_solutions/', {
         method: 'POST',
@@ -345,17 +350,26 @@ function applyCurrentTransformations() {
         },
         body: JSON.stringify(gridData, function(key, value) {
         // Replace null with a space
-        if (value === null) {
-            return " ";
-        }
-            return value;
+            if (value === null) {
+                return " ";
+            }
+                return value;
         })
-        })
+    })
         // Parse the json data
         .then(response => response.json())
         .then(configuration => {
-            console.log(configuration);
             console.log(configuration.img_paths);
+            if(configuration.img_paths.length >= 1){
+                addImagesToContainer(configuration.img_paths);
+                }
+            else{
+                let message = document.createElement('h1');
+                message.textContent = "No Solutions Found! Try Again!";
+                message.class = "NoSolutionsFoundMessage"
+                solutionContainer.appendChild(message);
+
+            }
         });
     }
 
@@ -363,6 +377,26 @@ function applyCurrentTransformations() {
     function getCSRFToken() {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     }
+
+    function addImagesToContainer(img_paths){
+        // For each image, adds a new image element to the container
+        img_paths.forEach(path => {
+            let img = document.createElement('img');
+            img.src = "../../../media/" + path;
+            img.alt = path;
+            img.classList.add("solutionImage")
+            img.classList.add("hidden");
+            solutionContainer.appendChild(img);
+            showNextImages();
+        return
+        });
+    }
+
+    function showNextImages(){}
+        let images = document.querySelectorAll('#solutionContainer img');
+        for (let i = 0; i < images.length && i < 5; i++) {
+            images[i].classList.remove('hidden');
+        }
 }
 
 

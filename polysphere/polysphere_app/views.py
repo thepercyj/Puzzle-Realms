@@ -25,7 +25,7 @@ end_time = 0
 
 
 def landing(request):
-    return render(request, 'polysphere_app/landing.html')
+    return render(request, 'polysphere_app/landing.html', {'MEDIA_URL': settings.MEDIA_ROOT})
 
 
 @require_http_methods(["POST"])
@@ -217,7 +217,6 @@ def find_partial_solutions(request):
     if request.method == 'POST':
         # Assigns a variable to the partial configuration and generates a regex pattern from it
         configuration = json.loads(request.body)
-        print(configuration)
         regex_pattern = generate_regex_pattern(configuration)
     # Opens the solutions.txt file
         with open(
@@ -247,10 +246,11 @@ def get_partial_solutions(matching_solutions):
                                    db='group_6_project')
 
     cursor = conn.cursor()
-
+    print(len(matching_solutions))
     # Gets matching patterns from the database
     img_paths = []
     for match in matching_solutions:
+        print("Match found:", match)
         query = "SELECT img_path FROM kanoodle_solver WHERE mapping LIKE %s"
         match_with_wildcard = f"%{match}%"
         cursor.execute(query, (match_with_wildcard,))
@@ -259,7 +259,6 @@ def get_partial_solutions(matching_solutions):
     conn.close()
     # Returns a Json response
     return JsonResponse({'img_paths': img_paths})
-
 
 
 
