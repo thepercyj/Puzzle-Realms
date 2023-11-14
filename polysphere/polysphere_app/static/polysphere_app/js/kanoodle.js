@@ -5,6 +5,7 @@ window.onload = function () {
   ];
   let currentIndex = 0;
   let rotationAngle = 0;
+  let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
   const piecesContainer = document.getElementById('piecesContainer');
@@ -130,15 +131,14 @@ function applyCurrentTransformations() {
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
-    const rstboard = document.getElementById('resetBoard');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
     const resetbrd = document.getElementById('resetBoard');
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
 
+
     previousImageButton.addEventListener('click', previousImage);
     nextImageButton.addEventListener('click', nextImage);
-    rstboard.addEventListener('click', resetBoard);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
     resetbrd.addEventListener('click', resetBoard);
@@ -182,15 +182,12 @@ function applyCurrentTransformations() {
         const pieceId = event.target.id.replace('piece-', 'shape-')
         const pieceIndex = imageIds.indexOf((pieceId));
         pieceRotation[pieceIndex] = rotationAngle;
-
     }
 
     function drop(event) {
         event.preventDefault();
         const cell = event.target;
-        console.log("Rotations ->" , pieceRotation);
-        console.log("Vertical flips ->",verticalFlip);
-        console.log("Horizontal flips ->", horizontalFlip);
+
         const row = parseInt(cell.dataset.row);
         const col = parseInt(cell.dataset.col);
 
@@ -208,7 +205,7 @@ function applyCurrentTransformations() {
                     const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
                     targetCell.style.backgroundColor = gridColor[currentIndex];
                     // Update the board matrix with the color information
-                    gridData[newRow][newCol] = gridColor[currentIndex];
+                    gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
                 }
             }
         }
@@ -254,31 +251,30 @@ function applyCurrentTransformations() {
                 default:
                     return [x, y];
             }
-        });
-
-    // Then apply flips
-    console.log(horizontalFlip[index])
-    if (horizontalFlip[index]) {
-        rotatedCoords = flipHorizontalCoords(rotatedCoords);
-    }
-    if (verticalFlip[index]) {
-        rotatedCoords = flipVerticalCoords(rotatedCoords);
-    }
-    return rotatedCoords;
-}
-
-    function flipHorizontalCoords(coords) {
-        return coords.map(([x, y]) => [-x, y]);
+        );
     }
 
-    function flipVerticalCoords(coords) {
-        coords = coords.map(([x, y]) => [-x, -y]);
-        return flipHorizontalCoords(coords)
+    function applyFlips(coords, index) {
+        let transformedCoords = coords;
+        if (horizontalFlip[index]) {
+            transformedCoords = transformedCoords.map(coord => [-coord[0], coord[1]]);
+        }
+        if (verticalFlip[index]) {
+            transformedCoords = transformedCoords.map(coord => [coord[0], -coord[1]]);
+        }
+        return transformedCoords;
+    }
 
+    function flipCoordsHorizontally(coords) {
+        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
+    }
+
+    function flipCoordsVertically(coords) {
+        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
     }
 
     function resetBoard() {
-        console.log("Resetting something..");
+        console.log("Grid data..", gridData);
         // Clear the board colors and data
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 11; col++) {
@@ -288,7 +284,6 @@ function applyCurrentTransformations() {
             }
 
         }
-        console.log("Resetting grid data..",gridData);
         // Reset the pieces on the board
         for (let i = 0; i < pieces.length; i++) {
             const pieceIndex = i;
