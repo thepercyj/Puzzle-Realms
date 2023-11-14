@@ -385,7 +385,6 @@ function pieceExistsInGrid(alphabets, gridData, index) {
             rotationAngle = 0; // Reset rotation
             horizontalFlip[pieceIndex] = false;
             verticalFlip[pieceIndex] = false;
-            currentIndex = 0;
 
             // Apply transformations
             applyTransformations(piece, coords, rotationAngle, horizontalFlip[pieceIndex], verticalFlip[pieceIndex]);
