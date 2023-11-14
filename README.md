@@ -23,7 +23,7 @@ Kanoodle is placing a set of 11 pieces into a three-dimensional puzzle board. Th
 Create a web-based intelligent puzzle solver application that can solve two classic puzzles: the N-Queens puzzle and the Kanoodle puzzle. The project's goal is to show how different problem-solving methodologies, algorithms, and artificial intelligence (AI) principles can be used to solve these difficult puzzles.
 To evaluate the performance and optimize the algorithm.
 
- # Steps to run the project locally
+ # Steps to run the N-Queen project & Kanoodle project locally
 
 Install Visual Studio Code (VSCode):
 
@@ -49,3 +49,5 @@ Open a terminal within VSCode (click on "Terminal" in the menu, then "New Termin
 python manage.py runserver
 
 The server should now be running, and you can access the application through a web browser. That's it!
+
+
