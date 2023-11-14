@@ -5,7 +5,7 @@ window.onload = function () {
   ];
   let currentIndex = 0;
   let rotationAngle = 0;
-  let alphabets = ["I", "E", "L", "J", "D", "B", "K", "A", "G", "C", "F", "H"];
+  let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
   const piecesContainer = document.getElementById('piecesContainer');
@@ -23,6 +23,7 @@ window.onload = function () {
     let pieces = [
         [[0, -1], [0, 0], [0, 1],
             [1, -1], [1, 1]],
+>>>>>>>>> Temporary merge branch 2
 
         [              [0,0],[0,1],
          [1,-2],[1,-1],[1,0]],
@@ -43,25 +44,24 @@ window.onload = function () {
         [       [0,0],[0,1],
          [1,-1],[1,0]],
 
-        [[0,0],[0,1],
-         [1,0],
-         [2,0]],
+        [[0, 0], [0, 1],
+            [1, 0],
+            [2, 0]],
 
-        [[0,-2],[0,-1],[0,0],
-                       [1,0],
-                       [2,0]],
+        [[0, -2], [0, -1], [0, 0],
+            [1, 0],
+            [2, 0]],
 
-        [[-1,0],
-         [0,0],[0,1],[0,2],[0,3]],
+        [[-1, 0],
+            [0, 0], [0, 1], [0, 2], [0, 3]],
 
-        [[-1,0],
-         [0,0],[0,1]],
+        [[-1, 0],
+            [0, 0], [0, 1]],
 
-        [[-1,-1],[-1,0],
-                 [0,0],[0,1],
-                       [1,1]],
-
-]
+        [[-1, -1], [-1, 0],
+            [0, 0], [0, 1],
+            [1, 1]],
+    ];
 
     // Stores the orientation and flip status of the pieces
     let pieceRotation = new Array(12).fill(0)
