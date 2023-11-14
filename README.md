@@ -7,6 +7,10 @@ A web-based N-Queens Puzzle Solver using Django and Python.
 # What is an N-Queens Puzzle?
 The N-queens puzzle is a classic problem in combinatorial mathematics and computer science. It's a puzzle that involves placing N chess queens on an N×N chessboard in such a way that no two queens threaten each other. In other words, no two queens should be in the same row, column, or diagonal.
 
+# What is a Kanoodle solver?
+Kanoodle is placing a set of 11 pieces into a three-dimensional puzzle board. The pieces have different forms, and the goal is to arrange them so that they fit together. Pattern Matching Puzzles frequently need spatial reasoning, vision, and strategic thinking. Identifying and managing patterns in a spatial context is required to solve them. Arranging parts to match a precise pattern, building structures, or accomplishing objectives within a limited space can all be challenging. A web-based UI was built for the kanoodle puzzle solver, which requires you to fit 12 different pieces into a specified board arrangement.It consists of a interactive user interface that enables users to arrange and visualize Kanoodle pieces on the board.
+To identify optimal solutions for diverse Kanoodle puzzle combinations, we used backtracking algorithm using the Donal Knuth's Dancing link algorithm.
+
 # Objectives 
 To evaluate the performance and optimize the algorithm.
 
