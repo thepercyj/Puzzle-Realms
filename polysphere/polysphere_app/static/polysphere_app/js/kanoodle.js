@@ -287,7 +287,7 @@ function applyCurrentTransformations() {
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 11; col++) {
                 const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-                cell.style.backgroundColor = '#FFF';
+                cell.style.backgroundColor = '#BCF4FA';
                 gridData[row][col] = null;
             }
 
