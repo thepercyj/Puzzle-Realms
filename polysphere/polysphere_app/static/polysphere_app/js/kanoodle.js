@@ -23,7 +23,6 @@ window.onload = function () {
     let pieces = [
         [[0, -1], [0, 0], [0, 1],
             [1, -1], [1, 1]],
->>>>>>>>> Temporary merge branch 2
 
         [              [0,0],[0,1],
          [1,-2],[1,-1],[1,0]],
@@ -378,25 +377,70 @@ function applyCurrentTransformations() {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     }
 
-    function addImagesToContainer(img_paths){
-        // For each image, adds a new image element to the container
+    function addImagesToContainer(img_paths) {
+        // Assuming solutionContainer is the container where you want to display the images
+        //const solutionContainer = document.getElementById('yourSolutionContainerId'); // Replace with your actual container id
+
+        // Clear existing content
+        while (solutionContainer.firstChild) {
+            solutionContainer.removeChild(solutionContainer.firstChild);
+        }
+
+        // Create a grid container
+        const gridContainer = document.createElement('div');
+        gridContainer.classList.add('grid-container');
+
+        // For each image, create a grid item and add it to the grid container
         img_paths.forEach(path => {
-            let img = document.createElement('img');
+            const gridItem = document.createElement('div');
+            gridItem.classList.add('grid-item');
+            gridItem.style.marginRight = '10px'; // Adjust the margin-right value as needed
+
+            const img = document.createElement('img');
             img.src = "../../../media/" + path;
             img.alt = path;
-            img.classList.add("solutionImage")
+            img.classList.add("solutionImage");
             img.classList.add("hidden");
-            solutionContainer.appendChild(img);
-            showNextImages();
-        return
+
+            // Append the image to the grid item
+            gridItem.appendChild(img);
+
+            // Append the grid item to the grid container
+            gridContainer.appendChild(gridItem);
         });
+
+        // Append the grid container to the solutionContainer
+        solutionContainer.appendChild(gridContainer);
+
+        showNextImages();
     }
 
-    function showNextImages(){}
-        let images = document.querySelectorAll('#solutionContainer img');
+    function showNextImages() {
+        let images = document.querySelectorAll('#yourSolutionContainerId .solutionImage');
         for (let i = 0; i < images.length && i < 5; i++) {
             images[i].classList.remove('hidden');
         }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+    const imageGrid = document.getElementById('imageGrid');
+    const numberOfImages = 80443;
+
+    for (let i = 0; i <= numberOfImages; i++) {
+        const imageElement = document.createElement('img');
+        imageElement.src = `/polysphere/media/solution_${i}.webp` // Adjust the path based on your file structure
+        imageElement.alt = `Image ${i}`;
+
+        if (i % 4 === 1) {
+            // Start a new row for every 4 images
+            const gridRow = document.createElement('div');
+            gridRow.classList.add('grid-row');
+            imageGrid.appendChild(gridRow);
+        }
+
+        const currentRow = imageGrid.lastElementChild;
+        currentRow.appendChild(imageElement);
+    }
+});
 }
 
 

@@ -89,41 +89,18 @@
                             <span class="material-symbols-outlined">swap_vert</span>
                         </button>
                         <!-- Add a button to switch to the next image -->
-                        <button class="btn2 fifth" id="myButton" onclick="resetButton()"> Show solutions
-                        </button>
-
-                        <button class="btn third" id="solveButton"> Show solutions
-                        </button>
-                        <button class="btn third" id="resetBoard"> Reset
+                        <button class="btn2 fifth" id="solveButton"> Show solutions
                         </button>
                     </div>
 
                 </div>
             </div>
+            <div class="display-mode"><div class="solution-container" id="solutionContainer"></div></div>
 
-            <div class="result-mode">
-                <div id="solutionContainer"></div>
-            </div>
             <footer class="edit-mode">
                 <p>&copy; Group-6 ACS</p>
             </footer>
         </div>
     </div>
-    <script>
-        function resetButton() {
-            const button = document.getElementById('myButton');
-            button.style.display = 'inline-block';
-        }
-        // Ensure the button is initially hidden when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            const button = document.getElementById('myButton');
-            button.style.display = 'none';
-
-            // Set a timer to make the button visible after 3000 milliseconds (3 seconds)
-            setTimeout(function() {
-                button.style.display = 'inline-block';
-            }, 3000);
-        });
-    </script>
 </body>
 </html>
