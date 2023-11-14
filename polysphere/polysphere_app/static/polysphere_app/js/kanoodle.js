@@ -133,6 +133,7 @@ function applyCurrentTransformations() {
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
     const resetbrd = document.getElementById('resetBoard');
+    const solvePuzzleButton = document.getElementById('solveButton')
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
 
@@ -144,6 +145,9 @@ function applyCurrentTransformations() {
     resetbrd.addEventListener('click', resetBoard);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
     flipVerticalButton.addEventListener('click', flipVertical);
+    solveButton.addEventListener('click', (event) => {
+        sendPartialConfiguration(gridData);
+});
 
     updateImage();
 
@@ -206,7 +210,9 @@ function applyCurrentTransformations() {
                     targetCell.style.backgroundColor = gridColor[currentIndex];
                     // Update the board matrix with the color information
                     gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
-                }
+                    }
+                console.log("Grid -->", gridData)
+
             }
         }
     }
@@ -328,4 +334,35 @@ function applyCurrentTransformations() {
             piece.style.transform = transform;
         }
     }
+
+    function sendPartialConfiguration(gridData){
+        // Sends Partial configuration to the backend
+        fetch('/landing/solutions/find_partial_solutions/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body: JSON.stringify(gridData, function(key, value) {
+        // Replace null with a space
+        if (value === null) {
+            return " ";
+        }
+            return value;
+        })
+        })
+        // Parse the json data
+        .then(response => response.json())
+        .then(configuration => {
+            console.log(configuration);
+            console.log(configuration.img_paths);
+        });
+    }
+
+    // Gets the csrf token from the html
+    function getCSRFToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
 }
+
+

@@ -212,24 +212,33 @@ def generate_regex_pattern(partial_solution):
     return pattern.rstrip("\n")
 
 
-def find_partial_solutions(partial_solution):
-    regex_pattern = generate_regex_pattern(partial_solution)
+def find_partial_solutions(request):
+    # If a request sent from the webpage
+    if request.method == 'POST':
+        # Assigns a variable to the partial configuration and generates a regex pattern from it
+        configuration = json.loads(request.body)
+        print(configuration)
+        regex_pattern = generate_regex_pattern(configuration)
     # Opens the solutions.txt file
-    with open(
-            r'polysphere_app/solutions/all_solutions.txt',
-            'r') as file:
-        solutions_text = file.read()
-    # Split the text into individual solutions
-    raw_solutions = solutions_text.strip().split('\n\n')
-    # Format each solution with newline characters
-    formatted_solutions = ['\n'.join(solution.split('\n')) for solution in raw_solutions]
+        with open(
+                r'polysphere_app/solutions/all_solutions.txt',
+                'r') as file:
+            solutions_text = file.read()
+        # Split the text into individual solutions
+        raw_solutions = solutions_text.strip().split('\n\n')
+        # Format each solution with newline characters
+        formatted_solutions = ['\n'.join(solution.split('\n')) for solution in raw_solutions]
 
-    # Matches pattern to solutions
-    matching_solutions = []
-    for solution in formatted_solutions:
-        if re.match(regex_pattern, solution, re.DOTALL):
-            matching_solutions.append(solution)
-    return matching_solutions
+        # Matches pattern to solutions
+        matching_solutions = []
+        for solution in formatted_solutions:
+            if re.match(regex_pattern, solution, re.DOTALL):
+                matching_solutions.append(solution)
+        # Gets the matching solutions' image_paths from database
+        return get_partial_solutions(matching_solutions)
+
+    else:
+        return JsonResponse({'error:': 'Invalid request'}, status=400)
 
 
 def get_partial_solutions(matching_solutions):
@@ -248,17 +257,9 @@ def get_partial_solutions(matching_solutions):
         img_paths.extend([row[0] for row in cursor.fetchall()])
     cursor.close()
     conn.close()
-    return img_paths
+    # Returns a Json response
+    return JsonResponse({'img_paths': img_paths})
 
 
-partial_solution = [
-    ['J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A'],
-    ['J', 'J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A'],
-    ['J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'A'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-]
 
-partial_solutions = find_partial_solutions(partial_solution)
 
-partial_solutions_img = get_partial_solutions(partial_solutions)
