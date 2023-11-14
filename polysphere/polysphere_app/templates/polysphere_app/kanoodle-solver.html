@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Kanoodle Solver | ACS Group 6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/maybe-but-not-always" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/supply-center" rel="stylesheet">
     <script src="{% static 'polysphere_app/js/kanoodle.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/styles.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
@@ -12,23 +16,57 @@
     <div class="wrapper">
         <div class="content">
             <img class=title-image src="{% static 'polysphere_app/images/title.webp' %}" alt="title image" >
-            <h3>What is Kanoodle ?</h3>
-            <p class="edit-mode">
-                Kanoodle is a highly visual three-dimensional puzzle game that people of any age can enjoy. To play with Kanoodle, users simply have to arrange a variety of interconnected spheres to duplicate structures in their Kanoodle book. Or, move and manipulate the spheres to create original designs!
+            <h3>How to Play</h3>
+            <div class="info-mode">
+                <ul>
+            <strong>Instructions</strong>
+                    <br>
+                    <br>
+                <li>Select a puzzle and try drag and drop in the board.</li>
 
-                Choose a Starting Point: Start with an empty board or an array to represent the board. The board is typically a 5x11 grid, and you'll place Kanoodle on it.
-            </p>
+                <li>Arrange the provided spheres on the board to match a chosen puzzle or create your unique structure.</li>
+
+                <li>Spheres must be placed on the board in such a way it does not overlap each other.</li>
+                <li>Ensure each sphere fits within the designated grid spaces.</li>
+
+                <li>Experiment with different sphere arrangements to design your own structures.</li>
+                <li>Connect spheres in creative ways to fill the board.</li>
+
+                <li>Successfully complete a puzzle by filling the entire board with the provided spheres.</li>
+                <li>Confirm that your arrangement matches the structure shown in the puzzle solutions.</li>
+<br>
+            <strong>Tips for Success</strong>
+<br>
+                    <br>
+                <li>Pay attention to sphere shapes and connection points.</li>
+                <li>Think strategically to optimize space and complete the puzzle efficiently.</li>
+
+                <li>Kanoodle is not just a game but also a tool for spatial reasoning and creative thinking.</li>
+                <li>Have fun exploring different designs and improving your puzzle-solving skills.</li>
+</ul>
+                </div>
             <br>
-            <p class="edit-mode">Welcome {{ data_from_landing }}</p>
+            <p>Welcome {{ data_from_landing }}</p>
             <br>
             <!-- Add an image element with an ID -->
 
             <div class="display-mode">
-
-                <div class="board" id="board"></div>
+                <div>
+                    <div class="board" id="board"></div>
+                    <div class="imageContainer">
+                    <button class="btn1 fourth" id="resetBoard"> Reset
+                        </button>
+                    </div>
+                </div>
                 <div>
                     <div class="imageContainer">
+                        <button class="btn third" id="previousImageButton">
+                            <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+                        </button>
                         <img id="currentImage" src="{% static 'polysphere_app/images/shapes/shape-1.png' %}" alt="Current Image">
+                        <button class="btn third" id="nextImageButton">
+                            <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+                        </button>
                     </div>
                     <!-- Add rotation buttons -->
                     <br>
@@ -47,16 +85,9 @@
                             <span class="material-symbols-outlined">swap_vert</span>
                         </button>
                         <!-- Add a button to switch to the next image -->
-                        <button class="btn third" id="previousImageButton">
-                            <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+                        <button class="btn2 fifth" id="myButton" onclick="resetButton()"> Show solutions
                         </button>
-                        <button class="btn third" id="nextImageButton">
-                            <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
-                        </button>
-                        <button class="btn third" id=""> Show solutions
-                        </button>
-                        <button class="btn third" id="resetBoard"> Reset
-                        </button>
+
                     </div>
 
                 </div>
@@ -70,5 +101,21 @@
             </footer>
         </div>
     </div>
+    <script>
+        function resetButton() {
+            const button = document.getElementById('myButton');
+            button.style.display = 'inline-block';
+        }
+        // Ensure the button is initially hidden when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const button = document.getElementById('myButton');
+            button.style.display = 'none';
+
+            // Set a timer to make the button visible after 3000 milliseconds (3 seconds)
+            setTimeout(function() {
+                button.style.display = 'inline-block';
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
