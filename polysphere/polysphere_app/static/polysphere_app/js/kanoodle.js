@@ -5,6 +5,7 @@ window.onload = function () {
   ];
   let currentIndex = 0;
   let rotationAngle = 0;
+  let rotationFlip =  0;
   let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
@@ -14,6 +15,7 @@ window.onload = function () {
   const boardMatrix = createBoardMatrix();
 
   let rotationAngles = Array(12).fill(0);
+  let rotationFlips = Array(12).fill(0);
   let scaleXY = Array.from({ length: 12 }, () => [1, 1]);
   let initXY = Array.from({ length: 12 }, () => [0, 0]);
   let isMouseMoveListenerAdded = Array(12).fill(false);
@@ -64,8 +66,9 @@ window.onload = function () {
 
     // Stores the orientation and flip status of the pieces
     let pieceRotation = new Array(12).fill(0)
-    let horizontalFlip = new Array(12).fill(false)
-    let verticalFlip = new Array(12).fill(false)
+    let pieceFlip = new Array(12).fill(0)
+//    let horizontalFlip = new Array(12).fill(false)
+//    let verticalFlip = new Array(12).fill(false)
 
     function createBoardMatrix() {
         const matrix = [];
@@ -108,25 +111,31 @@ window.onload = function () {
     }
 
     function flipHorizontal() {
-    horizontalFlip[currentIndex] = !horizontalFlip[currentIndex];
-    applyCurrentTransformations(); // Apply current transformations to the image
-}
-
-function flipVertical() {
-    verticalFlip[currentIndex] = !verticalFlip[currentIndex];
-    applyCurrentTransformations(); // Apply current transformations to the image
-}
-
-function applyCurrentTransformations() {
-    let transform = `rotate(${rotationAngle}deg)`;
-    if (horizontalFlip[currentIndex]) {
-        transform += ' scaleX(-1)';
+        rotationFlip = 180; // Set to 180 for horizontal flip
+        pieceFlip[currentIndex] = rotationFlip;
+        applyCurrentTransformations(); // Apply current transformations to the image
     }
-    if (verticalFlip[currentIndex]) {
-        transform += ' scaleY(-1)';
+
+    function flipVertical() {
+        rotationFlip = 90; // Set to 90 for vertical flip
+        pieceFlip[currentIndex] = rotationFlip;
+        applyCurrentTransformations(); // Apply current transformations to the image
     }
-    currentImage.style.transform = transform;
-}
+
+    function applyCurrentTransformations() {
+        const transform = `rotate(${rotationAngle}deg) scaleX(${pieceFlip[currentIndex] === 180 ? -1 : 1}) scaleY(${pieceFlip[currentIndex] === 90 ? -1 : 1})`;
+        currentImage.style.transform = transform;
+    }
+//    function applyCurrentTransformations() {
+//        let transform = `rotate(${rotationAngle}deg)`;
+//        if (horizontalFlip[currentIndex]) {
+//            transform += ' scaleX(-1)';
+//        }
+//        if (verticalFlip[currentIndex]) {
+//            transform += ' scaleY(-1)';
+//        }
+//        currentImage.style.transform = transform;
+//    }
     // Get buttons from template
     const previousImageButton = document.getElementById('previousImageButton');
     const nextImageButton = document.getElementById('nextImageButton');
@@ -185,37 +194,57 @@ function applyCurrentTransformations() {
         // Updates the rotation state of the piece being dragged
         const pieceId = event.target.id.replace('piece-', 'shape-')
         const pieceIndex = imageIds.indexOf((pieceId));
-        pieceRotation[pieceIndex] = rotationAngle;
+        pieceRotation[pieceIndex] = rotationAngle; //Here we are adding rotation angle. Likewise, add flip as well
     }
 
-    function drop(event) {
-        event.preventDefault();
-        const cell = event.target;
+      function drop(event) {
+            event.preventDefault();
+            const cell = event.target;
 
-        const row = parseInt(cell.dataset.row);
-        const col = parseInt(cell.dataset.col);
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
 
-        if (cell.classList.contains('cell')) {
-            const transformedPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
+            if (cell.classList.contains('cell')) {
+                if (pieceRotation[currentIndex] = rotationAngle){
+                const transformedPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
+                // Check if the cells for the new piece are unoccupied
+                if (isSpaceAvailable(row, col, transformedPieceCoords)) {
+                    // Iterate through the coordinates of the current piece
+                    for (const coord of transformedPieceCoords) {
+                        const newRow = row + coord[0];
+                        const newCol = col + coord[1];
 
-            // Check if the cells for the new piece are unoccupied
-            if (isSpaceAvailable(row, col, transformedPieceCoords)) {
-                // Iterate through the coordinates of the current piece
-                for (const coord of transformedPieceCoords) {
-                    const newRow = row + coord[0];
-                    const newCol = col + coord[1];
+                        // Color the cell based on the piece coordinates
+                        const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
+                        targetCell.style.backgroundColor = gridColor[currentIndex];
+                        // Update the board matrix with the color information
+                        gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
+                        }
+                    console.log("Grid -->", gridData)
 
-                    // Color the cell based on the piece coordinates
-                    const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
-                    targetCell.style.backgroundColor = gridColor[currentIndex];
-                    // Update the board matrix with the color information
-                    gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
-                    }
-                console.log("Grid -->", gridData)
+                }
+                } else if(pieceRotation[currentIndex] = rotationFlip){
+                        const transformedFlipPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
+                        // Check if the cells for the new piece are unoccupied
+                        if (isSpaceAvailable(row, col, transformedFlipPieceCoords)) {
+                            // Iterate through the coordinates of the current piece
+                            for (const coord of transformedFlipPieceCoords) {
+                                const newRow = row + coord[0];
+                                const newCol = col + coord[1];
+
+                                // Color the cell based on the piece coordinates
+                                const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
+                                targetCell.style.backgroundColor = gridColor[currentIndex];
+                                // Update the board matrix with the color information
+                                gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
+                                }
+                            console.log("Grid -->", gridData)
+
+                }
 
             }
         }
-    }
+        }
 
     // Check if the cells for the new piece are unoccupied
     function isSpaceAvailable(startRow, startCol, pieceCoords) {
@@ -261,16 +290,36 @@ function applyCurrentTransformations() {
     })
     }
 
+    function transformFlipCoords(coords, index) {
+    // First apply flips
+        return coords.map(coord => {
+            let [x, y] = coord;
+            switch (pieceFlip[index]) {
+                case 90:
+                    return [-x, y];
+                case 180:
+                    return [x, -y];
+                default:
+                    return [x, y];
+            }
+        ;
+    })
+    }
+
 //    function applyFlips(coords, index) {
+//        return coords.map(coord => {
+//           let[x,y] = coord;
+//           switch ()
+//        })
 //        let transformedCoords = coords;
 //        if (horizontalFlip[index]) {
 //            transformedCoords = transformedCoords.map(coord => [-coord[0], coord[1]]);
 //        }
 //        if (verticalFlip[index]) {
 //            transformedCoords = transformedCoords.map(coord => [coord[0], -coord[1]]);
-//        }
+//       }
 //        return transformedCoords;
-//    }
+//   }
 
 //    function flipCoordsHorizontally(coords) {
 //        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
@@ -305,20 +354,19 @@ function applyCurrentTransformations() {
 
             // Reset rotation, flips, and transformation
             rotationAngle = 0; // Reset rotation
-            horizontalFlip[pieceIndex] = false;
-            verticalFlip[pieceIndex] = false;
+            rotationFlip = 0;
 
             // Apply transformations
-            applyTransformations(piece, coords, rotationAngle, horizontalFlip[pieceIndex], verticalFlip[pieceIndex]);
+            applyTransformations(piece, coords, rotationAngle, rotationFlip);
 
             // Reset drag data
             piece.dataset.dragged = 'false';
         }
     }
 
-    function applyTransformations(piece, coords, rotationAngle, horizontalFlip, verticalFlip) {
+    function applyTransformations(piece, coords, rotationAngle, rotationFlip) {
     const rotatedPieceCoords = rotateCoords(coords, rotationAngle);
-    const flippedPieceCoords = applyFlips(rotatedPieceCoords, rotationAngle, horizontalFlip, verticalFlip);
+    const flippedPieceCoords = applyFlips(coords, rotationFlip);
 
     // Apply transformations to the piece
     for (let i = 0; i < coords.length; i++) {
@@ -329,9 +377,16 @@ function applyCurrentTransformations() {
             const flippedX = flippedPieceCoords[i][0] * 50;
             const flippedY = flippedPieceCoords[i][1] * 50;
 
-            const transform = `translate(${flippedX - rotatedX}px, ${flippedY - rotatedY}px) rotate(${rotationAngle}deg)`;
+           if (transform === rotatedPieceCoords){
+                const transform = `translate(${rotatedX}px, ${rotatedY}px) rotate(${rotationAngle}deg)`;
+                piece.style.transform = transform;
+           }
+           else if(transform === flippedPieceCoords) {
+                const transform = `translate(${flippedX}px, ${flippedY}px) rotate(${rotationFlip}deg)`;
+                piece.style.transform = transform;
 
-            piece.style.transform = transform;
+           }
+
         }
     }
 
