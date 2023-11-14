@@ -239,7 +239,7 @@ function applyCurrentTransformations() {
 
     function transformCoords(coords, index) {
     // First apply rotation
-        let rotatedCoords = coords.map(coord => {
+        return coords.map(coord => {
             let [x, y] = coord;
             switch (pieceRotation[index]) {
                 case 90:
@@ -251,27 +251,28 @@ function applyCurrentTransformations() {
                 default:
                     return [x, y];
             }
-        );
+        ;
+    })
     }
 
-    function applyFlips(coords, index) {
-        let transformedCoords = coords;
-        if (horizontalFlip[index]) {
-            transformedCoords = transformedCoords.map(coord => [-coord[0], coord[1]]);
-        }
-        if (verticalFlip[index]) {
-            transformedCoords = transformedCoords.map(coord => [coord[0], -coord[1]]);
-        }
-        return transformedCoords;
-    }
+//    function applyFlips(coords, index) {
+//        let transformedCoords = coords;
+//        if (horizontalFlip[index]) {
+//            transformedCoords = transformedCoords.map(coord => [-coord[0], coord[1]]);
+//        }
+//        if (verticalFlip[index]) {
+//            transformedCoords = transformedCoords.map(coord => [coord[0], -coord[1]]);
+//        }
+//        return transformedCoords;
+//    }
 
-    function flipCoordsHorizontally(coords) {
-        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
-    }
+//    function flipCoordsHorizontally(coords) {
+//        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
+//    }
 
-    function flipCoordsVertically(coords) {
-        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
-    }
+//    function flipCoordsVertically(coords) {
+//        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
+//    }
 
     function resetBoard() {
         console.log("Grid data..", gridData);
