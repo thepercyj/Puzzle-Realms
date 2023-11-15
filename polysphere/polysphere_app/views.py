@@ -242,9 +242,10 @@ def find_partial_solutions(request):
 
 def get_partial_solutions(matching_solutions):
     # Establish database connection
-    conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##',
+    # conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##',
+    #                                db='group_6_project')
+    conn = mysql.connector.connect(host='localhost', port='3306', user='root', passwd='',
                                    db='group_6_project')
-
     cursor = conn.cursor()
     print(len(matching_solutions))
     # Gets matching patterns from the database
