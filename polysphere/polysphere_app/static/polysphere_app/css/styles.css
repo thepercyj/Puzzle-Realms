@@ -42,9 +42,10 @@ body {
     text-align: center;
     display: flex;
     align-items: center;
-    height: 200vh;
     margin: 0;
+    height: 215vh;
 }
+
 
 /* Style the title and description with the specified color */
 .title-image {
@@ -205,11 +206,11 @@ b {
 
 .footer {
     background-color: #f4f4f4;
-    text-align: center;
+    text-align:center;
 }
 .content {
     font-size: 16px;
-    color: #333;
+    color:#333;
     text-align: center;
 }
 
