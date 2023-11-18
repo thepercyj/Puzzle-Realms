@@ -42,14 +42,13 @@ body {
     text-align: center;
     display: flex;
     align-items: center;
-    height: 200vh;
+    height: 180vh;
     margin: 0;
 }
 
 /* Style the title and description with the specified color */
 .title-image {
     max-width: 70vw;
-
      /* Updated color */
 }
 
@@ -127,6 +126,9 @@ b {
     display: grid;
     grid-template-columns: 3fr 3fr; /* Two columns in the grid */
     gap: 20px; /* Adjust the gap between the columns */
+    max-height: 500px; /* Adjust the value according to your design */
+    overflow: auto;
+
 }
 
 .imageContainer {
