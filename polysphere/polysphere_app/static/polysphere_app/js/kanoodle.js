@@ -3,9 +3,11 @@ window.onload = function () {
     "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
     "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
   ];
+  let flipflag = 0;
+  let rotflag = 1;
   let currentIndex = 0;
+  let rotationFlip = 0;
   let rotationAngle = 0;
-  let rotationFlip =  0;
   let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
@@ -99,31 +101,45 @@ window.onload = function () {
     }
 
     function rotateClockwise() {
+        flipflag = 0;
+        rotflag = 1;
         rotationAngle = (rotationAngle + 90) % 360;
-        pieceRotation[currentIndex]  = rotationAngle
+        pieceRotation[currentIndex]  = rotationAngle;
         updateImage();
     }
 
     function rotateCounterclockwise() {
+        flipflag = 0;
+        rotflag = 1;
         rotationAngle = (rotationAngle - 90 + 360) % 360;
         pieceRotation[currentIndex] = rotationAngle;
         updateImage();
     }
 
     function flipHorizontal() {
-        rotationFlip = 180; // Set to 180 for horizontal flip
+        flipflag = 1;
+        rotflag = 0;
+        console.log("Before Flip",rotationFlip)
+        rotationFlip = (rotationFlip === 0) ? 180 : 0; // Set to 180 for horizontal flip
+        //rotationFlip = (rotationFlip >= 90) ? 90 : 0;
         pieceFlip[currentIndex] = rotationFlip;
+        console.log("After Flip",rotationFlip)
         applyCurrentTransformations(); // Apply current transformations to the image
     }
 
     function flipVertical() {
-        rotationFlip = 90; // Set to 90 for vertical flip
+        flipflag = 1;
+        rotflag = 0;
+        rotationFlip = (rotationFlip === 0) ? 90 : 0; // Set to 90 for vertical flip
         pieceFlip[currentIndex] = rotationFlip;
         applyCurrentTransformations(); // Apply current transformations to the image
     }
 
     function applyCurrentTransformations() {
+        currentImage.src = `/static/polysphere_app/images/shapes/${imageIds[currentIndex]}.png`;
+
         const transform = `rotate(${rotationAngle}deg) scaleX(${pieceFlip[currentIndex] === 180 ? -1 : 1}) scaleY(${pieceFlip[currentIndex] === 90 ? -1 : 1})`;
+        console.log(transform)
         currentImage.style.transform = transform;
     }
 //    function applyCurrentTransformations() {
@@ -182,7 +198,7 @@ window.onload = function () {
         piece.className = 'draggable-piece';
         piece.draggable = true;
         piece.addEventListener('dragstart', dragStart);
-        piecesContainer.appendChild(piece);
+        //piecesContainer.appendChild(piece);
     }
 
     function allowDrop(event) {
@@ -195,15 +211,19 @@ window.onload = function () {
         const pieceId = event.target.id.replace('piece-', 'shape-')
         const pieceIndex = imageIds.indexOf((pieceId));
         pieceRotation[pieceIndex] = rotationAngle; //Here we are adding rotation angle. Likewise, add flip as well
+        pieceFlip[pieceIndex] = rotationFlip;
     }
 
       function drop(event) {
             event.preventDefault();
             const cell = event.target;
-
             const row = parseInt(cell.dataset.row);
             const col = parseInt(cell.dataset.col);
-
+            //console.log("Rotation index & Rotation index", pieceRotation[currentIndex], pieceFlip[currentIndex]);
+            //console.log("Rotation Angle & Rotation flip", rotationAngle, rotationFlip);
+            console.log("ROT & FLIP", rotflag, flipflag);
+        if(rotflag === 1 && flipflag === 0) {
+            console.log("Passing rotated piece");
             if (cell.classList.contains('cell')) {
                 const transformedPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
                 // Check if the cells for the new piece are unoccupied
@@ -218,33 +238,33 @@ window.onload = function () {
                         targetCell.style.backgroundColor = gridColor[currentIndex];
                         // Update the board matrix with the color information
                         gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
-                        }
+                    }
                     console.log("Grid -->", gridData)
-
                 }
+            }
+        }
+        else if(flipflag === 1 && rotflag === 0 ){
+            console.log("Passing flipped piece");
+            const transformedFlipPieceCoords = transformFlipCoords(pieces[currentIndex], currentIndex);
+            console.log("Flipped coords",transformedFlipPieceCoords);
+            // Check if the cells for the new piece are unoccupied
+            if (isSpaceAvailable(row, col, transformedFlipPieceCoords)) {
+                // Iterate through the coordinates of the current piece
+                for (const coord of transformedFlipPieceCoords) {
+                    const newRow = row + coord[0];
+                    const newCol = col + coord[1];
 
-//else if(pieceRotation[currentIndex] = rotationFlip){
-//                        const transformedFlipPieceCoords = transformCoords(pieces[currentIndex], currentIndex);
-//                        // Check if the cells for the new piece are unoccupied
-//                        if (isSpaceAvailable(row, col, transformedFlipPieceCoords)) {
-//                            // Iterate through the coordinates of the current piece
-//                            for (const coord of transformedFlipPieceCoords) {
-//                                const newRow = row + coord[0];
-//                                const newCol = col + coord[1];
-//
-//                                // Color the cell based on the piece coordinates
-//                                const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
-//                                targetCell.style.backgroundColor = gridColor[currentIndex];
-//                                // Update the board matrix with the color information
-//                                gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
-//                                }
-//                            console.log("Grid -->", gridData)
-//
-//                }
-//
-//            }
+                    // Color the cell based on the piece coordinates
+                    const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
+                    targetCell.style.backgroundColor = gridColor[currentIndex];
+                    // Update the board matrix with the color information
+                    gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
+                    }
+                console.log("Grid -->", gridData)
+
+            }
         }
-        }
+      }
 
     // Check if the cells for the new piece are unoccupied
     function isSpaceAvailable(startRow, startCol, pieceCoords) {
@@ -291,6 +311,7 @@ window.onload = function () {
     }
 
     function transformFlipCoords(coords, index) {
+        console.log("Flip func called");
     // First apply flips
         return coords.map(coord => {
             let [x, y] = coord;
