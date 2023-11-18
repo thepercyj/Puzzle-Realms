@@ -130,7 +130,7 @@ window.onload = function () {
     function flipVertical() {
         flipflag = 1;
         rotflag = 0;
-        rotationFlip = (rotationFlip + 90) % 360; // Set to 90 for vertical flip
+        rotationFlip = (rotationFlip === 0) ? 90 : 0; // Set to 90 for vertical flip
         pieceFlip[currentIndex] = rotationFlip;
         applyCurrentTransformations(); // Apply current transformations to the image
     }
@@ -243,7 +243,7 @@ window.onload = function () {
                 }
             }
         }
-        else if(flipflag === 1 && rotflag === 0){
+        else if(flipflag === 1 && rotflag === 0 ){
             console.log("Passing flipped piece");
             const transformedFlipPieceCoords = transformFlipCoords(pieces[currentIndex], currentIndex);
             console.log("Flipped coords",transformedFlipPieceCoords);
