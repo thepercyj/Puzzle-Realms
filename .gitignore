@@ -152,6 +152,20 @@ cython_debug/
 #.idea/
 .idea/workspace.xml
 .idea/workspace.xml
+<<<<<<< HEAD
+*.xml
+=======
+.idea/workspace.xml
+<<<<<<< Updated upstream
+>>>>>>> rohan-276280
 .idea/workspace.xml
 .idea/workspace.xml
+*.xml
+=======
 .idea/workspace.xml
+>>>>>>> Stashed changes
+.idea/workspace.xml
+*.iml
+/DLX-Algo/.idea/
+/DLX-Algo/NEW_DLX_Approach/.idea/
+*.webp

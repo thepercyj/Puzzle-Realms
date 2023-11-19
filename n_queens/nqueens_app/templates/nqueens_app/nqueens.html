@@ -4,17 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N-Queens Solver</title>
+    <title>N-Queens</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../static/nqueens_app/js/script.js"></script>
+    <script src="{% static 'nqueens_app/js/script.js' %}"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
 </head>
 <body>
-<h1>N-Queens Completion problem by Group-6</h1>
-    <h3>What is N-Queens Problem ?</h3>
-    <p>The N-Queens puzzle is a classic combinatorial problem that involves placing N chess queens on an N×N chessboard in such a way that no two queens threaten each other. Here's a short description of how to solve the N-Queens puzzle:
+<div class="wrapper">
+    <div class="content">
+<h1>Master the Board: N-Queens Challenge</h1>
+    <h3>What is N-Queens Challenge ?</h3>
+    <p class="edit-mode">The N-Queens puzzle is a classic combinatorial problem that involves placing N chess queens on an <b>N×N chessboard</b> in such a way that no two queens threaten each other. Here's a short description of how to solve the N-Queens puzzle:
 
-Understand the Problem: First, understand the rules and constraints of the puzzle. In an N×N chessboard, you need to place N queens in a way that no two queens share the same row, column, or diagonal. The goal is to find all valid solutions.
+Understand the Problem: First, understand the rules and constraints of the puzzle. In an <b>N×N chessboard</b>, you need to place N queens in a way that no two queens share the same row, column, or diagonal. The goal is to find all valid solutions.
 
 Choose a Starting Point: Start with an empty chessboard or an array to represent the board. The board is typically an N×N grid, and you'll place queens on it.</p>
 <br>
@@ -30,7 +32,8 @@ Choose a Starting Point: Start with an empty chessboard or an array to represent
     <br>
     <button id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
 </div>
-
+        <br>
+<div class="result-mode">
 <span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span>
 <div id="solution-container" class="solution-container">
     {% for solution in solutions %}
@@ -64,5 +67,13 @@ Choose a Starting Point: Start with an empty chessboard or an array to represent
         </div>
     {% endfor %}
 </div>
+</div>
+</div>
+</div>
+<br>
+    <footer >
+        <p>&copy; Group-6 ACS</p>
+    </footer>
 </body>
+
 </html>

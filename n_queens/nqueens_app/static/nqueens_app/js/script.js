@@ -4,11 +4,6 @@ window.onload = function() {
 
 function changeSize() {
     var n = $('#size').val();
-<<<<<<< HEAD
-    if(n > 15){
-        alert("The size should be less than or equal to 15");
-    }else{
-=======
     if(n > 10){ //Restrict user for going above 10 and below 4 chess board size
         alert("The size should be less than or equal to 10");
         window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 as user tries to run for value above 10
@@ -19,7 +14,6 @@ function changeSize() {
         window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 as user tries to run for value below 4
     }
     else{
->>>>>>> rohan-276280
         window.location.href = '/nqueens/?n=' + n;
     }
 }
@@ -49,11 +43,8 @@ function generateEditableChessboard() {
     // create a table element
     var chessboardTable = document.createElement('table');
     chessboardTable.className = "";
-<<<<<<< HEAD
-=======
     var q = 0;
 
->>>>>>> rohan-276280
     for (var i = 0; i < n; i++) {
         var row = chessboardTable.insertRow(i);
         for (var j = 0; j < n; j++) {
@@ -64,25 +55,7 @@ function generateEditableChessboard() {
             imgElement.src = '/static/nqueens_app/images/queen.png';
             imgElement.style.display = 'none';
             imgElement.style.width = '50px';
-            imgElement.style.height = '45px';
-<<<<<<< HEAD
-
-            cell.appendChild(imgElement);
-
-            if((i + j) % 2== 0){
-                cell.className = "black-edit";
-            }else{
-                cell.className = "white-edit";
-            }
-
-            cell.addEventListener('click', function() {
-                var img = this.querySelector('img');
-                if (img.style.display === 'none') {
-                        img.style.display = 'block';
-                    } else {
-                        img.style.display = 'none';
-                    }
-=======
+            imgElement.style.height = '50px';
             cell.appendChild(imgElement);
 
             if ((i + j) % 2 == 0) {
@@ -112,19 +85,15 @@ function generateEditableChessboard() {
                     var button = document.getElementById("validateBtn");
                     button.disabled = false;
                 }
->>>>>>> rohan-276280
             });
         }
     }
 
+    chessboardTable.style.width = 50 * n + "px";
     chessboardContainer.appendChild(chessboardTable);
 }
 
-<<<<<<< HEAD
-function validate(){
-=======
 function validate(solutions){
->>>>>>> rohan-276280
     var table = document.querySelector('#editableChessboard table');
     var rows = table.getElementsByTagName('tr');
     var displayStatusArray = [];
@@ -145,17 +114,6 @@ function validate(solutions){
             }
         }
 
-<<<<<<< HEAD
-        displayStatusArray.push(rowStatus);
-    }
-
-    console.log(displayStatusArray)
-    // alert(displayStatusArray);
-    // add validate logic here
-
-    return displayStatusArray;
-}
-=======
         displayStatusArray.push(rowStatus); //User-Result variable
     }
     // Function to compare two objects
@@ -178,4 +136,3 @@ function validate(solutions){
         alert("Sorry, please try again");
     }
 }
->>>>>>> rohan-276280
