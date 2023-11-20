@@ -86,7 +86,11 @@ DATABASES = {
     }
 }
 # DATABASES = {
+<<<<<<< Updated upstream
 #     'default': {
+=======
+#    'default': {
+>>>>>>> Stashed changes
 #         "ENGINE": "django.db.backends.mysql",
 #         "NAME": "group_6_project",
 #         "USER": "root",
