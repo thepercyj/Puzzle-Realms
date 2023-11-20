@@ -239,7 +239,7 @@ window.onload = function () {
                         const targetCell = document.querySelector(`.cell[data-row="${newRow}"][data-col="${newCol}"]`);
                         targetCell.style.backgroundColor = gridColor[currentIndex];
                         // Update the board matrix with the color information
-                        gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the peice.
+                        gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the piece.
                     }
                     console.log("Grid -->", gridData)
                 }
