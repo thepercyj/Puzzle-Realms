@@ -6,15 +6,15 @@ function changeSize() {
     var n = $('#size').val();
     if(n > 10){ //Restrict user for going above 10 and below 4 chess board size
         alert("The size should be less than or equal to 10");
-        window.location.href = '/nqueens/?n=' + 10; // Set default value to 10 as user tries to run for value above 10
+        window.location.href = '?n=' + 10; // Set default value to 10 as user tries to run for value above 10
 
     }
     else if(n < 4){
         alert("The size should be greater than or equal to 4");
-        window.location.href = '/nqueens/?n=' + 4; // Set default value to 4 as user tries to run for value below 4
+        window.location.href = '?n=' + 4; // Set default value to 4 as user tries to run for value below 4
     }
     else{
-        window.location.href = '/nqueens/?n=' + n;
+        window.location.href = '?n=' + n;
     }
 }
 

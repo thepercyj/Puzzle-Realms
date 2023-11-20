@@ -1,20 +1,4 @@
 @import 'https://fonts.googleapis.com/css?family=Rubik+One';
-/*
-html, body{
-height: 100%; /* Stretches html and body to full height
-margin: 0; /* Removes default margin
-padding: 0; /* Removes default padding
-}
-*/
-
-body {
-    background-image: url("../images/background-without-title.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-
 .board {
     display: grid;
     grid-template-columns: repeat(11, 50px);
@@ -35,23 +19,11 @@ body {
     background-color: lightgray;
 }
 
-
-
-
-
 /*-----------------------------*/
-
-
-/* Reset some default styles*/
-html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
 
 /* Center the entire page content vertically and horizontally*/
 html {
-    height: 80%;
+    height: 50%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -59,11 +31,21 @@ html {
 
 /* Add background color and styling to the main content*/
 body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     justify-content: center;
     background-color: #f4f4f4;
     padding-top: 20px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 215vh;
 }
+
 
 /* Style the title and description with the specified color */
 .title-image {
@@ -93,7 +75,7 @@ ul, li {
 b {
     font-size: 16px;
     color: #017176;
-#}
+}
 
 /* Style the chessboard and solution container */
 .display-mode {
@@ -103,10 +85,11 @@ b {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     max-width: 70vw;
     margin: 0 auto;
-    text-align: left;
+    text-align: center;
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two columns in the grid */
     gap: 20px; /* Adjust the gap between the columns */
+
 }
 
 .info-mode {
@@ -144,22 +127,20 @@ b {
     margin: 0 auto;
     text-align: left;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    grid-template-columns: 3fr 3fr; /* Two columns in the grid */
     gap: 20px; /* Adjust the gap between the columns */
 }
 
-.button-container {
-    grid-column: span 2; /* Make the container span both columns */
+.imageContainer {
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: flex-end; /* Align to the bottom of the container */
-    margin-top: 10px; /* Add space between images and buttons */
 }
 
-.imageContainer {
-display: flex;
-align-items: center;
-justify-content: center;
+.imageContainer1 {
+    display: grid;
+    align-items: center;
+    justify-content: center;
 }
 
 .button-container button {
@@ -171,14 +152,12 @@ justify-content: center;
     position: relative; /* Ensure relative positioning for absolute children */
 }
 
-.image-container {
-    position: relative; /* Ensure relative positioning for absolute children */
-}
 
+/*
 .corner-image {
     position: absolute;
 }
-
+*/
 #rotationButtons {
     grid-column: span 2; /* Make the buttons span both columns */
     text-align: center; /* Center-align the buttons */
@@ -213,6 +192,8 @@ justify-content: center;
     text-align: center;
     max-width: 70vw;
     margin: 0 auto;
+    max-height: 500px; /* Adjust the value according to your design */
+    overflow:auto;
 }
 
 .wrapper {
@@ -225,11 +206,11 @@ justify-content: center;
 
 .footer {
     background-color: #f4f4f4;
-    text-align: center;
+    text-align:center;
 }
 .content {
     font-size: 16px;
-    color: #333;
+    color:#333;
     text-align: center;
 }
 
@@ -343,7 +324,7 @@ justify-content: center;
   font-family: 'Maybe But Not Always', sans-serif;
   font-weight: 150;
 }
-.btn2:hover, .btn1:focus {
+.btn2:hover, .btn2:focus {
   color: white;
   outline: 0;
 
@@ -359,30 +340,6 @@ justify-content: center;
 }
 .fifth:hover {
   box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
-}
-
-/* Google font icon pack
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
-}
-
-*/
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.container {
-    text-align: center;
 }
 
 .futuristic-text-field {
@@ -441,4 +398,29 @@ body {
     50% {
         opacity: 0;
     }
+}
+
+.solution-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #BCF4FA;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Adjust the value according to your design */
+}
+
+/* Optional: Customize scrollbar styles */
+.solution-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.solution-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 10px;
+}
+
+.solution-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
 }

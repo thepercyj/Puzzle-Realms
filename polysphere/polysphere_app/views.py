@@ -3,8 +3,6 @@ import shutil
 import time
 from io import BytesIO
 from PIL import Image
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 from django.db.backends import mysql
 import mysql.connector
 from django.http import JsonResponse
@@ -25,7 +23,7 @@ end_time = 0
 
 
 def landing(request):
-    return render(request, 'polysphere_app/landing.html', {'MEDIA_URL': settings.MEDIA_ROOT})
+    return render(request, 'polysphere_app/landing.html')
 
 
 @require_http_methods(["POST"])
@@ -138,12 +136,12 @@ def generate_solution_gallery(request):
     # pieces_data = get_pieces_data()
 
     # Create a temporary directory within MEDIA_ROOT
-    media_dir = os.path.join(settings.MEDIA_ROOT)
-    if not os.path.exists(media_dir):
-        os.makedirs(media_dir)
-
-    # Temporary storage for images
-    fs = FileSystemStorage(location=media_dir)
+    # media_dir = os.path.join(settings.MEDIA_ROOT)
+    # if not os.path.exists(media_dir):
+    #     os.makedirs(media_dir)
+    #
+    # # Temporary storage for images
+    # fs = FileSystemStorage(location=media_dir)
 
     # Clears the media folder of existing files before generating the new ones
     # clear_solutions(media_dir)
@@ -154,8 +152,9 @@ def generate_solution_gallery(request):
     # Loop through each solution, generating an image for it and adding the path to the file
     for idx in range(0, 80444):
         # image_io = generate_solution_image(solution_matrix, pieces_data)
-        filename = f'solution_{idx}.webp'
-        image_path = fs.url(filename)
+        # filename = f'media/solution_{idx}.webp'
+        # image_path = fs.url(filename)
+        image_path = f'media/solution_{idx}.webp'
         image_paths.append(image_path)
 
         if request.method == 'POST':
@@ -182,7 +181,7 @@ def clear_solutions(directory):
 
 
 def display_piece(piece_data, position, block_size, solution_image):
-    image_path = piece_data['image_path']
+    image_path = piece_data('image_path')
     # Open the image file corresponding to the piece
     with Image.open(image_path) as piece_image:
         # Apply rotations to images
@@ -244,7 +243,8 @@ def get_partial_solutions(matching_solutions):
     # Establish database connection
     conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##',
                                    db='group_6_project')
-
+    # conn = mysql.connector.connect(host='localhost', port='3306', user='root', passwd='',
+    #                                db='group_6_project')
     cursor = conn.cursor()
     print(len(matching_solutions))
     # Gets matching patterns from the database
