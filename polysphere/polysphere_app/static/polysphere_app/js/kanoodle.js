@@ -244,6 +244,11 @@ window.onload = function () {
                     console.log("Grid -->", gridData)
                 }
             }
+
+            // Deep copies the current gamestate to the variable
+            gameState.push(JSON.parse(JSON.stringify(gridData)));
+            console.log("GameState:" + gameState + "GridData:" + gridData);
+            console.log(gameState);
         }
         else if(flipflag === 1 && rotflag === 0 ){
             console.log("Passing flipped piece");
@@ -264,13 +269,14 @@ window.onload = function () {
                     }
                 console.log("Grid -->", gridData)
 
-            }
-        }
-
-        // Deep copies the current gamestate to the variable
+                // Deep copies the current gamestate to the variable
                 gameState.push(JSON.parse(JSON.stringify(gridData)));
                 console.log("GameState:" + gameState + "GridData:" + gridData);
                 console.log(gameState);
+
+            }
+        }
+
       }
 
     // Check if the cells for the new piece are unoccupied
