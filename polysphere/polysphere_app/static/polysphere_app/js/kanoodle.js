@@ -15,14 +15,14 @@ window.onload = function () {
   const solutionsContainer = document.getElementById('solutionContainer')
   const board = document.getElementById('board');
   const boardMatrix = createBoardMatrix();
-
+  let gridData = Array.from({ length: 5 }, () => Array(11).fill(null));
   let rotationAngles = Array(12).fill(0);
   let rotationFlips = Array(12).fill(0);
   let scaleXY = Array.from({ length: 12 }, () => [1, 1]);
   let initXY = Array.from({ length: 12 }, () => [0, 0]);
   let isMouseMoveListenerAdded = Array(12).fill(false);
-
-  let gridData = Array.from({ length: 5 }, () => Array(11).fill(null));
+  const gameState = new Array();
+  gameState.push(JSON.parse(JSON.stringify(gridData))); // Push initial state
   let gridColor = ["#2F922C", "#672598", "#0A8286", "#9C3A3A", "#A0A125", "#9B108E", "#9A5835", "#223A21", "#191A92", "#946D98", "#256191", "#A0A467"];
     let pieces = [
         [[0, -1], [0, 0], [0, 1],
@@ -161,6 +161,7 @@ window.onload = function () {
     const solvePuzzleButton = document.getElementById('solveButton')
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
+    const undoButton = document.getElementById('undoButton');
 
     // Add event listeners for button functions
     previousImageButton.addEventListener('click', previousImage);
@@ -170,6 +171,7 @@ window.onload = function () {
     resetbrd.addEventListener('click', resetBoard);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
     flipVerticalButton.addEventListener('click', flipVertical);
+    undoButton.addEventListener('click', undoAction);
     solveButton.addEventListener('click', (event) => {
         sendPartialConfiguration(gridData);
 });
@@ -264,6 +266,11 @@ window.onload = function () {
 
             }
         }
+
+        // Deep copies the current gamestate to the variable
+                gameState.push(JSON.parse(JSON.stringify(gridData)));
+                console.log("GameState:" + gameState + "GridData:" + gridData);
+                console.log(gameState);
       }
 
     // Check if the cells for the new piece are unoccupied
@@ -277,12 +284,31 @@ window.onload = function () {
                 return false;
             }
 
+            // Checks if piece has already been placed
+            if(pieceExistsInGrid(alphabets, gridData, currentIndex)){
+                alert("Piece has already been placed, try another!")
+                return false;
+            }
+
             // Check if the cell is already occupied
             if (gridData[newRow][newCol] !== null) {
                 return false;
             }
         }
         return true;
+    }
+
+    function pieceExistsInGrid(alphabets, gridData, index) {
+    let pieceToFind = alphabets[index];
+    console.log(pieceToFind)
+    for (let row = 0; row < gridData.length; row++) {
+        for (let col = 0; col < gridData[row].length; col++) {
+            if (gridData[row][col] === pieceToFind) {
+                return true;
+            }
+        }
+    }
+    return false;
     }
 
     // Reset the drag data when the drag ends
@@ -359,8 +385,12 @@ window.onload = function () {
                 cell.style.backgroundColor = '#BCF4FA';
                 gridData[row][col] = null;
             }
-
         }
+
+        // Resets the gameState
+        gameState.length = 0;
+        gameState.push(JSON.parse(JSON.stringify(gridData))); // Push initial stat
+
         // Reset the pieces on the board
         for (let i = 0; i < pieces.length; i++) {
             const pieceIndex = i;
@@ -382,7 +412,11 @@ window.onload = function () {
 
             // Reset drag data
             piece.dataset.dragged = 'false';
+
+
         }
+
+
     }
 
     function applyTransformations(piece, coords, rotationAngle, rotationFlip) {
@@ -520,6 +554,36 @@ window.onload = function () {
         currentRow.appendChild(imageElement);
     }
 });
+
+    function undoAction() {
+         console.log("Undo clicked. gameState length before pop:", gameState.length);
+        if (gameState.length > 1) {
+            JSON.parse(JSON.stringify(gameState.pop()));
+            gridData = JSON.parse(JSON.stringify(gameState[gameState.length - 1]))
+          console.log("gridData after pop:", gridData);
+            updateUI();
+        }
+        else {
+            gameState.length = 0;
+            gameState.push(JSON.parse(JSON.stringify(gridData)));
+            alert("There's nothing to undo!");
+    }
+    }
+    function updateUI(){
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 11; col++) {
+                const cellValue = gridData[row][col];
+            cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+            const pieceIndex = alphabets.indexOf(cellValue)
+            if (cellValue === null) {
+                cell.style.backgroundColor = '#BCF4FC'
+            } else {
+                // Use pieceIndex to set the appropriate color
+                console.log(`Color for piece: ${gridColor[pieceIndex]}`);
+            }
+        }
+    }
+}
 }
 
 
