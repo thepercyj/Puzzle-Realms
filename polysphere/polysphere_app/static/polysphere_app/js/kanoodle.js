@@ -8,7 +8,7 @@ window.onload = function () {
   let currentIndex = 0;
   let rotationFlip = 0;
   let rotationAngle = 0;
-  let alphabets = ["I", "E", "J", "L", "D", "B", "K", "A", "G", "C", "F", "H"];
+  let alphabets = ["I", "E", "L", "J", "D", "B", "K", "A", "G", "C", "F", "H"];
 
   const currentImage = document.getElementById('currentImage');
   const piecesContainer = document.getElementById('piecesContainer');
@@ -242,13 +242,14 @@ window.onload = function () {
                         gridData[newRow][newCol] = alphabets[currentIndex]; //Returns the same alphabet as the currentIndex of the piece.
                     }
                     console.log("Grid -->", gridData)
+                    // Deep copies the current gamestate to the variable
+                    gameState.push(JSON.parse(JSON.stringify(gridData)));
+                    console.log("GameState:" + gameState + "GridData:" + gridData);
+                    console.log(gameState);
                 }
             }
 
-            // Deep copies the current gamestate to the variable
-            gameState.push(JSON.parse(JSON.stringify(gridData)));
-            console.log("GameState:" + gameState + "GridData:" + gridData);
-            console.log(gameState);
+
         }
         else if(flipflag === 1 && rotflag === 0 ){
             console.log("Passing flipped piece");
