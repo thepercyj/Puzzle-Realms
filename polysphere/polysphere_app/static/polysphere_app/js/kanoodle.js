@@ -361,6 +361,7 @@ window.onload = function () {
 
             // Reset drag data
             piece.dataset.dragged = 'false';
+	 	
         }
     }
 
