@@ -413,8 +413,7 @@ export class DarkBlue extends Piece{
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(2,0,0),
-            new Atom(2,1,0),
-            new Atom(2,2,0)];
+            new Atom(1,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'DarkBlue', 'C');
     }
 }

@@ -297,7 +297,7 @@ class Board{
     constructor(){
         this.#initializeBoard();
     }
-
+//Here we can define the height of the pyramid
     #initializeBoard(){
         this.boardMap = new Map();
 
@@ -307,6 +307,7 @@ class Board{
 
                     if (i + j + k < 6){
                         this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value : '-' })
+                        console.log
                     } else{
                         this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value : ' ' })
                     }
@@ -327,6 +328,7 @@ class Board{
     }
 
     placePiece(piece){
+        console.log(piece);
         try {
             const abs = piece.absolutePosition;
             for (let i = 0; i < abs.length; i++) {
@@ -405,6 +407,7 @@ class Board{
 
         if(pieces.length == 0){
             return false;
+            return false;
         }
 
         for (let i = 0; i < pieces.length; i++) {
@@ -424,18 +427,18 @@ class Board{
 }
 
 const pieceHelper = new Map();
-pieceHelper.set('A', { ctor : () => { return new Lime();}} );
-pieceHelper.set('B', { ctor : () => { return new Yellow();}} );
-pieceHelper.set('C', { ctor : () => { return new DarkBlue();}} );
-pieceHelper.set('D', { ctor : () => { return new LightBlue();}} );
-pieceHelper.set('E', { ctor : () => { return new Red();}} );
-pieceHelper.set('F', { ctor : () => { return new Pink();}} );
-pieceHelper.set('G', { ctor : () => { return new Green();}} );
-pieceHelper.set('H', { ctor : () => { return new White();}} );
-pieceHelper.set('I', { ctor : () => { return new Orange();}} );
-pieceHelper.set('J', { ctor : () => { return new Peach();}} );
-pieceHelper.set('K', { ctor : () => { return new Gray();}} );
-pieceHelper.set('L', { ctor : () => { return new Purple();}} );
+pieceHelper.set('A', { ctor : () => { return new Lime();}} ); //Done
+pieceHelper.set('B', { ctor : () => { return new Yellow();}} ); //Done
+pieceHelper.set('C', { ctor : () => { return new DarkBlue();}} ); //Done
+pieceHelper.set('D', { ctor : () => { return new LightGreen();}} ); //Done
+pieceHelper.set('E', { ctor : () => { return new Red();}} ); //Done
+pieceHelper.set('F', { ctor : () => { return new Pink();}} ); //Done
+pieceHelper.set('G', { ctor : () => { return new Green();}} ); //Done
+pieceHelper.set('H', { ctor : () => { return new LightPurple();}} ); //Done
+pieceHelper.set('I', { ctor : () => { return new Orange();}} ); //Done
+pieceHelper.set('J', { ctor : () => { return new Peach();}} ); //Done
+pieceHelper.set('K', { ctor : () => { return new Gray();}} ); //Done
+pieceHelper.set('L', { ctor : () => { return new Purple();}} ); //Done
 
 class DarkBlue extends Piece{
     constructor(){
@@ -443,8 +446,7 @@ class DarkBlue extends Piece{
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(2,0,0),
-            new Atom(2,1,0),
-            new Atom(2,2,0)];
+            new Atom(1,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'DarkBlue', 'C');
     }
 }
@@ -454,8 +456,9 @@ class Gray extends Piece{
         const nodes = [
             new Atom(0,0,0),
             new Atom(1,0,0),
-            new Atom(0,1,0),
-            new Atom(1,1,0)];
+            new Atom(1,1,0),
+            new Atom(2,1,0),
+            new Atom(2,2,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Gray', 'K');
     }
 }
@@ -464,10 +467,10 @@ class Red extends Piece{
     constructor(){
         const nodes = [
             new Atom(0,0,0),
+            new Atom(0,1,0),
             new Atom(1,0,0),
             new Atom(2,0,0),
-            new Atom(0,1,0),
-            new Atom(1,1,0)];
+            new Atom(2,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Red', 'E');
     }
 }
@@ -478,21 +481,20 @@ class Green extends Piece{
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(2,0,0),
-            new Atom(0,1,0),
-            new Atom(2,1,0)];
+            new Atom(3,0,0),
+            new Atom(0,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Green', 'G');
     }
 }
 
-class LightBlue extends Piece{
+class LightGreen extends Piece{
     constructor(){
         const nodes = [
             new Atom(0,0,0),
-            new Atom(1,0,0),
-            new Atom(2,0,0),
-            new Atom(3,0,0),
-            new Atom(0,1,0)];
-        super(new Location(0,0,0), 0, 0, nodes, 'LightBlue', 'D');
+            new Atom(0,1,0),
+            new Atom(0,2,0),
+            new Atom(1,0,0)];
+        super(new Location(0,0,0), 0, 0, nodes, 'LightGreen', 'D');
     }
 }
 
@@ -501,9 +503,9 @@ class Lime extends Piece{
         const nodes = [
             new Atom(0,0,0),
             new Atom(1,0,0),
-            new Atom(1,1,0),
-            new Atom(1,2,0),
-            new Atom(2,1,0)];
+            new Atom(2,0,0),
+            new Atom(3,0,0),
+            new Atom(1,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Lime', 'A');
     }
 }
@@ -513,8 +515,9 @@ class Orange extends Piece{
         const nodes = [
             new Atom(0,0,0),
             new Atom(1,0,0),
-            new Atom(1,1,0),
-            new Atom(1,2,0)];
+            new Atom(2,0,0),
+            new Atom(0,1,0),
+            new Atom(0,2,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Orange', 'I');
     }
 }
@@ -525,6 +528,7 @@ class Peach extends Piece{
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(1,1,0),
+            new Atom(1,2,0),
             new Atom(2,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Peach', 'J');
     }
@@ -536,8 +540,8 @@ class Pink extends Piece{
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(2,0,0),
-            new Atom(3,0,0),
-            new Atom(1,1,0)];
+            new Atom(2,1,0),
+            new Atom(3,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Pink', 'F');
     }
 }
@@ -547,21 +551,21 @@ class Purple extends Piece{
         const nodes = [
             new Atom(0,0,0),
             new Atom(1,0,0),
-            new Atom(2,0,0),
-            new Atom(1,1,0)];
+            new Atom(1,1,0),
+            new Atom(2,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Purple', 'L');
     }
 }
 
-class White extends Piece{
+class LightPurple extends Piece{
     constructor(){
         const nodes = [
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(2,0,0),
-            new Atom(0,1,0),
-            new Atom(0,2,0)];
-        super(new Location(0,0,0), 0, 0, nodes, 'White', 'H');
+            new Atom(1,1,0),
+            new Atom(2,1,0)];
+        super(new Location(0,0,0), 0, 0, nodes, 'LightPurple', 'H');
     }
 }
 
@@ -570,9 +574,7 @@ class Yellow extends Piece{
         const nodes = [
             new Atom(0,0,0),
             new Atom(1,0,0),
-            new Atom(2,0,0),
-            new Atom(1,1,0),
-            new Atom(2,1,0)];
+            new Atom(0,1,0)];
         super(new Location(0,0,0), 0, 0, nodes, 'Yellow', 'B');
     }
 }
@@ -708,9 +710,9 @@ function drawBoard(){
             const material = getMaterial(value.value);
             const sphere = new Mesh(geometry, material);
             sphere.position.set(
-                    value.y * distancej  + (value.z),
+                    value.y * distancej  + (value.y + value.z) * 0.6,
                     value.z * distancek,
-                    value.x * distancei + (value.y + value.z) * 2
+                    value.x * distancei + (value.y + value.z) * 0.1
             );
             scene.add(sphere);
         }
