@@ -27,27 +27,26 @@ const ddlY = document.getElementById("ddlY");
 ddlY.addEventListener('change', () => filterChanged());
 const ddlZ = document.getElementById("ddlZ");
 ddlZ.addEventListener('change', () => filterChanged());
-const ddlW = document.getElementById("ddlW");
-ddlW.addEventListener('change', () => filterChanged());
 
 class Location{
-    constructor(x, y, z, w){
+    constructor(x, y, z){
         this.x = x;
         this.y = y;
         this.z = z;
-        this.w = w;
     }
 }
 
 class Atom{
-    constructor(x, y, z, w){
-        this.offset = new Location(x, y, z, w);
+    constructor(x, y, z){
+        this.offset = new Location(x, y, z);
     }
 }
 
 class Piece{
-    constructor(rootPosition, nodes, name, character) {
+    constructor(rootPosition, rotation, plane, nodes, name, character){
         this.rootPosition = rootPosition;
+        this.rotation = rotation;
+        this.plane = plane;
         this.nodes = nodes;
         this.name = name;
         this.character = character;
@@ -58,91 +57,84 @@ class Piece{
 
     #applyLean(offset){
         if(this.lean === true){
-            return new Location(offset.x, 0, offset.y, offset.w);
+            return new Location(offset.x, 0, offset.y);
         } else{
             return offset;
         }
     }
 
     #applyMirrorX(offset){
-        return new Location(offset.x + offset.y, offset.w - offset.y, offset.z, offset.w);
+        return new Location(offset.x + offset.y, -offset.y, offset.z);
     }
 
-    #transposeToPlane(origin) {
-        // Simplified for a square-based pyramid
-        if (this.lean) {
+    #transposeToPlane(origin){
+        if(this.plane === 0){
             return origin;
-        } else {
-            return new Location(origin.x, origin.y, origin.z + origin.w, 0);
+        }else if(this.plane === 1){
+            return new Location(5-(origin.x + origin.y + origin.z), origin.x, origin.z);
+        }else if(this.plane === 2){
+            return new Location(origin.y, 5 - (origin.x + origin.y + origin.z), origin.z);
         }
+
+        throw new Error('Plane must be between 0 and 2');
     }
 
-    #rotate(location) {
-        // Simplified for a square-based pyramid
-        if (this.rotation === 0) {
+    #rotate(location){
+        if(this.rotation == 0){
             return location;
         }
 
-        if (this.rotation > 4) {
+        if(this.rotation > 5){
             throw new Error('Invalid rotation');
         }
 
-        let toRet = new Location(location.x, location.y, location.z, location.w);
+        let toRet = new Location(location.x, location.y, location.z);
 
         for (let i = 0; i < this.rotation; i++) {
-            const tempX = toRet.x;
-            toRet.x = toRet.w - toRet.y;
-            toRet.y = tempX + toRet.y;
-            const tempZ = toRet.z;
-            toRet.z = toRet.w - toRet.x;
-            toRet.w = tempZ + toRet.w;
+            toRet = new Location(-toRet.y, toRet.x + toRet.y, toRet.z);
         }
 
         return toRet;
     }
 
-    getAbsolutePosition() {
+    getAbsolutePosition(){
         var toRet = [];
 
         for (let i = 0; i < this.nodes.length; i++) {
             let start = (this.mirrorX ? this.#applyMirrorX(this.nodes[i].offset) : this.nodes[i].offset);
             let offset = this.#rotate(start);
             let lean = this.#applyLean(offset);
-            let origin = new Location(
-                this.rootPosition.x + lean.x,
+            let origin = new Location(this.rootPosition.x + lean.x,
                 this.rootPosition.y + lean.y,
-                this.rootPosition.z + lean.z,
-                this.rootPosition.w
-            );
-            toRet.push(new Atom(origin.x, origin.y, origin.z, origin.w));
+                this.rootPosition.z + lean.z);
+            var transpose = this.#transposeToPlane(origin);
+            toRet.push(new Atom(transpose.x, transpose.y, transpose.z));
         }
 
         return toRet;
     }
 
-    isOutOfBounds() {
+    isOutOfBounds(){
         const abs = this.absolutePosition;
 
-        if (abs.some((m) => m.offset.z < 0 || m.offset.z > 0)) {
-            // Adjusted for the square-based pyramid
+        if(abs.some((m) => m.offset.z < 0)){
             return true;
         }
-
-        if (abs.some((m) => m.offset.x < 0 || m.offset.x > 4)) {
+        if(abs.some((m) => m.offset.x < 0)){
             return true;
         }
-        if (abs.some((m) => m.offset.y < 0 || m.offset.y > 4)) {
+        if(abs.some((m) => m.offset.y < 0)){
             return true;
         }
-        if (abs.some((m) => m.offset.w !== 0)) {
+        if(abs.some((m) => m.offset.x + m.offset.y + m.offset.z > 5)){
             return true;
         }
 
         return false;
     }
 
-    isInSamePositionAs(piece) {
-        if (piece.nodes.length !== this.nodes.length) {
+    isInSamePositionAs(piece){
+        if(piece.nodes.length != this.nodes.length){
             return false;
         }
 
@@ -152,17 +144,12 @@ class Piece{
         for (let i = 0; i < t.length; i++) {
             let nodeMatch = false;
             for (let j = 0; j < p.length; j++) {
-                if (
-                    t[i].offset.x === p[j].offset.x &&
-                    t[i].offset.y === p[j].offset.y &&
-                    t[i].offset.w === p[j].offset.w &&
-                    t[i].offset.z === p[j].offset.z
-                ) {
+                if(t[i].offset.x === p[j].offset.x && t[i].offset.y === p[j].offset.y && t[i].offset.z === p[j].offset.z){
                     nodeMatch = true;
                     break;
                 }
             }
-            if (!nodeMatch) {
+            if(!nodeMatch){
                 return false;
             }
         }
@@ -170,13 +157,12 @@ class Piece{
         return true;
     }
 
-    usesLocation(x, y, z, w){
+    usesLocation(x, y, z){
         let toRet = false;
         for (let i = 0; i < this.absolutePosition.length; i++) {
             const node = this.absolutePosition[i];
             if((x == null ? true : node.offset.x == x) &&
                 (y == null ? true : node.offset.y == y) &&
-                (w == null ? true : node.offset.w == w) &&
                 (z == null ? true : node.offset.z == z)){
                 toRet = true;
                 break;
@@ -186,91 +172,102 @@ class Piece{
     }
 }
 
-class PieceRegistry {
+class PieceRegistry{
     colors = new Map();
 
-    constructor() {
-        this.#loadPossiblePositions();
+    constructor(){
+        this.#loadPossiblePositions()
     }
 
-    #loadPossiblePositions() {
-        for (let [key, value] of pieceHelper) {
+    #loadPossiblePositions(){
+        for(let [key, value] of pieceHelper){
             this.colors.set(key, {
                 allPositions: this.#loadPositionsForColor(value.ctor),
                 validPositions: this.#loadPositionsForColor(value.ctor),
-                vposIndex: 0,
-            });
+                vposIndex : 0
+            })
         }
     }
 
-    #loadPositionsForColor(constr) {
+    #loadPositionsForColor(constr){
         const toRet = [];
 
-        for (let z = 0; z < 5; z++) {
-            for (let w = 0; w < 5; w++) {
-                for (let y = 0; y < 5; y++) {
-                    for (let x = 0; x < 5; x++) {
-                        if (x + y + z + w > 4) {
-                            continue;
-                        }
+        for (let z = 0; z < 6; z++) // for each root position
+        {
+            for (let y = 0; y < 6; y++) // for each root position
+            {
+                for (let x = 0; x < 6; x++) // for each root position
+                {
+                    if (x + y + z > 5) // will be out of bounds
+                        continue;
 
-                        for (let r = 0; r < 5; r++) {
-                            for (let p = 0; p < 4; p++) {
-                                let piece = constr();
-                                piece.rootPosition = new Location(x, y, z, w);
-                                piece.plane = p;
-                                piece.rotation = r;
-                                piece.lean = false;
-                                piece.mirrorX = false;
-                                piece.absolutePosition = piece.getAbsolutePosition();
+                    for (let r = 0; r < 6; r++) // for each rotated position
+                    {
+                        for (let p = 0; p < 3; p++) // for each plane
+                        {
+                            let piece = constr();
+                            piece.rootPosition = new Location(x,y,z);
+                            piece.plane = p;
+                            piece.rotation = r;
+                            piece.lean = false;
+                            piece.mirrorX = false;
+                            piece.absolutePosition = piece.getAbsolutePosition();
 
-                                if (!piece.isOutOfBounds()) {
-                                    if (!toRet.some((m) => m.isInSamePositionAs(piece))) {
-                                        toRet.push(piece);
-                                    }
+                            if (piece.isOutOfBounds() === false)
+                            {
+                                if (toRet.some(m => m.isInSamePositionAs(piece)) === false)
+                                {
+                                    toRet.push(piece);
                                 }
+                            }
 
-                                piece = constr();
-                                piece.rootPosition = new Location(x, y, z, w);
-                                piece.plane = p;
-                                piece.rotation = r;
-                                piece.lean = true;
-                                piece.mirrorX = false;
-                                piece.absolutePosition = piece.getAbsolutePosition();
+                            piece = constr();
+                            piece.rootPosition = new Location(x,y,z);
+                            piece.plane = p;
+                            piece.rotation = r;
+                            piece.lean = true;
+                            piece.mirrorX = false;
+                            piece.absolutePosition = piece.getAbsolutePosition();
 
-                                if (!piece.isOutOfBounds()) {
-                                    if (!toRet.some((m) => m.isInSamePositionAs(piece))) {
-                                        toRet.push(piece);
-                                    }
+                            if (piece.isOutOfBounds() === false)
+                            {
+                                if (toRet.some(m => m.isInSamePositionAs(piece)) === false)
+                                {
+                                    toRet.push(piece);
                                 }
+                            }
 
-                                // flip x
-                                piece = constr();
-                                piece.rootPosition = new Location(x, y, z, w);
-                                piece.plane = p;
-                                piece.rotation = r;
-                                piece.lean = false;
-                                piece.mirrorX = true;
-                                piece.absolutePosition = piece.getAbsolutePosition();
 
-                                if (!piece.isOutOfBounds()) {
-                                    if (!toRet.some((m) => m.isInSamePositionAs(piece))) {
-                                        toRet.push(piece);
-                                    }
+                            // flip x
+                            piece = constr();
+                            piece.rootPosition = new Location(x,y,z);
+                            piece.plane = p;
+                            piece.rotation = r;
+                            piece.lean = false;
+                            piece.mirrorX = true;
+                            piece.absolutePosition = piece.getAbsolutePosition();
+
+                            if (piece.isOutOfBounds() === false)
+                            {
+                                if (toRet.some(m => m.isInSamePositionAs(piece)) === false)
+                                {
+                                    toRet.push(piece);
                                 }
+                            }
 
-                                piece = constr();
-                                piece.rootPosition = new Location(x, y, z, w);
-                                piece.plane = p;
-                                piece.rotation = r;
-                                piece.lean = true;
-                                piece.mirrorX = true;
-                                piece.absolutePosition = piece.getAbsolutePosition();
+                            piece = constr();
+                            piece.rootPosition = new Location(x,y,z);
+                            piece.plane = p;
+                            piece.rotation = r;
+                            piece.lean = true;
+                            piece.mirrorX = true;
+                            piece.absolutePosition = piece.getAbsolutePosition();
 
-                                if (!piece.isOutOfBounds()) {
-                                    if (!toRet.some((m) => m.isInSamePositionAs(piece))) {
-                                        toRet.push(piece);
-                                    }
+                            if (piece.isOutOfBounds() === false)
+                            {
+                                if (toRet.some(m => m.isInSamePositionAs(piece)) === false)
+                                {
+                                    toRet.push(piece);
                                 }
                             }
                         }
@@ -282,70 +279,66 @@ class PieceRegistry {
         return toRet;
     }
 
-    reset() {
+    reset(){
         const values = this.colors.values();
-        for (let value of values) {
+        for(let value of values){
             value.validPositions = value.allPositions;
             value.vposIndex = 0;
         }
     }
 }
 
-class Board {
+class Board{
     boardMap = new Map();
     usedLocations = new Map();
     piecesUsed = new Map();
     pieceRegistry = new PieceRegistry();
 
-    constructor() {
+    constructor(){
         this.#initializeBoard();
     }
-
-    #initializeBoard() {
-        // Create a new Map to represent the 3D board
+//Here we can define the height of the pyramid
+    #initializeBoard(){
         this.boardMap = new Map();
 
-        // Iterate over three dimensions (i, j, k) to represent the 3D space
-        for (let i = 0; i < 5; i++) {
-            for (let j = 0; j < 5; j++) {
-                for (let k = 0; k < 5; k++) {
-                    // Check if the indices form a square-based pyramid in 3D space
-                    if (i + j + k < 5 && i + j + k >= 1) {
-                        // If the indices form a square-based pyramid, set the value to '-'
-                        this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value: '-' });
-                    } else {
-                        // If the indices do not form a square-based pyramid, set the value to ' '
-                        this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value: ' ' });
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 6; j++) {
+                for (let k = 0; k < 6; k++) {
+
+                    if (i + j + k < 6){
+                        this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value : '-' })
+                        console.log
+                    } else{
+                        this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value : ' ' })
                     }
                 }
             }
         }
 
-        // Initialize maps to keep track of used pieces and locations
         this.piecesUsed = new Map();
         this.usedLocations = new Map();
     }
 
-    getUnusedColors() {
+    getUnusedColors(){
         const toRet = new Map(
             [...this.pieceRegistry.colors]
-                .filter(([k, v]) => !this.piecesUsed.has(k))
-        );
+            .filter(([k, v]) => !this.piecesUsed.has(k))
+          );
         return toRet;
     }
 
-    placePiece(piece) {
-    console.log(piece);
+    placePiece(piece){
+        console.log(piece);
         try {
             const abs = piece.absolutePosition;
             for (let i = 0; i < abs.length; i++) {
                 const loc = abs[i].offset;
-                const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}${loc.w}`);
-                if (mapNode.value !== '-') {
+                const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}`);
+                if(mapNode.value != '-'){
                     throw new Error("Attempt to add piece in used location");
                 }
                 mapNode.value = piece.character;
-                this.usedLocations.set(`${loc.x}${loc.y}${loc.z}${loc.w}`, loc);
+                this.usedLocations.set(`${loc.x}${loc.y}${loc.z}`, loc);
             }
             this.piecesUsed.set(piece.character, piece);
         } catch (error) {
@@ -354,27 +347,25 @@ class Board {
         }
     }
 
-    removePiece(piece) {
+    removePiece(piece){
         const abs = piece.absolutePosition;
         for (let i = 0; i < abs.length; i++) {
             const loc = abs[i].offset;
-            console.log("location are:", loc);
-            const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}${loc.w}`);
-
+            const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}`);
             mapNode.value = '-';
-            this.usedLocations.delete(`${loc.x}${loc.y}${loc.z}${loc.w}`);
+            this.usedLocations.delete(`${loc.x}${loc.y}${loc.z}`);
         }
         this.piecesUsed.delete(piece.character);
     }
 
-    collision(piece) {
+    collision(piece){
         const abs = piece.absolutePosition;
         let toRet = false;
 
         for (let i = 0; i < abs.length; i++) {
             const loc = abs[i].offset;
-            const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}${loc.w}`);
-            if (mapNode.value !== '-') {
+            const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}`);
+            if(mapNode.value != '-'){
                 toRet = true;
                 break;
             }
@@ -383,20 +374,21 @@ class Board {
         return toRet;
     }
 
-    resetBoard() {
+    resetBoard(){
         this.#initializeBoard();
         this.pieceRegistry.reset();
     }
 
-    updateAllValidPositions() {
-        for (let [key, value] of this.pieceRegistry.colors) {
-            if (this.piecesUsed.has(key)) {
+    updateAllValidPositions(){
+        for(let [key, value] of this.pieceRegistry.colors){
+            if(this.piecesUsed.has(key)){
                 continue; // only updating valid positions indexes of pieces that have not been used
-            } else {
+            }
+            else{
                 value.validPositions = [];
                 for (let i = 0; i < value.allPositions.length; i++) {
                     const piece = value.allPositions[i];
-                    if (!this.collision(piece)) {
+                    if(!this.collision(piece)){
                         value.validPositions.push(piece);
                     }
                 }
@@ -404,25 +396,26 @@ class Board {
         }
     }
 
-    solve() {
+    solve(){
         const unusedColors = this.getUnusedColors();
 
-        if (unusedColors.size === 0) {
+        if(unusedColors.size == 0){
             return true;
         }
 
         const pieces = unusedColors.values().next().value.validPositions;
 
-        if (pieces.length === 0) {
+        if(pieces.length == 0){
+            return false;
             return false;
         }
 
         for (let i = 0; i < pieces.length; i++) {
             const pos = pieces[i];
-            if (!this.collision(pos)) {
+            if(!this.collision(pos)){
                 this.placePiece(pos);
                 const s = this.solve();
-                if (s === true) {
+                if(s == true){
                     return true;
                 }
                 this.removePiece(pos);
@@ -434,18 +427,18 @@ class Board {
 }
 
 const pieceHelper = new Map();
-pieceHelper.set('D', { ctor : () => { return new Lime();}} );
-pieceHelper.set('F', { ctor : () => { return new Yellow();}} );
-pieceHelper.set('J', { ctor : () => { return new DarkBlue();}} );
-pieceHelper.set('A', { ctor : () => { return new LightGreen();}} );
-pieceHelper.set('I', { ctor : () => { return new Red();}} );
-pieceHelper.set('E', { ctor : () => { return new Pink();}} );
-pieceHelper.set('C', { ctor : () => { return new Green();}} );
-pieceHelper.set('B', { ctor : () => { return new LightPurple();}} );
-pieceHelper.set('G', { ctor : () => { return new Orange();}} );
-pieceHelper.set('L', { ctor : () => { return new Peach();}} );
-pieceHelper.set('H', { ctor : () => { return new Gray();}} );
-pieceHelper.set('K', { ctor : () => { return new Purple();}} );
+pieceHelper.set('A', { ctor : () => { return new Lime();}} ); //Done
+pieceHelper.set('B', { ctor : () => { return new Yellow();}} ); //Done
+pieceHelper.set('C', { ctor : () => { return new DarkBlue();}} ); //Done
+pieceHelper.set('D', { ctor : () => { return new LightGreen();}} ); //Done
+pieceHelper.set('E', { ctor : () => { return new Red();}} ); //Done
+pieceHelper.set('F', { ctor : () => { return new Pink();}} ); //Done
+pieceHelper.set('G', { ctor : () => { return new Green();}} ); //Done
+pieceHelper.set('H', { ctor : () => { return new LightPurple();}} ); //Done
+pieceHelper.set('I', { ctor : () => { return new Orange();}} ); //Done
+pieceHelper.set('J', { ctor : () => { return new Peach();}} ); //Done
+pieceHelper.set('K', { ctor : () => { return new Gray();}} ); //Done
+pieceHelper.set('L', { ctor : () => { return new Purple();}} ); //Done
 
 class DarkBlue extends Piece{
     constructor(){
@@ -454,7 +447,7 @@ class DarkBlue extends Piece{
             new Atom(1,0,0),
             new Atom(2,0,0),
             new Atom(1,1,0)];
-        super(new Location(0,0,0), nodes, 'DarkBlue', 'J');
+        super(new Location(0,0,0), 0, 0, nodes, 'DarkBlue', 'C');
     }
 }
 
@@ -466,7 +459,7 @@ class Gray extends Piece{
             new Atom(1,1,0),
             new Atom(2,1,0),
             new Atom(2,2,0)];
-        super(new Location(0,0,0), nodes, 'Gray', 'H');
+        super(new Location(0,0,0), 0, 0, nodes, 'Gray', 'K');
     }
 }
 
@@ -478,7 +471,7 @@ class Red extends Piece{
             new Atom(1,0,0),
             new Atom(2,0,0),
             new Atom(2,1,0)];
-        super(new Location(0,0,0), nodes, 'Red', 'I');
+        super(new Location(0,0,0), 0, 0, nodes, 'Red', 'E');
     }
 }
 
@@ -490,7 +483,7 @@ class Green extends Piece{
             new Atom(2,0,0),
             new Atom(3,0,0),
             new Atom(0,1,0)];
-        super(new Location(0,0,0), nodes, 'Green', 'C');
+        super(new Location(0,0,0), 0, 0, nodes, 'Green', 'G');
     }
 }
 
@@ -501,7 +494,7 @@ class LightGreen extends Piece{
             new Atom(0,1,0),
             new Atom(0,2,0),
             new Atom(1,0,0)];
-        super(new Location(0,0,0), nodes, 'LightGreen', 'A');
+        super(new Location(0,0,0), 0, 0, nodes, 'LightGreen', 'D');
     }
 }
 
@@ -513,7 +506,7 @@ class Lime extends Piece{
             new Atom(2,0,0),
             new Atom(3,0,0),
             new Atom(1,1,0)];
-        super(new Location(0,0,0), nodes, 'Lime', 'D');
+        super(new Location(0,0,0), 0, 0, nodes, 'Lime', 'A');
     }
 }
 
@@ -525,7 +518,7 @@ class Orange extends Piece{
             new Atom(2,0,0),
             new Atom(0,1,0),
             new Atom(0,2,0)];
-        super(new Location(0,0,0), nodes, 'Orange', 'G');
+        super(new Location(0,0,0), 0, 0, nodes, 'Orange', 'I');
     }
 }
 
@@ -537,7 +530,7 @@ class Peach extends Piece{
             new Atom(1,1,0),
             new Atom(1,2,0),
             new Atom(2,1,0)];
-        super(new Location(0,0,0), nodes, 'Peach', 'L');
+        super(new Location(0,0,0), 0, 0, nodes, 'Peach', 'J');
     }
 }
 
@@ -549,7 +542,7 @@ class Pink extends Piece{
             new Atom(2,0,0),
             new Atom(2,1,0),
             new Atom(3,1,0)];
-        super(new Location(0,0,0), nodes, 'Pink', 'E');
+        super(new Location(0,0,0), 0, 0, nodes, 'Pink', 'F');
     }
 }
 
@@ -560,7 +553,7 @@ class Purple extends Piece{
             new Atom(1,0,0),
             new Atom(1,1,0),
             new Atom(2,1,0)];
-        super(new Location(0,0,0), nodes, 'Purple', 'K');
+        super(new Location(0,0,0), 0, 0, nodes, 'Purple', 'L');
     }
 }
 
@@ -572,7 +565,7 @@ class LightPurple extends Piece{
             new Atom(2,0,0),
             new Atom(1,1,0),
             new Atom(2,1,0)];
-        super(new Location(0,0,0), nodes, 'LightPurple', 'B');
+        super(new Location(0,0,0), 0, 0, nodes, 'LightPurple', 'H');
     }
 }
 
@@ -582,10 +575,9 @@ class Yellow extends Piece{
             new Atom(0,0,0),
             new Atom(1,0,0),
             new Atom(0,1,0)];
-        super(new Location(0,0,0), nodes, 'Yellow', 'F');
+        super(new Location(0,0,0), 0, 0, nodes, 'Yellow', 'B');
     }
 }
-
 
 
 
@@ -718,7 +710,7 @@ function drawBoard(){
             const material = getMaterial(value.value);
             const sphere = new Mesh(geometry, material);
             sphere.position.set(
-                    value.y * distancej  + (value.z + value.y) * 0.6,
+                    value.y * distancej  + (value.y + value.z) * 0.6,
                     value.z * distancek,
                     value.x * distancei + (value.y + value.z) * 0.1
             );
@@ -778,7 +770,6 @@ function updateControlPanel(){
             ddlX.value = 'All';
             ddlY.value = 'All';
             ddlZ.value = 'All';
-            ddlW.value = 'All';
 
             if(board.piecesUsed.has(key)){
                 btnAdd.style.display = 'none';
@@ -870,7 +861,6 @@ function setPiece(char){
 
 function initiatePlacing(i){
     const usedPiece = board.piecesUsed.get(i);
-    console.log(usedPiece);
     const color = board.pieceRegistry.colors.get(i);
 
     if(usedPiece !== undefined){
@@ -879,12 +869,11 @@ function initiatePlacing(i){
 
     let positions = color.validPositions;
 
-    if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All" || ddlW.value != "All"){
+    if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All"){
         const x = ddlX.value == "All" ? null : Number(ddlX.value);
         const y = ddlY.value == "All" ? null : Number(ddlY.value);
         const z = ddlZ.value == "All" ? null : Number(ddlZ.value);
-        const w = ddlW.value == "All" ? null : Number(ddlW.value);
-        positions = positions.filter(m=> m.usesLocation(x, y, z, w));
+        positions = positions.filter(m=> m.usesLocation(x, y, z));
     }
 
     if(positions.length == 0){
@@ -915,12 +904,11 @@ function placeNextPosition(i){
 
     let positions = color.validPositions;
 
-    if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All" || ddlW.value != "All"){
+    if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All"){
         const x = ddlX.value == "All" ? null : Number(ddlX.value);
         const y = ddlY.value == "All" ? null : Number(ddlY.value);
         const z = ddlZ.value == "All" ? null : Number(ddlZ.value);
-        const w = ddlW.value == "All" ? null : Number(ddlW.value);
-        positions = positions.filter(m=> m.usesLocation(x, y, z, w));
+        positions = positions.filter(m=> m.usesLocation(x, y, z));
     }
 
     color.vposIndex++;
@@ -944,12 +932,11 @@ function placePrevPosition(i){
 
     let positions = color.validPositions;
 
-    if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All" || ddlW.value != "All"){
+    if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All"){
         const x = ddlX.value == "All" ? null : Number(ddlX.value);
         const y = ddlY.value == "All" ? null : Number(ddlY.value);
         const z = ddlZ.value == "All" ? null : Number(ddlZ.value);
-        const w = ddlW.value == "All" ? null : Number(ddlW.value);
-        positions = positions.filter(m=> m.usesLocation(x, y, z, w));
+        positions = positions.filter(m=> m.usesLocation(x, y, z));
     }
 
     color.vposIndex--;
