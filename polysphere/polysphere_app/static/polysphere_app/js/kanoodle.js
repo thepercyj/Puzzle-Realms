@@ -508,7 +508,7 @@ window.onload = function () {
         gridContainer.classList.add('grid-container');
 
         // creating a new variable ocisBaseUrl for bucket image url location
-        const ocisBaseUrl = 'https://objectstorage.uk-london-1.oraclecloud.com/p/qIw9WuLbk-w6azWx98IeSzVvo5ldVkhEPnbq6vpmLiyqfKT_StcKivhoqjhio6UP/n/lryugqbopb6d/b/thepercyj/o/media/';
+        const ocisBaseUrl = 'https://objectstorage.uk-london-1.oraclecloud.com/p/7mXVKuuztKQtXs89MrBOgEqnKAr35oP3iNNADoK0CaHldiuftVu16MnlalBelQia/n/lryugqbopb6d/b/thepercyj/o/media/';
         // For each image, create a grid item and add it to the grid container
         img_paths.forEach(path => {
             const gridItem = document.createElement('div');
