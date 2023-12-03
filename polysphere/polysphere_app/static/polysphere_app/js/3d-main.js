@@ -66,17 +66,20 @@ class Piece{
     #applyMirrorX(offset){
         return new Location(offset.x + offset.y, -offset.y, offset.z);
     }
-
+//Need to add new plane here ?
     #transposeToPlane(origin){
         if(this.plane === 0){
             return origin;
         }else if(this.plane === 1){
-            return new Location(5-(origin.x + origin.y + origin.z), origin.x, origin.z);
+            return new Location(5-(origin.x + origin.y + origin.z), origin.x, origin.z); //For plane 1, origin.x changes, y is same as x and z remains same
         }else if(this.plane === 2){
-            return new Location(origin.y, 5 - (origin.x + origin.y + origin.z), origin.z);
-        }
+            return new Location(origin.y, 5 - (origin.x + origin.y + origin.z), origin.z); //For plane 2, origin.x is same as y, origin.y changes & origin z remains same
+        }else if(this.plane === 3){
+        // Transpose logic for the new plane (adjust as needed)
+            return new Location(5 - (origin.x + origin.y + origin.z), 5 - (origin.x + origin.y + origin.z), origin.z);
+    }
 
-        throw new Error('Plane must be between 0 and 2');
+        throw new Error('Plane must be between 0 and 3');
     }
 
     #rotate(location){
@@ -203,7 +206,7 @@ class PieceRegistry{
 
                     for (let r = 0; r < 6; r++) // for each rotated position
                     {
-                        for (let p = 0; p < 3; p++) // for each plane
+                        for (let p = 0; p < 4; p++) // for each plane Changed plane loop to 4
                         {
                             let piece = constr();
                             piece.rootPosition = new Location(x,y,z);
@@ -307,7 +310,7 @@ class Board{
 
                     if (i + j + k < 6){
                         this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value : '-' })
-                        console.log
+
                     } else{
                         this.boardMap.set(`${i}${j}${k}`, { x: i, y: j, z: k, value : ' ' })
                     }
@@ -328,9 +331,9 @@ class Board{
     }
 
     placePiece(piece){
-        console.log(piece);
         try {
             const abs = piece.absolutePosition;
+            console.log("Placing Piece", abs)
             for (let i = 0; i < abs.length; i++) {
                 const loc = abs[i].offset;
                 const mapNode = this.boardMap.get(`${loc.x}${loc.y}${loc.z}`);
@@ -398,11 +401,9 @@ class Board{
 
     solve(){
         const unusedColors = this.getUnusedColors();
-
         if(unusedColors.size == 0){
             return true;
         }
-
         const pieces = unusedColors.values().next().value.validPositions;
 
         if(pieces.length == 0){
@@ -579,13 +580,6 @@ class Yellow extends Piece{
     }
 }
 
-
-
-
-
-
-
-
 const board = new Board();
 
 
@@ -703,6 +697,7 @@ function getMaterial(val){
 function drawBoard(){
     clearBoard();
     const values = board.boardMap.values();
+
     for(let value of values)
     {
         if(value.value != ' ' && value.value != '-'){
@@ -860,6 +855,7 @@ function setPiece(char){
 }
 
 function initiatePlacing(i){
+
     const usedPiece = board.piecesUsed.get(i);
     const color = board.pieceRegistry.colors.get(i);
 
@@ -869,10 +865,12 @@ function initiatePlacing(i){
 
     let positions = color.validPositions;
 
+//    This part only runs when user has set X, Y & Z value from the UI
     if(ddlX.value != "All" || ddlY.value != "All" || ddlZ.value != "All"){
         const x = ddlX.value == "All" ? null : Number(ddlX.value);
         const y = ddlY.value == "All" ? null : Number(ddlY.value);
         const z = ddlZ.value == "All" ? null : Number(ddlZ.value);
+
         positions = positions.filter(m=> m.usesLocation(x, y, z));
     }
 
