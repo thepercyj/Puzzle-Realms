@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polysphere Puzzle</title>
+    <!--<link rel="stylesheet" href="/static/polysphere_app/css/style.css">-->
+    <link href="static/polysphere_app/bootstrap/css/bootstrap.css" rel="stylesheet" >
+    <script src="static/polysphere_app/bootstrap/js/bootstrap.js"></script>
+    <link href="static/polysphere_app/css/polysphere.css" rel="stylesheet" >
+    <script src="static/polysphere_app/jquery/jquery-3.7.1.js"></script>
+    <script src="static/polysphere_app/js/polysphere.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#imgred").click(imgred_onclick);
+            $("#imggreen").click(imggreen_onclick);
+            $("#imgblue").click(imgblue_onclick);
+
+            $(".cell").mousedown(event, cell_onmousedown);
+        });
+    </script>
+    <!-- JQuery -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   
+</head>
+
+<body> 
+
+    <div class="title-container bg">
+        <!--<img class="logo" src= "/static/polysphere_app/images/Logo.png" alt="Description of the image">-->
+    </div>
+
+<p > 
+    Let's play
+  <span>
+    KANOODLE
+  </span>
+ </p>
+</div>
+
+    <div class="game-container">
+
+        <div class="game-board">
+            <!-- Your game board content here (e.g., images, pieces) -->
+            <!-- Replace this with your actual game board -->
+            <!-- Repeat for other tiles -->
+
+        </div>
+        <div class="blank-window">
+            <!-- Your blank window content here (e.g., displayed images) -->
+            <!-- Replace this with your actual content -->
+        </div>
+    </div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+<div>
+&nbsp;
+</div>
+    
+<div id="playing-area">
+                    <div id="pieces">
+                        <img src="static/polysphere_app/images/shape-red.png"   id="imgred"  alt="Red">
+                        <img src="static/polysphere_app/images/shape-green.png" id="imggreen"  alt="Green">
+                        <img src="static/polysphere_app/images/shape-blue.png"  id="imgblue"  alt="Blue">
+                    </div>
+                    <div id="board" style="border: solid 1px #000000;">
+                        <div class="row justify-content-center">
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                            <div class="cell">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+<div>
+&nbsp;
+</div><div>
+&nbsp;
+</div>
+<div class="button-container">
+<a href="#" class="animated-button1">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  Solve
+</a>
+<a href="#" class="animated-button1">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  Choose Next Piece
+</a>
+<a href="#" class="animated-button1">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  Rotate
+</a>
+        
+    </div>
+
+</body>
+
+</html>

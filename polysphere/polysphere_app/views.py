@@ -261,4 +261,7 @@ def get_partial_solutions(matching_solutions):
     return JsonResponse({'img_paths': img_paths})
 
 
+def kanoodle_3d(request):
+    return render(request, 'polysphere_app/kanoodle-3d.html')
+
 
