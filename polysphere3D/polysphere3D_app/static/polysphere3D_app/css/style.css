@@ -1,0 +1,19 @@
+.container {
+    text-align: center;
+}
+
+.panel {
+    display: flex;
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    background-color: #000;
+}
+
+.canvas {
+    margin: 0;
+    padding: 0;
+    position: static;
+    top: 0;
+    left: 0;
+}
