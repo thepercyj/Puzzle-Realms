@@ -74,12 +74,8 @@ class Piece{
             return new Location(5-(origin.x + origin.y + origin.z), origin.x, origin.z); //For plane 1, origin.x changes, y is same as x and z remains same
         }else if(this.plane === 2){
             return new Location(origin.y, 5 - (origin.x + origin.y + origin.z), origin.z); //For plane 2, origin.x is same as y, origin.y changes & origin z remains same
-        }else if(this.plane === 3){
-        // Transpose logic for the new plane (adjust as needed)
-            return new Location(5 - (origin.x + origin.y + origin.z), 5 - (origin.x + origin.y + origin.z), origin.z);
-    }
-
-        throw new Error('Plane must be between 0 and 3');
+        }
+        throw new Error('Plane must be between 0 and 2');
     }
 
     #rotate(location){
@@ -206,7 +202,7 @@ class PieceRegistry{
 
                     for (let r = 0; r < 6; r++) // for each rotated position
                     {
-                        for (let p = 0; p < 4; p++) // for each plane Changed plane loop to 4
+                        for (let p = 0; p < 3; p++) // for each plane Changed plane loop to 4
                         {
                             let piece = constr();
                             piece.rootPosition = new Location(x,y,z);
@@ -413,8 +409,8 @@ class Board{
 
         for (let i = 0; i < pieces.length; i++) {
             const pos = pieces[i];
-            if(!this.collision(pos)){
-                this.placePiece(pos);
+            if(!this.collision(pos)){ //this function checks for collisions
+                this.placePiece(pos); //If there is no collision, the Piece is placed on board
                 const s = this.solve();
                 if(s == true){
                     return true;

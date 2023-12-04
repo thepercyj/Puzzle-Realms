@@ -1,6 +1,6 @@
 //import React, { useEffect, useState, useRef, createRef } from "react";
 import "../css/style.css";
-import Scene, { inputShapes, inputCoords } from "../js/scene"
+import { Scene, inputShapes, inputCoords } from "../js/scene";
 import Pyramid from '../js/pyramid'
 import { convert_to_pyramid_layers } from "../Logic/PolyPyramidLogic/ConvertSolutionFormat";
 import { generate_headers, populate_problem_matrix3D, reduce_problem_matrix } from "../Logic/PolyPyramidLogic/Generate_problem_matrix3D";
@@ -133,7 +133,7 @@ function PyramidLayer(size, matrix) {
     };
 }
 
-function Pyramid(layersNum, sphereRadius = 1) {
+/*function Pyramid(layersNum, sphereRadius = 1) {
     this.layers = [];
 
     this.radius = function () {
@@ -150,7 +150,7 @@ function Pyramid(layersNum, sphereRadius = 1) {
 
     // Initialize Pyramid object immediately
     this.layers = Array.from({ length: layersNum }, (_, i) => new PyramidLayer(layersNum - i));
-}
+}*/
 
 // Vanilla JavaScript equivalent of the React component
 function PolyPyramid() {
@@ -369,10 +369,10 @@ function PolyPyramid() {
         return container;
     },
 };
-
+}
 // Attach event listeners and other setup logic
 document.addEventListener("DOMContentLoaded", () => {
-    let polyPyramid = PolyPyramid();
+    let polyPyramid = new PolyPyramid();
 
     // Attach event listeners, append to the DOM, or any other setup logic
     document.getElementById("root").appendChild(polyPyramid.render());
