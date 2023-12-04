@@ -6,49 +6,47 @@
      <link rel="stylesheet" type="text/css" href="{% static 'polysphere3D_app/css/style.css' %}">
 </head>
 <body>
-<!--<div>-->
-<!--    <div id="scene-container"></div>-->
-<!--    <div class="container">-->
-<!--        <div class="panel" id="yourPanelId"></div>-->
-<!--    </div>-->
-<!--    <div class="container" style="padding-top: 10px">-->
-<!--        <div class="row">-->
-<!--            <div class="col">-->
-<!--                <input id="isFourCheck" type="checkbox" onchange="onFourLevelCheckChange()" />-->
-<!--                <label for="isFourCheck">4 Level Pyramid</label>-->
-<!--                <form id="positionInputForm" style="padding-bottom: 4px">-->
-<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px" onclick="onSolveButtonClick()">Solve</button>-->
-<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px" onclick="onNextButtonClick()">Display Next</button>-->
-<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px" onclick="onClearButtonClick()">Clear</button>-->
-<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px" onclick="onStopButtonClick()">Stop</button>-->
-<!--                </form>-->
-<!--                <label for="inputShape" style="padding-right: 3px">Shape</label>-->
-<!--                <input id="inputShape" type="text" onkeyup="onInputShapeChange(this)" value="A">-->
-<!--                </input>-->
+    <div>
+        <div class="container">
+            <div id="panel" class="panel"></div>
+        </div>
+        <div class="container" style="padding-top: 10px;">
+            <div class="row">
+                <div class="col">
+                    <input id="isFourCheck" type="checkbox">
+                    <label for="isFourCheck">4 Level Pyramid</label>
+                    <form id="positionInputForm" style="padding-bottom: 4px;">
+                        <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onSolveButtonClick">Solve</button>
+                        <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onNextButtonClick">Display Next</button>
+                        <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onClearButtonClick">Clear</button>
+                        <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onStopButtonClick">Stop</button>
+                    </form>
+                    <label for="inputShape" style="padding-right: 3px;">Shape</label>
+                    <input id="inputShape" type="text" onkeyup="handleKeyUp(event)" value="A">
+                    </input>
+                    <p id="solutionCount">Number of solutions: 0</p>
+                    <input id="l1" type="checkbox" checked onchange="layerVisible(1, event.target.checked)">
+                    <label for="l1">1</label>
+                    <input id="l2" type="checkbox" checked onchange="layerVisible(2, event.target.checked)">
+                    <label for="l2">2</label>
+                    <input id="l3" type="checkbox" checked onchange="layerVisible(3, event.target.checked)">
+                    <label for="l3">3</label>
+                    <input id="l4" type="checkbox" checked onchange="layerVisible(4, event.target.checked)">
+                    <label for="l4">4</label>
+                    <input id="l5" type="checkbox" checked onchange="layerVisible(5, event.target.checked)">
+                    <label for="l5">5</label>
+                </div>
+                <div class="col">
+                    <div class="row justify-content-left pt-1" id="legend" style="padding-left: 20px;">
+                        <img src="{% static 'polysphere3D_app/Images/ShapeLegend.png' %}" style="width: 70%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="module" src="{% static 'polysphere3D_app/js/ui.js' %}"></script>
+<script type="module" src="{% static 'polysphere3D_app/js/three.js' %}"></script>
+<script type="module" src="{% static 'polysphere3D_app/js/OrbitControls.js' %}"></script>
 
-<!--                <p>Number of solutions: <span id="solutionCount">0</span></p>-->
-<!--                <input id="l1" type="checkbox" checked onchange="layerVisible(1, this.checked)" />-->
-<!--                <label for="l1">1</label>-->
-<!--                <input id="l2" type="checkbox" checked onchange="layerVisible(2, this.checked)" />-->
-<!--                <label for="l2">2</label>-->
-<!--                <input id="l3" type="checkbox" checked onchange="layerVisible(3, this.checked)" />-->
-<!--                <label for="l3">3</label>-->
-<!--                <input id="l4" type="checkbox" checked onchange="layerVisible(4, this.checked)" />-->
-<!--                <label for="l4">4</label>-->
-<!--                <input id="l5" type="checkbox" checked onchange="layerVisible(5, this.checked)" />-->
-<!--                <label for="l5">5</label>-->
-<!--            </div>-->
-<!--            <div class="col">-->
-<!--                <div class="row justify-content-left pt-1" id="legend" style="padding-left: 20px">-->
-<!--                    <img src="your-legend-image-path.jpg" style="width: 70%" alt="Legend">-->
-<!--                    </img>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<script src="{% static 'polysphere3D_app/js/three.js' %}"></script>
-<script src="{% static 'polysphere3D_app/js/OrbitControls.js' %}"></script>
-<script src="{% static 'polysphere3D_app/js/ui.js' %}"></script>
 </body>
 </html>

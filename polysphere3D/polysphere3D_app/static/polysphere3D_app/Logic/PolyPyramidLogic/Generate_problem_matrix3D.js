@@ -1,3 +1,5 @@
+import { Shape3D } from "../PolyPyramidLogic/Shape3D.js";
+import {A, B, C, D, E, F, G, H, I, J, K, L} from "../PolyPyramidLogic/Shapes3D.js";
 let shape_cols = {
     "A": 0,
     "B": 1,
@@ -87,10 +89,10 @@ function get_horizontal_slices() {
 }
 
 function get_diag_slices() {
-    let diag_slices = [[[], [], [], []],
-                       [[], [], [], []],
-                       [[], [], [], []],
-                       [[]]];
+    let diag_slices = [[new Array(), new Array(), new Array(), new Array()],
+                       [new Array(), new Array(), new Array(), new Array()],
+                       [new Array(), new Array(), new Array(), new Array()],
+                       [new Array(), new Array()]];
     let horiz_slice = get_horizontal_slices();
     let count = 0;
 
@@ -137,7 +139,7 @@ function get_diag_slices() {
 let diag_slices = get_diag_slices();
 
 function convert_rect_coords_to_diags(shape_layout, size) {
-    let out = [];
+    let out = new Array();
 
     if (size !== 5) {
         out = new Array(4);
@@ -325,3 +327,4 @@ function reduce_problem_matrix(problem_matrix, problem_headers, shapes_used, squ
     }
     return [problem_matrix, problem_headers];
 }
+export { generate_headers, populate_problem_matrix3D, reduce_problem_matrix };
