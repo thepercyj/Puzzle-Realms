@@ -1,12 +1,12 @@
-import { OrbitControls } from "../js/OrbitControls.js";
+import { OrbitControls } from "./OrbitControls.js";
 import {
     Scene, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight,
     SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
-} from "../js/three.js";
+} from "./three.js";
 import { setSphereColor, worker } from "../js/ui.js";
 const scene = new Scene();
 const camera = new PerspectiveCamera();
-scene.background = new Color(0x333333);
+scene.background = new Color("#0000FF");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
 const light = new PointLight(0xffffff, 1, 100);
@@ -72,8 +72,8 @@ export function initScene(canvas) {
     camera.near = 0.2;
     camera.far = 300;
     camera.position.z = 18;
-    camera.position.x = -15
-    camera.position.y = 9;
+    camera.position.x = -0
+    camera.position.y = 0;
     camera.addEventListener('onCameraChange', (e) => {
         console.log('change');
     })

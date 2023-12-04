@@ -124,6 +124,7 @@ function PolyPyramid() {
     };
 
     const panel = document.createElement('div');
+    panel.className = 'panel';
     const shapeInput = document.createElement('input');
     const inputX = document.createElement('input');
     const inputY = document.createElement('input');
@@ -323,9 +324,7 @@ function PolyPyramid() {
     container1.className = 'container';
     bodyElement.appendChild(container1);
 
-    //const panel = document.createElement('div');
-    panel.className = 'panel';
-    container1.appendChild(panel);
+
 
     const container2 = document.createElement('div');
     container2.className = 'container';
@@ -383,13 +382,6 @@ function PolyPyramid() {
     shapeLabel.style.paddingRight = '3px';
     shapeLabel.textContent = 'Shape';
 
-    const inputShape = document.createElement('input');
-    inputShape.id = 'inputShape';
-    inputShape.type = 'text';
-    inputShape.addEventListener('keyup', (e) => {
-        e.target.value = e.target.value.replace(/[^A-La-l]/g, '').toUpperCase();
-    });
-    inputShape.defaultValue = 'A';
 
     const solutionCountParagraph = document.createElement('p');
     solutionCountParagraph.textContent = 'Number of solutions: ' + state.solutionCount;
@@ -401,7 +393,7 @@ function PolyPyramid() {
         checkbox.id = 'l' + i;
         checkbox.type = 'checkbox';
         checkbox.defaultChecked = true;
-        checkbox.addEventListener('change', (e) => layerVisible(i, e.target.checked));
+        // checkbox.addEventListener('change', (e) => layerVisible(i, e.target.checked));
 
         const label = document.createElement('label');
         label.htmlFor = 'l' + i;
@@ -448,8 +440,9 @@ function PolyPyramid() {
     document.body.appendChild(mainContainer);
 
     // Render the panel on the page
-    document.body.appendChild(panel);
+    container1.body.appendChild(panel);
 // ******************************************************* fix this area *********************************8
 }
 
 export {setSphereColor, worker};
+window.worker = worker;
