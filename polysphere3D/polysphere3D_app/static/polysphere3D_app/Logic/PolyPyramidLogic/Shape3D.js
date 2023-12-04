@@ -89,3 +89,5 @@ Shape3D.prototype.reset_coord = function () {
         this.layout[i][1] -= col_min;
     }
 };
+
+export { Shape3D };

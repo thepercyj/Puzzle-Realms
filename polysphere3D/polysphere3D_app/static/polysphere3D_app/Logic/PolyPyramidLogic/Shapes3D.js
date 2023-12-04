@@ -1,7 +1,9 @@
-function Shape3D(name, layout) {
-    this.name = name;
-    this.layout = layout;
-}
+import { Shape3D } from "../PolyPyramidLogic/Shape3D.js";
+
+//function Shape3D(name, layout) {
+//    this.name = name;
+//    this.layout = layout;
+//}
 
 Shape3D.prototype.equal_layouts = function (other_shape_layout) {
     if (this.layout.length !== other_shape_layout.length) {
@@ -155,3 +157,6 @@ let shapeStore = {
     "J": J,
     "K": K
 };
+
+export { shapeStore };
+export { A, B, C, D, E, F, G, H, I, J, K, L };

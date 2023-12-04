@@ -42,4 +42,4 @@ function convert_to_pyramid_layers(solution, problem_matrix, mat_header, start_s
 }
 
 // Export the function
-window.convert_to_pyramid_layers = convert_to_pyramid_layers;
+export {convert_to_pyramid_layers};
