@@ -116,6 +116,7 @@ let problem_def;
 let headers;
 let dicts;
 
+const canvas = document.getElementById('panel');
 const FourCheck = document.getElementById('isFourCheck');
 const NextButton = document.getElementById('onNextButtonClick');
 const ClearButton = document.getElementById('onClearButtonClick');
@@ -123,15 +124,11 @@ const StopButton = document.getElementById('onStopButtonClick');
 const shapeInput = document.getElementById('inputShape');
 const scount = document.getElementById('solutionCount');
 const solveButton = document.getElementById('onSolveButtonClick');
-
-// Add event listener
-solveButton.addEventListener('click', onSolveButtonClick);
+solveButton.addEventListener('click', onSolveButton);
 shapeInput.addEventListener('keyup', handleKeyUp);
-FourCheck.addEventListener('click', onFourLevelCheckChange);
-NextButton.addEventListener('click', onNextButtonClick);
-ClearButton.addEventListener('click', onClearButtonClick);
-StopButton.addEventListener('click', onStopButtonClick);
-scount.addEventListener('keyup', solutionCount);
+NextButton.addEventListener('click', onNextButton);
+ClearButton.addEventListener('click', onClearButton);
+StopButton.addEventListener('click', onStopButton);
 
 const layerCheckboxes = [];
 for (let i = 1; i <= 5; i++) {
@@ -149,133 +146,77 @@ FourCheck.addEventListener('change', (event) => {
     });
 
 
+const state = createState();
+
+function createState() {
+  return {
+    stopExecution: false,
+    solutionCount: 0,
+    solutions: [],
+    isFourLevel: false,
+  };
+}
+
+function onSolveButton() {
+    let solutionCount = 0;
+    let solutions = [];
+    let stopExecution = false;
+
+    const input_shapes = inputShapes.get();
+    const input_squares = inputCoords.get();
+
+    // If incorrect number of spheres for shape, abort.
+    if (!checkInput(input_shapes, input_squares)) {
+        return;
+    }
+
+    const problem_mat = populate_problem_matrix3D();
+    const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
+    const updatedProblemMat = problem_def[0];
+    const headers = problem_def[1];
+
+    console.log(updatedProblemMat);
+    console.log(headers);
+
+    const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
+
+    console.log(Object.keys(dicts[0]).length);
+    console.log(dicts[0]);
+    console.log(dicts[1]);
+    console.log(headers);
+
+    const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
+    let cnt = 0;
+
+    const uiTimer = createTimer(() => {
+        const arr = ret.next().value;
+        console.log(arr);
+
+        if (!arr) {
+            clearInterval(uiTimer);
+            console.log('done');
+            return;
+        }
+
+        cnt++;
+        scount.textContent = "Number of solutions: " + cnt;
+
+        const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
+        solutions: [...state.solutions, pyramid_layers];
+        drawPosition(pyramid_layers);
+    });
+}
+
+
 
 function handleKeyUp(event) {
 event.target.value = event.target.value.slice(-1).replace(/[^A-La-l]/g, '').toUpperCase();
 console.log(event.target.value);    // Console log printing the shape
 }
 
-function drawPosition(position) {
-// Assuming a canvas with id "pyramidCanvas" is present
-const canvas = document.getElementById('panel');
-const context = canvas.getContext('2d');
-
-for (let layer = 0; layer < position.length; layer++) {
-    for (let i = 0; i < position[layer].length; i++) {
-        for (let j = 0; j < position[layer].length; j++) {
-            if (["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].indexOf(position[layer][i][j]) !== -1) {
-                // Set to shape color
-                context.fillStyle = Colours[position[layer][i][j]]; // Assuming Colours is defined
-                context.fillRect(i * cellWidth, j * cellHeight, cellWidth, cellHeight);
-            } else {
-                // Set to black to indicate empty
-                context.fillStyle = "#233333";
-                context.fillRect(i * cellWidth, j * cellHeight, cellWidth, cellHeight);
-            }
-        }
-    }
-}
-renderPyramid();
-}
-
-
-function checkInput(shapes, coords) {
-for (let i = 0; i < shapes.length; i++) {
-    if (shapeStore[shapes[i]].layout.length !== coords[i].length) {
-        // Wrong number of spheres for shape, abort.
-        return false;
-    }
-}
-return true;
-}
-
-function onFourLevelCheckChange() {
-const isFourLevel = !state.isFourLevel;
-setState({ isFourLevel }, () => onFourLevelStateChange());
-}
-
-function onFourLevelStateChange() {
-const l5Checkbox = document.getElementById("l5");
-
-if (state.isFourLevel) {
-    l5Checkbox.checked = false;
-    l5Checkbox.disabled = true;
-    layerVisible(5, false);
-    onClearButtonClick();
-} else {
-    l5Checkbox.checked = true;
-    l5Checkbox.disabled = false;
-    layerVisible(5, true);
-    onClearButtonClick();
-}
-}
-
-function onSolveButton() {
-setState({
-solutionCount: 0,
-solutions: [],
-stopExecution: false
-});
-
-const input_shapes = inputShapes.get();
-const input_squares = inputCoords.get();
-
-// If incorrect number of spheres for shape, abort.
-if (!checkInput(input_shapes, input_squares)) {
-return;
-}
-
-const problem_mat = populate_problem_matrix3D();
-const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
-const updatedProblemMat = problem_def[0];
-const headers = problem_def[1];
-
-console.log(updatedProblemMat);
-console.log(headers);
-
-const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
-
-console.log(Object.keys(dicts[0]).length);
-console.log(dicts[0]);
-console.log(dicts[1]);
-console.log(headers);
-
-const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
-let cnt = 0;
-
-const uiTimer = createTimer(() => {
-const arr = ret.next().value;
-console.log(arr);
-
-if (!arr) {
-    clearInterval(uiTimer);
-    console.log('done');
-    return;
-}
-
-cnt++;
-setState({ solutionCount: cnt });
-
-const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
-setState({ solutions: [...state.solutions, pyramid_layers] });
-drawPosition(pyramid_layers);
-});
-}
-
-function onNextButton() {
-const solutions = [...state.solutions];
-if (solutions.length > 0) {
-    drawPosition(solutions.pop());
-}
-}
-
 function onClearButton() {
 inputShapes.clear();
 inputCoords.clear();
-setState({
-    solutions: [],
-    solutionCount: 0
-});
 
 // Set pyramid to empty and render empty pyramid
 const empty_position = new Array(5);
@@ -291,9 +232,44 @@ for (let layer = 0; layer < 5; layer++) {
 }
 drawPosition(empty_position);
 }
+function drawPosition(position) {
+    for (let layer = 0; layer < position.length; layer++) {
+        for (let i = 0; i < position[layer].length; i++) {
+            for (let j = 0; j < position[layer].length; j++) {
+                if (["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].indexOf(position[layer][i][j]) !== -1) {
+                    // Set to shape colour
+                    worker.getLayer(5 - layer).set(i, j, Colours[position[layer][i][j]]);
+                }
+                else {
+                    // Set to black to indicate empty
+                    worker.getLayer(5 - layer).set(i, j, 0x233333);
+                }
+            }
+        }
+    }
+    renderPyramid();
+}
+
+
+function checkInput(shapes, coords) {
+for (let i = 0; i < shapes.length; i++) {
+    if (shapeStore[shapes[i]].layout.length !== coords[i].length) {
+        // Wrong number of spheres for shape, abort.
+        return false;
+    }
+}
+return true;
+}
+
+function onNextButton() {
+const solutions = [...state.solutions];
+if (solutions.length > 0) {
+    drawPosition(solutions.pop());
+}
+}
 
 function onStopButton() {
-setState({ stopExecution: true });
+let stopExecution = true;
 clearInterval(uiTimer);
 uiTimer = null;
 }
@@ -313,7 +289,6 @@ console.log(inputRef.inputX.value);
 console.log(inputRef.inputY.value);
 console.log(inputRef.inputZ.value);
 }
-
 
 
 scene.init(panel);
