@@ -51,7 +51,7 @@ class PolyPyramid {
     // Equivalent to drawPosition function
     function drawPosition(position) {
         // Assuming a canvas with id "pyramidCanvas" is present
-        const canvas = document.getElementById('pyramidCanvas');
+        const canvas = document.getElementById('panel');
         const context = canvas.getContext('2d');
 
         for (let layer = 0; layer < position.length; layer++) {
@@ -69,6 +69,7 @@ class PolyPyramid {
                 }
             }
         }
+        renderPyramid();
     }
     function checkInput(shapes, coords) {
         for (let i = 0; i < shapes.length; i++) {
