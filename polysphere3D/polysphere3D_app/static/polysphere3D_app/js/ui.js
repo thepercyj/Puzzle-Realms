@@ -11,7 +11,7 @@ import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 
 let worker = new Pyramid(5, 1);
 let scene = new Scene();
-
+console.log("Scene", scene);
 const FPS = 30;
 let uiTimer = null;
 
@@ -114,44 +114,66 @@ let problem_def;
 let headers;
 let dicts;
 
-function PolyPyramid() {
-    // Equivalent to the constructor
-    const state = {
+class PolyPyramid {
+    // constructor() {
+    //     // Initialize properties
+    //     this.panel = document.getElementById('panel'); // This should be a reference to a DOM element, e.g., document.getElementById('panel')
+    //     this.inputRef = {
+    //         shape: document.createElement('shapeInput'),
+    //         inputX: document.createElement('inputX'),
+    //         inputY: document.createElement('inputY'),
+    //         inputZ: document.createElement('inputZ')
+    //     };
+    //
+    //     this.stopExecution = false;
+    //     this.solutionCount = 0;
+    //     this.solutions = [];
+    //     this.isFourLevel = false;
+    //
+    //     // Bind methods if necessary
+    //     this.onSolveButtonClick = this.onSolveButtonClick.bind(this);
+    //     // Bind other methods similarly
+    //
+    //     // Equivalent to the constructor
+    state = {
         stopExecution: false,
         solutionCount: 0,
         solutions: [],
         isFourLevel: false,
     };
+    //
+        panel = document.querySelector('.panel');
+        shapeInput = document.createElement('input');
+        inputX = document.createElement('input');
+        inputY = document.createElement('input');
+        inputZ = document.createElement('input');
+        solveButton = document.createElement('button');
 
-    const panel = document.createElement('div');
-    const shapeInput = document.createElement('input');
-    const inputX = document.createElement('input');
-    const inputY = document.createElement('input');
-    const inputZ = document.createElement('input');
-    const solveButton = document.createElement('button');
+        // Assign refs to elements
+        refs = {
+            shape: shapeInput,
+            inputX: inputX,
+            inputY: inputY,
+            inputZ: inputZ,
+        };
 
-    // Assign refs to elements
-    const refs = {
-        shape: shapeInput,
-        inputX: inputX,
-        inputY: inputY,
-        inputZ: inputZ,
-    };
+    //     // Add event listener
+    //     solveButton.addEventListener('click', onSolveButtonClick);
+    //     document.getElementsByTagName("shapeInput")
+    //     // Append elements to the panel
+    //     panel.appendChild(shapeInput);
+    //     panel.appendChild(inputX);
+    //     panel.appendChild(inputY);
+    //     panel.appendChild(inputZ);
+    //     panel.appendChild(solveButton);
+    // }
 
-    // Add event listener
-    solveButton.addEventListener('click', onSolveButtonClick);
-
-    // Append elements to the panel
-    panel.appendChild(shapeInput);
-    panel.appendChild(inputX);
-    panel.appendChild(inputY);
-    panel.appendChild(inputZ);
-    panel.appendChild(solveButton);
 
     // Equivalent to drawPosition function
-    function drawPosition(position) {
+    drawPosition(position) {
         // Assuming a canvas with id "pyramidCanvas" is present
-        const canvas = document.getElementById('pyramidCanvas');
+        const canvas = document.getElementById('panel');
+        console.log("Printing canvas: " + canvas);
         const context = canvas.getContext('2d');
 
         for (let layer = 0; layer < position.length; layer++) {
@@ -170,7 +192,7 @@ function PolyPyramid() {
             }
         }
     }
-    function checkInput(shapes, coords) {
+    checkInput(shapes, coords) {
         for (let i = 0; i < shapes.length; i++) {
             if (shapeStore[shapes[i]].layout.length !== coords[i].length) {
                 // Wrong number of spheres for shape, abort.
@@ -180,12 +202,12 @@ function PolyPyramid() {
         return true;
     }
 
-    function onFourLevelCheckChange() {
+    onFourLevelCheckChange() {
         const isFourLevel = !state.isFourLevel;
         setState({ isFourLevel }, () => onFourLevelStateChange());
     }
 
-    function onFourLevelStateChange() {
+    onFourLevelStateChange() {
         const l5Checkbox = document.getElementById("l5");
 
         if (state.isFourLevel) {
@@ -200,40 +222,40 @@ function PolyPyramid() {
             onClearButtonClick();
         }
     }
-    function onSolveButtonClick() {
-    setState({
-        solutionCount: 0,
-        solutions: [],
-        stopExecution: false
-    });
+    onSolveButtonClick() {
+        setState({
+            solutionCount: 0,
+            solutions: [],
+            stopExecution: false
+        });
 
-    const input_shapes = inputShapes.get();
-    const input_squares = inputCoords.get();
+        const input_shapes = inputShapes.get();
+        const input_squares = inputCoords.get();
 
-    // If incorrect number of spheres for shape, abort.
-    if (!checkInput(input_shapes, input_squares)) {
-        return;
+        // If incorrect number of spheres for shape, abort.
+        if (!checkInput(input_shapes, input_squares)) {
+            return;
+        }
+
+        const problem_mat = populate_problem_matrix3D();
+        const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
+        const updatedProblemMat = problem_def[0];
+        const headers = problem_def[1];
+
+        console.log(updatedProblemMat);
+        console.log(headers);
+
+        const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
+
+        console.log(Object.keys(dicts[0]).length);
+        console.log(dicts[0]);
+        console.log(dicts[1]);
+        console.log(headers);
+
+        const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
+        let cnt = 0;
     }
-
-    const problem_mat = populate_problem_matrix3D();
-    const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
-    const updatedProblemMat = problem_def[0];
-    const headers = problem_def[1];
-
-    console.log(updatedProblemMat);
-    console.log(headers);
-
-    const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
-
-    console.log(Object.keys(dicts[0]).length);
-    console.log(dicts[0]);
-    console.log(dicts[1]);
-    console.log(headers);
-
-    const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
-    let cnt = 0;
-
-    const uiTimer = createTimer(() => {
+    uiTimer = createTimer(() => {
         const arr = ret.next().value;
         console.log(arr);
 
@@ -253,9 +275,9 @@ function PolyPyramid() {
     }
 
     // Assuming you have a simple timer function
-    function createTimer(callback, interval = 1000) {
-        return setInterval(callback, interval);
-    }
+    // function createTimer(callback, interval = 1000) {
+    //     return setInterval(callback, interval);
+    // }
     function onNextButtonClick() {
         const solutions = [...state.solutions];
         if (solutions.length > 0) {
@@ -292,14 +314,15 @@ function PolyPyramid() {
         uiTimer = null;
     }
 
-    function componentDidMount() {
-        scene.init(panel);
-        renderPyramid();
-    }
-
-    function componentWillUnmount() {
-        scene.dispose();
-    }
+    // function componentDidMount(panel) {
+    //     console.log(panel)
+    //     scene.init(panel);
+    //     renderPyramid();
+    // }
+    //
+    // function componentWillUnmount() {
+    //     scene.dispose();
+    // }
 
     function onInputClick() {
         console.log(inputRef.shape.value);
@@ -307,6 +330,8 @@ function PolyPyramid() {
         console.log(inputRef.inputY.value);
         console.log(inputRef.inputZ.value);
     }
+
+    // componentDidMount(panel);
 // *****************   need to fix from this section just to call IDs on HTML file "hello_world.html"********************
 //    var solveButton = document.getElementById('solveButton');
 //    solveButton.addEventListener('click', onSolveButtonClick);
@@ -321,11 +346,9 @@ function PolyPyramid() {
 
     const container1 = document.createElement('div');
     container1.className = 'container';
-    bodyElement.appendChild(container1);
+    document.body.appendChild(container1);
 
-    //const panel = document.createElement('div');
-    panel.className = 'panel';
-    container1.appendChild(panel);
+
 
     const container2 = document.createElement('div');
     container2.className = 'container';
@@ -350,7 +373,7 @@ function PolyPyramid() {
     positionInputForm.id = 'positionInputForm';
     positionInputForm.style.paddingBottom = '4px';
 
-    //const solveButton = document.createElement('button');
+    const solveButton = document.createElement('button');
     solveButton.type = 'button';
     solveButton.style.marginLeft = '3px';
     solveButton.style.marginRight = '3px';
@@ -383,16 +406,9 @@ function PolyPyramid() {
     shapeLabel.style.paddingRight = '3px';
     shapeLabel.textContent = 'Shape';
 
-    const inputShape = document.createElement('input');
-    inputShape.id = 'inputShape';
-    inputShape.type = 'text';
-    inputShape.addEventListener('keyup', (e) => {
-        e.target.value = e.target.value.replace(/[^A-La-l]/g, '').toUpperCase();
-    });
-    inputShape.defaultValue = 'A';
 
     const solutionCountParagraph = document.createElement('p');
-    solutionCountParagraph.textContent = 'Number of solutions: ' + state.solutionCount;
+    // solutionCountParagraph.textContent = 'Number of solutions: ' + state.solutionCount;
 
     // Checkboxes for each layer
     const layerCheckboxes = [];
@@ -401,7 +417,7 @@ function PolyPyramid() {
         checkbox.id = 'l' + i;
         checkbox.type = 'checkbox';
         checkbox.defaultChecked = true;
-        checkbox.addEventListener('change', (e) => layerVisible(i, e.target.checked));
+        // checkbox.addEventListener('change', (e) => layerVisible(i, e.target.checked));
 
         const label = document.createElement('label');
         label.htmlFor = 'l' + i;
@@ -422,23 +438,23 @@ function PolyPyramid() {
     col1.appendChild(solutionCountParagraph);
     col1.appendChild(...layerCheckboxes);
 
-    const col2 = document.createElement('div');
-    col2.className = 'col';
+    // const col2 = document.createElement('div');
+    // col2.className = 'col';
 
-    const legendRow = document.createElement('div');
-    legendRow.className = 'row justify-content-left pt-1';
-    legendRow.id = 'legend';
-    legendRow.style.paddingLeft = '20px';
+    // const legendRow = document.createElement('div');
+    // legendRow.className = 'row justify-content-left pt-1';
+    // legendRow.id = 'legend';
+    // legendRow.style.paddingLeft = '20px';
 
-    const legendImg = document.createElement('img');
-    legendImg.src = `../Images/ShapeLegend.png`;
-    legendImg.style.width = '70%';
+    // const legendImg = document.createElement('img');
+    // legendImg.src = `../Images/ShapeLegend.png`;
+    // legendImg.style.width = '70%';
 
-    legendRow.appendChild(legendImg);
-    col2.appendChild(legendRow);
+    // legendRow.appendChild(legendImg);
+    // col2.appendChild(legendRow);
 
-    row.appendChild(col1);
-    row.appendChild(col2);
+    // row.appendChild(col1);
+    // row.appendChild(col2);
     container2.appendChild(row);
 
     const mainContainer = document.createElement('div');
@@ -448,8 +464,17 @@ function PolyPyramid() {
     document.body.appendChild(mainContainer);
 
     // Render the panel on the page
-    document.body.appendChild(panel);
+   container1.appendChild(panel);
+    console.log(panel);
+    scene.init(panel)
+const polyPyramid = new PolyPyramid();
+// polyPyramid.initialiseUI();
+
 // ******************************************************* fix this area *********************************8
-}
+
+
+
 
 export {setSphereColor, worker};
+window.worker = worker;
+
