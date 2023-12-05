@@ -344,120 +344,54 @@ class PolyPyramid {
 //    var stopButton = document.getElementById('stopButton');
 //    solveButton.addEventListener('click', inputShape);
 
-    const container1 = document.createElement('div');
-    container1.className = 'container';
-    document.body.appendChild(container1);
+    const container1 = document.getElementById('container1');
 
 
 
-    const container2 = document.createElement('div');
-    container2.className = 'container';
-    container2.style.paddingTop = '10px';
+    const container2 = document.getElementById('container2');
 
-    const row = document.createElement('div');
-    row.className = 'row';
+    const row = document.querySelector('.row');
 
-    const col1 = document.createElement('div');
-    col1.className = 'col';
+    const col1 = document.querySelector('.col1');
 
-    const isFourCheck = document.createElement('input');
-    isFourCheck.id = 'isFourCheck';
-    isFourCheck.type = 'checkbox';
+    const isFourCheck = document.getElementById('isFourCheck');
     isFourCheck.addEventListener('change', () => onFourLevelCheckChange());
 
-    const isFourLabel = document.createElement('label');
-    isFourLabel.htmlFor = 'isFourCheck';
-    isFourLabel.textContent = '4 Level Pyramid';
-
-    const positionInputForm = document.createElement('form');
-    positionInputForm.id = 'positionInputForm';
-    positionInputForm.style.paddingBottom = '4px';
-
-    const solveButton = document.createElement('button');
-    solveButton.type = 'button';
-    solveButton.style.marginLeft = '3px';
-    solveButton.style.marginRight = '3px';
-    solveButton.textContent = 'Solve';
+    const isFourLabel = document.getElementById('isFourLabel');
+    const positionInputForm = document.getElementById('positionInputForm');
+    const solveButton = document.getElementById('onSolveButtonClick');
     solveButton.addEventListener('click', () => onSolveButtonClick());
 
-    const displayNextButton = document.createElement('button');
-    displayNextButton.type = 'button';
-    displayNextButton.style.marginLeft = '3px';
-    displayNextButton.style.marginRight = '3px';
-    displayNextButton.textContent = 'Display Next';
+    const displayNextButton = document.getElementById('onNextButtonClick');
+
     displayNextButton.addEventListener('click', () => onNextButtonClick());
 
-    const clearButton = document.createElement('button');
-    clearButton.type = 'button';
-    clearButton.style.marginLeft = '3px';
-    clearButton.style.marginRight = '3px';
-    clearButton.textContent = 'Clear';
+    const clearButton = document.getElementById('onClearButtonClick');
     clearButton.addEventListener('click', () => onClearButtonClick());
 
-    const stopButton = document.createElement('button');
-    stopButton.type = 'button';
-    stopButton.style.marginLeft = '3px';
-    stopButton.style.marginRight = '3px';
-    stopButton.textContent = 'Stop';
+    const stopButton = document.getElementById('onStopButtonClick');
     stopButton.addEventListener('click', () => onStopButtonClick());
 
-    const shapeLabel = document.createElement('label');
-    shapeLabel.htmlFor = 'inputShape';
-    shapeLabel.style.paddingRight = '3px';
-    shapeLabel.textContent = 'Shape';
+    const shapeInput = document.getElementById('inputShape')
+    const shapeLabel = document.getElementById('shapeLabel');
 
 
-    const solutionCountParagraph = document.createElement('p');
+    const solutionCountParagraph = document.getElementById('solutionCount');
     // solutionCountParagraph.textContent = 'Number of solutions: ' + state.solutionCount;
 
     // Checkboxes for each layer
     const layerCheckboxes = [];
     for (let i = 1; i <= 5; i++) {
-        const checkbox = document.createElement('input');
-        checkbox.id = 'l' + i;
-        checkbox.type = 'checkbox';
-        checkbox.defaultChecked = true;
-        // checkbox.addEventListener('change', (e) => layerVisible(i, e.target.checked));
+        const checkbox = document.getElementById('l'+i);
 
-        const label = document.createElement('label');
-        label.htmlFor = 'l' + i;
-        label.textContent = i;
+        const label = document.getElementById('l'+i+'Label');
 
         layerCheckboxes.push(checkbox, label);
     }
 
-    col1.appendChild(isFourCheck);
-    col1.appendChild(isFourLabel);
-    positionInputForm.appendChild(solveButton);
-    positionInputForm.appendChild(displayNextButton);
-    positionInputForm.appendChild(clearButton);
-    positionInputForm.appendChild(stopButton);
-    col1.appendChild(positionInputForm);
-    col1.appendChild(shapeLabel);
-    // col1.appendChild(inputShape);
-    col1.appendChild(solutionCountParagraph);
-    col1.appendChild(...layerCheckboxes);
-
-    // const col2 = document.createElement('div');
-    // col2.className = 'col';
-
-    // const legendRow = document.createElement('div');
-    // legendRow.className = 'row justify-content-left pt-1';
-    // legendRow.id = 'legend';
-    // legendRow.style.paddingLeft = '20px';
-
-    // const legendImg = document.createElement('img');
-    // legendImg.src = `../Images/ShapeLegend.png`;
-    // legendImg.style.width = '70%';
-
-    // legendRow.appendChild(legendImg);
-    // col2.appendChild(legendRow);
-
-    // row.appendChild(col1);
-    // row.appendChild(col2);
     container2.appendChild(row);
 
-    const mainContainer = document.createElement('div');
+    const mainContainer = document.getElementById('mainContainer');
     mainContainer.appendChild(container1);
     mainContainer.appendChild(container2);
 
