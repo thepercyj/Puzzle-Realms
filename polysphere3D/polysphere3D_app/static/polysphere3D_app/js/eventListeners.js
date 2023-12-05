@@ -1,5 +1,5 @@
 function handleKeyUp(event) {
-    event.target.value = event.target.value.replace(/[^A-La-l]/g, '').toUpperCase();
+    event.target.value = event.target.value.slice(-1).replace(/[^A-La-l]/g, '').toUpperCase();
     console.log(event.target.value);
     }
 
