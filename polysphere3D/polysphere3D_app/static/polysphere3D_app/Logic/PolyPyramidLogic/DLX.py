@@ -14,7 +14,6 @@ class DLX:
 
     @staticmethod
     def solveAll(row_info, num_columns):
-        # print(f"Debug: row_info: {row_info}, num_columns: {num_columns}")
         solutions = []
         dlx = DLXImpl(row_info, num_columns)
         dlx.search(solutions)
@@ -28,6 +27,7 @@ class DLXImpl:
             self.down = None
             self.column = None
             self.row = None
+            self.z = None  # New: Added z dimension
             self.detached = False
 
     class Header:
@@ -45,6 +45,7 @@ class DLXImpl:
                 self.down = None
                 self.column = None
                 self.row = None
+                self.z = None  # New: Added z dimension
                 self.detached = False
 
     class Row:
@@ -66,16 +67,18 @@ class DLXImpl:
             row = DLXImpl.Row(info)
             for c in range(num_columns):
                 if info.isColumnOccupied(c):
-                    cell = DLXImpl.Cell()
-                    cell.row = row
-                    cell.column = self.headers[c]
-                    cell.up = cell.column.root.up
-                    cell.down = cell.column.root
-                    cell.column.root.up.down = cell
-                    cell.column.root.up = cell
-                    cell.column.count += 1
-                    cell.detached = False
-                    row.cells.append(cell)
+                    for z in range(info.get_z_dimension()):  # New: Iterate over z dimension
+                        cell = DLXImpl.Cell()
+                        cell.row = row
+                        cell.column = self.headers[c]
+                        cell.z = z  # New: Set z dimension
+                        cell.up = cell.column.root.up
+                        cell.down = cell.column.root
+                        cell.column.root.up.down = cell
+                        cell.column.root.up = cell
+                        cell.column.count += 1
+                        cell.detached = False
+                        row.cells.append(cell)
             self.rows.append(row)
 
     def createHeaders(self, num_columns):
@@ -91,10 +94,8 @@ class DLXImpl:
             self.column_list_.left = h
             self.headers.append(h)
 
-
     def _search(self, columns, partial_solution, all_solutions):
         if self.isColumnListEmpty(columns):
-
             return partial_solution
 
         column = self.selectColumn(columns)

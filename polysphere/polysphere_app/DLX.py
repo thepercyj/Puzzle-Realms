@@ -91,10 +91,8 @@ class DLXImpl:
             self.column_list_.left = h
             self.headers.append(h)
 
-
     def _search(self, columns, partial_solution, all_solutions):
         if self.isColumnListEmpty(columns):
-
             return partial_solution
 
         column = self.selectColumn(columns)
