@@ -143,7 +143,7 @@ class PolyPyramid {
     };
     //
         panel = document.querySelector('.panel');
-        shapeInput = document.createElement('input');
+        // shapeInput = document.createElement('input');
         inputX = document.createElement('input');
         inputY = document.createElement('input');
         inputZ = document.createElement('input');
@@ -434,7 +434,7 @@ class PolyPyramid {
     positionInputForm.appendChild(stopButton);
     col1.appendChild(positionInputForm);
     col1.appendChild(shapeLabel);
-    col1.appendChild(inputShape);
+    // col1.appendChild(inputShape);
     col1.appendChild(solutionCountParagraph);
     col1.appendChild(...layerCheckboxes);
 
