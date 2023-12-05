@@ -332,7 +332,7 @@ class PolyPyramid {
     }
 
     // componentDidMount(panel);
-// *****************   need to fix from this section just to call IDs on HTML file "hello_world.html"********************
+// *****************   need to fix from this section just to call IDs on HTML file "polysphere3d.html"********************
 //    var solveButton = document.getElementById('solveButton');
 //    solveButton.addEventListener('click', onSolveButtonClick);
 //    var displayNextButton = document.getElementById('displayNextButton');

@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 
 def hello_world(request):
-    return render(request, 'polysphere3D_app/hello_world.html')
+    return render(request, 'polysphere3D_app/polysphere3d.html')
