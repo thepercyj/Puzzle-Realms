@@ -9,7 +9,7 @@ const camera = new PerspectiveCamera();
 scene.background = new Color("#0000FF");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
-const light = new PointLight(0xffffff, 1, 100);
+const light = new PointLight(0xffffff, 15, 100);
 light.castShadow = true;
 const helper = new PointLightHelper(light, 2);
 scene.add(light);
@@ -65,10 +65,11 @@ const Colours = {
 }
 
 export function initScene(canvas) {
+    // console.log(canvas)
     //const axesHelper = new AxesHelper( 5 );
     //scene.add( axesHelper );
     camera.fov = 45;
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    // camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.near = 0.2;
     camera.far = 300;
     camera.position.z = 18;
@@ -217,6 +218,8 @@ export default class {
     }
 
     init(dom) {
+        console.log("Accessing scene");
+        console.log(dom)
         initScene(dom);
     }
 

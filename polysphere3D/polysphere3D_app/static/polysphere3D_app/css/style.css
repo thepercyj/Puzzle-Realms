@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-.panel {
+#panel {
     display: flex;
     margin: 0 auto;
     width: 500px;
