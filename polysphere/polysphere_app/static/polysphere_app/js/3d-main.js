@@ -672,13 +672,13 @@ function getMaterial(val){
 
     switch (val) {
         case 'A':
-            return new MeshPhongMaterial({ color: 0x7bc149, shininess: s });
+            return new MeshPhongMaterial({ color: 0xf2f783, shininess: s });
         case 'B':
-            return new MeshPhongMaterial({ color: 0xdbd11a, shininess: s });
+            return new MeshPhongMaterial({ color: 0xedfa00, shininess: s });
         case 'C':
             return new MeshPhongMaterial({ color: 0x301adb, shininess: s });
         case 'D':
-            return new MeshPhongMaterial({ color: 0x1acbdb, shininess: s });
+            return new MeshPhongMaterial({ color: 0x45f5a5, shininess: s });
         case 'E':
             return new MeshPhongMaterial({ color: 0xd60a18, shininess: s });
         case 'F':
@@ -686,13 +686,13 @@ function getMaterial(val){
         case 'G':
             return new MeshPhongMaterial({ color: 0x074c06, shininess: s });
         case 'H':
-            return new MeshPhongMaterial({ color: 0xededed, shininess: s });
+            return new MeshPhongMaterial({ color: 0xa676f5, shininess: s });
         case 'I':
             return new MeshPhongMaterial({ color: 0xe25300, shininess: s });
         case 'J':
             return new MeshPhongMaterial({ color: 0xeda1b8, shininess: s });
         case 'K':
-            return new MeshPhongMaterial({ color: 0x9b9b9b, shininess: s });
+            return new MeshPhongMaterial({ color: 0x03fcfc, shininess: s });
         case 'L':
             return new MeshPhongMaterial({ color: 0x7c26ff, shininess: s });
         default:
@@ -710,9 +710,9 @@ function drawBoard(){
             const material = getMaterial(value.value);
             const sphere = new Mesh(geometry, material);
             sphere.position.set(
-                    value.y * distancej  + (value.y + value.z) * 0.6,
+                    value.y * distancej  + (value.z),
                     value.z * distancek,
-                    value.x * distancei + (value.y + value.z) * 0.1
+                    value.x * distancei + (value.y + value.z) * 2
             );
             scene.add(sphere);
         }
