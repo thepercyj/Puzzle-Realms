@@ -7,11 +7,15 @@
     <script src="{% static 'polysphere3D_app/js/eventListeners.js' %}"></script>
 </head>
 <body>
+<div class="wrapper">
+    <div class="content">
+    <img class=title-image src="{% static 'polysphere3D_app/images/title.webp' %}" alt="title image" >
+
     <div id = "mainContainer">
         <div id="container1">
             <div id="panel"> </div>
         </div>
-        <div id="container2" style="padding-top: 10px;">
+        <div id="display-mode" style="padding-top: 10px;">
             <div class="row">
                 <div class="col1">
                     <input id="isFourCheck" type="checkbox">
@@ -41,10 +45,14 @@
                         <img src="{% static 'polysphere3D_app/Images/ShapeLegend.png' %}" style="width: 70%;">
                     </div>
                 </div>
+                            <div class="solution-container">
+                <div id="solutionContainer"></div>
+            </div>
             </div>
         </div>
     </div>
-
+    </div>
+</div>
 <script type="module" src="{% static 'polysphere3D_app/js/ui.js' %}"></script>
 <script type="module" src="{% static 'polysphere3D_app/js/three.js' %}"></script>
 <script type="module" src="{% static 'polysphere3D_app/js/OrbitControls.js' %}"></script>
