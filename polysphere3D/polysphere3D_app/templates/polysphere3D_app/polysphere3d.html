@@ -4,7 +4,6 @@
 <head>
     <title>Poly Pyramid Puzzle</title>
      <link rel="stylesheet" type="text/css" href="{% static 'polysphere3D_app/css/style.css' %}">
-    <script src="{% static 'polysphere3D_app/js/eventListeners.js' %}"></script>
 </head>
 <body>
     <div id = "mainContainer">
@@ -23,17 +22,17 @@
                         <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onStopButtonClick">Stop</button>
                     </form>
                     <label id="shapeLabel" for="inputShape" style="padding-right: 3px;">Shape</label>
-                    <input id="inputShape" type="text" value="A" onkeyup="handleKeyUp(event)">
+                    <input id="inputShape" type="text" value="A">
                     <p id="solutionCount">Number of solutions: 0</p>
-                    <input id="l1" type="checkbox" checked onchange="layerVisible(1, this.checked)">
+                    <input id="l1" type="checkbox" checked>
                     <label id="l1Label" for="l1">1</label>
-                    <input id="l2" type="checkbox" checked onchange="layerVisible(2, this.checked)">
+                    <input id="l2" type="checkbox" checked>
                     <label id="l2Label" for="l2">2</label>
-                    <input id="l3" type="checkbox" checked onchange="layerVisible(3, this.checked)">
+                    <input id="l3" type="checkbox" checked>
                     <label id="l3Label" for="l3">3</label>
-                    <input id="l4" type="checkbox" checked onchange="layerVisible(4, this.checked)">
+                    <input id="l4" type="checkbox" checked>
                     <label id="l4Label" for="l4">4</label>
-                    <input id="l5" type="checkbox" checked onchange="layerVisible(5, this.checked)">
+                    <input id="l5" type="checkbox" checked>
                     <label id="l5Label" for="l5">5</label>
                 </div>
                 <div class="col2">

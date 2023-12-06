@@ -6,7 +6,7 @@ import {
 import { setSphereColor, worker } from "../js/ui.js";
 const scene = new Scene();
 const camera = new PerspectiveCamera();
-scene.background = new Color("#0000FF");
+scene.background = new Color("rgb(85,83,83)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
 const light = new PointLight(0xffffff, 15, 100);
