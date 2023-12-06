@@ -3,10 +3,10 @@
 }
 
 #panel {
-    display: flex;
-    margin: 0 auto;
-    width: 500px;
-    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
     background-color: #000;
 }
 
@@ -99,4 +99,52 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer1 {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 {
+    font-family: 'Supply Center', sans-serif;
+    font-size: 28px;
+    color: #06315e; /* Updated color */
+}
+
+p {
+    font-family: 'Maybe But Not Always', sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+}
+
+ul, li {
+    text-align: justify;
+    font-family: 'Maybe But Not Always', sans-serif;
+}
+
+b {
+    font-size: 16px;
+    color: #017176;
+}
+
+.info-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
 }
