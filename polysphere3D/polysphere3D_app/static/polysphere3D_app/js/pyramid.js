@@ -66,3 +66,4 @@ function Pyramid(layersNum, sphereRadius = 1) {
 
 // Export the Pyramid and PyramidLayer objects
 export default Pyramid;
+export { PyramidLayer }
