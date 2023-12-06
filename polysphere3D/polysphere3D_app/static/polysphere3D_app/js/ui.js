@@ -9,6 +9,37 @@ import { solve } from "../Logic/PolyPyramidLogic/Solver.js";
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 //import Legend from '../Images/ShapeLegend.png';
 
+window.onload = function () {
+  const imageIds = [
+    "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
+    "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
+  ];
+    let rotationAngle = 0;
+    let rotationAngles = Array(12).fill(0);
+    let currentIndex = 0;
+
+    function updateImage() {
+        currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
+        currentImage.style.transform = `rotate(${rotationAngle}deg)`;
+    }
+    function previousImage() {
+        currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
+        rotationAngle = 0; // Reset rotation when changing images
+        updateImage();
+    }
+     function nextImage() {
+        currentIndex = (currentIndex + 1) % imageIds.length;
+        rotationAngle = 0; // Reset rotation when changing images
+        updateImage();
+    }
+
+    const previousImageButton = document.getElementById('previousImageButton');
+    previousImageButton.addEventListener('click', previousImage);
+    const nextImageButton = document.getElementById('nextImageButton');
+    nextImageButton.addEventListener('click', nextImage);
+
+
+}
 let worker = new Pyramid(5, 1);
 let scene = new Scene();
 const FPS = 30;
