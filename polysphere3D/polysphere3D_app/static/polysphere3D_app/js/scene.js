@@ -6,20 +6,20 @@ import {
 import { setSphereColor, worker } from "../js/ui.js";
 const scene = new Scene();
 const camera = new PerspectiveCamera();
-scene.background = new Color("rgb(5,230,246)");
+scene.background = new Color("rgb(188,244,250)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
-const light = new PointLight(0xffffff, 15, 100);
+const light = new PointLight(0xBCF4FA, 15, 0);
 light.castShadow = true;
 const helper = new PointLightHelper(light, 2);
 scene.add(light);
 scene.add(helper);
-light.intensity = 1;
+light.intensity = 0.5;
 light.position.set(0, 0, 1).normalize();
 const renderer = new WebGLRenderer({ antialias: true });
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
-renderer.setClearColor(0xffffff);
+renderer.setClearColor(0x999999);
 renderer.setPixelRatio(window.devicePixelRatio);
 let resizeObeserver;
 
@@ -68,7 +68,7 @@ export function initScene(canvas) {
     // console.log(canvas)
     //const axesHelper = new AxesHelper( 5 );
     //scene.add( axesHelper );
-    camera.fov = 45;
+    camera.fov = 75;
     // camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.near = 0.2;
     camera.far = 300;
@@ -149,7 +149,7 @@ export function initScene(canvas) {
                 // Get only visibile objects
                 if (intersects[i].object.name[0] === "s") {
                     // Get only sphere's
-                    if (intersects[i].object.material.color.equals(new Color(0x233333))) {
+                    if (intersects[i].object.material.color.equals(new Color(0x999999))) {
                         // Get only empty spheres (colour = black)
                         intersects[i].object.material.color.set(Colours[shape]);
                         let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
@@ -176,13 +176,13 @@ export function initScene(canvas) {
     const meshfloor = new Mesh(
         new PlaneGeometry(130, 130, 10, 10),
         new MeshPhongMaterial({
-            color: 0x1B5E20,
+            color: 0xBCF4FA,
             wireframe: false
         })
     )
     meshfloor.rotation.x -= Math.PI / 2;
     meshfloor.receiveShadow = true;
-    scene.add(meshfloor);
+    // scene.add(meshfloor);
     light.position.set(4, 20, 4);
 
     animate();

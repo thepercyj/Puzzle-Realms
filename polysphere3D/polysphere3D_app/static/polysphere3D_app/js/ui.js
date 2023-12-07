@@ -243,30 +243,24 @@ function onSolveButton() {
     });
 }
 
-
-
-function handleKeyUp(event) {
-event.target.value = event.target.value.slice(-1).replace(/[^A-La-l]/g, '').toUpperCase();
-console.log(event.target.value);    // Console log printing the shape
-}
-
 function onClearButton() {
-inputShapes.clear();
-inputCoords.clear();
+    inputShapes.clear();
+    inputCoords.clear();
 
-// Set pyramid to empty and render empty pyramid
-const empty_position = new Array(5);
-for (let i = 0; i < 5; i++) {
-    empty_position[i] = new Array(5 - i);
-    empty_position[i].fill(0);
-}
-for (let layer = 0; layer < 5; layer++) {
-    for (let row = 0; row < 5 - layer; row++) {
-        empty_position[layer][row] = new Array(5 - layer);
-        empty_position[layer][row].fill(0);
+
+    // Set pyramid to empty and render empty pyramid
+    const empty_position = new Array(5);
+    for (let i = 0; i < 5; i++) {
+        empty_position[i] = new Array(5 - i);
+        empty_position[i].fill(0);
     }
-}
-drawPosition(empty_position);
+    for (let layer = 0; layer < 5; layer++) {
+        for (let row = 0; row < 5 - layer; row++) {
+            empty_position[layer][row] = new Array(5 - layer);
+            empty_position[layer][row].fill(0);
+        }
+    }
+    drawPosition(empty_position);
 }
 
 function drawPosition(position) {
@@ -279,7 +273,7 @@ function drawPosition(position) {
                 }
                 else {
                     // Set to black to indicate empty
-                    worker.getLayer(5 - layer).set(i, j, 0x233333);
+                    worker.getLayer(5 - layer).set(i, j, 0x999999);
                 }
             }
         }
