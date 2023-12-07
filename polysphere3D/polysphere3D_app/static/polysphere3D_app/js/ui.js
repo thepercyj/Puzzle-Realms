@@ -206,6 +206,7 @@ function onSolveButton() {
         return;
     }
 
+
     const problem_mat = populate_problem_matrix3D();
     const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
     const updatedProblemMat = problem_def[0];
@@ -226,13 +227,13 @@ function onSolveButton() {
 
     const uiTimer = createTimer(() => {
         const arr = ret.next().value;
-        console.log(arr);
-
-        if (!arr) {
-            clearInterval(uiTimer);
+        if (arr == undefined) {
             console.log('done');
+            onStopButton();
             return;
         }
+
+        console.log(arr);
 
         cnt++;
         scount.textContent = "Number of solutions: " + cnt;
@@ -283,6 +284,7 @@ function drawPosition(position) {
 
 
 function checkInput(shapes, coords) {
+    console.log("Shapes:",shapes,"Coords:", coords)
 for (let i = 0; i < shapes.length; i++) {
     if (shapeStore[shapes[i]].layout.length !== coords[i].length) {
         // Wrong number of spheres for shape, abort.
