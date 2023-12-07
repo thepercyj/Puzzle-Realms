@@ -219,7 +219,7 @@ function onSolveButton() {
 
     const uiTimer = createTimer(() => {
         const arr = ret.next().value;
-        console.log(arr);
+
 
         if (!arr) {
             clearInterval(uiTimer);
@@ -232,6 +232,7 @@ function onSolveButton() {
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
         solutions: [...state.solutions, pyramid_layers];
+        console.log(pyramid_layers);//Final Array of all solutions are in this variable.
         drawPosition(pyramid_layers);
     });
 }
