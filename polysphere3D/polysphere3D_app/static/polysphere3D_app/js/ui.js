@@ -56,23 +56,21 @@ function createTimer(func) {
     }, 1000 / FPS);
 }
 
-window.onbeforeunload = () => {
-    if (uiTimer) clearTimeout(uiTimer);
-};
+
 
 const Colours = {
-    A: 0x2F922C,
-    B: 0x672598,
-    C: 0x0a8286,
-    D: 0x9C3A3A,
-    E: 0xA0A125,
-    F: 0x9B108E,
-    G: 0x9A5835,
-    H: 0x223A21,
-    I: 0x191A92,
-    J: 0x946D98,
-    K: 0x256191,
-    L: 0xA0A467,
+    A: 0xff0000,
+    B: 0xff0080,
+    C: 0xff99cc,
+    D: 0x0000ff,
+    E: 0xffff00,
+    F: 0xcc6699,
+    G: 0x660033,
+    H: 0x4dff4d,
+    I: 0xe65c00,
+    J: 0x006600,
+    K: 0xff9900,
+    L: 0x00bfff,
 };
 
 function setSphereColor(x, y, layer, color) {
