@@ -10,16 +10,25 @@ import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 //import Legend from '../Images/ShapeLegend.png';
 
 window.onload = function () {
+    const image_names = ["A","B","C","D","E","F","G","H","I","J","K","L"]
+
   const imageIds = [
     "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
     "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
   ];
+
+
     let rotationAngle = 0;
     let rotationAngles = Array(12).fill(0);
     let currentIndex = 0;
+    let currentImageName = "A"
+    currentImage.className = currentImageName
 
     function updateImage() {
         currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
+        currentImageName = image_names[currentIndex]
+        console.log(currentImageName)
+        currentImage.className = currentImageName
         currentImage.style.transform = `rotate(${rotationAngle}deg)`;
     }
     function previousImage() {
@@ -56,21 +65,19 @@ function createTimer(func) {
     }, 1000 / FPS);
 }
 
-
-
 const Colours = {
-    A: 0xff0000,
-    B: 0xff0080,
-    C: 0xff99cc,
-    D: 0x0000ff,
-    E: 0xffff00,
-    F: 0xcc6699,
-    G: 0x660033,
-    H: 0x4dff4d,
-    I: 0xe65c00,
-    J: 0x006600,
-    K: 0xff9900,
-    L: 0x00bfff,
+    A: 0x228B1E,
+    B: 0x6D359A,
+    C: 0x1E9195,
+    D: 0x931515,
+    E: 0xA2A42C,
+    F: 0x9F1B92,
+    G: 0x904512,
+    H: 0x0E2B0C,
+    I: 0x272899,
+    J: 0x966E9A,
+    K: 0x205F90,
+    L: 0x9DA15E,
 };
 
 function setSphereColor(x, y, layer, color) {
@@ -150,11 +157,11 @@ const FourCheck = document.getElementById('isFourCheck');
 const NextButton = document.getElementById('onNextButtonClick');
 const ClearButton = document.getElementById('onClearButtonClick');
 const StopButton = document.getElementById('onStopButtonClick');
-const shapeInput = document.getElementById('inputShape');
+// const shapeInput = document.getElementById('inputShape');
 const scount = document.getElementById('solutionCount');
 const solveButton = document.getElementById('onSolveButtonClick');
 solveButton.addEventListener('click', onSolveButton);
-shapeInput.addEventListener('keyup', handleKeyUp);
+// shapeInput.addEventListener('keyup', handleKeyUp);
 NextButton.addEventListener('click', onNextButton);
 ClearButton.addEventListener('click', onClearButton);
 StopButton.addEventListener('click', onStopButton);

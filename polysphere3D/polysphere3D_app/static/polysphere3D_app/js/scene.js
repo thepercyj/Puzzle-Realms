@@ -6,7 +6,7 @@ import {
 import { setSphereColor, worker } from "../js/ui.js";
 const scene = new Scene();
 const camera = new PerspectiveCamera();
-scene.background = new Color("rgb(85,83,83)");
+scene.background = new Color("rgb(5,230,246)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
 const light = new PointLight(0xffffff, 15, 100);
@@ -50,19 +50,19 @@ export let inputCoords = {
 };
 
 const Colours = {
-    "A": 0xff0000,
-    "B": 0xff0080,
-    "C": 0xff99cc,
-    "D": 0x0000ff,
-    "E": 0xffff00,
-    "F": 0xcc6699,
-    "G": 0x660033,
-    "H": 0x4dff4d,
-    "I": 0xe65c00,
-    "J": 0x006600,
-    "K": 0xff9900,
-    "L": 0x00bfff
-}
+    A: 0x228B1E,
+    B: 0x6D359A,
+    C: 0x1E9195,
+    D: 0x931515,
+    E: 0xA2A42C,
+    F: 0x9F1B92,
+    G: 0x904512,
+    H: 0x0E2B0C,
+    I: 0x272899,
+    J: 0x966E9A,
+    K: 0x205F90,
+    L: 0x9DA15E,
+};
 
 export function initScene(canvas) {
     // console.log(canvas)
@@ -132,7 +132,10 @@ export function initScene(canvas) {
         pointer.x = ((event.clientX - canvas.offsetLeft) / canvas.clientWidth) * 2 - 1;
         pointer.y = - ((event.clientY - canvas.offsetTop) / canvas.clientHeight) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
-        let shape = document.getElementById("inputShape").value
+        // let shape = document.getElementById("inputShape").value
+        let currentShape = document.getElementById("currentImage");
+        let shape = currentShape.className
+        console.log(shape)
         if (shape === "") {
             // If no input shape, abort.
             return;
