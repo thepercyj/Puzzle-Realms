@@ -10,6 +10,11 @@ import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 //import Legend from '../Images/ShapeLegend.png';
 
 window.onload = function () {
+    // Initial alphabet index
+    let currentAlphabetIndex = 0;
+
+    // Alphabet array from A to L
+    const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
   const imageIds = [
     "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
     "shape-7", "shape-8", "shape-9", "shape-10", "shape-11", "shape-12"
@@ -26,11 +31,22 @@ window.onload = function () {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
         updateImage();
+        currentAlphabetIndex = (currentAlphabetIndex - 1 + alphabets.length) % alphabets.length;
+        updateAlphabet();
     }
      function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
         updateImage();
+        currentAlphabetIndex = (currentAlphabetIndex + 1) % alphabets.length;
+        updateAlphabet();
+    }
+
+
+    // Function to update the displayed alphabet
+    function updateAlphabet() {
+        const alphabetContainer = document.getElementById('currentAlphabet');
+        alphabetContainer.textContent = alphabets[currentAlphabetIndex];
     }
 
     const previousImageButton = document.getElementById('previousImageButton');
