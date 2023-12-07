@@ -129,8 +129,11 @@ export function initScene(canvas) {
     const raycaster = new Raycaster();
     const pointer = new Vector2();
     function onClick(event) {
-        pointer.x = ((event.clientX - canvas.offsetLeft) / canvas.clientWidth) * 2 - 1;
-        pointer.y = - ((event.clientY - canvas.offsetTop) / canvas.clientHeight) * 2 + 1;
+        const canvasBounds = canvas.getBoundingClientRect(); // Gets the current position of the window to
+        // account for scrolling
+
+        pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
+        pointer.y = - ((event.clientY - canvasBounds.top) / canvas.clientHeight) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
         // let shape = document.getElementById("inputShape").value
         let currentShape = document.getElementById("currentImage");
