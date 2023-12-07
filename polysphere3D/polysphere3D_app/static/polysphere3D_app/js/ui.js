@@ -261,6 +261,7 @@ for (let layer = 0; layer < 5; layer++) {
 }
 drawPosition(empty_position);
 }
+
 function drawPosition(position) {
     for (let layer = 0; layer < position.length; layer++) {
         for (let i = 0; i < position[layer].length; i++) {
