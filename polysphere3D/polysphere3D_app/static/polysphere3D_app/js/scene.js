@@ -158,47 +158,28 @@ export function initScene(canvas) {
                 (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) || // Same level adjacency
                 (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) { // Different level but directly above or below
                 if (isPlacementValid(coord, currentShape, lastCoord)) {
-                    // Sphere placement is valid
                     intersects[i].object.material.color.set(Colours[shape]);
                     setInput(shape, coord);
                     console.log("Placed sphere for shape:", shape, "at coordinates:", coord);
-                    firstPlacementCoord = coord
+                    firstPlacementCoord = coord;
                     break;
-                }
-            } else {
-                alert("Invalid placement: Sphere is not correctly adjacent.");
+                } else {
+                        alert("Invalid placement: Sphere is not correctly adjacent.");
+                    }
             }
         }
     }
 }
 
 
-function isPlacementValid(coord, shape) {
-    // If it's the first placement for this shape
-    if (currentShapePlacements.length === 0) {
-        currentShapePlacements.push(coord);
-        return true; // First placement is always valid
-    }
-
-    // Calculate relative offsets for the shape's design
-    let firstShapeCoord = shape.layout[0];
-    let relativeShapeOffsets = shape.layout.map(c => {
-        return [c[0] - firstShapeCoord[0], c[1] - firstShapeCoord[1], c[2] - firstShapeCoord[2]];
-    });
-
-    // Calculate the relative position of the new placement
-    let firstPlacementCoord = currentShapePlacements[0];
-    let relativeCoord = [coord[0] - firstPlacementCoord[0], coord[1] - firstPlacementCoord[1], coord[2] - firstPlacementCoord[2]];
-
-    // Check if the relative position matches any of the shape's relative offsets
-    if (relativeShapeOffsets.some(offset => offset[0] === relativeCoord[0] && offset[1] === relativeCoord[1] && offset[2] === relativeCoord[2])) {
-        // If it's a valid placement, add to currentShapePlacements
-        currentShapePlacements.push(coord);
-        return true;
-    } else {
-        console.log("Invalid placement relative to shape design");
-        return false;
-    }
+function isPlacementValid(coord, shape, lastCoord) {
+    // Check for correct adjacency
+    return (
+        !lastCoord ||
+        (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
+        (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
+        (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
+    );
 }
 window.addEventListener('click', onClick);
 

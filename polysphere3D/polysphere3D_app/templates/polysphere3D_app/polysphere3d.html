@@ -16,7 +16,34 @@
     <div class="content">
         <img class="title-image" src="{% static 'polysphere3D_app/images/tetris.gif' %}">
         <h3>How to Play</h3>
-        <div class="info-mode"></div>
+        <div class="info-mode">
+                            <ul>
+            <strong>Instructions</strong>
+                    <br>
+                    <br>
+                <li>Select a puzzle and try drag and drop in the board.</li>
+
+                <li>Arrange the provided spheres on the board to match a chosen puzzle or create your unique structure.</li>
+
+                <li>Spheres must be placed on the board in such a way it does not overlap each other.</li>
+                <li>Ensure each sphere fits within the designated grid spaces.</li>
+
+                <li>Experiment with different sphere arrangements to design your own structures.</li>
+                <li>Connect spheres in creative ways to fill the board.</li>
+
+                <li>Successfully complete a puzzle by filling the entire board with the provided spheres.</li>
+                <li>Confirm that your arrangement matches the structure shown in the puzzle solutions.</li>
+<br>
+            <strong>Tips for Success</strong>
+<br>
+                    <br>
+                <li>Pay attention to sphere shapes and connection points.</li>
+                <li>Think strategically to optimize space and complete the puzzle efficiently.</li>
+
+                <li>Kanoodle is not just a game but also a tool for spatial reasoning and creative thinking.</li>
+                <li>Have fun exploring different designs and improving your puzzle-solving skills.</li>
+</ul>
+        </div>
         <br>
         <p>Welcome {{ data_from_landing }}</p>
         <br>
@@ -25,6 +52,12 @@
             <div id="container1">
 
                 <div id="panel"></div>
+
+                                <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"
+                                        id="onNextButtonClick">
+                                    Display Next
+                                </button>
+
             </div>
             <div id="mainContainer">
                 <div>
@@ -44,25 +77,22 @@
                         <div class="col1">
                             <input id="isFourCheck" type="checkbox">
                             <label id="isFourLabel" for="isFourCheck">4 Level Pyramid</label>
-                            <form id="positionInputForm" style="padding-bottom: 4px;">
-                                <button type="button" style="margin-left: 3px; margin-right: 3px;"
+                            <br>
+                                                                                                        <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"
                                         id="onSolveButtonClick">
                                     Solve
                                 </button>
-                                <button type="button" style="margin-left: 3px; margin-right: 3px;"
-                                        id="onNextButtonClick">
-                                    Display Next
-                                </button>
-                                <button type="button" style="margin-left: 3px; margin-right: 3px;"
+                                                            <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"
                                         id="onClearButtonClick">
                                     Clear
                                 </button>
-                                <button type="button" style="margin-left: 3px; margin-right: 3px;"
+                                <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"
                                         id="onStopButtonClick">
                                     Stop
                                 </button>
-                            </form>
                             <p id="solutionCount">Number of solutions: 0</p>
+<br>
+
                             <input id="l1" type="checkbox" checked>
                             <label id="l1Label" for="l1">1</label>
                             <input id="l2" type="checkbox" checked>
@@ -81,14 +111,17 @@
         </div>
         <br>
         <br>
-        <div class="solution-container">
-            <div id="solutionContainer"></div>
-        </div>
+<!--        <div class="solution-container">-->
+<!--            <div id="solutionContainer"></div>-->
+
+<!--        </div>-->
 
     </div>
     <br>
     <br>
-
+                        <footer class="edit-mode">
+                <p>&copy; Group-6 ACS</p>
+            </footer>
 </div>
 
 
