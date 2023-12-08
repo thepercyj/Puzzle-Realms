@@ -1,13 +1,16 @@
 ////import React, { useEffect, useState, useRef, createRef } from "react";
 //import "../css/style.css";
-import Scene, { inputShapes, inputCoords } from "../js/scene.js"
+import Scene, { inputShapes, inputCoords, Colours } from "../js/scene.js"
 import Pyramid from '../js/pyramid.js'
 import { convert_to_pyramid_layers } from "../Logic/PolyPyramidLogic/ConvertSolutionFormat.js";
 import { generate_headers, populate_problem_matrix3D, reduce_problem_matrix } from "../Logic/PolyPyramidLogic/Generate_problem_matrix3D.js";
 import { create_dicts } from "../Logic/PolyPyramidLogic/Create_dict_objects.js";
 import { solve } from "../Logic/PolyPyramidLogic/Solver.js";
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
+import resetFirstPlacementCoord  from "../js/scene.js";
 //import Legend from '../Images/ShapeLegend.png';
+
+
 
 window.onload = function () {
     const image_names = ["A","B","C","D","E","F","G","H","I","J","K","L"]
@@ -65,26 +68,12 @@ function createTimer(func) {
     }, 1000 / FPS);
 }
 
-const Colours = {
-    A: 0x228B1E,
-    B: 0x6D359A,
-    C: 0x1E9195,
-    D: 0x931515,
-    E: 0xA2A42C,
-    F: 0x9F1B92,
-    G: 0x904512,
-    H: 0x0E2B0C,
-    I: 0x272899,
-    J: 0x966E9A,
-    K: 0x205F90,
-    L: 0x9DA15E,
-};
 
-function setSphereColor(x, y, layer, color) {
-    worker.layers[layer][x][y].color.set(color);
-    console.log("Hi");
-    console.log(worker.layers[layer][x][y].color);
-}
+// function setSphereColor(x, y, layer, color) {
+//     worker.layers[layer][x][y].color.set(color);
+//     console.log("Hi");
+//     console.log(worker.layers[layer][x][y].color);
+// }
 
 function renderPyramid() {
     for (let i = 0; i < worker.layers.length; i++) {
@@ -247,6 +236,8 @@ function onSolveButton() {
 function onClearButton() {
     inputShapes.clear();
     inputCoords.clear();
+new resetFirstPlacementCoord()
+
 
 
     // Set pyramid to empty and render empty pyramid
@@ -327,7 +318,7 @@ console.log(inputRef.inputZ.value);
 scene.init(panel);
 renderPyramid();
 
-export {setSphereColor, worker};
+export { worker};
 window.worker = worker;
 
 // *********************** unused code will use if required *****************************************************
