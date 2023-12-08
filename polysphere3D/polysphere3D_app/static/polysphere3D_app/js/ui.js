@@ -10,6 +10,8 @@ import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 //import Legend from '../Images/ShapeLegend.png';
 
 window.onload = function () {
+
+    var allSolutions = []; // Declare an array to store all solutions on window onload
     // Initial alphabet index
     let currentAlphabetIndex = 0;
 
@@ -225,10 +227,10 @@ function onSolveButton() {
 
     const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
 
-    console.log(Object.keys(dicts[0]).length);
+    /*console.log(Object.keys(dicts[0]).length);
     console.log(dicts[0]);
     console.log(dicts[1]);
-    console.log(headers);
+    console.log(headers);*/
 
     const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
     let cnt = 0;
@@ -261,6 +263,8 @@ console.log(event.target.value);    // Console log printing the shape
 }
 
 function onClearButton() {
+allSolutions = []; // Set allSolutions to an empty array
+
 inputShapes.clear();
 inputCoords.clear();
 
