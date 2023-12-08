@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N-Queens</title>
+    <title>N-Queens | ACS Group 6</title>
+    <link href="https://fonts.cdnfonts.com/css/maybe-but-not-always" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/supply-center" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'nqueens_app/js/script.js' %}"></script>
    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
 </head>
 <body>
 <div class="wrapper">
+    <img class="title-img" src="{% static 'nqueens_app/images/title.webp' %}" alt="title image" >
     <div class="content">
-<h1>Master the Board: N-Queens Challenge</h1>
+    <div class="edit-mode">
+        <h1>Master the Board: N-Queens Challenge</h1>
     <h3>What is N-Queens Challenge ?</h3>
     <p class="edit-mode">The N-Queens puzzle is a classic combinatorial problem that involves placing N chess queens on an <b>N×N chessboard</b> in such a way that no two queens threaten each other. Here's a short description of how to solve the N-Queens puzzle:
 
@@ -20,6 +24,8 @@ Understand the Problem: First, understand the rules and constraints of the puzzl
 
 Choose a Starting Point: Start with an empty chessboard or an array to represent the board. The board is typically an N×N grid, and you'll place queens on it.</p>
 <br>
+    </div>
+
 <div class="edit-mode">
 
     <label for="size">Select your Chessboard Size:</label> <input type="number" id="size" value="{{ n }}" min="1" max="15" onchange="changeSize()">
@@ -30,15 +36,16 @@ Choose a Starting Point: Start with an empty chessboard or an array to represent
 </script>
     <div id="editableChessboard"></div>
     <br>
-    <button id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
+    <button class="btn first" id="validateBtn" onclick="validate(solutions)" disabled>Validate</button>
+    <button class="btn first" id="solutionBtn" onclick="showSolutions()">Show Solutions</button>
 </div>
         <br>
 <div class="result-mode">
-<span><button id="solutionBtn" onclick="showSolutions()">Show Solutions</button></span>
+
 <div id="solution-container" class="solution-container">
     {% for solution in solutions %}
         <div class="solution">
-            <h3>Solution {{ forloop.counter }}</h3>
+            <p>Solution {{ forloop.counter }}</p>
             <div class="table-container">
                 <table>
                     {% for row in solution %}

@@ -15,33 +15,48 @@ html {
 
 /* Add background color and styling to the main content */
 body {
+    background-image: url("../images/chess-background.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     justify-content: center;
     background-color: #f4f4f4;
     padding: 20px;
     text-align: center;
 }
 
+label {
+    font-family: 'Maybe But Not Always', sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+}
+
 /* Style the title and description with the specified color */
 h1 {
-    font-size: 44px;
-    color: #017176; /* Updated color */
+    font-family: 'Supply Center', sans-serif;
+    font-size: 28px;
+    color: #06315e; /* Updated color */
 }
 
 h3 {
+    font-family: 'Supply Center', sans-serif;
     font-size: 28px;
-    color: #017176; /* Updated color */
+    color: #06315e; /* Updated color */
 }
 
 p {
+    font-family: 'Maybe But Not Always', sans-serif;
     font-size: 14px;
-    color: #777;
+    color: #000;
     margin: 0;
 }
 
 b {
     font-size: 16px;
     color: #017176;
-#}
+}
 
 /* Style the chessboard and solution container */
 .edit-mode {
@@ -55,7 +70,7 @@ b {
 }
 
 .result-mode {
-    background-color: #D0E7D2;
+    background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -91,14 +106,6 @@ table {
 
 .play-area {
     align: center;
-}
-
-.solution-container {
-    display: none;
-    flex-wrap: wrap;
-    text-align: center; /* Center the text within the input */
-    justify-content: center;
-
 }
 
 .solution {
@@ -166,14 +173,95 @@ table {
 
 .wrapper {
     flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 footer {
-    background-color: #f4f4f4;
-    padding: 10px;
-    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 content {
     font-size: 16px;
     color: #333;
+}
+.title-img {
+    height: 200px;
+    width: 1000px;
+
+}
+
+.solution-container {
+    justify-content: center;
+    display: none;
+    flex-wrap: wrap;
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Adjust the value according to your design */
+}
+
+/* Optional: Customize scrollbar styles */
+.solution-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.solution-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 10px;
+}
+
+.solution-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+
+.btn {
+ justify-content: center;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #06315e;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  align-self: center;
+  font-weight: 400;
+  line-height: 1;
+  margin: 5px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Maybe But Not Always', sans-serif;
+  font-weight: 150;
+}
+.btn:hover, .btn:focus {
+  color: white;
+  outline: 0;
+}
+
+.first {
+  border-color: #3498db;
+  color: #261616;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.first:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
