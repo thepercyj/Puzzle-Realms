@@ -15,7 +15,7 @@ function PyramidLayer(size, radius, total) {
         this.matrix.push([]);
         for (let j = 0; j < size; j++) {
             this.matrix[i].push({
-                color: 0x233333,
+                color: 0x999999,
                 pos: calcPosition(size, radius, i, j, total),
                 userData: null,
             });

@@ -14,12 +14,13 @@
 
 <div class="wrapper">
     <div class="content">
+        <img class="title-image" src="{% static 'polysphere3D_app/images/tetris.gif' %}">
         <h3>How to Play</h3>
         <div class="info-mode"></div>
         <br>
         <p>Welcome {{ data_from_landing }}</p>
         <br>
-        <img class="title-image" src="{% static 'polysphere3D_app/images/tetris.svg' %}">
+
         <div class="display-mode">
             <div id="container1">
 
@@ -73,8 +74,6 @@
                                     Stop
                                 </button>
                             </form>
-                            <label id="shapeLabel" for="inputShape" style="padding-right: 3px;">Shape</label>
-                            <input id="inputShape" type="text" value="A">
                             <p id="solutionCount">Number of solutions: 0</p>
                             <input id="l1" type="checkbox" checked>
                             <label id="l1Label" for="l1">1</label>
