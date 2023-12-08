@@ -1,5 +1,5 @@
 # Define pyramid levels dimensions
-from DLX import *
+from kanoodle_3d import *
 pyramidLevels = 5
 
 # Define the pieces
@@ -83,10 +83,7 @@ board_representation = generate_pyramid_board_representation(pyramidLevels)
 
 level_num = 1
 print(board_representation)
-
-
-
-
+print(type(Pieces))
 # Find a solution for the pyramid puzzle
-solution = pyramid_dlx.solve()
-print("Solution:", solution)
+solutions = Kanoodle3D.findAllSolutions(Pieces, 5, 5,5)
+print(solutions)

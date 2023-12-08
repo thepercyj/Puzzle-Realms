@@ -1,26 +1,13 @@
-html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Center the entire page content vertically and horizontally */
-html {
-    height: 80%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .container {
     text-align: center;
 }
 
-#panel {
-    /*display: flex;*/
-    margin: 0 auto;
-    width: 500px;
-    height: 500px;
+/*Adding this CSS is making the panel go out of bounds of the container*/
+#panel{
+    display: flex;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
     background-color: #000;
 }
 
@@ -29,18 +16,32 @@ html {
     padding: 0;
     position: static;
     top: 0;
-    left:0;
+    left: 0;
 }
 
-.wrapper {
-    flex: 1;
-    background-color: #BCF4FA;
-    padding: 20px;
-    border-radius: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding-top: 20px;
     text-align: center;
-    max-width: 1000px;
-    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 215vh;
+}
+
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .content {
@@ -63,7 +64,8 @@ html {
     max-width: 70vw;
     margin: 0 auto;
     text-align: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
     gap: 20px; /* Adjust the gap between the columns */
 
 }
@@ -93,6 +95,24 @@ html {
     background-color: #f9f9f9;
 }
 
+html {
+    height: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer1 {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
 
 h3 {
     font-family: 'Supply Center', sans-serif;
@@ -101,13 +121,6 @@ h3 {
 }
 
 p {
-    font-family: 'Maybe But Not Always', sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-}
-
-label {
     font-family: 'Maybe But Not Always', sans-serif;
     font-size: 14px;
     color: #000;
@@ -143,12 +156,6 @@ b {
     font-size: 16px;
 }
 
-.imageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .btn {
   box-sizing: border-box;
   -webkit-appearance: none;
@@ -159,6 +166,7 @@ b {
   border-radius: 0.6em;
   color: #e74c3c;
   cursor: pointer;
+  display: flex;
   align-self: center;
   font-weight: 400;
   line-height: 1;
@@ -266,16 +274,25 @@ b {
   box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
 
-body {
-    background-image: url("../images/background-without-title.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    justify-content: center;
-    background-color: #f4f4f4;
-    padding: 20px;
+.futuristic-text-field {
+    position: relative;
+    width: 300px;
+    display: inline-block;
+}
+
+.futuristic-text-field input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    font-size: 16px;
+    outline: none;
     text-align: center;
+    font-family: 'Maybe But Not Always', sans-serif;
 }
 
 .futuristic-text-field input:focus {
