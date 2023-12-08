@@ -2,11 +2,12 @@
     text-align: center;
 }
 
-#panel {
-    /*display: flex;*/
-    margin: 0 auto;
-    width: 500px;
-    height: 500px;
+/*Adding this CSS is making the panel go out of bounds of the container*/
+#panel{
+    display: flex;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
     background-color: #000;
 }
 
@@ -15,8 +16,25 @@
     padding: 0;
     position: static;
     top: 0;
-    left:0;
+    left: 0;
 }
+
+body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    height: 215vh;
+}
+
 
 .wrapper {
     display: flex;
@@ -46,7 +64,8 @@
     max-width: 70vw;
     margin: 0 auto;
     text-align: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
     gap: 20px; /* Adjust the gap between the columns */
 
 }
@@ -79,6 +98,18 @@
 html {
     height: 50%;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer1 {
+    display: grid;
     align-items: center;
     justify-content: center;
 }
@@ -123,12 +154,6 @@ b {
     margin: 5px;
     padding: 8px;
     font-size: 16px;
-}
-
-.imageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .btn {
@@ -249,20 +274,25 @@ b {
   box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
 
-body {
-    background-image: url("../images/background-without-title.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    justify-content: center;
-    background-color: #f4f4f4;
-    padding-top: 20px;
+.futuristic-text-field {
+    position: relative;
+    width: 300px;
+    display: inline-block;
+}
+
+.futuristic-text-field input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    font-size: 16px;
+    outline: none;
     text-align: center;
-    /*display: flex;*/  /*This is causing the non clickable issue*/
-    align-items: center;
-    margin: 0;
-    height: 215vh;
+    font-family: 'Maybe But Not Always', sans-serif;
 }
 
 .futuristic-text-field input:focus {

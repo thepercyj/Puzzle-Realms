@@ -18,69 +18,33 @@ let sets = {
     7: new Set(['A', 'C', 'E', 'F'])
 };
 
-function* solve(X, Y, solution = [], isFourLevel = false, headers = null) {
-    if (isFourLevel) {
-        let completeSolution = true;
-        for (let i of headers.slice(12, headers.length - 1)) {
-            if (Object.keys(X).includes(i)) {
-                completeSolution = false;
-                break;
-            }
-        }
-        if (completeSolution) {
-            yield Array.from(solution);
-        } else {
-            let min_count = Infinity;
-            let min_col;
-            for (let [key, value] of Object.entries(X)) {
-                if (["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].includes(key)) {
-                    continue;
-                }
-                if (value.size < min_count) {
-                    min_count = value.size;
-                    min_col = key;
-                }
-            }
-            console.log(min_col);
-            for (let row of Array.from(X[min_col])) {
-                solution.push(row);
-                let cols = select(X, Y, row);
-                for (let s of solve(X, Y, solution, isFourLevel, headers)) {
-                    yield s;
-                }
-                deselect(X, Y, row, cols);
-                solution.pop();
-            }
-        }
+function* solve(X, Y, solution = []) {
+    if (Object.keys(X).length === 0) {
+        yield Array.from(solution);
     } else {
-        if (Object.keys(X).length === 0) {
-            console.log("solution!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            yield Array.from(solution);
-        } else {
-            console.log("test");
-            let min_count = Infinity;
-            let min_col;
-            for (let [key, value] of Object.entries(X)) {
-                if (value.size < min_count) {
-                    min_count = value.size;
-                    min_col = key;
-                }
+        let min_count = Infinity;
+        let min_col;
+
+        for (let [key, value] of Object.entries(X)) {
+            if (value.size < min_count) {
+                min_count = value.size;
+                min_col = key;
             }
-            console.log(Object.entries(X));
-            for (let row of Array.from(X[min_col])) {
-                solution.push(row);
-                let cols = select(X, Y, row);
-                for (let s of solve(X, Y, solution, isFourLevel, headers)) {
-                    yield s;
-                }
-                deselect(X, Y, row, cols);
-                solution.pop();
+        }
+
+        for (let row of Array.from(X[min_col])) {
+            solution.push(row);
+            let cols = cover(X, Y, row);
+            for (let s of solve(X, Y, solution)) {
+                yield s;
             }
+            uncover(X, Y, row, cols);
+            solution.pop();
         }
     }
 }
 
-function select(X, Y, r) {
+function cover(X, Y, r) {
     let cols = [];
     for (let j of Y[r]) {
         for (let i of Array.from(X[j])) {
@@ -96,7 +60,7 @@ function select(X, Y, r) {
     return cols;
 }
 
-function deselect(X, Y, r, cols) {
+function uncover(X, Y, r, cols) {
     for (let j of Y[r].slice().reverse()) {
         X[j] = cols.pop();
         for (let i of Array.from(X[j])) {
@@ -109,4 +73,26 @@ function deselect(X, Y, r, cols) {
     }
 }
 
-export { items, sets, solve, select, deselect };
+export function dlx(items, sets) {
+    let X = {};
+    let Y = {};
+    let solution = [];
+    let headers = Object.keys(items).concat(Object.keys(sets));
+
+    for (let i = 1; i <= Object.keys(items).length; i++) {
+        X[i] = new Set(items[headers[i - 1]]);
+    }
+
+    for (let j = 1; j <= Object.keys(sets).length; j++) {
+        Y[j] = Array.from(sets[headers[Object.keys(items).length + j - 1]]);
+    }
+
+    return solve(X, Y, solution);
+}
+
+//// Example usage:
+//for (let solution of dlx(items, sets)) {
+//    console.log(solution);
+//}
+
+export { items, sets, solve };

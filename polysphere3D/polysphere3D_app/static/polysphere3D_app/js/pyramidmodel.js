@@ -6,7 +6,7 @@ function PyramidLayer(size, matrix) {
         for (let i = 0; i < this.size; i++)
             for (let j = 0; j < this.size; j++)
                 this.matrix[i][j].color = matrix[i][j];
-    };
+    };f
 
     this.set = function (x, y, color) {
         this.matrix[x][y].color = color;
