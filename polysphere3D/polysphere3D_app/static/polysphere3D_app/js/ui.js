@@ -116,9 +116,10 @@ function disposePyramid() {
 
 // Makes layers visible
 function layerVisible(idx, v) {
+    console.log("Layer Visible",idx, v)
     // Updates the visibilityStates to match change
     visibilityStates[idx - 1] = v
-    console.log("New States", visibilityStates)
+    //console.log("New States", visibilityStates)
     let layer = worker.getLayer(idx);
     const spheres = layer.matrix;
     for (let x = 0; x < layer.size; x++) {
@@ -127,7 +128,7 @@ function layerVisible(idx, v) {
                 spheres[x][y].userData.visible = v;
                 spheres[x][y].visible = v;
                 spheres[x][y].userData.needsUpdate = true;
-                console.log("?");
+                //console.log("?");
             }
         }
     }
@@ -156,13 +157,47 @@ ClearButton.addEventListener('click', onClearButton);
 StopButton.addEventListener('click', onStopButton);
 
 const layerCheckboxes = [];
+
+//var lowerSlider = document.querySelector("#lower");
+//var upperSlider = document.querySelector("#upper");
+//var lowerVal = parseInt(lowerSlider.value);
+//var upperVal = parseInt(upperSlider.value);
+//
+//upperSlider.oninput = function () {
+//   lowerVal = parseInt(lowerSlider.value);
+//   upperVal = parseInt(upperSlider.value);
+//
+//   if (upperVal < lowerVal + 0) {
+//      lowerSlider.value = upperVal - 0;
+//
+//      if (lowerVal == lowerSlider.min) {
+//         upperSlider.value = 0;
+//      }
+//   }
+//   console.log(lowerSlider.value, upperSlider.value);
+//};
+//
+//lowerSlider.oninput = function () {
+//   lowerVal = parseInt(lowerSlider.value);
+//   upperVal = parseInt(upperSlider.value);
+//
+//   if (lowerVal > upperVal - 0) {
+//      upperSlider.value = lowerVal + 0;
+//
+//      if (upperVal == upperSlider.max) {
+//         lowerSlider.value = parseInt(upperSlider.max) - 0;
+//      }
+//   }
+//   console.log(lowerSlider.value, upperSlider.value);
+//};
+
 for (let i = 1; i <= 5; i++) {
     const checkbox = document.getElementById('l'+i);
     checkbox.addEventListener('change', (event) => {
         layerVisible(i, event.target.checked);
     });
     const label = document.getElementById('l'+i+'Label');
-
+    console.log(checkbox, label);
     layerCheckboxes.push(checkbox, label);
 }
 
