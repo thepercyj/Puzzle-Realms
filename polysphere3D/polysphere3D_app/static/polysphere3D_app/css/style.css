@@ -370,46 +370,25 @@ input[type="checkbox"] {
     display: none; /* Hide the default checkbox */
 }
 
-/* Style for labels (custom checkbox appearance) */
-label1 {
-    display: inline-block;
-    font-family: 'Maybe But Not Always', sans-serif;
-    font-size: 24px;
-    color: #000;
-    margin: 0;
-    cursor: pointer;
-    width: 20px; /* Adjust the width to make it a circle */
-    height: 20px; /* Adjust the height to make it a circle */
-    /*border: 2px solid #ccc;*/
-    border-radius: 50%; /* Make it a circle */
-    text-align: center; /* Center the text */
-    line-height: 20px; /* Vertically center the text */
-}
-
-/* Style for checked labels */
-input[type="checkbox"]:checked + label1 {
-    border-color: #4caf50; /* Change border color when checked */
-    color: #4caf50; /* Change text color when checked */
-}
-
-/* Optional: Add hover effect */
-label1:hover {
-    transform: scale(2); /* Adjust the scale factor as needed */
-
-    background-color: #BCF4FA;
-}
-
-label{
-    border: 2px solid #ccc;
+label {
+    border: 2px solid #4CAF50; /* Green border color, change as needed */
     border-radius: 20%;
     display: inline-block;
     font-family: 'Maybe But Not Always', sans-serif;
-    font-size: 14px;
-    color: #000;
-    padding: 5px;
+    font-size: 16px; /* Slightly larger font size */
+    color: #333; /* Darker text color */
+    padding: 8px 12px; /* Adjusted padding for better spacing */
+    background-color: #f8f8f8; /* Light background color */
+    transition: transform 0.2s ease-in-out; /* Smooth hover transition */
+
 }
 
 label:hover {
     transform: scale(1.7); /* Adjust the scale factor as needed */
-    background-color: #BCF4FA;
+    background-color: #A6FF96;
+}
+
+#positionInputForm button {
+    display: inline-block;
+    margin: 3px; /* Adjust the margin as needed */
 }

@@ -13,7 +13,7 @@ import resetFirstPlacementCoord  from "../js/scene.js";
 
 
 window.onload = function () {
-    const image_names = ["A","B","C","D","E","F","G","H","I","J","K","L"]
+    const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
 
   const imageIds = [
     "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
@@ -24,12 +24,18 @@ window.onload = function () {
     let rotationAngle = 0;
     let rotationAngles = Array(12).fill(0);
     let currentIndex = 0;
+    let currentAlphabetIndex = 0;
     let currentImageName = "A"
     currentImage.className = currentImageName
 
+    // Function to update the displayed alphabet
+    function updateAlphabet() {
+        const alphabetContainer = document.getElementById('currentAlphabet');
+        alphabetContainer.textContent = alphabets[currentAlphabetIndex];
+    }
+
     function updateImage() {
         currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
-        currentImageName = image_names[currentIndex]
         console.log(currentImageName)
         currentImage.className = currentImageName
         currentImage.style.transform = `rotate(${rotationAngle}deg)`;
@@ -38,11 +44,15 @@ window.onload = function () {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
         updateImage();
+        currentAlphabetIndex = (currentAlphabetIndex - 1 + alphabets.length) % alphabets.length;
+        updateAlphabet();
     }
      function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
         updateImage();
+        currentAlphabetIndex = (currentAlphabetIndex + 1) % alphabets.length;
+        updateAlphabet();
     }
 
     const previousImageButton = document.getElementById('previousImageButton');
@@ -143,7 +153,7 @@ let headers;
 let dicts;
 
 const canvas = document.getElementById('panel');
-const FourCheck = document.getElementById('isFourCheck');
+//const FourCheck = document.getElementById('isFourCheck'); Hiding this function for now because it has no implementation currently
 const NextButton = document.getElementById('onNextButtonClick');
 const ClearButton = document.getElementById('onClearButtonClick');
 const StopButton = document.getElementById('onStopButtonClick');
@@ -201,9 +211,9 @@ for (let i = 1; i <= 5; i++) {
     layerCheckboxes.push(checkbox, label);
 }
 
-FourCheck.addEventListener('change', (event) => {
-        layerVisible(5, !event.target.checked);
-    });
+//FourCheck.addEventListener('change', (event) => {
+//        layerVisible(5, !event.target.checked);
+//    }); Hiding this function for now because it has no implementation currently
 
 
 const state = createState();
