@@ -10,7 +10,7 @@ def portal(request):
 
 
 def team(request):
-    return render(request, 'portal_app/game1.html')
+    return render(request, 'portal_app/team.html')
 
 
 def games(request):
