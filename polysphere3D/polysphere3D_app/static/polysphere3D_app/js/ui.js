@@ -228,6 +228,7 @@ function createState() {
 }
 
 function onSolveButton() {
+    var allSolutions = [];
     let solutionCount = 0;
     let solutions = [];
     let stopExecution = false;
@@ -271,14 +272,18 @@ function onSolveButton() {
 
         cnt++;
         scount.textContent = "Number of solutions: " + cnt;
+        // Push the current pyramid_layers into the array
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
         solutions: [...state.solutions, pyramid_layers];
+        allSolutions.push(pyramid_layers);
+        console.log("Solve",pyramid_layers)
         drawPosition(pyramid_layers);
     });
 }
 
 function onClearButton() {
+    var allSolutions = [];
     inputShapes.clear();
     inputCoords.clear();
 new resetFirstPlacementCoord()
