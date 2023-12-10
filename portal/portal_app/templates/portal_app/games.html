@@ -67,7 +67,7 @@
 								<li><a href="{% url 'portal' %}">Dashboard</a></li>
 							</ul>
 						</li>
-						<li><a href="{% url 'games' %}">Games</a>
+						<li><a href="#">Games</a>
 							<ul class="sub-menu">
 								<li><a href="{% url 'nqueens_game' %}">N-Queens</a></li>
 								<li><a href="{% url 'polysphere_game' %}">Polysphere Pro</a></li>
@@ -87,48 +87,99 @@
 	</header>
 	<!-- Header section end -->
 
-
-	<!-- Hero section -->
-	<section class="hero-section overflow-hidden">
-		<div class="hero-slider owl-carousel">
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'portal_app/img/Nqueens.webp' %}">
-				<div class="container">
-					<h2>N-Queens Solver</h2>
-					<p>Play the classic computational game of computer science<br> Do you have what it takes to solve the puzzle ?</p>
-					<a href="{% url 'nqueens:landing' %}" class="site-btn">Play <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
-				</div>
-			</div>
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'portal_app/img/polysphere.webp' %}">
-				<div class="container">
-					<h2>Polysphere Pro</h2>
-					<br>
-					<p>A classic puzzle game of arranging all the pieces to fit inside a board <br> Test your ability to the limits of finding all possible solutions.</p>
-					<a href="{% url 'polysphere:landing' %}" class="site-btn">Play <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
-				</div>
-			</div>
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'portal_app/img/polypyramid.webp' %}">
-				<div class="container">
-					<h2>Polysphere Extreme</h2>
-					<br>
-					<p>Another One, but with a bit of twist, its 3D !!!!! <br> Do you have what it takes to master the 3D space ?</p>
-					<a href="{% url 'polysphere3D:landing' %}" class="site-btn">Play  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
-				</div>
+	<!-- Page top section -->
+	<section class="page-top-section set-bg" data-setbg="{% static 'portal_app/img/games-bg.jpg' %}">
+		<div class="page-info">
+			<h2>Games</h2>
+			<div class="site-breadcrumb">
+				<a href="{% url 'portal' %}">Home</a>  /
+				<span>Games</span>
 			</div>
 		</div>
 	</section>
-	<!-- Hero section end-->
+	<!-- Page top end-->
 
-	<!-- Intro section -->
-	<section class="intro-video-section set-bg d-flex align-items-end " data-setbg="{% static 'portal_app/img/promo-bg.webp' %}">
-		<a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img src="{% static 'portal_app/img/icons/solid-right-arrow.png' %}" alt="#"></a>
+
+	<!-- Games section -->
+	<section class="games-section">
 		<div class="container">
-			<div class="video-text">
-				<h2>Promo video of the game</h2>
-				<p>A short video of showcasing the games you are about to play.</p>
+			<ul class="game-filter">
+				<li><a href="">A</a></li>
+				<li><a href="">B</a></li>
+				<li><a href="">C</a></li>
+				<li><a href="">D</a></li>
+				<li><a href="">E</a></li>
+				<li><a href="">F</a></li>
+				<li><a href="">G</a></li>
+				<li><a href="">H</a></li>
+				<li><a href="">I</a></li>
+				<li><a href="">J</a></li>
+				<li><a href="">K</a></li>
+				<li><a href="">L</a></li>
+				<li><a href="">M</a></li>
+				<li><a href="">N</a></li>
+				<li><a href="">O</a></li>
+				<li><a href="">P</a></li>
+				<li><a href="">Q</a></li>
+				<li><a href="">R</a></li>
+				<li><a href="">S</a></li>
+				<li><a href="">T</a></li>
+				<li><a href="">U</a></li>
+				<li><a href="">V</a></li>
+				<li><a href="">W</a></li>
+				<li><a href="">X</a></li>
+				<li><a href="">Y</a></li>
+				<li><a href="">Z</a></li>
+			</ul>
+			<div class="row">
+				<div class="col-xl-7 col-lg-8 col-md-7">
+					<div class="row">
+						<div class="col-lg-4 col-md-6">
+							<div class="game-item">
+								<img src="{% static 'portal_app/img/nqueens-game.png' %}" alt="#">
+								<h5>N-Queens Solver</h5>
+								<a href="game-single.html" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="game-item">
+								<img src="{% static 'portal_app/img/polysphere-game.png' %}" alt="#">
+								<h5>Polysphere Pro</h5>
+								<a href="game-single.html" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="game-item">
+								<img src="{% static 'portal_app/img/polysphere3D-game.png' %}" alt="#">
+								<h5>Polysphere Extreme</h5>
+								<a href="game-single.html" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+							</div>
+						</div>
+					</div>
+				</div>
+											<div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+					<div id="stickySidebar">
+						<div class="widget-item">
+							<div class="categories-widget">
+								<h4 class="widget-title">categories</h4>
+								<ul>
+									<li><a href="">Games</a></li>
+									<li><a href="">Gaming Tips & Tricks</a></li>
+									<li><a href="">Online Games</a></li>
+									<li><a href="">Team Games</a></li>
+									<li><a href="">Community</a></li>
+									<li><a href="">Uncategorized</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
+
 		</div>
 	</section>
-	<!-- Intro section end -->
+	<!-- Games end-->
 
 
 	<!-- Featured section -->
@@ -144,7 +195,6 @@
 	</section>
 	<!-- Featured section end-->
 
-
 	<!-- Footer section -->
 	<footer class="footer-section">
 		<div class="container">
@@ -158,6 +208,7 @@
 		</div>
 	</footer>
 	<!-- Footer section end -->
+
 
 
 	<!--====== Javascripts & Jquery ======-->
