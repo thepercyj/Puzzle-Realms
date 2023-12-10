@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polysphere Extreme | ACS Group 6</title>
+    <link href="https://fonts.cdnfonts.com/css/maybe-but-not-always" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/supply-center" rel="stylesheet">
+    <script src="{% static 'polysphere_app/js/kanoodle.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'polysphere_app/css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <img class=title-image src="{% static 'polysphere_app/images/tetris.gif' %}" alt="title image" >
+            <h3>What is Polysphere Extreme ?</h3>
+            <p class="edit-mode">
+                Polysphere pro is a highly visual three-dimensional puzzle game that people of any age can enjoy. To play with it, users simply have to arrange a variety of interconnected spheres to duplicate structures into a pyramid or move and manipulate the spheres to create original designs!.
+
+                Choose a Starting Point: Start with an empty board or an array to represent the board. The board is typically a 5x5 square base pyramid, and you'll place pieces on it.
+            </p>
+            <br>
+            <!-- Add an image element with an ID -->
+            <div class="edit-mode">
+                <div class="portalContainer">
+                    <form action="{% url 'polysphere3D:ui_template' %}" method="post">
+                        {% csrf_token %}
+                        <div class="game-text">
+                        <label for="data">Enter Player Name </label>
+                        </div>
+                        <br>
+                        <div class="futuristic-text-field">
+                        <input type="text" name="data_from_landing" required>
+                        </div>
+
+                        <div class="center-container">
+                        <button class="btn third" type="submit">Start</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            <br>
+            <footer class="edit-mode">
+                <p>&copy; Group-6 ACS</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

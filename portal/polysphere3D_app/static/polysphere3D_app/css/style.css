@@ -1,0 +1,316 @@
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the entire page content vertically and horizontally */
+html {
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+}
+
+#panel {
+    /*display: flex;*/
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    background-color: #000;
+}
+
+.canvas {
+    margin: 0;
+    padding: 0;
+    position: static;
+    top: 0;
+    left:0;
+}
+
+.wrapper {
+    flex: 1;
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.content {
+    font-size: 16px;
+    color:#333;
+    text-align: center;
+}
+
+.title-image {
+    max-width: 70vw;
+
+     /* Updated color */
+}
+
+.display-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    gap: 20px; /* Adjust the gap between the columns */
+
+}
+
+.solution-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #BCF4FA;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Adjust the value according to your design */
+}
+
+/* Optional: Customize scrollbar styles */
+.solution-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.solution-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 10px;
+}
+
+.solution-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+
+
+h3 {
+    font-family: 'Supply Center', sans-serif;
+    font-size: 28px;
+    color: #06315e; /* Updated color */
+}
+
+p {
+    font-family: 'Maybe But Not Always', sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+}
+
+label {
+    font-family: 'Maybe But Not Always', sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+}
+
+ul, li {
+    text-align: justify;
+    font-family: 'Maybe But Not Always', sans-serif;
+}
+
+b {
+    font-size: 16px;
+    color: #017176;
+}
+
+.info-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
+}
+
+#rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #06315e;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  align-self: center;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Maybe But Not Always', sans-serif;
+  font-weight: 150;
+}
+.btn:hover, .btn:focus {
+  color: white;
+  outline: 0;
+}
+
+
+/* Styles for the game buttons */
+.third {
+  border-color: #3498db;
+  color: #261616;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.third:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+.btn1 {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #06315e;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Maybe But Not Always', sans-serif;
+  font-weight: 150;
+}
+.btn1:hover, .btn1:focus {
+  color: white;
+  outline: 0;
+}
+
+
+/* Styles for the game buttons */
+.fourth {
+  border-color: #3498db;
+  color: #261616;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.fourth:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+.btn2 {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #06315e;
+  border: 2px solid #e74c3c;
+  border-radius: 0.6em;
+  color: #e74c3c;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  font-weight: 400;
+  line-height: 1;
+  margin: 20px;
+  padding: 1.2em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Maybe But Not Always', sans-serif;
+  font-weight: 150;
+}
+.btn2:hover, .btn2:focus {
+  color: white;
+  outline: 0;
+
+}
+
+
+/* Styles for the game buttons */
+.fifth {
+  border-color: #3498db;
+  color: #261616;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.fifth:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+}
+
+.futuristic-text-field input:focus {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.futuristic-text-field label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px;
+    color: #fff;
+    pointer-events: none;
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+}
+
+.futuristic-text-field input:focus + label,
+.futuristic-text-field input:not(:placeholder-shown) + label {
+    transform: translateY(-100%) scale(0.8);
+    font-size: 12px;
+    color: #aaa;
+}
+
+.game-text {
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    animation: blink 1s infinite;
+    font-family: 'Maybe But Not Always', sans-serif;
+}
+
+.display-mode img {
+    max-width: 60%; /* Make the images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Add border-radius to the images */
+}
