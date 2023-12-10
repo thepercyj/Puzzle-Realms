@@ -164,7 +164,7 @@ def generate_solution_gallery(request):
             return render(request, 'polysphere_app/kanoodle-solver.html', {'data_from_landing': ''})
 
     # return render(request, 'polysphere_app/kanoodle-solver.html')
-    # return render(request, 'polysphere_app/index.html', {'image_paths': image_paths})
+    # return render(request, 'polysphere_app/dashboard.html', {'image_paths': image_paths})
 
 
 def clear_solutions(directory):
