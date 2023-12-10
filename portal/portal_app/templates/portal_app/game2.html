@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>Puzzle Realms | ASE Group 6</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="EndGam Gaming Magazine Template">
+	<meta name="keywords" content="endGam,gGaming, magazine, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/slicknav.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/magnific-popup.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/animate.css' %}">
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/style.css' %}">
+
+
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section">
+		<div class="header-warp">
+			<div class="header-bar-warp d-flex">
+				<!-- site logo -->
+				<a href="{% url 'portal' %}" class="site-logo">
+					<img src="{% static 'portal_app/img/logo-no-background.png' %}" alt="">
+				</a>
+				<nav class="top-nav-area w-100">
+					<div class="user-panel">
+						{% if user.is_authenticated %}
+						<ul class="main-menu primary-menu">
+							<li><a>Welcome, {{ user.username }}</a>
+								<ul class="sub-menu">
+									<li><a href="{% url 'logout' %}">Logout</a></li>
+								</ul>
+							</li>
+						</ul>
+						{% else %}
+						<a href="{% url 'login' %}">Login</a> / <a href="{% url 'register' %}">Register</a>
+						{% endif %}
+					</div>
+					<!-- Menu -->
+					<ul class="main-menu primary-menu">
+						<li><a href="{% url 'portal' %}">Home</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'portal' %}">Dashboard</a></li>
+							</ul>
+						</li>
+						<li><a href="{% url 'games' %}">Games</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'nqueens_game' %}">N-Queens</a></li>
+								<li><a href="{% url 'polysphere_game' %}">Polysphere Pro</a></li>
+								<li><a href="{% url 'polysphere3D_game' %}">Polysphere Extreme</a></li>
+							</ul>
+						</li>
+						<li><a href="blog.html">About</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'team' %}">Meet the Team</a></li>
+								<li><a href="game-single.html">Terms of Use</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- Header section end -->
+
+	<!-- Page top section -->
+	<section class="page-top-section set-bg" data-setbg="{% static 'portal_app/img/nqueens.webp' %}">
+		<div class="page-info">
+			<h2>Games</h2>
+			<div class="site-breadcrumb">
+				<a href="{% url 'portal' %}">Home</a>  /
+				<span>Games</span>
+			</div>
+		</div>
+	</section>
+	<!-- Page top end-->
+
+
+	<!-- Games section -->
+	<section class="games-single-page">
+		<div class="container">
+			<div class="game-single-preview">
+				<img src="{% static 'portal_app/img/polysphere-game.png' %}" alt="">
+			</div>
+			<div class="row">
+				<div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
+					<h2 class="gs-title">Polysphere Pro</h2>
+					<h4>Gameplay</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus.</p>
+
+					<h4>Background</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus.</p>
+
+					<h4>How many solutions ?</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquamet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum posuere porttitor justo id pellentesque. Proin id lacus feugiat, posuere erat sit amet, commodo ipsum. Donec pellentesque vestibulum metus.</p>
+
+					<h4>Limitations</h4>
+					<p>Nulla ut maximus mauris. Sed malesuada at sapien sed euismod. Vestibulum pharetra in sem id laoreet. Cras metus ex, placerat nec justo quis, luctus posuere ex. Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec ele-mentum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquet, dictum molestie eros. Nullam scelerisque convallis gravida. Morbi id lorem accumsan, scelerisque enim laoreet, sollicitudin neque. Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec ele-mentum aliquet tortor. Curabitur justo mi, efficitur sed eros aliqueDonec vitae tellus sodales, congue augue at, biben-dum justo. Pellentesque non dolor et magna volutpat pharetra eget vel ligula. Maecenas facilisis vestibulum mattis. Sed sagittis gravida urna. Cras nec mi risus.
+					</p>
+				</div>
+				<div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+					<div id="stickySidebar">
+						<div class="widget-item">
+							<div>
+								<a href="{% url 'polysphere:landing' %}" class="site-btn">Play <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+							</div>
+						</div>
+						<div class="widget-item">
+							<div class="rating-widget">
+								<h4 class="widget-title">Ratings</h4>
+								<ul>
+									<li>IQ<span>3.5/5</span></li>
+									<li>Levels<span>4.5/5</span></li>
+									<li>Dificulty<span>4.5/5</span></li>
+								</ul>
+								<div class="rating">
+									<h5><i>Rating</i><span>4.3</span> / 5</h5>
+								</div>
+							</div>
+						</div>
+						<div class="widget-item">
+							<div class="testimonials-widget">
+								<h4 class="widget-title">Testimonials</h4>
+								<div class="testim-text">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolo re magna aliqua. Quis ipsum suspend isse ultrices.</p>
+									<h6><span>James Smith,</span>Gamer</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Games end-->
+
+	<section class="game-author-section">
+		<div class="container">
+			<div class="game-author-pic set-bg" data-setbg="{% static 'portal_app/img/author.webp' %}"></div>
+			<div class="game-author-info">
+				<h4>Author: ASE Group 6</h4>
+				<p>A group of students from the module Advanced Software Engineering studying at the University of Sussex.</p>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<a href="#" class="footer-logo">
+				<img src="{% static 'portal_app/img/logo-no-background.png' %}" alt="">
+			</a>
+			<br>
+			<br>
+			<br>
+			<div class="copyright">&copy; <a href="">ASE-Group-6</a>. All Rights Reserved.</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{% static 'portal_app/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/jquery.slicknav.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/jquery.sticky-sidebar.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/main.js' %}"></script>
+
+	</body>
+</html>
