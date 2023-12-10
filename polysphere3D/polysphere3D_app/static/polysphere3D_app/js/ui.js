@@ -385,17 +385,16 @@ window.worker = worker;
 
 
 var scenes = [], camera, renderer, emptyScene;
-var sol_canvas = document.getElementById("c");
+
 
 sol_init(c);
 sol_animate();
 
 function sol_init() {
-
-  console.log("Got canvas", sol_canvas);
-
-  camera = new PerspectiveCamera( 75, 1, 0.1, 100 );
-  camera.position.z = 1.5;
+  var sol_canvas = document.getElementById("c");
+  var emptyScene = new Scene();
+  sol_camera = new PerspectiveCamera( 75, sol_canvas.clientWidth / sol_canvas.clientHeight, 0.1, 100 );
+  sol_camera.position.z = 1.5;
 
   var geometries = [
     new BoxGeometry( 1, 1, 1 ),
@@ -407,7 +406,7 @@ function sol_init() {
   var template = document.getElementById("template").text;
   var content = document.getElementById("content");
 
-  var emptyScene = new Scene();
+
 
   var numScenes = 100;
 
@@ -423,7 +422,7 @@ function sol_init() {
     // Look up the element that represents the area
     // we want to render the scene
     sol_scene.element = element.querySelector(".scene");
-    content.appendChild(element);
+    content.appendChild(sol_scene.element);
 
     // add one random mesh to each scene
     var geometry = geometries[ geometries.length * Math.random() | 0 ];
@@ -507,10 +506,10 @@ function render() {
     renderer.setViewport( left, top, width, height );
     renderer.setScissor( left, top, width, height );
 
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    sol_camera.aspect = width / height;
+    sol_camera.updateProjectionMatrix();
 
-    renderer.render( sol_scene, camera );
+    renderer.render( sol_scene, sol_camera );
 
   } );
   renderer.setScissorTest( false );
