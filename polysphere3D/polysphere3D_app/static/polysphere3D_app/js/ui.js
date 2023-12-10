@@ -68,6 +68,7 @@ window.onload = function () {
 }
 let worker = new Pyramid(5, 1);
 let scene = new Scene();
+let sol_scene = new Scene();
 const FPS = 30;
 let uiTimer = null;
 let visibilityStates = [true, true, true, true, true];
@@ -157,6 +158,7 @@ let headers;
 let dicts;
 
 const canvas = document.getElementById('panel');
+const sol_canvas = document.getElementById('c');
 //const FourCheck = document.getElementById('isFourCheck'); Hiding this function for now because it has no implementation currently
 const NextButton = document.getElementById('onNextButtonClick');
 const ClearButton = document.getElementById('onClearButtonClick');
@@ -280,8 +282,8 @@ function onSolveButton() {
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
         solutions: [...state.solutions, pyramid_layers];
-        allSolutions.push(pyramid_layers);
-        console.log("Solve",pyramid_layers)
+        allSolutions.push(pyramid_layers); // All solutions
+//        console.log("Solve",pyramid_layers)
         drawPosition(pyramid_layers);
     });
 }
@@ -354,6 +356,7 @@ uiTimer = null;
 
 function componentDidMount() {
 scene.init(panel);
+sol_scene.init2(c);
 renderPyramid();
 }
 
@@ -368,8 +371,9 @@ console.log(inputRef.inputY.value);
 console.log(inputRef.inputZ.value);
 }
 
-
+console.log("Component Mounted successfully", panel, c)
 scene.init(panel);
+sol_scene.init2(c);
 renderPyramid();
 
 export { worker};
@@ -384,6 +388,8 @@ window.worker = worker;
 
 
 //Solutions Three.js
+
+
 //var scenes = [], sol_camera, renderer, emptyScene;
 //
 //var sol_canvas = document.getElementById("c");
