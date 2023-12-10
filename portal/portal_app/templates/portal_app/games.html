@@ -33,6 +33,7 @@
 
 </head>
 <body>
+
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
@@ -67,7 +68,7 @@
 								<li><a href="{% url 'portal' %}">Dashboard</a></li>
 							</ul>
 						</li>
-						<li><a href="{% url 'games' %}">Games</a>
+						<li><a href="#">Games</a>
 							<ul class="sub-menu">
 								<li><a href="{% url 'nqueens_game' %}">N-Queens</a></li>
 								<li><a href="{% url 'polysphere_game' %}">Polysphere Pro</a></li>
@@ -88,49 +89,87 @@
 	</header>
 	<!-- Header section end -->
 
-
-	<!-- Hero section -->
-	<section class="hero-section overflow-hidden">
-		<div class="hero-slider owl-carousel">
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'portal_app/img/Nqueens.webp' %}">
-				<div class="container">
-					<h2>N-Queens Solver</h2>
-					<p>Play the classic computational game of computer science<br> Do you have what it takes to solve the puzzle ?</p>
-					<a href="{% url 'nqueens:landing' %}" class="site-btn">Play <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
-				</div>
-			</div>
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'portal_app/img/polysphere.webp' %}">
-				<div class="container">
-					<h2>Polysphere Pro</h2>
-					<br>
-					<p>A classic puzzle game of arranging all the pieces to fit inside a board <br> Test your ability to the limits of finding all possible solutions.</p>
-					<a href="{% url 'polysphere:landing' %}" class="site-btn">Play <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
-				</div>
-			</div>
-			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'portal_app/img/polypyramid.webp' %}">
-				<div class="container">
-					<h2>Polysphere Extreme</h2>
-					<br>
-					<p>Another One, but with a bit of twist, its 3D !!!!! <br> Do you have what it takes to master the 3D space ?</p>
-					<a href="{% url 'polysphere3D:landing' %}" class="site-btn">Play  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
-				</div>
+	<!-- Page top section -->
+	<section class="page-top-section set-bg" data-setbg="{% static 'portal_app/img/games-bg.jpg' %}">
+		<div class="page-info">
+			<h2>Games</h2>
+			<div class="site-breadcrumb">
+				<a href="{% url 'portal' %}">Home</a>  /
+				<span>Games</span>
 			</div>
 		</div>
 	</section>
-	<!-- Hero section end-->
+	<!-- Page top end-->
 
-	<!-- Intro section -->
-	<section class="intro-video-section set-bg d-flex align-items-end " data-setbg="{% static 'portal_app/img/promo-bg.webp' %}">
-		<a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img src="{% static 'portal_app/img/icons/solid-right-arrow.png' %}" alt="#"></a>
+	<!-- Review section -->
+	<section class="review-section">
 		<div class="container">
-			<div class="video-text">
-				<h2>Promo video of the game</h2>
-				<p>A short video of showcasing the games you are about to play.</p>
+			<div class="review-item">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="review-pic">
+							<a href="{% url 'nqueens_game' %}" ><img src="{% static 'portal_app/img/nqueens-game.png' %}" alt="#"></a>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="review-content text-box text-white">
+							<div class="rating">
+								<ul class="blog-filter">
+									<li><a href="{% url 'nqueens:landing' %}">Play</a></li>
+								</ul>
+							</div>
+							<h3>N-Queens Solver</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<a href="{% url 'nqueens_game' %}" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="review-item">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="review-pic">
+							<a href="{% url 'polysphere_game' %}" ><img src="{% static 'portal_app/img/polysphere-game.png' %}" alt="#"></a>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="review-content text-box text-white">
+							<div class="rating">
+								<ul class="blog-filter">
+									<li><a href="{% url 'polysphere:landing' %}">Play</a></li>
+								</ul>
+							</div>
+							<h3>Polysphere Pro</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<a href="{% url 'polysphere_game' %}" class="read-more">Read More <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="review-item">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="review-pic">
+							<a href="{% url 'polysphere3D_game' %}" ><img src="{% static 'portal_app/img/polysphere3D-game.png' %}" alt="#"></a>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="review-content text-box text-white">
+							<div class="rating">
+								<ul class="blog-filter">
+									<li><a href="{% url 'polysphere3D:landing' %}">Play</a></li>
+								</ul>
+							</div>
+							<h3>Polysphere Extreme</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<a href="{% url 'polysphere3D_game' %}" class="read-more">Read More <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
-	<!-- Intro section end -->
-
+	<!-- Review section end-->
 
 	<!-- Featured section -->
 	<section class="featured-section">
@@ -145,7 +184,6 @@
 	</section>
 	<!-- Featured section end-->
 
-
 	<!-- Footer section -->
 	<footer class="footer-section">
 		<div class="container">
@@ -159,6 +197,7 @@
 		</div>
 	</footer>
 	<!-- Footer section end -->
+
 
 
 	<!--====== Javascripts & Jquery ======-->

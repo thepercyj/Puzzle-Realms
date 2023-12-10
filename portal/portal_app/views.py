@@ -9,6 +9,26 @@ def portal(request):
     return render(request, 'portal_app/dashboard.html')
 
 
+def team(request):
+    return render(request, 'portal_app/team.html')
+
+
+def games(request):
+    return render(request, 'portal_app/games.html')
+
+
+def nqueens_game(request):
+    return render(request, 'portal_app/game1.html')
+
+
+def polysphere_game(request):
+    return render(request, 'portal_app/game2.html')
+
+
+def polysphere3D_game(request):
+    return render(request, 'portal_app/game3.html')
+
+
 def custom_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
