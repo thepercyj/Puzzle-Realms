@@ -1,17 +1,3 @@
-html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Center the entire page content vertically and horizontally */
-html {
-    height: 80%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .container {
     text-align: center;
 }
@@ -33,14 +19,11 @@ html {
 }
 
 .wrapper {
-    flex: 1;
-    background-color: #BCF4FA;
-    padding: 20px;
-    border-radius: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-    text-align: center;
-    max-width: 1000px;
-    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .content {
@@ -93,6 +76,12 @@ html {
     background-color: #f9f9f9;
 }
 
+html {
+    height: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 h3 {
     font-family: 'Supply Center', sans-serif;
@@ -101,13 +90,6 @@ h3 {
 }
 
 p {
-    font-family: 'Maybe But Not Always', sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-}
-
-label {
     font-family: 'Maybe But Not Always', sans-serif;
     font-size: 14px;
     color: #000;
@@ -159,6 +141,7 @@ b {
   border-radius: 0.6em;
   color: #e74c3c;
   cursor: pointer;
+  display: flex;
   align-self: center;
   font-weight: 400;
   line-height: 1;
@@ -274,8 +257,12 @@ body {
     background-repeat: no-repeat;
     justify-content: center;
     background-color: #f4f4f4;
-    padding: 20px;
+    padding-top: 20px;
     text-align: center;
+    /*display: flex;*/  /*This is causing the non clickable issue*/
+    align-items: center;
+    margin: 0;
+    height: 215vh;
 }
 
 .futuristic-text-field input:focus {
@@ -313,4 +300,154 @@ body {
     max-width: 60%; /* Make the images responsive */
     height: auto; /* Maintain aspect ratio */
     border-radius: 5px; /* Optional: Add border-radius to the images */
+}
+
+/* Double slider CSS*/
+
+input[type=range] {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 200px;
+  margin: 0;
+  padding: 0 2px;
+  /* Add some L/R padding to ensure box shadow of handle is shown */
+  overflow: hidden;
+  border: 0;
+  border-radius: 1px;
+  outline: none;
+  background: linear-gradient(grey, grey) no-repeat center;
+  /* Use a linear gradient to generate only the 2px height background */
+  background-size: 100% 2px;
+  pointer-events: none;
+}
+input[type=range]:active,
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  height: 28px;
+  width: 28px;
+  border-radius: 28px;
+  background-color: #f00;
+  position: relative;
+  margin: 5px 0;
+  /* Add some margin to ensure box shadow is shown */
+  cursor: pointer;
+  -webkit-appearance: none;
+          appearance: none;
+  pointer-events: all;
+  box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
+}
+.multi-range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 50px;
+}
+.multi-range input[type=range] {
+  position: absolute;
+}
+.multi-range input[type=range]:nth-child(1)::-webkit-slider-thumb::before {
+  background-color: red;
+}
+.multi-range input[type=range]:nth-child(2) {
+  background: none;
+}
+.multi-range input[type=range]:nth-child(2)::-webkit-slider-thumb::before {
+  background-color: grey;
+}
+
+label{
+
+}
+
+/*CSS FOR CHECKBOX*/
+/* Style for checkboxes */
+input[type="checkbox"] {
+    display: none; /* Hide the default checkbox */
+}
+
+label {
+    border: 2px solid #4CAF50; /* Green border color, change as needed */
+    border-radius: 20%;
+    display: inline-block;
+    font-family: 'Maybe But Not Always', sans-serif;
+    font-size: 16px; /* Slightly larger font size */
+    color: #333; /* Darker text color */
+    padding: 8px 12px; /* Adjusted padding for better spacing */
+    background-color: #f8f8f8; /* Light background color */
+    transition: transform 0.2s ease-in-out; /* Smooth hover transition */
+
+}
+
+label:hover {
+    transform: scale(1.7); /* Adjust the scale factor as needed */
+    background-color: #A6FF96;
+}
+
+#positionInputForm button {
+    display: inline-block;
+    margin: 3px; /* Adjust the margin as needed */
+}
+
+
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+#content {
+  position: absolute;
+  top: 0; width: 100%;
+  z-index: 1;
+  padding: 2em;
+}
+
+#c {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.list-item {
+  margin: 1em;
+  padding: 2em;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+}
+
+.list-item .scene {
+  width: 200px;
+  height: 200px;
+  flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+}
+.list-item .description {
+  font-family: sans-serif;
+  font-size: large;
+  padding-left: 2em;
+  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+}
+
+@media only screen and (max-width : 600px) {
+  #content {
+    width: 100%;
+  }
+  .list-item {
+    margin: 0.5em;
+    padding: 0.5em;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+  }
+  .list-item .description {
+    padding-left: 0em;
+  }
 }
