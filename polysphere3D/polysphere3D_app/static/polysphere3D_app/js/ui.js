@@ -17,7 +17,7 @@ import {
 
 
 window.onload = function () {
-    const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
+    const image_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
 
   const imageIds = [
     "shape-1", "shape-2", "shape-3", "shape-4", "shape-5", "shape-6",
@@ -35,11 +35,13 @@ window.onload = function () {
     // Function to update the displayed alphabet
     function updateAlphabet() {
         const alphabetContainer = document.getElementById('currentAlphabet');
-        alphabetContainer.textContent = alphabets[currentAlphabetIndex];
+        alphabetContainer.textContent = image_names[currentAlphabetIndex];
     }
 
     function updateImage() {
         currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
+        currentImageName = image_names[currentIndex]
+
         console.log(currentImageName)
         currentImage.className = currentImageName
         currentImage.style.transform = `rotate(${rotationAngle}deg)`;
@@ -48,14 +50,14 @@ window.onload = function () {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
         updateImage();
-        currentAlphabetIndex = (currentAlphabetIndex - 1 + alphabets.length) % alphabets.length;
+        currentAlphabetIndex = (currentAlphabetIndex - 1 + image_names.length) % image_names.length;
         updateAlphabet();
     }
      function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
         updateImage();
-        currentAlphabetIndex = (currentAlphabetIndex + 1) % alphabets.length;
+        currentAlphabetIndex = (currentAlphabetIndex + 1) % image_names.length;
         updateAlphabet();
     }
 
@@ -283,7 +285,7 @@ function onSolveButton() {
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
         solutions: [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
-//        console.log("Solve",pyramid_layers)
+        console.log("Solve",pyramid_layers)
         drawPosition(pyramid_layers);
     });
 }
@@ -357,7 +359,7 @@ uiTimer = null;
 function componentDidMount() {
 scene.init(panel);
 sol_scene.init2(c);
-//renderPyramid();
+renderPyramid();
 }
 
 function componentWillUnmount() {
@@ -374,7 +376,7 @@ console.log(inputRef.inputZ.value);
 console.log("Component Mounted successfully", panel, c)
 scene.init(panel);
 sol_scene.init2(c);
-//renderPyramid();
+renderPyramid();
 
 export { worker};
 window.worker = worker;

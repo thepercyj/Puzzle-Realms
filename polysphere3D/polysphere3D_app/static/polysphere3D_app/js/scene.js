@@ -1,6 +1,6 @@
 import { OrbitControls } from "./OrbitControls.js";
 import {
-    Scene, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
+    Scene, Vector4, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
     SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
 } from "./three.js";
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
@@ -17,8 +17,8 @@ scene.add(helper);
 light.intensity = 0.5;
 light.position.set(0, 0, 1).normalize();
 const renderer = new WebGLRenderer({ antialias: true });
-const sol_renderer = new WebGLRenderer( { antialias: true } );
-sol_renderer.setClearColor( 0xFFFFFF );
+//const sol_renderer = new WebGLRenderer( { antialias: true } );
+
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
 renderer.setClearColor(0x999999);
@@ -151,6 +151,7 @@ export function initScene(canvas) {
         if (intersects[i].object.visible === true && intersects[i].object.name[0] === "s" &&
             intersects[i].object.material.color.equals(new Color(0x999999))) {
 
+
             let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
             let shapeIndex = inputShapes.get().indexOf(shape);
             let lastCoord = shapeIndex >= 0 && inputCoords.get()[shapeIndex].length > 0 ? inputCoords.get()[shapeIndex][inputCoords.get()[shapeIndex].length - 1] : null;
@@ -210,148 +211,270 @@ window.addEventListener('click', onClick);
 
     animate();
 }
-var scenes = [], sol_camera, emptyScene;
-sol_animate();
-function initsol(sol_canvas) {
-  var sol_canvas = document.getElementById( "c" );
+//var scenes = [], sol_camera, emptyScene;
+//sol_animate();
+//function initsol(sol_canvas) {
+//  var sol_canvas = document.getElementById( "c" );
+//
+//  let sol_camera = new PerspectiveCamera( 75, 1, 0.1, 100 );
+//  sol_camera.position.z = 1.5;
+//
+//  var geometries = [
+//    new BoxGeometry( 1, 1, 1 ),
+//    new SphereGeometry( 0.5, 12, 12 ),
+//    new DodecahedronGeometry( 0.5 ),
+//    new CylinderGeometry( 0.5, 0.5, 1, 12 ),
+//  ];
+//
+//  var template = document.getElementById("template").text;
+//  var content = document.getElementById("content");
+//
+//  var emptyScene = new Scene();
+//
+//
+//  var numScenes = 100;
+//
+//  for ( var ii =  0; ii < numScenes; ++ii ) {
+//
+//    var scene = new Scene();
+//
+//    // make a list item.
+//    var element = document.createElement( "div" );
+//    element.innerHTML = template;
+//    element.className = "list-item";
+//
+//    // Look up the element that represents the area
+//    // we want to render the scene
+//    scene.element = element.querySelector(".scene");
+//    content.appendChild(element);
+//
+//    // add one random mesh to each scene
+//    var geometry = geometries[ geometries.length * Math.random() | 0 ];
+//    var material = new MeshLambertMaterial( { color: randColor() } );
+//
+//    scene.add( new Mesh( geometry, material ) );
+//
+//    let light = new DirectionalLight( 0xffffff );
+//    light.position.set( 0.5, 0.8, 1 );
+//    scene.add( light );
+//
+//    light = new DirectionalLight( 0xffffff );
+//    light.position.set( -0.5, -0.8, -1 );
+//    scene.add( light );
+//
+//    scenes.push( scene );
+//  }
+//
+//}
+//
+//function updateSize() {
+//  var sol_canvas = document.getElementById( "c" );
+//
+//  var width = sol_canvas.clientWidth;
+//  var height = sol_canvas.clientHeight;
+//
+//  if ( sol_canvas.width !== width || sol_canvas.height != height ) {
+//
+//    sol_renderer.setSize ( width, height, false );
+//
+//  }
+//
+//}
+//
+//function sol_animate() {
+//
+//  render();
+//
+//  requestAnimationFrame( sol_animate );
+//}
+//
+//function render() {
+//  var sol_canvas = document.getElementById( "c" );
+//
+//  updateSize();
+//
+//  sol_canvas.style.transform = `translateY(${window.scrollY}px`;
+//
+//  sol_renderer.setClearColor( 0xFFFFFF );
+//  sol_renderer.clear( true );
+//  sol_renderer.setClearColor( 0xE0E0E0 );
+//
+//  sol_renderer.setScissorTest( true );
+//  scenes.forEach( function( scene ) {
+//    // so something moves
+//    scene.children[0].rotation.x = Date.now() * 0.00111;
+//    scene.children[0].rotation.z = Date.now() * 0.001;
+//
+//    // get the element that is a place holder for where we want to
+//    // draw the scene
+//    var element = scene.element;
+//
+//    // get its position relative to the page's viewport
+//    var rect = element.getBoundingClientRect();
+//
+//    // check if it's offscreen. If so skip it
+//    if ( rect.bottom < 0 || rect.top  > sol_renderer.domElement.clientHeight ||
+//       rect.right  < 0 || rect.left > sol_renderer.domElement.clientWidth ) {
+//      return;  // it's off screen
+//    }
+//
+//    // set the viewport
+//    var width  = rect.right - rect.left;
+//    var height = rect.bottom - rect.top;
+//    var left   = rect.left;
+//    var top    = rect.top;
+//
+//    sol_renderer.setViewport( left, top, width, height );
+//    sol_renderer.setScissor( left, top, width, height );
+//
+//    sol_camera.aspect = width / height;
+//    sol_camera.updateProjectionMatrix();
+//
+//    sol_renderer.render( scene, sol_camera );
+//
+//  } );
+//  sol_renderer.setScissorTest( false );
+//
+//}
+//
+//function rand( min, max ) {
+//  if ( max == undefined ) {
+//    max = min;
+//    min = 0;
+//  }
+//
+//  return Math.random() * ( max - min ) + min;
+//}
+//
+//function randColor() {
+//  var colors = [ rand( 256 ), rand ( 256 ), rand( 256 ) ];
+//  colors[ Math.random() * 3 | 0 ] = 255;
+//  return ( colors[0] << 16 ) |
+//       ( colors[1] <<  8 ) |
+//       ( colors[2] <<  0 ) ;
+//}
+//NEW APPROACH START
+let sol_scene;
+let mesh;
+const AMOUNT = 6;
 
-  let sol_camera = new PerspectiveCamera( 75, 1, 0.1, 100 );
-  sol_camera.position.z = 1.5;
+solinit();
+solanimate();
 
-  var geometries = [
-    new BoxGeometry( 1, 1, 1 ),
-    new SphereGeometry( 0.5, 12, 12 ),
-    new DodecahedronGeometry( 0.5 ),
-    new CylinderGeometry( 0.5, 0.5, 1, 12 ),
-  ];
+function solinit() {
+    const ASPECT_RATIO = window.innerWidth / window.innerHeight;
 
-  var template = document.getElementById("template").text;
-  var content = document.getElementById("content");
-
-  var emptyScene = new Scene();
+    const WIDTH = ( window.innerWidth / AMOUNT ) * window.devicePixelRatio;
+    const HEIGHT = ( window.innerHeight / AMOUNT ) * window.devicePixelRatio;
 
 
-  var numScenes = 100;
 
-  for ( var ii =  0; ii < numScenes; ++ii ) {
+    const cameras = [];
 
-    var scene = new Scene();
+    for ( let y = 0; y < AMOUNT; y ++ ) {
 
-    // make a list item.
-    var element = document.createElement( "div" );
-    element.innerHTML = template;
-    element.className = "list-item";
+        for ( let x = 0; x < AMOUNT; x ++ ) {
 
-    // Look up the element that represents the area
-    // we want to render the scene
-    scene.element = element.querySelector(".scene");
-    content.appendChild(element);
+            const subcamera = new PerspectiveCamera( 40, ASPECT_RATIO, 0.1, 10 );
+            subcamera.viewport = new Vector4( Math.floor( x * WIDTH ), Math.floor( y * HEIGHT ), Math.ceil( WIDTH ), Math.ceil( HEIGHT ) );
+            subcamera.position.x = ( x / AMOUNT ) - 0.5;
+            subcamera.position.y = 0.5 - ( y / AMOUNT );
+            subcamera.position.z = 1.5;
+            subcamera.position.multiplyScalar( 2 );
+            subcamera.lookAt( 0, 0, 0 );
+            subcamera.updateMatrixWorld();
+            cameras.push( subcamera );
 
-    // add one random mesh to each scene
-    var geometry = geometries[ geometries.length * Math.random() | 0 ];
-    var material = new MeshLambertMaterial( { color: randColor() } );
+        }
 
-    scene.add( new Mesh( geometry, material ) );
-
-    let light = new DirectionalLight( 0xffffff );
-    light.position.set( 0.5, 0.8, 1 );
-    scene.add( light );
-
-    light = new DirectionalLight( 0xffffff );
-    light.position.set( -0.5, -0.8, -1 );
-    scene.add( light );
-
-    scenes.push( scene );
-  }
-
-}
-
-function updateSize() {
-  var sol_canvas = document.getElementById( "c" );
-
-  var width = sol_canvas.clientWidth;
-  var height = sol_canvas.clientHeight;
-
-  if ( sol_canvas.width !== width || sol_canvas.height != height ) {
-
-    sol_renderer.setSize ( width, height, false );
-
-  }
-
-}
-
-function sol_animate() {
-
-  render();
-
-  requestAnimationFrame( sol_animate );
-}
-
-function render() {
-  var sol_canvas = document.getElementById( "c" );
-
-  updateSize();
-
-  sol_canvas.style.transform = `translateY(${window.scrollY}px`;
-
-  sol_renderer.setClearColor( 0xFFFFFF );
-  sol_renderer.clear( true );
-  sol_renderer.setClearColor( 0xE0E0E0 );
-
-  sol_renderer.setScissorTest( true );
-  scenes.forEach( function( scene ) {
-    // so something moves
-    scene.children[0].rotation.x = Date.now() * 0.00111;
-    scene.children[0].rotation.z = Date.now() * 0.001;
-
-    // get the element that is a place holder for where we want to
-    // draw the scene
-    var element = scene.element;
-
-    // get its position relative to the page's viewport
-    var rect = element.getBoundingClientRect();
-
-    // check if it's offscreen. If so skip it
-    if ( rect.bottom < 0 || rect.top  > sol_renderer.domElement.clientHeight ||
-       rect.right  < 0 || rect.left > sol_renderer.domElement.clientWidth ) {
-      return;  // it's off screen
     }
 
-    // set the viewport
-    var width  = rect.right - rect.left;
-    var height = rect.bottom - rect.top;
-    var left   = rect.left;
-    var top    = rect.top;
+    let camera = new ArrayCamera( cameras );
+    camera.position.z = 3;
 
-    sol_renderer.setViewport( left, top, width, height );
-    sol_renderer.setScissor( left, top, width, height );
+    sol_scene = new Scene();
 
-    sol_camera.aspect = width / height;
-    sol_camera.updateProjectionMatrix();
+    sol_scene.add( new AmbientLight( 0x999999 ) );
 
-    sol_renderer.render( scene, sol_camera );
+    const light = new DirectionalLight( 0xffffff, 3 );
+    light.position.set( 0.5, 0.5, 1 );
+    light.castShadow = true;
+    light.shadow.camera.zoom = 4; // tighter shadow map
+    sol_scene.add( light );
 
-  } );
-  sol_renderer.setScissorTest( false );
+    const geometryBackground = new PlaneGeometry( 100, 100 );
+    const materialBackground = new MeshPhongMaterial( { color: 0x000066 } );
+
+    const background = new Mesh( geometryBackground, materialBackground );
+    background.receiveShadow = true;
+    background.position.set( 0, 0, - 1 );
+    sol_scene.add( background );
+
+    const geometryCylinder = new CylinderGeometry( 0.5, 0.5, 1, 32 );
+    const materialCylinder = new MeshPhongMaterial( { color: 0xff0000 } );
+
+    mesh = new Mesh( geometryCylinder, materialCylinder );
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    sol_scene.add( mesh );
+
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.shadowMap.enabled = true;
+    document.body.appendChild( renderer.domElement );
+
+    //
+
+    window.addEventListener( 'resize', onWindowResize );
 
 }
 
-function rand( min, max ) {
-  if ( max == undefined ) {
-    max = min;
-    min = 0;
-  }
+function onWindowResize() {
 
-  return Math.random() * ( max - min ) + min;
+    const ASPECT_RATIO = window.innerWidth / window.innerHeight;
+    const WIDTH = ( window.innerWidth / AMOUNT ) * window.devicePixelRatio;
+    const HEIGHT = ( window.innerHeight / AMOUNT ) * window.devicePixelRatio;
+
+    camera.aspect = ASPECT_RATIO;
+    camera.updateProjectionMatrix();
+
+    for ( let y = 0; y < AMOUNT; y ++ ) {
+
+        for ( let x = 0; x < AMOUNT; x ++ ) {
+
+            const subcamera = camera.cameras[ AMOUNT * y + x ];
+
+            subcamera.viewport.set(
+                Math.floor( x * WIDTH ),
+                Math.floor( y * HEIGHT ),
+                Math.ceil( WIDTH ),
+                Math.ceil( HEIGHT ) );
+
+            subcamera.aspect = ASPECT_RATIO;
+            subcamera.updateProjectionMatrix();
+
+        }
+
+    }
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
 }
 
-function randColor() {
-  var colors = [ rand( 256 ), rand ( 256 ), rand( 256 ) ];
-  colors[ Math.random() * 3 | 0 ] = 255;
-  return ( colors[0] << 16 ) |
-       ( colors[1] <<  8 ) |
-       ( colors[2] <<  0 ) ;
+function solanimate() {
+
+    mesh.rotation.x += 0.005;
+    mesh.rotation.z += 0.01;
+
+    renderer.render( sol_scene, camera );
+
+    requestAnimationFrame( solanimate );
+
 }
+//NEW APPROACH END
+
+
+
 
 function createSphere(x, y, z, color, radius, segs) {
     let mat = new MeshPhongMaterial({
@@ -395,7 +518,7 @@ export default class {
     init2(dom){
        console.log("Accessing sol");
        console.log(dom);
-       initsol(dom);
+       solinit(dom);
     }
 
 
