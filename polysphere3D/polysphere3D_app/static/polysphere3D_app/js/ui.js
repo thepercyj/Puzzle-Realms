@@ -326,7 +326,7 @@ function drawPosition(position) {
             }
         }
     }
-    renderPyramid();
+//    renderPyramid();
 }
 
 
@@ -357,7 +357,7 @@ uiTimer = null;
 function componentDidMount() {
 scene.init(panel);
 sol_scene.init2(c);
-renderPyramid();
+//renderPyramid();
 }
 
 function componentWillUnmount() {
@@ -374,7 +374,7 @@ console.log(inputRef.inputZ.value);
 console.log("Component Mounted successfully", panel, c)
 scene.init(panel);
 sol_scene.init2(c);
-renderPyramid();
+//renderPyramid();
 
 export { worker};
 window.worker = worker;

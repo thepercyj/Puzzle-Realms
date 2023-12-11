@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	    <link rel="stylesheet" type="text/css" href="{% static 'polysphere3D_app/css/sample.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/94/three.min.js"></script>
+
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="content">
+</div>
+<script id="template" type="notjs">
+            <div class="scene"></div>
+            <div class="description">some random text about this object, scene, whatever</div>
+</script>
+<script type="module" src="{% static 'polysphere3D_app/js/sample.js' %}"></script>
+
+</body>
+</html>
