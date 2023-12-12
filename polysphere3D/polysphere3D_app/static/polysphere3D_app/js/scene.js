@@ -145,31 +145,31 @@ export function initScene(canvas) {
                 let shapeIndex = inputShapes.get().indexOf(shape);
                 let lastCoord = shapeIndex >= 0 && inputCoords.get()[shapeIndex].length > 0 ? inputCoords.get()[shapeIndex][inputCoords.get()[shapeIndex].length - 1] : null;
 
-                if (!lastCoord ||
-                    (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-                    (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) {
-                    if (isPlacementValid(coord, currentShape, lastCoord)) {
+                // if (!lastCoord ||
+                    // (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
+                    // (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) {
+                    // if (isPlacementValid(coord, currentShape, lastCoord)) {
                         intersects[i].object.material.color.set(Colours[shape]);
                         setInput(shape, coord);
                         console.log("Placed sphere for shape:", shape, "at coordinates:", coord);
                         firstPlacementCoord = coord;
-                        break;
-                    } else {
-                        alert("Invalid placement: Sphere is not correctly adjacent.");
-                    }
+                        // break;
+                    //  else {
+                    //     alert("Invalid placement: Sphere is not correctly adjacent.");
+                    // }
                 }
             }
         }
-    }
+    
 
-    function isPlacementValid(coord, shape, lastCoord) {
-        return (
-            !lastCoord ||
-            (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-            (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
-            (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
-        );
-    }
+    // function isPlacementValid(coord, shape, lastCoord) {
+    //     return (
+    //         !lastCoord ||
+    //         (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
+    //         (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
+    //         (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
+    //     );
+    // }
 
     window.addEventListener('click', onClick);
 
