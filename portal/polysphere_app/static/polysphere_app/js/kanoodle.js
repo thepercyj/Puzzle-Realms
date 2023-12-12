@@ -395,11 +395,16 @@ window.onload = function () {
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 11; col++) {
                 const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-                cell.style.backgroundColor = '#BCF4FA';
-                gridData[row][col] = null;
+
+                // Check if cell is not null before accessing its style
+                if (cell) {
+                    cell.style.backgroundColor = '#BCF4FA';
+                    gridData[row][col] = null;
+                }
             }
         }
 
+//        gridData = JSON.parse(JSON.stringify(initialSetupData));
         // Resets the gameState
         gameState.length = 0;
         gameState.push(JSON.parse(JSON.stringify(gridData))); // Push initial stat
@@ -540,20 +545,121 @@ window.onload = function () {
         }
     }
 
-    function setupLevel1(initialState) {
+    function setupLevel1(initialState1) {
+        console.log('Setting up Level 1');
         // Apply the predefined solution to the board
-        applyPredefinedSolution(initialState);
+        applyPredefinedSolution1(initialState1);
+    }
+    function setupLevel2(initialState2) {
+        console.log('Setting up Level 2');
+        // Apply the predefined solution to the board
+        applyPredefinedSolution2(initialState2);
+    }
+    function setupLevel3(initialState3) {
+        console.log('Setting up Level 3');
+        // Apply the predefined solution to the board
+        applyPredefinedSolution3(initialState3);
+    }
+    function setupLevel4(initialState4) {
+        console.log('Setting up Level 4');
+        // Apply the predefined solution to the board
+        applyPredefinedSolution4(initialState4);
+    }
+    function setupLevel5(initialState5) {
+        console.log('Setting up Level 5');
+        // Apply the predefined solution to the board
+        applyPredefinedSolution5(initialState5);
     }
 
     // Function to apply a predefined solution to the board
-    function applyPredefinedSolution(initialState) {
+    function applyPredefinedSolution1(initialState1) {
         // Clear the board
         clearBoard();
 
         // Apply the solution to the board
-        for (let row = 0; row < initialState.length; row++) {
-            for (let col = 0; col < initialState[row].length; col++) {
-                const cellValue = initialState[row][col];
+        for (let row = 0; row < initialState1.length; row++) {
+            for (let col = 0; col < initialState1[row].length; col++) {
+                const cellValue = initialState1[row][col];
+                if (cellValue !== null) {
+                    const pieceIndex = alphabets.indexOf(cellValue);
+                    const targetCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                    targetCell.style.backgroundColor = gridColor[pieceIndex];
+                    gridData[row][col] = alphabets[pieceIndex];
+                }
+            }
+        }
+
+        // Deep copy the current board state to the variable
+        gameState.push(JSON.parse(JSON.stringify(gridData)));
+    }
+    function applyPredefinedSolution2(initialState2) {
+        // Clear the board
+        clearBoard();
+
+        // Apply the solution to the board
+        for (let row = 0; row < initialState2.length; row++) {
+            for (let col = 0; col < initialState2[row].length; col++) {
+                const cellValue = initialState2[row][col];
+                if (cellValue !== null) {
+                    const pieceIndex = alphabets.indexOf(cellValue);
+                    const targetCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                    targetCell.style.backgroundColor = gridColor[pieceIndex];
+                    gridData[row][col] = alphabets[pieceIndex];
+                }
+            }
+        }
+
+        // Deep copy the current board state to the variable
+        gameState.push(JSON.parse(JSON.stringify(gridData)));
+    }
+    function applyPredefinedSolution3(initialState3) {
+        // Clear the board
+        clearBoard();
+
+        // Apply the solution to the board
+        for (let row = 0; row < initialState3.length; row++) {
+            for (let col = 0; col < initialState3[row].length; col++) {
+                const cellValue = initialState3[row][col];
+                if (cellValue !== null) {
+                    const pieceIndex = alphabets.indexOf(cellValue);
+                    const targetCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                    targetCell.style.backgroundColor = gridColor[pieceIndex];
+                    gridData[row][col] = alphabets[pieceIndex];
+                }
+            }
+        }
+
+        // Deep copy the current board state to the variable
+        gameState.push(JSON.parse(JSON.stringify(gridData)));
+    }
+    function applyPredefinedSolution4(initialState4) {
+        // Clear the board
+        clearBoard();
+
+        // Apply the solution to the board
+        for (let row = 0; row < initialState4.length; row++) {
+            for (let col = 0; col < initialState4[row].length; col++) {
+                const cellValue = initialState4[row][col];
+                if (cellValue !== null) {
+                    const pieceIndex = alphabets.indexOf(cellValue);
+                    const targetCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                    targetCell.style.backgroundColor = gridColor[pieceIndex];
+                    gridData[row][col] = alphabets[pieceIndex];
+                }
+            }
+        }
+
+        // Deep copy the current board state to the variable
+        gameState.push(JSON.parse(JSON.stringify(gridData)));
+    }
+    function applyPredefinedSolution5(initialState5) {
+        // Clear the board
+        clearBoard();
+
+        // Apply the solution to the board
+        for (let row = 0; row < initialState5.length; row++) {
+            for (let col = 0; col < initialState5[row].length; col++) {
+                const cellValue = initialState5[row][col];
                 if (cellValue !== null) {
                     const pieceIndex = alphabets.indexOf(cellValue);
                     const targetCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
@@ -577,13 +683,16 @@ window.onload = function () {
                 gridData[row][col] = null;
             }
         }
-
         // Resets the gameState
         gameState.length = 0;
         gameState.push(JSON.parse(JSON.stringify(gridData))); // Push initial state
+
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const levelParam = urlParams.get('n');
     // Call the setup function when needed, passing the initial state as a parameter
+    if (levelParam === '1') {
     setupLevel1([
             ['A', 'A', 'L', 'L', null, null, 'H', 'H', 'G', 'G', 'G'],
             ['A', 'B', 'B', 'L', 'L', null, 'K', 'H', 'H', 'E', 'G'],
@@ -591,13 +700,53 @@ window.onload = function () {
             ['C', 'B', 'D', 'D', 'D', 'D', null, 'K', 'E', 'E', 'F'],
             ['C', 'C', 'C', 'C', 'D', null, null, null, 'E', 'F', 'F']
     ]);
+    }
+    else if (levelParam === '2'){
+    setupLevel2([
+            ['F', 'G', 'G', 'G', 'C', 'C', 'C', 'C', null, null, null],
+            ['F', 'F', null, 'G', 'B', 'B', 'B', 'C', null, null, null],
+            ['A', 'A', null, 'G', null, 'B', 'B', null, null, null, 'J'],
+            ['A', null, null, null, null, 'K', 'K', 'D', null, 'J', 'J'],
+            ['A', null, null, null, 'K', 'K', 'D', 'D', 'D', 'D', 'J']
+    ]);
+    }
+
+    else if (levelParam === '3') {
+    setupLevel3([
+            [null, 'E', 'J', 'J', 'J', null, null, 'D', 'D', 'D', 'D'],
+            [null, 'E', 'E', 'J', 'H', 'H', null, null, 'D', null, null],
+            [null, null, 'E', null, null, 'H', 'H', 'L', 'I', 'I', null],
+            [null, null, 'E', null, null, null, 'H', 'L', 'L', 'I', null],
+            [null, null, null, null, null, null, 'L', 'L', 'I', 'I', null]
+    ]);
+    }
+
+    else if (levelParam === '4') {
+    setupLevel4([
+            [null, null, null, null, null, null, null, 'L', 'L', null, null],
+            [null, null, null, null, null, null, 'L', 'L', null, null, null],
+            [null, null, null, null, 'J', 'J', 'J', 'L', 'I', 'I', 'I'],
+            [null, null, null, null, null, 'J', null, null, 'I', 'D', 'I'],
+            [null, null, null, null, null, null, null, 'D', 'D', 'D', 'D'],
+    ]);
+    }
+    else if (levelParam === '5') {
+    setupLevel5([
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null]
+    ]);
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
     const imageGrid = document.getElementById('imageGrid');
     const numberOfImages = 80443;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const levelParam = urlParams.get('n');
+    urlParams = new URLSearchParams(window.location.search);
+    levelParam = urlParams.get('n');
+
 
     if (levelParam === '1') {
         setupLevel1([
@@ -606,6 +755,42 @@ window.onload = function () {
             ['A', 'B', 'B', 'L', null, null, 'K', 'K', 'H', 'E', 'G'],
             ['C', 'B', 'D', 'D', 'D', 'D', null, 'K', 'E', 'E', 'F'],
             ['C', 'C', 'C', 'C', 'D', null, null, null, 'E', 'F', 'F']
+        ]);
+    }
+     if (levelParam === '2') {
+        setupLevel2([
+            ['F', 'G', 'G', 'G', 'C', 'C', 'C', 'C', null, null, null],
+            ['F', 'F', null, 'G', 'B', 'B', 'B', 'C', null, null, null],
+            ['A', 'A', null, 'G', null, 'B', 'B', null, null, null, 'J'],
+            ['A', null, null, null, null, 'K', 'K', 'D', null, 'J', 'J'],
+            ['A', null, null, null, 'K', 'K', 'D', 'D', 'D', 'D', 'J']
+        ]);
+    }
+     if (levelParam === '3') {
+        setupLevel3([
+            [null, 'E', 'J', 'J', 'J', null, null, 'D', 'D', 'D', 'D'],
+            [null, 'E', 'E', 'J', 'H', 'H', null, null, 'D', null, null],
+            [null, null, 'E', null, null, 'H', 'H', 'L', 'I', 'I', null],
+            [null, null, 'E', null, null, null, 'H', 'L', 'L', 'I', null],
+            [null, null, null, null, null, null, 'L', 'L', 'I', 'I', null]
+        ]);
+    }
+     if (levelParam === '4') {
+        setupLevel4([
+            [null, null, null, null, null, null, null, 'L', 'L', null, null],
+            [null, null, null, null, null, null, 'L', 'L', null, null, null],
+            [null, null, null, null, 'J', 'J', 'J', 'L', 'I', 'I', 'I'],
+            [null, null, null, null, null, 'J', null, null, 'I', 'D', 'I'],
+            [null, null, null, null, null, null, null, 'D', 'D', 'D', 'D'],
+        ]);
+    }
+     if (levelParam === '5') {
+        setupLevel5([
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null, null]
         ]);
     }
 
@@ -627,18 +812,91 @@ window.onload = function () {
 });
 
     function undoAction() {
-         console.log("Undo clicked. gameState length before pop:", gameState.length);
+        console.log("Undo clicked. gameState length before pop:", gameState.length);
+
+        // Determine the current level based on the length of the gameState array
+        const currentLevel = gameState.length - 1;
+
+        // Get the initial state for the current level
+        const initialLevelState = getInitialLevelState(currentLevel);
+
+        // Count the number of null values in the initial state
+        const nullCountInInitialState = countNullValues(initialLevelState);
+
         if (gameState.length > 1) {
-            JSON.parse(JSON.stringify(gameState.pop()));
-            gridData = JSON.parse(JSON.stringify(gameState[gameState.length - 1]))
-          console.log("gridData after pop:", gridData);
-            updateUI();
-        }
-        else {
+            // Pop the last state
+            gameState.pop();
+
+            // Get the current state after pop
+            gridData = JSON.parse(JSON.stringify(gameState[gameState.length - 1]));
+
+            // Count the number of null values in the current state
+            const nullCountInCurrentState = countNullValues(gridData);
+
+            // Check if the undo should be restricted based on null count
+            if (nullCountInCurrentState >= nullCountInInitialState) {
+                console.log("Undo restricted. Reached initial state for level:", currentLevel);
+                alert("Cannot undo beyond the initial state for this level!");
+            } else {
+                console.log("gridData after pop:", gridData);
+                updateUI();
+            }
+        } else {
             gameState.length = 0;
             gameState.push(JSON.parse(JSON.stringify(gridData)));
             alert("There's nothing to undo!");
+        }
     }
+
+    // Function to count the number of null values in a 2D array
+    function countNullValues(array) {
+        return array.flat().filter(value => value === null).length;
+    }
+
+    // Function to get the initial state for a specific level
+    function getInitialLevelState(level) {
+        const levels = [
+                [
+                    ['A', 'A', 'L', 'L', null, null, 'H', 'H', 'G', 'G', 'G'],
+                    ['A', 'B', 'B', 'L', 'L', null, 'K', 'H', 'H', 'E', 'G'],
+                    ['A', 'B', 'B', 'L', null, null, 'K', 'K', 'H', 'E', 'G'],
+                    ['C', 'B', 'D', 'D', 'D', 'D', null, 'K', 'E', 'E', 'F'],
+                    ['C', 'C', 'C', 'C', 'D', null, null, null, 'E', 'F', 'F']
+                ],
+
+                [
+                    ['F', 'G', 'G', 'G', 'C', 'C', 'C', 'C', null, null, null],
+                    ['F', 'F', null, 'G', 'B', 'B', 'B', 'C', null, null, null],
+                    ['A', 'A', null, 'G', null, 'B', 'B', null, null, null, 'J'],
+                    ['A', null, null, null, null, 'K', 'K', 'D', null, 'J', 'J'],
+                    ['A', null, null, null, 'K', 'K', 'D', 'D', 'D', 'D', 'J']
+                ],
+
+                [
+                    [null, 'E', 'J', 'J', 'J', null, null, 'D', 'D', 'D', 'D'],
+                    [null, 'E', 'E', 'J', 'H', 'H', null, null, 'D', null, null],
+                    [null, null, 'E', null, null, 'H', 'H', 'L', 'I', 'I', null],
+                    [null, null, 'E', null, null, null, 'H', 'L', 'L', 'I', null],
+                    [null, null, null, null, null, null, 'L', 'L', 'I', 'I', null]
+                ],
+
+                [
+                    [null, null, null, null, null, null, null, 'L', 'L', null, null],
+                    [null, null, null, null, null, null, 'L', 'L', null, null, null],
+                    [null, null, null, null, 'J', 'J', 'J', 'L', 'I', 'I', 'I'],
+                    [null, null, null, null, null, 'J', null, null, 'I', 'D', 'I'],
+                    [null, null, null, null, null, null, null, 'D', 'D', 'D', 'D'],
+                ],
+
+                [
+                    [null, null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null, null, null, null, null]
+                ]
+            ];
+        return JSON.parse(JSON.stringify(levels[level]));
     }
     function updateUI(){
         for (let row = 0; row < 5; row++) {
