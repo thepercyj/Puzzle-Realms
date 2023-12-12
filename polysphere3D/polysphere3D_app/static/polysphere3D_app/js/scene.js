@@ -1,6 +1,6 @@
 import { OrbitControls } from "./OrbitControls.js";
 import {
-    Scene, Vector4, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
+    Scene, Vector4, ShapeGeometry, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
     SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
 } from "./three.js";
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
@@ -21,7 +21,6 @@ light.intensity = 0.5;
 light.position.set(0, 0, 1).normalize();
 
 const renderer = new WebGLRenderer({ antialias: true });
-const sol_renderer = new WebGLRenderer({ antialias: true });
 
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
@@ -256,7 +255,7 @@ export function solinit(sol_canvas) {
     background.position.set(0, 0, -1);
     sol_scene.add(background);
 
-    const geometryCylinder = new CylinderGeometry(0.5, 0.5, 1, 32);
+    const geometryCylinder = new ShapeGeometry; //shape of the render
     const materialCylinder = new MeshPhongMaterial({ color: 0xff0000 });
 
     mesh = new Mesh(geometryCylinder, materialCylinder);
@@ -264,6 +263,7 @@ export function solinit(sol_canvas) {
     mesh.receiveShadow = true;
     sol_scene.add(mesh);
 
+    const sol_renderer = new WebGLRenderer({ antialias: true });
     sol_renderer.setPixelRatio(window.devicePixelRatio);
     sol_renderer.setSize(WIDTH, HEIGHT);
     sol_renderer.shadowMap.enabled = true;
@@ -295,12 +295,11 @@ export function solinit(sol_canvas) {
     }
 
     function solanimate() {
-        mesh.rotation.x += 0.005;
-        mesh.rotation.z += 0.01;
+        mesh.rotation.y += 0.005;
 
         sol_renderer.render(sol_scene, sol_camera);
         sol_controls.update();
-        requestAnimationFrame(solanimate);
+        requestAnimationFrame( solanimate );
     }
 
     sol_canvas.appendChild(sol_renderer.domElement);
