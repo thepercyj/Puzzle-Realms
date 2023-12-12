@@ -156,7 +156,7 @@ window.onload = function () {
     const nextImageButton = document.getElementById('nextImageButton');
     const rotateClockwiseButton = document.getElementById('rotateClockwise');
     const rotateCounterclockwiseButton = document.getElementById('rotateCounterclockwise');
-    const resetbrd = document.getElementById('resetBoard');
+
     const solvePuzzleButton = document.getElementById('solveButton')
     const flipHorizontalButton = document.getElementById('flipHorizontal');
     const flipVerticalButton = document.getElementById('flipVertical');
@@ -167,7 +167,6 @@ window.onload = function () {
     nextImageButton.addEventListener('click', nextImage);
     rotateClockwiseButton.addEventListener('click', rotateClockwise);
     rotateCounterclockwiseButton.addEventListener('click', rotateCounterclockwise);
-    resetbrd.addEventListener('click', resetBoard);
     flipHorizontalButton.addEventListener('click', flipHorizontal);
     flipVerticalButton.addEventListener('click', flipVertical);
     undoButton.addEventListener('click', undoAction);
@@ -389,53 +388,6 @@ window.onload = function () {
 //        return coords.map(coord => [-coord[0], -coord[1]]); // Placeholder logic
 //    }
 
-    function resetBoard() {
-        console.log("Grid data..", gridData);
-        // Clear the board colors and data
-        for (let row = 0; row < 5; row++) {
-            for (let col = 0; col < 11; col++) {
-                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-
-                // Check if cell is not null before accessing its style
-                if (cell) {
-                    cell.style.backgroundColor = '#BCF4FA';
-                    gridData[row][col] = null;
-                }
-            }
-        }
-
-//        gridData = JSON.parse(JSON.stringify(initialSetupData));
-        // Resets the gameState
-        gameState.length = 0;
-        gameState.push(JSON.parse(JSON.stringify(gridData))); // Push initial stat
-
-        // Reset the pieces on the board
-        for (let i = 0; i < pieces.length; i++) {
-            const pieceIndex = i;
-            const coords = pieces[pieceIndex];
-
-            // Reset piece position
-            const initialX = initXY[pieceIndex][0];
-            const initialY = initXY[pieceIndex][1];
-            const piece = document.getElementById(`piece-${pieceIndex + 1}`);
-            piece.style.left = initialX + 'px';
-            piece.style.top = initialY + 'px';
-
-            // Reset rotation, flips, and transformation
-            rotationAngle = 0; // Reset rotation
-            rotationFlip = 0;
-
-            // Apply transformations
-            applyTransformations(piece, coords, rotationAngle, rotationFlip);
-
-            // Reset drag data
-            piece.dataset.dragged = 'false';
-
-
-        }
-
-
-    }
 
     // Function to apply transformations to the piece
     function applyTransformations(piece, coords, rotationAngle, rotationFlip) {
@@ -744,10 +696,6 @@ window.onload = function () {
     document.addEventListener('DOMContentLoaded', function () {
     const imageGrid = document.getElementById('imageGrid');
     const numberOfImages = 80443;
-
-    urlParams = new URLSearchParams(window.location.search);
-    levelParam = urlParams.get('n');
-
 
     if (levelParam === '1') {
         setupLevel1([
