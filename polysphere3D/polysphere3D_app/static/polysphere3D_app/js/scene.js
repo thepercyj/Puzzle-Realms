@@ -6,6 +6,7 @@ import {
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 const scene = new Scene();
 const camera = new PerspectiveCamera();
+const sol_camera = new PerspectiveCamera( 40, 0.1, 10 )
 scene.background = new Color("rgb(188,244,250)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
@@ -68,7 +69,6 @@ const Colours = {
 };
 
 export function initScene(canvas) {
-    // console.log(canvas)
     //const axesHelper = new AxesHelper( 5 );
     //scene.add( axesHelper );
     camera.fov = 75;
@@ -81,7 +81,6 @@ export function initScene(canvas) {
     camera.addEventListener('onCameraChange', (e) => {
         console.log('change');
     })
-        console.log("INIT", camera);
 
     renderer.setSize(canvas.clientWidth, canvas.clientWidth);
     resizeObeserver = new ResizeObserver(entries => {
@@ -144,7 +143,6 @@ export function initScene(canvas) {
     let currentShapeElement = document.getElementById("currentImage");
     let shape = currentShapeElement.className;
     let currentShape = shapeStore[shape]
-    console.log("Current shape:", shape);
 
     const intersects = raycaster.intersectObjects(scene.children);
 
@@ -223,22 +221,22 @@ const AMOUNT = 6;
 
 
 export function solinit(sol_canvas) {
+    console.log("Width is",sol_canvas.clientWidth);
     const ASPECT_RATIO = 2;
 
-    const WIDTH = 200;
-    const HEIGHT = 200;
+    const WIDTH = sol_canvas.clientWidth;
+    const HEIGHT = sol_canvas.clientHeight;
 
-//    const sol_controls = new OrbitControls(camera, renderer.domElement);
-//    sol_controls.enablePan = false;
-//    sol_controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-//    sol_controls.dampingFactor = 0.05;
-//    sol_controls.screenSpacePanning = false;
-//    sol_controls.maxDistance = 300;
-//
-//    sol_controls.target = new Vector3(5, 3.8, 5);
-//    sol_controls.maxPolarAngle = Math.PI / 2;
+    const sol_controls = new OrbitControls(sol_camera, renderer.domElement);
+    sol_controls.enablePan = false;
+    sol_controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+    sol_controls.dampingFactor = 0.05;
+    sol_controls.screenSpacePanning = false;
+    sol_controls.maxDistance = 300;
 
-    console.log("SOL INIT", sol_canvas, ASPECT_RATIO, WIDTH, HEIGHT)
+    sol_controls.target = new Vector3(5, 3.8, 5);
+    sol_controls.maxPolarAngle = Math.PI / 2;
+
     const cameras = [];
 
     for ( let y = 0; y < AMOUNT; y ++ ) {
@@ -289,23 +287,18 @@ export function solinit(sol_canvas) {
     sol_scene.add( mesh );
 
     sol_renderer.setPixelRatio( window.devicePixelRatio );
-    sol_renderer.setSize( 200, 200 );
+    sol_renderer.setSize( WIDTH, HEIGHT );
     sol_renderer.shadowMap.enabled = true;
     document.body.appendChild( sol_renderer.domElement );
 
     //
 
-    window.addEventListener( 'resize', onWindowResize );
-
-    solanimate();
-}
-
 function onWindowResize() {
 
     const ASPECT_RATIO = 2;
 
-    const WIDTH = 200;
-    const HEIGHT = 200;
+    const WIDTH = sol_canvas.clientWidth;
+    const HEIGHT = sol_canvas.clientHeight;
 
     camera.aspect = ASPECT_RATIO;
     camera.updateProjectionMatrix();
@@ -338,11 +331,20 @@ function solanimate() {
     mesh.rotation.x += 0.005;
     mesh.rotation.z += 0.01;
 
-    sol_renderer.render( sol_scene, camera );
-//    sol_controls.update();
+    sol_renderer.render( sol_scene, sol_camera );
+    sol_controls.update();
     requestAnimationFrame( solanimate );
 
 }
+    sol_canvas.appendChild(sol_renderer.domElement);
+
+    window.addEventListener( 'resize', onWindowResize );
+
+    solanimate();
+}
+
+
+
 //NEW APPROACH END
 
 
@@ -383,13 +385,9 @@ export default class {
     }
 
     init(dom) {
-        console.log("Accessing panel");
-        console.log(dom);
         initScene(dom);
     }
     init2(dom){
-       console.log("Accessing sol");
-       console.log(dom);
        solinit(dom);
     }
 
@@ -401,6 +399,5 @@ export default class {
 };
 function resetFirstPlacementCoord() {
     firstPlacementCoord = null;
-    console.log(firstPlacementCoord)
 }
 export {Colours }
