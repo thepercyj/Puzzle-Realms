@@ -240,6 +240,9 @@ function onSolveButton() {
         const arr = ret.next().value;
         if (arr == undefined) {
             console.log('done');
+            if(cnt < 1){
+                scount.textContent = "No solutions found!";
+            }
             onStopButton();
             return;
         }
