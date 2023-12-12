@@ -17,7 +17,7 @@ scene.add(helper);
 light.intensity = 0.5;
 light.position.set(0, 0, 1).normalize();
 const renderer = new WebGLRenderer({ antialias: true });
-//const sol_renderer = new WebGLRenderer( { antialias: true } );
+const sol_renderer = new WebGLRenderer( { antialias: true } );
 
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
@@ -211,148 +211,8 @@ window.addEventListener('click', onClick);
 
     animate();
 }
-//var scenes = [], sol_camera, emptyScene;
-//sol_animate();
-//function initsol(sol_canvas) {
-//  var sol_canvas = document.getElementById( "c" );
-//
-//  let sol_camera = new PerspectiveCamera( 75, 1, 0.1, 100 );
-//  sol_camera.position.z = 1.5;
-//
-//  var geometries = [
-//    new BoxGeometry( 1, 1, 1 ),
-//    new SphereGeometry( 0.5, 12, 12 ),
-//    new DodecahedronGeometry( 0.5 ),
-//    new CylinderGeometry( 0.5, 0.5, 1, 12 ),
-//  ];
-//
-//  var template = document.getElementById("template").text;
-//  var content = document.getElementById("content");
-//
-//  var emptyScene = new Scene();
-//
-//
-//  var numScenes = 100;
-//
-//  for ( var ii =  0; ii < numScenes; ++ii ) {
-//
-//    var scene = new Scene();
-//
-//    // make a list item.
-//    var element = document.createElement( "div" );
-//    element.innerHTML = template;
-//    element.className = "list-item";
-//
-//    // Look up the element that represents the area
-//    // we want to render the scene
-//    scene.element = element.querySelector(".scene");
-//    content.appendChild(element);
-//
-//    // add one random mesh to each scene
-//    var geometry = geometries[ geometries.length * Math.random() | 0 ];
-//    var material = new MeshLambertMaterial( { color: randColor() } );
-//
-//    scene.add( new Mesh( geometry, material ) );
-//
-//    let light = new DirectionalLight( 0xffffff );
-//    light.position.set( 0.5, 0.8, 1 );
-//    scene.add( light );
-//
-//    light = new DirectionalLight( 0xffffff );
-//    light.position.set( -0.5, -0.8, -1 );
-//    scene.add( light );
-//
-//    scenes.push( scene );
-//  }
-//
-//}
-//
-//function updateSize() {
-//  var sol_canvas = document.getElementById( "c" );
-//
-//  var width = sol_canvas.clientWidth;
-//  var height = sol_canvas.clientHeight;
-//
-//  if ( sol_canvas.width !== width || sol_canvas.height != height ) {
-//
-//    sol_renderer.setSize ( width, height, false );
-//
-//  }
-//
-//}
-//
-//function sol_animate() {
-//
-//  render();
-//
-//  requestAnimationFrame( sol_animate );
-//}
-//
-//function render() {
-//  var sol_canvas = document.getElementById( "c" );
-//
-//  updateSize();
-//
-//  sol_canvas.style.transform = `translateY(${window.scrollY}px`;
-//
-//  sol_renderer.setClearColor( 0xFFFFFF );
-//  sol_renderer.clear( true );
-//  sol_renderer.setClearColor( 0xE0E0E0 );
-//
-//  sol_renderer.setScissorTest( true );
-//  scenes.forEach( function( scene ) {
-//    // so something moves
-//    scene.children[0].rotation.x = Date.now() * 0.00111;
-//    scene.children[0].rotation.z = Date.now() * 0.001;
-//
-//    // get the element that is a place holder for where we want to
-//    // draw the scene
-//    var element = scene.element;
-//
-//    // get its position relative to the page's viewport
-//    var rect = element.getBoundingClientRect();
-//
-//    // check if it's offscreen. If so skip it
-//    if ( rect.bottom < 0 || rect.top  > sol_renderer.domElement.clientHeight ||
-//       rect.right  < 0 || rect.left > sol_renderer.domElement.clientWidth ) {
-//      return;  // it's off screen
-//    }
-//
-//    // set the viewport
-//    var width  = rect.right - rect.left;
-//    var height = rect.bottom - rect.top;
-//    var left   = rect.left;
-//    var top    = rect.top;
-//
-//    sol_renderer.setViewport( left, top, width, height );
-//    sol_renderer.setScissor( left, top, width, height );
-//
-//    sol_camera.aspect = width / height;
-//    sol_camera.updateProjectionMatrix();
-//
-//    sol_renderer.render( scene, sol_camera );
-//
-//  } );
-//  sol_renderer.setScissorTest( false );
-//
-//}
-//
-//function rand( min, max ) {
-//  if ( max == undefined ) {
-//    max = min;
-//    min = 0;
-//  }
-//
-//  return Math.random() * ( max - min ) + min;
-//}
-//
-//function randColor() {
-//  var colors = [ rand( 256 ), rand ( 256 ), rand( 256 ) ];
-//  colors[ Math.random() * 3 | 0 ] = 255;
-//  return ( colors[0] << 16 ) |
-//       ( colors[1] <<  8 ) |
-//       ( colors[2] <<  0 ) ;
-//}
+
+
 //NEW APPROACH START
 let sol_scene;
 let mesh;
@@ -361,7 +221,7 @@ const AMOUNT = 6;
 solinit();
 solanimate();
 
-function solinit() {
+function solinit(sol_canvas) {
     const ASPECT_RATIO = window.innerWidth / window.innerHeight;
 
     const WIDTH = ( window.innerWidth / AMOUNT ) * window.devicePixelRatio;
@@ -418,10 +278,10 @@ function solinit() {
     mesh.receiveShadow = true;
     sol_scene.add( mesh );
 
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.shadowMap.enabled = true;
-    document.body.appendChild( renderer.domElement );
+    sol_renderer.setPixelRatio( window.devicePixelRatio );
+    sol_renderer.setSize( window.innerWidth, window.innerHeight );
+    sol_renderer.shadowMap.enabled = true;
+    document.body.appendChild( sol_renderer.domElement );
 
     //
 
@@ -457,7 +317,7 @@ function onWindowResize() {
 
     }
 
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    sol_renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
 
@@ -466,7 +326,7 @@ function solanimate() {
     mesh.rotation.x += 0.005;
     mesh.rotation.z += 0.01;
 
-    renderer.render( sol_scene, camera );
+    sol_renderer.render( sol_scene, camera );
 
     requestAnimationFrame( solanimate );
 

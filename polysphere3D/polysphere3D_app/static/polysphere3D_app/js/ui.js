@@ -176,39 +176,6 @@ StopButton.addEventListener('click', onStopButton);
 
 const layerCheckboxes = [];
 
-//var lowerSlider = document.querySelector("#lower");
-//var upperSlider = document.querySelector("#upper");
-//var lowerVal = parseInt(lowerSlider.value);
-//var upperVal = parseInt(upperSlider.value);
-//
-//upperSlider.oninput = function () {
-//   lowerVal = parseInt(lowerSlider.value);
-//   upperVal = parseInt(upperSlider.value);
-//
-//   if (upperVal < lowerVal + 0) {
-//      lowerSlider.value = upperVal - 0;
-//
-//      if (lowerVal == lowerSlider.min) {
-//         upperSlider.value = 0;
-//      }
-//   }
-//   console.log(lowerSlider.value, upperSlider.value);
-//};
-//
-//lowerSlider.oninput = function () {
-//   lowerVal = parseInt(lowerSlider.value);
-//   upperVal = parseInt(upperSlider.value);
-//
-//   if (lowerVal > upperVal - 0) {
-//      upperSlider.value = lowerVal + 0;
-//
-//      if (upperVal == upperSlider.max) {
-//         lowerSlider.value = parseInt(upperSlider.max) - 0;
-//      }
-//   }
-//   console.log(lowerSlider.value, upperSlider.value);
-//};
-
 for (let i = 1; i <= 5; i++) {
     const checkbox = document.getElementById('l'+i);
     checkbox.addEventListener('change', (event) => {
@@ -364,6 +331,7 @@ renderPyramid();
 
 function componentWillUnmount() {
 scene.dispose();
+sol_scene.dispose();
 }
 
 function onInputClick() {
@@ -373,7 +341,6 @@ console.log(inputRef.inputY.value);
 console.log(inputRef.inputZ.value);
 }
 
-console.log("Component Mounted successfully", panel, c)
 scene.init(panel);
 sol_scene.init2(c);
 renderPyramid();
@@ -387,155 +354,3 @@ window.worker = worker;
 //    return setInterval(callback, interval);
 //    }
 //
-
-
-//Solutions Three.js
-
-
-//var scenes = [], sol_camera, renderer, emptyScene;
-//
-//var sol_canvas = document.getElementById("c");
-//sol_init(c);
-//sol_animate();
-//
-//function sol_init() {
-//  //console.log("This is init", sol_canvas)
-//  var emptyScene = new Scene();
-//  var sol_camera = new PerspectiveCamera( 75, sol_canvas.clientWidth / sol_canvas.clientHeight, 0.1, 100 );
-//  sol_camera.position.z = 1.5;
-//
-//  var geometries = [
-//    new BoxGeometry( 1, 1, 1 ),
-//    new SphereGeometry( 0.5, 12, 12 ),
-//    new DodecahedronGeometry( 0.5 ),
-//    new CylinderGeometry( 0.5, 0.5, 1, 12 ),
-//  ];
-//
-//  //var template = document.getElementById("template").text;
-//  var content = document.getElementById("content");
-//
-//
-//
-//  var numScenes = 100;
-//
-//  for ( var ii =  0; ii < numScenes; ++ii ) {
-//
-//    var sol_scene = new Scene();
-//
-//    // make a list item.
-//    var element = document.createElement( "div" );
-//    //element.innerHTML = template;
-//    element.className = "list-item";
-//
-//    // Look up the element that represents the area
-//    // we want to render the scene
-//    sol_scene.element = element.querySelector(".scene");
-//    content.appendChild(element);
-//
-//    // add one random mesh to each scene
-//    var geometry = geometries[ geometries.length * Math.random() | 0 ];
-//    var material = new MeshLambertMaterial( { color: randColor() } );
-//
-//    sol_scene.add( new Mesh( geometry, material ) );
-//
-//    var light = new DirectionalLight( 0xffffff );
-//    light.position.set( 0.5, 0.8, 1 );
-//    sol_scene.add( light );
-//
-//    var light = new DirectionalLight( 0xffffff );
-//    light.position.set( -0.5, -0.8, -1 );
-//    sol_scene.add( light );
-//
-//    scenes.push( sol_scene );
-//  }
-//
-//
-//  renderer = new WebGLRenderer( { canvas: sol_canvas, antialias: true } );
-//  renderer.setClearColor( 0xFFFFFF );
-//}
-//
-//function updateSize() {
-//
-//  var width = sol_canvas.clientWidth;
-//  var height = sol_canvas.clientHeight;
-//
-//  if ( sol_canvas.width !== width || sol_canvas.height != height ) {
-//
-//    renderer.setSize ( width, height, false );
-//
-//  }
-//
-//}
-//
-//function sol_animate() {
-//
-//  render();
-//
-//  requestAnimationFrame( sol_animate );
-//}
-//
-//function render() {
-//
-//  updateSize();
-//
-//  sol_canvas.style.transform = `translateY(${window.scrollY}px`;
-//
-//  renderer.setClearColor( 0xFFFFFF );
-//  renderer.clear( true );
-//  renderer.setClearColor( 0xE0E0E0 );
-//
-//  renderer.setScissorTest( true );
-//  scenes.forEach( function( scene ) {
-//    // so something moves
-//    console.log(scene.children);
-//    scene.children[0].rotation.x = Date.now() * 0.00111;
-//    scene.children[0].rotation.z = Date.now() * 0.001;
-//
-//    // get the element that is a place holder for where we want to
-//    // draw the scene
-//    var element = scene.element;
-//
-//    // get its position relative to the page's viewport
-//    var rect = element.getBoundingClientRect();
-//
-//    // check if it's offscreen. If so skip it
-//    if ( rect.bottom < 0 || rect.top  > renderer.domElement.clientHeight ||
-//       rect.right  < 0 || rect.left > renderer.domElement.clientWidth ) {
-//      return;  // it's off screen
-//    }
-//
-//    // set the viewport
-//    var width  = rect.right - rect.left;
-//    var height = rect.bottom - rect.top;
-//    var left   = rect.left;
-//    var top    = rect.top;
-//
-//    renderer.setViewport( left, top, width, height );
-//    renderer.setScissor( left, top, width, height );
-//
-//    sol_camera.aspect = width / height;
-//    sol_camera.updateProjectionMatrix();
-//
-//    renderer.render( scene, sol_camera );
-//
-//  } );
-//  renderer.setScissorTest( false );
-//
-//}
-//
-//function rand( min, max ) {
-//  if ( max == undefined ) {
-//    max = min;
-//    min = 0;
-//  }
-//
-//  return Math.random() * ( max - min ) + min;
-//}
-//
-//function randColor() {
-//  var colors = [ rand( 256 ), rand ( 256 ), rand( 256 ) ];
-//  colors[ Math.random() * 3 | 0 ] = 255;
-//  return ( colors[0] << 16 ) |
-//       ( colors[1] <<  8 ) |
-//       ( colors[2] <<  0 ) ;
-//}
