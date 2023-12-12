@@ -250,7 +250,7 @@ function onSolveButton() {
         // Push the current pyramid_layers into the array
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
-        solutions: [...state.solutions, pyramid_layers];
+        state.solutions = [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
         console.log("Solve",pyramid_layers)
         drawPosition(pyramid_layers);
@@ -281,6 +281,7 @@ new resetFirstPlacementCoord()
 }
 
 function drawPosition(position) {
+
     for (let layer = 0; layer < position.length; layer++) {
         for (let i = 0; i < position[layer].length; i++) {
             for (let j = 0; j < position[layer].length; j++) {
@@ -295,7 +296,7 @@ function drawPosition(position) {
             }
         }
     }
-//    renderPyramid();
+    renderPyramid();
 }
 
 
@@ -311,11 +312,11 @@ return true;
 }
 
 function onNextButton() {
-    console.log("Clicked next")
+console.log("Clicked next");
 const solutions = [...state.solutions];
 console.log(state.solutions)
 if (solutions.length > 0) {
-    drawPosition(solutions.pop());
+    drawPosition(state.solutions.pop());
 }
 }
 
