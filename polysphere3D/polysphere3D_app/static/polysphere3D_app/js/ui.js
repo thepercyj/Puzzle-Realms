@@ -342,7 +342,9 @@ return true;
 }
 
 function onNextButton() {
+    console.log("Clicked next")
 const solutions = [...state.solutions];
+console.log(state.solutions)
 if (solutions.length > 0) {
     drawPosition(solutions.pop());
 }
