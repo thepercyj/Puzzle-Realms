@@ -588,9 +588,9 @@ window.onload = function () {
                 }
             }
         }
-
+        gameState.length = 0;
         // Deep copy the current board state to the variable
-        gameState.push(JSON.parse(JSON.stringify(gridData)));
+        gameState.push(JSON.parse(JSON.stringify(initialState1)));
     }
     function applyPredefinedSolution2(initialState2) {
         // Clear the board
@@ -608,9 +608,9 @@ window.onload = function () {
                 }
             }
         }
-
+        gameState.length = 0;
         // Deep copy the current board state to the variable
-        gameState.push(JSON.parse(JSON.stringify(gridData)));
+        gameState.push(JSON.parse(JSON.stringify(initialState2)));
     }
     function applyPredefinedSolution3(initialState3) {
         // Clear the board
@@ -628,9 +628,9 @@ window.onload = function () {
                 }
             }
         }
-
+        gameState.length = 0;
         // Deep copy the current board state to the variable
-        gameState.push(JSON.parse(JSON.stringify(gridData)));
+        gameState.push(JSON.parse(JSON.stringify(initialState3)));
     }
     function applyPredefinedSolution4(initialState4) {
         // Clear the board
@@ -649,8 +649,9 @@ window.onload = function () {
             }
         }
 
+        gameState.length = 0;
         // Deep copy the current board state to the variable
-        gameState.push(JSON.parse(JSON.stringify(gridData)));
+        gameState.push(JSON.parse(JSON.stringify(initialState4)));
     }
     function applyPredefinedSolution5(initialState5) {
         // Clear the board
@@ -668,9 +669,9 @@ window.onload = function () {
                 }
             }
         }
-
+        gameState.length = 0;
         // Deep copy the current board state to the variable
-        gameState.push(JSON.parse(JSON.stringify(gridData)));
+        gameState.push(JSON.parse(JSON.stringify(initialState5)));
     }
 
     // Function to clear the board
@@ -830,17 +831,9 @@ window.onload = function () {
             // Get the current state after pop
             gridData = JSON.parse(JSON.stringify(gameState[gameState.length - 1]));
 
-            // Count the number of null values in the current state
-            const nullCountInCurrentState = countNullValues(gridData);
 
-            // Check if the undo should be restricted based on null count
-            if (nullCountInCurrentState >= nullCountInInitialState) {
-                console.log("Undo restricted. Reached initial state for level:", currentLevel);
-                alert("Cannot undo beyond the initial state for this level!");
-            } else {
                 console.log("gridData after pop:", gridData);
                 updateUI();
-            }
         } else {
             gameState.length = 0;
             gameState.push(JSON.parse(JSON.stringify(gridData)));
