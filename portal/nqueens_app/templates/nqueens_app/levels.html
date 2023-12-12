@@ -22,22 +22,37 @@
 
             Choose a Starting Point: Start with an empty chessboard or an array to represent the board. The board is typically an N×N grid, and you'll place queens on it.</p>
         <br>
+        <p>Welcome {{ data_from_landing }}</p>
         <!-- Add an image element with an ID -->
         <div class="edit-mode">
             <div class="portalContainer">
-                <form action="{% url 'nqueens:landing' %}" method="post">
-                    {% csrf_token %}
+                <form action="{% url 'nqueens:nqueens' %}" method="post">
                     <div class="game-text">
-                        <label for="data">Enter Player Name </label>
+                        <label for="data">Choose Levels </label>
                     </div>
                     <br>
-                    <div class="futuristic-text-field">
-                        <input type="text" name="data_from_landing" required>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=4" class="btn first">Level 1</a>
+                    </div>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=5" class="btn first">Level 2</a>
+                    </div>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=6" class="btn first">Level 3</a>
+                    </div>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=7" class="btn first">Level 4</a>
+                    </div>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=8" class="btn first">Level 5</a>
+                    </div>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=9" class="btn first">Level 6</a>
+                    </div>
+                    <div class="level-container">
+                        <a href="{% url 'nqueens:nqueens' %}?n=10" class="btn first">Level 7</a>
                     </div>
 
-                    <div class="center-container">
-                        <button class="btn first" type="submit">Start</button>
-                    </div>
                 </form>
             </div>
         </div>

@@ -6,5 +6,6 @@ app_name = 'nqueens'
 
 urlpatterns = [
     path('nqueens/', views.nqueens, name='nqueens'),
+    path('levels/', views.levels, name='levels'),
     path('', views.landing, name='landing'),
 ]
