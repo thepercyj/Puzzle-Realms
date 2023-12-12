@@ -7,7 +7,7 @@ import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 
 const scene = new Scene();
 const camera = new PerspectiveCamera();
-const sol_camera = new PerspectiveCamera();
+//const sol_camera = new PerspectiveCamera(40, ASPECT_RATIO, 0.1, 10 );
 scene.background = new Color("rgb(188,244,250)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
@@ -200,28 +200,18 @@ export function initScene(canvas) {
 let sol_scene;
 let mesh;
 const AMOUNT = 6;
-
+//Solution INIT
 export function solinit(sol_canvas) {
-    console.log("Width is", sol_canvas.clientWidth);
-    const ASPECT_RATIO = 2;
-    const WIDTH = sol_canvas.clientWidth;
-    const HEIGHT = sol_canvas.clientHeight;
-
-    const sol_controls = new OrbitControls(sol_camera, renderer.domElement);
-    sol_controls.enablePan = false;
-    sol_controls.enableDamping = true;
-    sol_controls.dampingFactor = 0.05;
-    sol_controls.screenSpacePanning = false;
-    sol_controls.maxDistance = 300;
-
-    sol_controls.target = new Vector3(5, 3.8, 5);
-    sol_controls.maxPolarAngle = Math.PI / 2;
+    const ASPECT_RATIO = sol_canvas.clientWidth/sol_canvas.clientHeight;
+    const WIDTH = (sol_canvas.clientWidth/AMOUNT) * window.devicePixelRatio;
+    const HEIGHT = (sol_canvas.clientHeight/AMOUNT) * window.devicePixelRatio;
+    console.log("Width is",window.devicePixelRatio);
 
     const cameras = [];
 
     for (let y = 0; y < AMOUNT; y++) {
         for (let x = 0; x < AMOUNT; x++) {
-            const subcamera = new PerspectiveCamera();
+            const subcamera = new PerspectiveCamera(40, ASPECT_RATIO, 0.1, 10 );
             subcamera.viewport = new Vector4(Math.floor(x * WIDTH), Math.floor(y * HEIGHT), Math.ceil(WIDTH), Math.ceil(HEIGHT));
             subcamera.fov = 75;
             subcamera.near = 0.2;
@@ -236,9 +226,18 @@ export function solinit(sol_canvas) {
         }
     }
 
-    let camera = new ArrayCamera(cameras);
-    camera.position.z = 3;
+    let sol_camera = new ArrayCamera(cameras);
+    sol_camera.position.z = 3;
 
+    const sol_controls = new OrbitControls(camera, renderer.domElement);
+    sol_controls.enablePan = false;
+    sol_controls.enableDamping = true;
+    sol_controls.dampingFactor = 0.05;
+    sol_controls.screenSpacePanning = false;
+    sol_controls.maxDistance = 300;
+
+    sol_controls.target = new Vector3(5, 3.8, 5);
+    sol_controls.maxPolarAngle = Math.PI / 2;
     sol_scene = new Scene();
 
     sol_scene.add(new AmbientLight(0x999999));
@@ -249,7 +248,7 @@ export function solinit(sol_canvas) {
     light.shadow.camera.zoom = 4;
     sol_scene.add(light);
 
-    const geometryBackground = new PlaneGeometry(100, 100);
+    const geometryBackground = new PlaneGeometry(10, 10, 10, 10);
     const materialBackground = new MeshPhongMaterial({ color: 0x000066 });
 
     const background = new Mesh(geometryBackground, materialBackground);
@@ -271,7 +270,7 @@ export function solinit(sol_canvas) {
     document.body.appendChild(sol_renderer.domElement);
 
     function onWindowResize() {
-        const ASPECT_RATIO = 2;
+        const ASPECT_RATIO = sol_canvas.clientWidth/sol_canvas.clientHeight;
         const WIDTH = sol_canvas.clientWidth;
         const HEIGHT = sol_canvas.clientHeight;
 
