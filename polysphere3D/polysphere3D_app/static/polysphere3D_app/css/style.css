@@ -14,7 +14,7 @@
     /*display: flex;*/
     margin: 0 auto;
     width: 900px;
-    height: 700px;
+    height: 500px;
     background-color: #000;
 }
 
@@ -22,8 +22,8 @@
     margin: 0;
     padding: 0;
     display:flex;
-        width: 200px;
-    height: 200px;
+    width: 900px;
+    height: 500px;
     top: 0;
     left:0;
 }

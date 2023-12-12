@@ -204,7 +204,7 @@ export function solinit(sol_canvas) {
     const ASPECT_RATIO = sol_canvas.clientWidth/sol_canvas.clientHeight;
     const WIDTH = (sol_canvas.clientWidth/AMOUNT) * window.devicePixelRatio;
     const HEIGHT = (sol_canvas.clientHeight/AMOUNT) * window.devicePixelRatio;
-    console.log("Width is",window.devicePixelRatio);
+    console.log("WIDTH HEIGHT IN SOLINIT",WIDTH, HEIGHT);
 
     const cameras = [];
 
@@ -212,9 +212,9 @@ export function solinit(sol_canvas) {
         for (let x = 0; x < AMOUNT; x++) {
             const subcamera = new PerspectiveCamera(40, ASPECT_RATIO, 0.1, 10 );
             subcamera.viewport = new Vector4(Math.floor(x * WIDTH), Math.floor(y * HEIGHT), Math.ceil(WIDTH), Math.ceil(HEIGHT));
-            subcamera.fov = 75;
-            subcamera.near = 0.2;
-            subcamera.far = 300;
+//            subcamera.fov = 75;
+//            subcamera.near = 0.2;
+//            subcamera.far = 300;
             subcamera.position.x = (x / AMOUNT) - 0.5;
             subcamera.position.y = 0.5 - (y / AMOUNT);
             subcamera.position.z = 1.5;
@@ -239,6 +239,7 @@ export function solinit(sol_canvas) {
     sol_controls.maxPolarAngle = Math.PI / 2;
     sol_scene = new Scene();
 
+
     sol_scene.add(new AmbientLight(0x999999));
 
     const light = new DirectionalLight(0xffffff, 3);
@@ -247,7 +248,7 @@ export function solinit(sol_canvas) {
     light.shadow.camera.zoom = 4;
     sol_scene.add(light);
 
-    const geometryBackground = new PlaneGeometry(10, 10, 10, 10);
+    const geometryBackground = new PlaneGeometry(130, 130, 10, 10);
     const materialBackground = new MeshPhongMaterial({ color: 0x000066 });
 
     const background = new Mesh(geometryBackground, materialBackground);
@@ -279,7 +280,7 @@ export function solinit(sol_canvas) {
 
         for (let y = 0; y < AMOUNT; y++) {
             for (let x = 0; x < AMOUNT; x++) {
-                const subcamera = camera.cameras[AMOUNT * y + x];
+                const subcamera = sol_camera.cameras[AMOUNT * y + x];
                 subcamera.viewport.set(
                     Math.floor(x * WIDTH),
                     Math.floor(y * HEIGHT),
@@ -288,6 +289,7 @@ export function solinit(sol_canvas) {
                 );
                 subcamera.aspect = ASPECT_RATIO;
                 subcamera.updateProjectionMatrix();
+
             }
         }
 
