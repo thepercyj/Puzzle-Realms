@@ -341,6 +341,7 @@ content {
     align-items: center;
     height: 20vh; /* Use 100% of the viewport height */
 }
+
 .level-container {
     display: flex;
     justify-content: center;
