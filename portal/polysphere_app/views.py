@@ -6,7 +6,7 @@ from PIL import Image
 from django.db.backends import mysql
 import mysql.connector
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 from .kanoodle import Kanoodle
 from .models import *
@@ -23,8 +23,17 @@ end_time = 0
 
 
 def landing(request):
-    current_app = 'polysphere_app'
-    return render(request, 'polysphere_app/landing.html', {'current_app': current_app})
+    if request.method == 'POST':
+        data_from_landing = request.POST.get('data_from_landing', '')
+        request.session['data_from_landing'] = data_from_landing
+        return redirect('polysphere:levels')
+    else:
+        return render(request, 'polysphere_app/landing.html')
+
+
+def levels(request):
+    data_from_landing = request.session.get('data_from_landing', '')
+    return render(request, 'polysphere_app/levels.html', {'data_from_landing': data_from_landing})
 
 
 @require_http_methods(["POST"])
@@ -158,11 +167,8 @@ def generate_solution_gallery(request):
         image_path = f'media/solution_{idx}.webp'
         image_paths.append(image_path)
 
-        if request.method == 'POST':
-            data_from_landing = request.POST.get('data_from_landing', '')
-            return render(request, 'polysphere_app/kanoodle-solver.html', {'data_from_landing': data_from_landing})
-        else:
-            return render(request, 'polysphere_app/kanoodle-solver.html', {'data_from_landing': ''})
+        data_from_landing = request.session.get('data_from_landing', '')
+        return render(request, 'polysphere_app/kanoodle-solver.html', {'data_from_landing': data_from_landing})
 
     # return render(request, 'polysphere_app/kanoodle-solver.html')
     # return render(request, 'polysphere_app/dashboard.html', {'image_paths': image_paths})
@@ -218,7 +224,7 @@ def find_partial_solutions(request):
         # Assigns a variable to the partial configuration and generates a regex pattern from it
         configuration = json.loads(request.body)
         regex_pattern = generate_regex_pattern(configuration)
-    # Opens the solutions.txt file
+        # Opens the solutions.txt file
         with open(
                 r'polysphere_app/solutions/all_solutions.txt',
                 'r') as file:
@@ -260,6 +266,3 @@ def get_partial_solutions(matching_solutions):
     conn.close()
     # Returns a Json response
     return JsonResponse({'img_paths': img_paths})
-
-
-
