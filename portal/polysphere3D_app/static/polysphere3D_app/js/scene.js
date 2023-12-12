@@ -132,7 +132,7 @@ export function initScene(canvas) {
     const pointer = new Vector2();
 
 
-function onClick(event) {
+    function onClick(event) {
     const canvasBounds = canvas.getBoundingClientRect();
     pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
     pointer.y = - ((event.clientY - canvasBounds.top) / canvas.clientHeight) * 2 + 1;
@@ -146,23 +146,34 @@ function onClick(event) {
     const intersects = raycaster.intersectObjects(scene.children);
 
     for (let i = 0; i < intersects.length; i++) {
-        if (intersects[i].object.visible === true) {
-            // Get only visibile objects
-            if (intersects[i].object.name[0] === "s") {
-                // Get only sphere's
-                if (intersects[i].object.material.color.equals(new Color(0x999999))) {
-                    // Get only empty spheres (colour = black)
-                    intersects[i].object.material.color.set(Colours[shape]);
-                    let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
-                    setInput(shape, coord);
-                    console.log(inputShapes.get());
-                    console.log(inputCoords.get());
-                    break;
+            if (intersects[i].object.visible === true) {
+                // Get only visibile objects
+                if (intersects[i].object.name[0] === "s") {
+                    // Get only sphere's
+                    if (intersects[i].object.material.color.equals(new Color(0x999999))) {
+                        // Get only empty spheres (colour = black)
+                        intersects[i].object.material.color.set(Colours[shape]);
+                        let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
+                        setInput(shape, coord);
+                        console.log(inputShapes.get());
+                        console.log(inputCoords.get());
+                        break;
+                    }
                 }
             }
         }
-    }
 }
+
+
+// function isPlacementValid(coord, shape, lastCoord) {
+//     // Check for correct adjacency
+//     return (
+//         !lastCoord ||
+//         (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
+//         (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
+//         (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
+//     );
+// }
 
 window.addEventListener('click', onClick);
 

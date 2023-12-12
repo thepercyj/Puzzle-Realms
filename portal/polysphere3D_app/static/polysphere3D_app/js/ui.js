@@ -195,7 +195,6 @@ function onSolveButton() {
         return;
     }
 
-
     const problem_mat = populate_problem_matrix3D();
     const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
     const updatedProblemMat = problem_def[0];
@@ -228,14 +227,18 @@ function onSolveButton() {
         scount.textContent = "Number of solutions: " + cnt;
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
-        solutions: [...state.solutions, pyramid_layers];
+        state.solutions = [...state.solutions, pyramid_layers];
+        console.log("Solutions", state.solutions)
         drawPosition(pyramid_layers);
     });
 }
 
+
+
 function onClearButton() {
     inputShapes.clear();
     inputCoords.clear();
+    state.solutions = []
 new resetFirstPlacementCoord()
 
 
@@ -256,6 +259,7 @@ new resetFirstPlacementCoord()
 }
 
 function drawPosition(position) {
+    console.log("Position:", position)
     for (let layer = 0; layer < position.length; layer++) {
         for (let i = 0; i < position[layer].length; i++) {
             for (let j = 0; j < position[layer].length; j++) {
@@ -286,9 +290,8 @@ return true;
 }
 
 function onNextButton() {
-const solutions = [...state.solutions];
-if (solutions.length > 0) {
-    drawPosition(solutions.pop());
+if (state.solutions.length > 0) {
+    drawPosition(state.solutions.pop());
 }
 }
 
