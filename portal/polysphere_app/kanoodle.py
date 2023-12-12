@@ -11,9 +11,36 @@ from .DLX import *
 import re
 
 
+from typing import List, Set
+
 class Kanoodle:
+    """
+    Kanoodle class represents a puzzle-solving game.
+
+    Attributes:
+        None
+
+    Methods:
+        findAllSolutions: Finds all solutions for the Kanoodle puzzle given the piece descriptions, grid width, and grid height.
+        createPieces: Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+        createSearchRows: Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+        formatGrid: Formats the solutions as a grid of strings.
+
+    """
+
     @staticmethod
     def findAllSolutions(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -> str:
+        """
+        Finds all solutions for the Kanoodle puzzle.
+
+        Args:
+            pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A string representing the formatted solutions of the puzzle, or "No solution found" if no solution is found.
+        """
         pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
 
         rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
@@ -25,10 +52,32 @@ class Kanoodle:
 
     @staticmethod
     def createPieces(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -> List['Piece']:
+        """
+        Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+
+        Args:
+            pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of Piece objects.
+        """
         return [Piece(desc, i, gridWidth, gridHeight) for i, desc in enumerate(pieceDescriptions)]
 
     @staticmethod
     def createSearchRows(pieces: List['Piece'], gridWidth: int, gridHeight: int) -> List['SearchRow']:
+        """
+        Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+
+        Args:
+            pieces: A list of Piece objects representing the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of SearchRow objects.
+        """
         rotations = list(Rotation)
         flipStates = [False, True]
         maxPiecePermutations = len(pieces) * len(rotations) * len(flipStates)
@@ -49,8 +98,18 @@ class Kanoodle:
         return rows
 
     @staticmethod
-    # Your existing function
     def formatGrid(solutions: List[List['SearchRow']], gridWidth: int, gridHeight: int) -> List[List[List[str]]]:
+        """
+        Formats the solutions as a grid of strings.
+
+        Args:
+            solutions: A list of lists of SearchRow objects representing the solutions.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of lists of strings representing the formatted solutions.
+        """
         formattedSolutions = []
 
         # Define a helper function to format a single grid as a string
@@ -72,7 +131,18 @@ class Kanoodle:
         return '\n\n'.join(formattedSolutions)
 
 
+from enum import Enum
+
 class Rotation(Enum):
+    """
+    Enum representing different rotation angles.
+    
+    Attributes:
+        ROTATION_0 (int): Represents a rotation angle of 0 degrees.
+        ROTATION_90 (int): Represents a rotation angle of 90 degrees.
+        ROTATION_180 (int): Represents a rotation angle of 180 degrees.
+        ROTATION_270 (int): Represents a rotation angle of 270 degrees.
+    """
     ROTATION_0 = 0
     ROTATION_90 = 1
     ROTATION_180 = 2
@@ -91,6 +161,15 @@ class Tile:
 
 class Piece:
     def __init__(self, src: str, index: int, gridWidth: int, gridHeight: int):
+        """
+        Initializes a Piece object.
+
+        Args:
+            src (str): The source string representing the piece.
+            index (int): The index of the piece.
+            gridWidth (int): The width of the grid.
+            gridHeight (int): The height of the grid.
+        """
         self.index = index
         self.source = src
         self.symbol = src.strip()[0]
@@ -100,70 +179,19 @@ class Piece:
         tiles = self.extractTiles(src, self.dimensions)
         self.bitfield = self.buildBitfield(tiles, self.dimensions)
 
-    @staticmethod
-    def buildBitfield(tiles: List[Tile], dimensions: Tile) -> int:
-        bits = 0
-        for t in tiles:
-            bits |= 1 << (t.row * 8 + t.col)
-        return bits
-
-    @staticmethod
-    def extractTiles(src: str, maximum: Tile) -> List[Tile]:
-        tiles = []
-        col = 0
-        row = 0
-        for i, c in enumerate(src):
-            if c == '\n':
-                col = 0
-                row += 1
-            elif not c.isspace():
-                maximum.col = max(maximum.col, col + 1)
-                maximum.row = max(maximum.row, row + 1)
-                tiles.append(Tile(col, row))
-                col += 1
-            else:
-                col += 1
-        return tiles
-
-    def getWidth(self, rotation=None):
-        if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
-            return self.dimensions.row
-        return self.dimensions.col
-
-    def getHeight(self, rotation=None):
-        if rotation in [Rotation.ROTATION_90, Rotation.ROTATION_270]:
-            return self.dimensions.col
-        return self.dimensions.row
-
-    def is_tile_at(self, col, row, rotation, flipped) -> bool:
-        flipped = bool(flipped)
-        local_col = col
-        local_row = row
-        if rotation == Rotation.ROTATION_0:
-            if flipped is not None:
-                local_col = self.getWidth() - 1 - col
-        elif rotation == Rotation.ROTATION_90:
-            local_col = row
-            local_row = self.getHeight() - 1 - col
-            if flipped is not None:
-                local_row = self.getHeight() - 1 - local_row
-        elif rotation == Rotation.ROTATION_180:
-            if flipped is None:
-                local_col = self.getWidth() - 1 - local_col
-            local_row = self.getHeight() - 1 - local_row
-        elif rotation == Rotation.ROTATION_270:
-            local_col = self.getWidth() - 1 - row
-            local_row = col
-            if flipped is not None:
-                local_row = self.getHeight() - 1 - local_row
-
-        if local_col >= 0 and local_row >= 0 and local_col < self.getWidth() and local_row < self.getHeight():
-            if (0 != (self.bitfield & (1 << (local_row * 8 + local_col)))):
-                return True
-
-        return False
+    ...
 
     def get_signature(self, rotation, flipped):
+        """
+        Calculates the signature of the piece based on its rotation and flipped status.
+
+        Args:
+            rotation: The rotation of the piece.
+            flipped: The flipped status of the piece.
+
+        Returns:
+            int: The signature of the piece.
+        """
         signature = 0
         for r in range(8):
             for c in range(8):
@@ -174,6 +202,16 @@ class Piece:
 
 class SearchRow(DLX.RowSupplier):
     def __init__(self, piece: Piece, rotation: Rotation, col: int, row: int, flipped: bool):
+        """
+        Initializes a SearchRow object.
+
+        Args:
+            piece (Piece): The piece associated with the row.
+            rotation (Rotation): The rotation of the piece.
+            col (int): The column position of the piece.
+            row (int): The row position of the piece.
+            flipped (bool): Indicates if the piece is flipped or not.
+        """
         self.piece = piece
         self.rotation = rotation
         self.col = col
@@ -181,9 +219,28 @@ class SearchRow(DLX.RowSupplier):
         self.flipped = flipped
 
     def is_tile_at(self, c, r):
+        """
+        Checks if there is a tile at the specified column and row position.
+
+        Args:
+            c (int): The column position.
+            r (int): The row position.
+
+        Returns:
+            bool: True if there is a tile at the specified position, False otherwise.
+        """
         return self.piece.is_tile_at(c - self.col, r - self.row, self.rotation, self.flipped)
 
     def isColumnOccupied(self, col):
+        """
+        Checks if the specified column is occupied.
+
+        Args:
+            col (int): The column index.
+
+        Returns:
+            bool: True if the column is occupied, False otherwise.
+        """
         if col >= self.piece.gridWidth * self.piece.gridHeight:
             return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
 

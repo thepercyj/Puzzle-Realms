@@ -1,6 +1,16 @@
 import os
 class PuzzlePieces:
-    def __init__(self, shape, grid, image_path, rotation ):
+    """
+    Represents a puzzle piece.
+
+    Attributes:
+        shape (str): The shape of the puzzle piece.
+        grid (list): The grid representation of the puzzle piece.
+        image_path (str): The file path to the image of the puzzle piece.
+        rotation (int): The rotation angle of the puzzle piece.
+    """
+
+    def __init__(self, shape, grid, image_path, rotation):
         self.shape = shape
         self.grid = grid
         self.image_path = image_path
@@ -56,8 +66,7 @@ class PuzzlePieces:
                 " E  ",
                 "EE  ",
                 "E   ",
-            ]
-            ,
+            ],
             'image_path': "polysphere_app/static/polysphere_app/images/E-min.webp",
             'rotation': 0
         },
