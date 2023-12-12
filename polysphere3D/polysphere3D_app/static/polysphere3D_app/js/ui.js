@@ -203,6 +203,7 @@ function createState() {
 }
 
 function onSolveButton() {
+    state.solutions = []
     var allSolutions = [];
     let solutionCount = 0;
     let solutions = [];
@@ -258,7 +259,8 @@ function onSolveButton() {
 }
 
 function onClearButton() {
-    var allSolutions = [];
+    scount.textContent = "Number of solutions: 0"
+    state.solutions = []
     inputShapes.clear();
     inputCoords.clear();
 new resetFirstPlacementCoord()
