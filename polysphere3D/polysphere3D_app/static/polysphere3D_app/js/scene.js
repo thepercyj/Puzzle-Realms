@@ -22,7 +22,6 @@ const sol_renderer = new WebGLRenderer( { antialias: true } );
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
 renderer.setClearColor(0x999999);
-renderer.setPixelRatio(window.devicePixelRatio);
 let resizeObeserver;
 let firstPlacementCoord = null;
 let currentShapePlacements = [];
@@ -82,6 +81,8 @@ export function initScene(canvas) {
     camera.addEventListener('onCameraChange', (e) => {
         console.log('change');
     })
+        console.log("INIT", camera);
+
     renderer.setSize(canvas.clientWidth, canvas.clientWidth);
     resizeObeserver = new ResizeObserver(entries => {
         entries.forEach(entry => {
@@ -218,17 +219,26 @@ let sol_scene;
 let mesh;
 const AMOUNT = 6;
 
-solinit();
-solanimate();
-
-function solinit(sol_canvas) {
-    const ASPECT_RATIO = window.innerWidth / window.innerHeight;
-
-    const WIDTH = ( window.innerWidth / AMOUNT ) * window.devicePixelRatio;
-    const HEIGHT = ( window.innerHeight / AMOUNT ) * window.devicePixelRatio;
+//solinit();
 
 
+export function solinit(sol_canvas) {
+    const ASPECT_RATIO = 2;
 
+    const WIDTH = 200;
+    const HEIGHT = 200;
+
+//    const sol_controls = new OrbitControls(camera, renderer.domElement);
+//    sol_controls.enablePan = false;
+//    sol_controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+//    sol_controls.dampingFactor = 0.05;
+//    sol_controls.screenSpacePanning = false;
+//    sol_controls.maxDistance = 300;
+//
+//    sol_controls.target = new Vector3(5, 3.8, 5);
+//    sol_controls.maxPolarAngle = Math.PI / 2;
+
+    console.log("SOL INIT", sol_canvas, ASPECT_RATIO, WIDTH, HEIGHT)
     const cameras = [];
 
     for ( let y = 0; y < AMOUNT; y ++ ) {
@@ -279,7 +289,7 @@ function solinit(sol_canvas) {
     sol_scene.add( mesh );
 
     sol_renderer.setPixelRatio( window.devicePixelRatio );
-    sol_renderer.setSize( window.innerWidth, window.innerHeight );
+    sol_renderer.setSize( 200, 200 );
     sol_renderer.shadowMap.enabled = true;
     document.body.appendChild( sol_renderer.domElement );
 
@@ -287,13 +297,15 @@ function solinit(sol_canvas) {
 
     window.addEventListener( 'resize', onWindowResize );
 
+    solanimate();
 }
 
 function onWindowResize() {
 
-    const ASPECT_RATIO = window.innerWidth / window.innerHeight;
-    const WIDTH = ( window.innerWidth / AMOUNT ) * window.devicePixelRatio;
-    const HEIGHT = ( window.innerHeight / AMOUNT ) * window.devicePixelRatio;
+    const ASPECT_RATIO = 2;
+
+    const WIDTH = 200;
+    const HEIGHT = 200;
 
     camera.aspect = ASPECT_RATIO;
     camera.updateProjectionMatrix();
@@ -317,7 +329,7 @@ function onWindowResize() {
 
     }
 
-    sol_renderer.setSize( window.innerWidth, window.innerHeight );
+    sol_renderer.setSize( WIDTH, HEIGHT );
 
 }
 
@@ -327,7 +339,7 @@ function solanimate() {
     mesh.rotation.z += 0.01;
 
     sol_renderer.render( sol_scene, camera );
-
+//    sol_controls.update();
     requestAnimationFrame( solanimate );
 
 }
