@@ -25,7 +25,7 @@
         <!-- Add an image element with an ID -->
         <div class="edit-mode">
             <div class="portalContainer">
-                <form action="{% url 'nqueens:nqueens' %}" method="post">
+                <form action="{% url 'nqueens:landing' %}" method="post">
                     {% csrf_token %}
                     <div class="game-text">
                         <label for="data">Enter Player Name </label>
