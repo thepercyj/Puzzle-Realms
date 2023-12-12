@@ -84,8 +84,9 @@ window.onload = function () {
     }
 
     function updateImage() {
+        const transform = `rotate(${rotationAngle}deg) scaleX(${rotationFlip === 180 ? -1 : 1}) scaleY(${rotationFlip === 90 ? -1 : 1})`;
         currentImage.src = `/static/polysphere_app/images/shapes/${imageIds[currentIndex]}.png`;
-        currentImage.style.transform = `rotate(${rotationAngle}deg)`;
+        currentImage.style.transform = transform;
     }
 
     function nextImage() {
@@ -136,10 +137,8 @@ window.onload = function () {
     }
 
     function applyCurrentTransformations() {
+        const transform = `rotate(${rotationAngle}deg) scaleX(${rotationFlip === 180 ? -1 : 1}) scaleY(${rotationFlip === 90 ? -1 : 1})`;
         currentImage.src = `/static/polysphere_app/images/shapes/${imageIds[currentIndex]}.png`;
-
-        const transform = `rotate(${rotationAngle}deg) scaleX(${pieceFlip[currentIndex] === 180 ? -1 : 1}) scaleY(${pieceFlip[currentIndex] === 90 ? -1 : 1})`;
-        console.log(transform)
         currentImage.style.transform = transform;
     }
 //    function applyCurrentTransformations() {
@@ -280,7 +279,6 @@ window.onload = function () {
 
       }
 
-    // Check if the cells for the new piece are unoccupied
     function isSpaceAvailable(startRow, startCol, pieceCoords) {
         for (const coord of pieceCoords) {
             const newRow = startRow + coord[0];
@@ -326,8 +324,8 @@ window.onload = function () {
     }
 
     function transformCoords(coords, index) {
-    // First apply rotation
-        return coords.map(coord => {
+        // First apply rotation
+        let rotatedCoords = coords.map(coord => {
             let [x, y] = coord;
             switch (pieceRotation[index]) {
                 case 90:
@@ -339,8 +337,16 @@ window.onload = function () {
                 default:
                     return [x, y];
             }
-        ;
-    })
+        });
+
+        // Then apply flip
+        if (pieceFlip[index] === 180) {
+            rotatedCoords = rotatedCoords.map(coord => [-coord[0], coord[1]]);
+        } else if (pieceFlip[index] === 90) {
+            rotatedCoords = rotatedCoords.map(coord => [coord[0], -coord[1]]);
+        }
+
+        return rotatedCoords;
     }
 
     function transformFlipCoords(coords, index) {
@@ -426,29 +432,21 @@ window.onload = function () {
 
     }
 
+    // Function to apply transformations to the piece
     function applyTransformations(piece, coords, rotationAngle, rotationFlip) {
-    const rotatedPieceCoords = rotateCoords(coords, rotationAngle);
-    const flippedPieceCoords = applyFlips(coords, rotationFlip);
+        const transformedPieceCoords = transformCoords(coords, rotationAngle);
+        const flippedPieceCoords = transformFlipCoords(coords, rotationFlip);
 
-    // Apply transformations to the piece
-    for (let i = 0; i < coords.length; i++) {
-            const x = coords[i][0] * 50; // Adjust this value based on your piece size
-            const y = coords[i][1] * 50; // Adjust this value based on your piece size
-            const rotatedX = rotatedPieceCoords[i][0] * 50;
-            const rotatedY = rotatedPieceCoords[i][1] * 50;
-            const flippedX = flippedPieceCoords[i][0] * 50;
-            const flippedY = flippedPieceCoords[i][1] * 50;
+        // Apply transformations to the piece
+        const transformedCoords = (rotationFlip === 0) ? transformedPieceCoords : flippedPieceCoords;
 
-           if (transform === rotatedPieceCoords){
-                const transform = `translate(${rotatedX}px, ${rotatedY}px) rotate(${rotationAngle}deg)`;
-                piece.style.transform = transform;
-           }
-           else if(transform === flippedPieceCoords) {
-                const transform = `translate(${flippedX}px, ${flippedY}px) rotate(${rotationFlip}deg)`;
-                piece.style.transform = transform;
+        for (let i = 0; i < transformedCoords.length; i++) {
+            const x = transformedCoords[i][0] * 50; // Adjust this value based on your piece size
+            const y = transformedCoords[i][1] * 50; // Adjust this value based on your piece size;
 
-           }
+            const transform = `translate(${x}px, ${y}px) rotate(${rotationAngle}deg) scaleX(${rotationFlip === 180 ? -1 : 1}) scaleY(${rotationFlip === 90 ? -1 : 1})`;
 
+            piece.style.transform = transform;
         }
     }
 
@@ -458,7 +456,7 @@ window.onload = function () {
         }
 
         // Sends Partial configuration to the backend
-        fetch('/landing/solutions/find_partial_solutions/', {
+        fetch('/polysphere/solutions/find_partial_solutions/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -541,9 +539,75 @@ window.onload = function () {
             images[i].classList.remove('hidden');
         }
     }
+
+    function setupLevel1(initialState) {
+        // Apply the predefined solution to the board
+        applyPredefinedSolution(initialState);
+    }
+
+    // Function to apply a predefined solution to the board
+    function applyPredefinedSolution(initialState) {
+        // Clear the board
+        clearBoard();
+
+        // Apply the solution to the board
+        for (let row = 0; row < initialState.length; row++) {
+            for (let col = 0; col < initialState[row].length; col++) {
+                const cellValue = initialState[row][col];
+                if (cellValue !== null) {
+                    const pieceIndex = alphabets.indexOf(cellValue);
+                    const targetCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                    targetCell.style.backgroundColor = gridColor[pieceIndex];
+                    gridData[row][col] = alphabets[pieceIndex];
+                }
+            }
+        }
+
+        // Deep copy the current board state to the variable
+        gameState.push(JSON.parse(JSON.stringify(gridData)));
+    }
+
+    // Function to clear the board
+    function clearBoard() {
+        // Clear the board colors and data
+        for (let row = 0; row < 5; row++) {
+            for (let col = 0; col < 11; col++) {
+                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                cell.style.backgroundColor = '#BCF4FC';
+                gridData[row][col] = null;
+            }
+        }
+
+        // Resets the gameState
+        gameState.length = 0;
+        gameState.push(JSON.parse(JSON.stringify(gridData))); // Push initial state
+    }
+
+    // Call the setup function when needed, passing the initial state as a parameter
+    setupLevel1([
+            ['A', 'A', 'L', 'L', null, null, 'H', 'H', 'G', 'G', 'G'],
+            ['A', 'B', 'B', 'L', 'L', null, 'K', 'H', 'H', 'E', 'G'],
+            ['A', 'B', 'B', 'L', null, null, 'K', 'K', 'H', 'E', 'G'],
+            ['C', 'B', 'D', 'D', 'D', 'D', null, 'K', 'E', 'E', 'F'],
+            ['C', 'C', 'C', 'C', 'D', null, null, null, 'E', 'F', 'F']
+    ]);
+
     document.addEventListener('DOMContentLoaded', function () {
     const imageGrid = document.getElementById('imageGrid');
     const numberOfImages = 80443;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const levelParam = urlParams.get('n');
+
+    if (levelParam === '1') {
+        setupLevel1([
+            ['A', 'A', 'L', 'L', null, null, 'H', 'H', 'G', 'G', 'G'],
+            ['A', 'B', 'B', 'L', 'L', null, 'K', 'H', 'H', 'E', 'G'],
+            ['A', 'B', 'B', 'L', null, null, 'K', 'K', 'H', 'E', 'G'],
+            ['C', 'B', 'D', 'D', 'D', 'D', null, 'K', 'E', 'E', 'F'],
+            ['C', 'C', 'C', 'C', 'D', null, null, null, 'E', 'F', 'F']
+        ]);
+    }
 
     for (let i = 0; i <= numberOfImages; i++) {
         const imageElement = document.createElement('img');
@@ -591,6 +655,7 @@ window.onload = function () {
         }
     }
 }
-}
 
+
+}
 

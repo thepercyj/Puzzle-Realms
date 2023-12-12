@@ -1,3 +1,27 @@
+@import 'https://fonts.googleapis.com/css?family=Rubik+One';
+.board {
+    display: grid;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #696464;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.cell:hover {
+    background-color: lightgray;
+}
+
+/*-----------------------------*/
+
+/* Center the entire page content vertically and horizontally*/
 html {
     margin: 0;
     padding: 0;
@@ -12,87 +36,26 @@ html {
     justify-content: center;
 }
 
-.container {
-    text-align: center;
-}
-
-#panel {
-    /*display: flex;*/
-    margin: 0 auto;
-    width: 500px;
-    height: 500px;
-    background-color: #000;
-}
-
-.canvas {
-    margin: 0;
-    padding: 0;
-    position: static;
-    top: 0;
-    left:0;
-}
-
-.wrapper {
-    flex: 1;
-    background-color: #BCF4FA;
+/* Add background color and styling to the main content*/
+body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    justify-content: center;
+    background-color: #f4f4f4;
     padding: 20px;
-    border-radius: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-    text-align: center;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.content {
-    font-size: 16px;
-    color:#333;
     text-align: center;
 }
 
+
+/* Style the title and description with the specified color */
 .title-image {
     max-width: 70vw;
 
      /* Updated color */
 }
-
-.display-mode {
-    background-color: #BCF4FA;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 70vw;
-    margin: 0 auto;
-    text-align: center;
-    display: flex;
-    gap: 20px; /* Adjust the gap between the columns */
-
-}
-
-.solution-container {
-    max-height: 500px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    background-color: #BCF4FA;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 500px; /* Adjust the value according to your design */
-}
-
-/* Optional: Customize scrollbar styles */
-.solution-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-.solution-container::-webkit-scrollbar-thumb {
-    background-color: #6c757d;
-    border-radius: 10px;
-}
-
-.solution-container::-webkit-scrollbar-track {
-    background-color: #f9f9f9;
-}
-
 
 h3 {
     font-family: 'Supply Center', sans-serif;
@@ -101,13 +64,6 @@ h3 {
 }
 
 p {
-    font-family: 'Maybe But Not Always', sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-}
-
-label {
     font-family: 'Maybe But Not Always', sans-serif;
     font-size: 14px;
     color: #000;
@@ -124,6 +80,21 @@ b {
     color: #017176;
 }
 
+/* Style the chessboard and solution container */
+.display-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
+
+}
+
 .info-mode {
     background-color: #BCF4FA;
     padding: 20px;
@@ -137,16 +108,126 @@ b {
     gap: 20px; /* Adjust the gap between the columns */
 }
 
-#rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
-    margin: 5px;
-    padding: 8px;
-    font-size: 16px;
+.display-mode img {
+    max-width: 60%; /* Make the images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Add border-radius to the images */
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* Use 100% of the viewport height */
+}
+
+.result-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 3fr 3fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
 }
 
 .imageContainer {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.imageContainer1 {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-container button {
+    width: 150px; /* Adjust the width as needed */
+    margin: 0 5px; /* Add margin between buttons */
+}
+
+.display-mode {
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+
+/*
+.corner-image {
+    position: absolute;
+}
+*/
+#rotationButtons {
+    grid-column: span 2; /* Make the buttons span both columns */
+    text-align: center; /* Center-align the buttons */
+}
+
+#rotationButtons button {
+    display: inline-block; /* Ensure buttons are inline-block elements */
+    margin: 5px; /* Add margin between buttons if needed */
+}
+#rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
+    margin: 5px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.edit-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+
+.result-mode {
+    background-color: #D0E7D2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 70vw;
+    margin: 0 auto;
+    max-height: 500px; /* Adjust the value according to your design */
+    overflow:auto;
+}
+
+.wrapper {
+    flex: 1;
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer {
+    background-color: #f4f4f4;
+    text-align:center;
+}
+.content {
+    font-size: 16px;
+    color:#333;
+    text-align: center;
+}
+
+/*Button CSS
+/* Center the button container and style the game buttons */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 
 .btn {
@@ -159,6 +240,7 @@ b {
   border-radius: 0.6em;
   color: #e74c3c;
   cursor: pointer;
+  display: flex;
   align-self: center;
   font-weight: 400;
   line-height: 1;
@@ -175,6 +257,15 @@ b {
   outline: 0;
 }
 
+.first {
+  border-color: #3498db;
+  color: #261616;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  transition: all 150ms ease-in-out;
+}
+.first:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
 
 /* Styles for the game buttons */
 .third {
@@ -266,16 +357,25 @@ b {
   box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
 
-body {
-    background-image: url("../images/background-without-title.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    justify-content: center;
-    background-color: #f4f4f4;
-    padding: 20px;
+.futuristic-text-field {
+    position: relative;
+    width: 300px;
+    display: inline-block;
+}
+
+.futuristic-text-field input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    font-size: 16px;
+    outline: none;
     text-align: center;
+    font-family: 'Maybe But Not Always', sans-serif;
 }
 
 .futuristic-text-field input:focus {
@@ -309,8 +409,40 @@ body {
     font-family: 'Maybe But Not Always', sans-serif;
 }
 
-.display-mode img {
-    max-width: 60%; /* Make the images responsive */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 5px; /* Optional: Add border-radius to the images */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.solution-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #BCF4FA;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Adjust the value according to your design */
+}
+
+/* Optional: Customize scrollbar styles */
+.solution-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.solution-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 10px;
+}
+
+.solution-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+
+.level-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh; /* Use 100% of the viewport height */
 }
