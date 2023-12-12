@@ -13,15 +13,17 @@
 #c {
     /*display: flex;*/
     margin: 0 auto;
-    width: 1500px;
-    height: 1500px;
+    width: 900px;
+    height: 700px;
     background-color: #000;
 }
 
 .canvas {
     margin: 0;
     padding: 0;
-    position: static;
+    display:flex;
+        width: 200px;
+    height: 200px;
     top: 0;
     left:0;
 }
