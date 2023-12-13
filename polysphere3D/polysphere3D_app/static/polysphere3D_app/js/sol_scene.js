@@ -123,55 +123,6 @@ export function initScene(sol_canvas) {
 
     const raycaster = new Raycaster();
     const pointer = new Vector2();
-
-//    function onClick(event) {
-//        const sol_canvasBounds = sol_canvas.getBoundingClientRect();
-//        pointer.x = ((event.clientX - sol_canvasBounds.left) / sol_canvas.clientWidth) * 2 - 1;
-//        pointer.y = -((event.clientY - sol_canvasBounds.top) / sol_canvas.clientHeight) * 2 + 1;
-//        raycaster.setFromCamera(pointer, camera);
-//
-//        let currentShapeElement = document.getElementById("currentImage");
-//        let shape = currentShapeElement.className;
-//        let currentShape = shapeStore[shape]
-//
-//        const intersects = raycaster.intersectObjects(sol_scene.children);
-//
-//        for (let i = 0; i < intersects.length; i++) {
-//            if (intersects[i].object.visible === true && intersects[i].object.name[0] === "s" &&
-//                intersects[i].object.material.color.equals(new Color(0x999999))) {
-//
-//                let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
-//                let shapeIndex = sol_inputShapes.get().indexOf(shape);
-//                let lastCoord = shapeIndex >= 0 && sol_inputCoords.get()[shapeIndex].length > 0 ? sol_inputCoords.get()[shapeIndex][sol_inputCoords.get()[shapeIndex].length - 1] : null;
-//
-//                if (!lastCoord ||
-//                    (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-//                    (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) {
-//                    if (isPlacementValid(coord, currentShape, lastCoord)) {
-//                        intersects[i].object.material.color.set(sol_Colours[shape]);
-//                        setInput(shape, coord);
-//                        console.log("Placed sphere for shape:", shape, "at coordinates:", coord);
-//                        firstPlacementCoord = coord;
-//                        break;
-//                    } else {
-//                        alert("Invalid placement: Sphere is not correctly adjacent.");
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    function isPlacementValid(coord, shape, lastCoord) {
-//        return (
-//            !lastCoord ||
-//            (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-//            (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
-//            (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
-//        );
-//    }
-
-//    window.addEventListener('click', onClick);
-
     function animate() {
         renderer.render(sol_scene, camera);
         controls.update();
