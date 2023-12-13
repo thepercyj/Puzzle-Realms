@@ -371,7 +371,7 @@ b {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.futuristic-text-field label {
+.futuristic-text-field label1 {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -381,8 +381,8 @@ b {
     transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
 }
 
-.futuristic-text-field input:focus + label,
-.futuristic-text-field input:not(:placeholder-shown) + label {
+.futuristic-text-field input:focus + label1,
+.futuristic-text-field input:not(:placeholder-shown) + label1 {
     transform: translateY(-100%) scale(0.8);
     font-size: 12px;
     color: #aaa;
@@ -436,7 +436,7 @@ input[type="checkbox"] {
     display: none; /* Hide the default checkbox */
 }
 
-label1 {
+label {
     border: 2px solid #4CAF50; /* Green border color, change as needed */
     border-radius: 20%;
     display: inline-block;
@@ -449,7 +449,7 @@ label1 {
 
 }
 
-label1:hover {
+label:hover {
     transform: scale(1.7); /* Adjust the scale factor as needed */
     background-color: #A6FF96;
 }
