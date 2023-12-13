@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Poly Pyramid Puzzle</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'polysphere3D_app/css/style.css' %}">
+    <!--    <script src="{% static 'polysphere3D_app/js/eventListeners.js' %}"></script>-->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link href="https://fonts.cdnfonts.com/css/maybe-but-not-always" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/supply-center" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="content">
+        <img class="title-image" src="{% static 'polysphere3D_app/images/tetris.gif' %}">
+        <h3>How to Play</h3>
+        <div class="info-mode">
+            <ul>
+                <strong>Instructions</strong>
+                <br>
+                <br>
+                <li>Select a puzzle and try drag and drop in the board.</li>
+
+                <li>Arrange the provided spheres on the board to match a chosen puzzle or create your unique structure.</li>
+
+                <li>Spheres must be placed on the board in such a way it does not overlap each other.</li>
+                <li>Ensure each sphere fits within the designated grid spaces.</li>
+
+                <li>Experiment with different sphere arrangements to design your own structures.</li>
+                <li>Connect spheres in creative ways to fill the board.</li>
+
+                <li>Successfully complete a puzzle by filling the entire board with the provided spheres.</li>
+                <li>Confirm that your arrangement matches the structure shown in the puzzle solutions.</li>
+                <br>
+                <strong>Tips for Success</strong>
+                <br>
+                <br>
+                <li>Pay attention to sphere shapes and connection points.</li>
+                <li>Think strategically to optimize space and complete the puzzle efficiently.</li>
+
+                <li>Polysphere Extreme is not just a game but also a tool for spatial reasoning and creative thinking.</li>
+                <li>Have fun exploring different designs and improving your puzzle-solving skills.</li>
+            </ul>
+        </div>
+        <br>
+        <p>Welcome {{ data_from_landing }}</p>
+        <br>
+
+        <div class="display-mode">
+            <div id="container1">
+
+                <div id="panel"></div>
+
+
+            </div>
+            <div id="mainContainer">
+                <div>
+                    <div class="imageContainer">
+                        <button class="btn third" id="previousImageButton">
+                            <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+                        </button>
+                        <img id="currentImage" src="{% static 'polysphere3D_app/images/shapes/shape-1.png' %}"
+                             alt="Current Image">
+                        <button class="btn third" id="nextImageButton">
+                            <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="container2">
+                    <div class="row">
+                        <div class="col">
+                            <input id="isFourCheck" type="checkbox">
+                            <label id="isFourLabel" for="isFourCheck">4 Level Pyramid</label>
+                            <form id="positionInputForm" style="padding-bottom: 4px;">
+                                <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onSolveButtonClick">Solve
+                                </button>
+                                <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onNextButtonClick">Display
+                                    Next
+                                </button>
+                                <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onClearButtonClick">Clear
+                                </button>
+                                <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onStopButtonClick">Stop
+                                </button>
+                            </form>
+<!--                            <button class="btn fifth" type="button" style="margin-left: 3px; margin-right: 3px;"-->
+<!--                                    id="onSolveButtonClick">-->
+<!--                                Solve-->
+<!--                            </button>-->
+<!--                            <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"-->
+<!--                                    id="onClearButtonClick">-->
+<!--                                Clear-->
+<!--                            </button>-->
+<!--                            <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"-->
+<!--                                    id="onStopButtonClick">-->
+<!--                                Stop-->
+<!--                            </button>-->
+
+<!--                            <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"-->
+<!--                                    id="onNextButtonClick">-->
+<!--                                Display Next-->
+<!--                            </button>-->
+                            <p id="solutionCount">Number of solutions: 0</p>
+                            <br>
+
+                            <input id="l1" type="checkbox" checked>
+                            <label id="l1Label" for="l1">1</label>
+                            <input id="l2" type="checkbox" checked>
+                            <label id="l2Label" for="l2">2</label>
+                            <input id="l3" type="checkbox" checked>
+                            <label id="l3Label" for="l3">3</label>
+                            <input id="l4" type="checkbox" checked>
+                            <label id="l4Label" for="l4">4</label>
+                            <input id="l5" type="checkbox" checked>
+                            <label id="l5Label" for="l5">5</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <br>
+        <!--        <div class="solution-container">-->
+        <!--            <div id="solutionContainer"></div>-->
+
+        <!--        </div>-->
+
+    </div>
+    <br>
+    <br>
+    <footer class="edit-mode">
+        <p>&copy; Group-6 ACS</p>
+    </footer>
+</div>
+
+
+<!--<div id="mainContainer">-->
+<!--    <div id="container1">-->
+<!--        <div id="panel"></div>-->
+<!--    </div>-->
+<!--    <div id="container2" style="padding-top: 10px;">-->
+<!--        <div class="row">-->
+<!--            <div class="col1">-->
+<!--                <input id="isFourCheck" type="checkbox">-->
+<!--                <label id="isFourLabel" for="isFourCheck">4 Level Pyramid</label>-->
+<!--                <form id="positionInputForm" style="padding-bottom: 4px;">-->
+<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onSolveButtonClick">Solve-->
+<!--                    </button>-->
+<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onNextButtonClick">Display-->
+<!--                        Next-->
+<!--                    </button>-->
+<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onClearButtonClick">Clear-->
+<!--                    </button>-->
+<!--                    <button type="button" style="margin-left: 3px; margin-right: 3px;" id="onStopButtonClick">Stop-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--                <label id="shapeLabel" for="inputShape" style="padding-right: 3px;">Shape</label>-->
+<!--                <input id="inputShape" type="text" value="A">-->
+<!--                <p id="solutionCount">Number of solutions: 0</p>-->
+<!--                <input id="l1" type="checkbox" checked>-->
+<!--                <label id="l1Label" for="l1">1</label>-->
+<!--                <input id="l2" type="checkbox" checked>-->
+<!--                <label id="l2Label" for="l2">2</label>-->
+<!--                <input id="l3" type="checkbox" checked>-->
+<!--                <label id="l3Label" for="l3">3</label>-->
+<!--                <input id="l4" type="checkbox" checked>-->
+<!--                <label id="l4Label" for="l4">4</label>-->
+<!--                <input id="l5" type="checkbox" checked>-->
+<!--                <label id="l5Label" for="l5">5</label>-->
+<!--            </div>-->
+<!--            <div class="col2">-->
+<!--                <div class="row justify-content-left pt-1" id="legend" style="padding-left: 20px;">-->
+<!--                    <img src="{% static 'polysphere3D_app/Images/ShapeLegend.png' %}" style="width: 70%;">-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<script type="module" src="{% static 'polysphere3D_app/js/ui.js' %}"></script>
+<script type="module" src="{% static 'polysphere3D_app/js/three.js' %}"></script>
+<script type="module" src="{% static 'polysphere3D_app/js/OrbitControls.js' %}"></script>
+
+</body>
+</html>

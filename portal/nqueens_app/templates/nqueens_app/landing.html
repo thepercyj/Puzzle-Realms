@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nqueens | ACS Group 6</title>
+    <link href="https://fonts.cdnfonts.com/css/maybe-but-not-always" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/supply-center" rel="stylesheet">
+    <script src="{% static 'nqueens_app/js/script.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'nqueens_app/css/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <img class="title-img" src="{% static 'nqueens_app/images/title.webp' %}" alt="title image" >
+        <h1>Master the Board: N-Queens Solver</h1>
+        <h3>What is N-Queens ?</h3>
+        <p class="edit-mode">The N-Queens puzzle is a classic combinatorial problem that involves placing N chess queens on an <b>N×N chessboard</b> in such a way that no two queens threaten each other. Here's a short description of how to solve the N-Queens puzzle:
+
+            Understand the Problem: First, understand the rules and constraints of the puzzle. In an <b>N×N chessboard</b>, you need to place N queens in a way that no two queens share the same row, column, or diagonal. The goal is to find all valid solutions.
+
+            Choose a Starting Point: Start with an empty chessboard or an array to represent the board. The board is typically an N×N grid, and you'll place queens on it.</p>
+        <br>
+        <!-- Add an image element with an ID -->
+        <div class="edit-mode">
+            <div class="portalContainer">
+                <form action="{% url 'nqueens:landing' %}" method="post">
+                    {% csrf_token %}
+                    <div class="game-text">
+                        <label for="data">Enter Player Name </label>
+                    </div>
+                    <br>
+                    <div class="futuristic-text-field">
+                        <input type="text" name="data_from_landing" required>
+                    </div>
+
+                    <div class="center-container">
+                        <button class="btn first" type="submit">Start</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <footer class="edit-mode">
+            <p>&copy; Group-6 ACS</p>
+        </footer>
+    </div>
+</div>
+</body>
+</html>
