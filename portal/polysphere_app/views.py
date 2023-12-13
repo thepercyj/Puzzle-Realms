@@ -216,8 +216,6 @@ def generate_solution_gallery(request):
     Returns:
         HttpResponse: The HTTP response object.
     """
-    # Rest of the code...
-def generate_solution_gallery(request):
     # solutions = get_list_of_solution_matrices()
     # solutions = [solution.split("\n") for solution in solutions]
     # time_taken = end_time - start_time
