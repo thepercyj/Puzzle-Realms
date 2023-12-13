@@ -65,7 +65,7 @@
 }
 
 .solution-container {
-    max-height: 500px;
+    max-height: 900px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -149,7 +149,11 @@ b {
     align-items: center;
     justify-content: center;
 }
-
+#Levels {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
 
 .btn {
   box-sizing: border-box;

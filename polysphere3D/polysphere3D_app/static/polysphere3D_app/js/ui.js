@@ -228,8 +228,10 @@ ClearButton.addEventListener('click', onClearButton);
 StopButton.addEventListener('click', onStopButton);
 
 const layerCheckboxes = [];
+const sol_layerCheckboxes = [];
 const toggle = document.getElementById('toggleButton');
 const toggleDiv = document.getElementById('SolContainer');
+const layer_pyramid = document.getElementById('Levels');
 
 toggleButton.addEventListener('click', function () {
         // Prevent the default form submission behavior
@@ -239,9 +241,11 @@ toggleButton.addEventListener('click', function () {
         if (toggleDiv.style.display === 'none' || toggleDiv.style.display === '') {
             toggleDiv.style.display = 'flex';
             toggleButton.textContent = 'Hide';
+            layer_pyramid.style.display = 'flex';
 
         } else {
             toggleDiv.style.display = 'none';
+            layer_pyramid.style.display = 'none';
             toggleButton.textContent = 'Show Solutions';
 
         }
@@ -251,12 +255,18 @@ toggleButton.addEventListener('click', function () {
 
 for (let i = 1; i <= 5; i++) {
     const checkbox = document.getElementById('l'+i);
+    const sol_checkbox = document.getElementById('ls'+i);
     checkbox.addEventListener('change', (event) => {
         layerVisible(i, event.target.checked);
     });
+        sol_checkbox.addEventListener('change', (event) => {
+        sol_layerVisible(i, event.target.checked);
+    });
     const label = document.getElementById('l'+i+'Label');
+    const sol_label = document.getElementById('ls'+i+'Label');
     console.log(checkbox, label);
     layerCheckboxes.push(checkbox, label);
+    sol_layerCheckboxes.push(sol_checkbox, sol_label);
 }
 
 //FourCheck.addEventListener('change', (event) => {
