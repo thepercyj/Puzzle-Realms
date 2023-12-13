@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>polysphere_app.kanoodle API documentation</title>
+<meta name="description" content="Created on Tue Nov
+7 19:11:51 2023 …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>polysphere_app.kanoodle</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Tue Nov
+7 19:11:51 2023</p>
+<p>@author: kadam</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Tue Nov  7 19:11:51 2023
+
+@author: kadam
+&#34;&#34;&#34;
+
+from enum import Enum
+from typing import List, Set
+from .DLX import *
+import re
+
+
+from typing import List, Set
+
+class Kanoodle:
+    &#34;&#34;&#34;
+    Kanoodle class represents a puzzle-solving game.
+
+    Attributes:
+        None
+
+    Methods:
+        findAllSolutions: Finds all solutions for the Kanoodle puzzle given the piece descriptions, grid width, and grid height.
+        createPieces: Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+        createSearchRows: Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+        formatGrid: Formats the solutions as a grid of strings.
+
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def findAllSolutions(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -&gt; str:
+        &#34;&#34;&#34;
+        Finds all solutions for the Kanoodle puzzle.
+
+        Args:
+            pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A string representing the formatted solutions of the puzzle, or &#34;No solution found&#34; if no solution is found.
+        &#34;&#34;&#34;
+        pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
+
+        rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
+        solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
+        if solutions:
+            return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
+
+        return &#34;No solution found&#34;
+
+    @staticmethod
+    def createPieces(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -&gt; List[&#39;Piece&#39;]:
+        &#34;&#34;&#34;
+        Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+
+        Args:
+            pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of Piece objects.
+        &#34;&#34;&#34;
+        return [Piece(desc, i, gridWidth, gridHeight) for i, desc in enumerate(pieceDescriptions)]
+
+    @staticmethod
+    def createSearchRows(pieces: List[&#39;Piece&#39;], gridWidth: int, gridHeight: int) -&gt; List[&#39;SearchRow&#39;]:
+        &#34;&#34;&#34;
+        Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+
+        Args:
+            pieces: A list of Piece objects representing the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of SearchRow objects.
+        &#34;&#34;&#34;
+        rotations = list(Rotation)
+        flipStates = [False, True]
+        maxPiecePermutations = len(pieces) * len(rotations) * len(flipStates)
+        rows = []
+        pieceSignatures: Set[int] = set()
+
+        for piece in pieces:
+            for rotation in rotations:
+                for flip in flipStates:
+                    signature = piece.get_signature(rotation, flip)
+                    if signature not in pieceSignatures:
+                        pieceSignatures.add(signature)
+                        maxCol = gridWidth - piece.getWidth(rotation)
+                        maxRow = gridHeight - piece.getHeight(rotation)
+                        for row in range(maxRow + 1):
+                            for col in range(maxCol + 1):
+                                rows.append(SearchRow(piece, rotation, col, row, flip))
+        return rows
+
+    @staticmethod
+    def formatGrid(solutions: List[List[&#39;SearchRow&#39;]], gridWidth: int, gridHeight: int) -&gt; List[List[List[str]]]:
+        &#34;&#34;&#34;
+        Formats the solutions as a grid of strings.
+
+        Args:
+            solutions: A list of lists of SearchRow objects representing the solutions.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of lists of strings representing the formatted solutions.
+        &#34;&#34;&#34;
+        formattedSolutions = []
+
+        # Define a helper function to format a single grid as a string
+        def formatSingleGrid(grid):
+            formatted = []
+            for row in grid:
+                formatted_row = &#39;&#39;.join(row)
+                formatted.append(formatted_row)
+            return &#39;\n&#39;.join(formatted)
+
+        for sol in solutions:
+            grid = [[&#39; &#39; for _ in range(gridWidth)] for _ in range(gridHeight)]
+            for row in sol:
+                for r in range(row.piece.getHeight(row.rotation)):
+                    for c in range(row.piece.getWidth(row.rotation)):
+                        if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
+                            grid[row.row + r][row.col + c] = row.piece.symbol
+            formattedSolutions.append(formatSingleGrid(grid))
+        return &#39;\n\n&#39;.join(formattedSolutions)
+
+
+from enum import Enum
+
+class Rotation(Enum):
+    &#34;&#34;&#34;
+    Enum representing different rotation angles.
+    
+    Attributes:
+        ROTATION_0 (int): Represents a rotation angle of 0 degrees.
+        ROTATION_90 (int): Represents a rotation angle of 90 degrees.
+        ROTATION_180 (int): Represents a rotation angle of 180 degrees.
+        ROTATION_270 (int): Represents a rotation angle of 270 degrees.
+    &#34;&#34;&#34;
+    ROTATION_0 = 0
+    ROTATION_90 = 1
+    ROTATION_180 = 2
+    ROTATION_270 = 3
+
+    @classmethod
+    def __iter__(cls):
+        return iter([cls.ROTATION_0, cls.ROTATION_90, cls.ROTATION_180, cls.ROTATION_270])
+
+
+class Tile:
+    def __init__(self, col, row):
+        self.col = col
+        self.row = row
+
+
+class Piece:
+    def __init__(self, src: str, index: int, gridWidth: int, gridHeight: int):
+        &#34;&#34;&#34;
+        Initializes a Piece object.
+
+        Args:
+            src (str): The source string representing the piece.
+            index (int): The index of the piece.
+            gridWidth (int): The width of the grid.
+            gridHeight (int): The height of the grid.
+        &#34;&#34;&#34;
+        self.index = index
+        self.source = src
+        self.symbol = src.strip()[0]
+        self.gridWidth = gridWidth
+        self.gridHeight = gridHeight
+        self.dimensions = Tile(0, 0)
+        tiles = self.extractTiles(src, self.dimensions)
+        self.bitfield = self.buildBitfield(tiles, self.dimensions)
+
+    ...
+
+    def get_signature(self, rotation, flipped):
+        &#34;&#34;&#34;
+        Calculates the signature of the piece based on its rotation and flipped status.
+
+        Args:
+            rotation: The rotation of the piece.
+            flipped: The flipped status of the piece.
+
+        Returns:
+            int: The signature of the piece.
+        &#34;&#34;&#34;
+        signature = 0
+        for r in range(8):
+            for c in range(8):
+                if self.is_tile_at(c, r, rotation, flipped):
+                    signature |= 1 &lt;&lt; (r * 8 + c)
+        return signature
+
+
+class SearchRow(DLX.RowSupplier):
+    def __init__(self, piece: Piece, rotation: Rotation, col: int, row: int, flipped: bool):
+        &#34;&#34;&#34;
+        Initializes a SearchRow object.
+
+        Args:
+            piece (Piece): The piece associated with the row.
+            rotation (Rotation): The rotation of the piece.
+            col (int): The column position of the piece.
+            row (int): The row position of the piece.
+            flipped (bool): Indicates if the piece is flipped or not.
+        &#34;&#34;&#34;
+        self.piece = piece
+        self.rotation = rotation
+        self.col = col
+        self.row = row
+        self.flipped = flipped
+
+    def is_tile_at(self, c, r):
+        &#34;&#34;&#34;
+        Checks if there is a tile at the specified column and row position.
+
+        Args:
+            c (int): The column position.
+            r (int): The row position.
+
+        Returns:
+            bool: True if there is a tile at the specified position, False otherwise.
+        &#34;&#34;&#34;
+        return self.piece.is_tile_at(c - self.col, r - self.row, self.rotation, self.flipped)
+
+    def isColumnOccupied(self, col):
+        &#34;&#34;&#34;
+        Checks if the specified column is occupied.
+
+        Args:
+            col (int): The column index.
+
+        Returns:
+            bool: True if the column is occupied, False otherwise.
+        &#34;&#34;&#34;
+        if col &gt;= self.piece.gridWidth * self.piece.gridHeight:
+            return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
+
+        return self.is_tile_at(col % self.piece.gridWidth, col // self.piece.gridWidth)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="polysphere_app.kanoodle.Kanoodle"><code class="flex name class">
+<span>class <span class="ident">Kanoodle</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Kanoodle class represents a puzzle-solving game.</p>
+<h2 id="attributes">Attributes</h2>
+<p>None</p>
+<h2 id="methods">Methods</h2>
+<p>findAllSolutions: Finds all solutions for the Kanoodle puzzle given the piece descriptions, grid width, and grid height.
+createPieces: Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+createSearchRows: Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+formatGrid: Formats the solutions as a grid of strings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Kanoodle:
+    &#34;&#34;&#34;
+    Kanoodle class represents a puzzle-solving game.
+
+    Attributes:
+        None
+
+    Methods:
+        findAllSolutions: Finds all solutions for the Kanoodle puzzle given the piece descriptions, grid width, and grid height.
+        createPieces: Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+        createSearchRows: Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+        formatGrid: Formats the solutions as a grid of strings.
+
+    &#34;&#34;&#34;
+
+    @staticmethod
+    def findAllSolutions(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -&gt; str:
+        &#34;&#34;&#34;
+        Finds all solutions for the Kanoodle puzzle.
+
+        Args:
+            pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A string representing the formatted solutions of the puzzle, or &#34;No solution found&#34; if no solution is found.
+        &#34;&#34;&#34;
+        pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
+
+        rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
+        solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
+        if solutions:
+            return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
+
+        return &#34;No solution found&#34;
+
+    @staticmethod
+    def createPieces(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -&gt; List[&#39;Piece&#39;]:
+        &#34;&#34;&#34;
+        Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+
+        Args:
+            pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of Piece objects.
+        &#34;&#34;&#34;
+        return [Piece(desc, i, gridWidth, gridHeight) for i, desc in enumerate(pieceDescriptions)]
+
+    @staticmethod
+    def createSearchRows(pieces: List[&#39;Piece&#39;], gridWidth: int, gridHeight: int) -&gt; List[&#39;SearchRow&#39;]:
+        &#34;&#34;&#34;
+        Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+
+        Args:
+            pieces: A list of Piece objects representing the puzzle pieces.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of SearchRow objects.
+        &#34;&#34;&#34;
+        rotations = list(Rotation)
+        flipStates = [False, True]
+        maxPiecePermutations = len(pieces) * len(rotations) * len(flipStates)
+        rows = []
+        pieceSignatures: Set[int] = set()
+
+        for piece in pieces:
+            for rotation in rotations:
+                for flip in flipStates:
+                    signature = piece.get_signature(rotation, flip)
+                    if signature not in pieceSignatures:
+                        pieceSignatures.add(signature)
+                        maxCol = gridWidth - piece.getWidth(rotation)
+                        maxRow = gridHeight - piece.getHeight(rotation)
+                        for row in range(maxRow + 1):
+                            for col in range(maxCol + 1):
+                                rows.append(SearchRow(piece, rotation, col, row, flip))
+        return rows
+
+    @staticmethod
+    def formatGrid(solutions: List[List[&#39;SearchRow&#39;]], gridWidth: int, gridHeight: int) -&gt; List[List[List[str]]]:
+        &#34;&#34;&#34;
+        Formats the solutions as a grid of strings.
+
+        Args:
+            solutions: A list of lists of SearchRow objects representing the solutions.
+            gridWidth: An integer representing the width of the puzzle grid.
+            gridHeight: An integer representing the height of the puzzle grid.
+
+        Returns:
+            A list of lists of strings representing the formatted solutions.
+        &#34;&#34;&#34;
+        formattedSolutions = []
+
+        # Define a helper function to format a single grid as a string
+        def formatSingleGrid(grid):
+            formatted = []
+            for row in grid:
+                formatted_row = &#39;&#39;.join(row)
+                formatted.append(formatted_row)
+            return &#39;\n&#39;.join(formatted)
+
+        for sol in solutions:
+            grid = [[&#39; &#39; for _ in range(gridWidth)] for _ in range(gridHeight)]
+            for row in sol:
+                for r in range(row.piece.getHeight(row.rotation)):
+                    for c in range(row.piece.getWidth(row.rotation)):
+                        if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
+                            grid[row.row + r][row.col + c] = row.piece.symbol
+            formattedSolutions.append(formatSingleGrid(grid))
+        return &#39;\n\n&#39;.join(formattedSolutions)</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="polysphere_app.kanoodle.Kanoodle.createPieces"><code class="name flex">
+<span>def <span class="ident">createPieces</span></span>(<span>pieceDescriptions: List[str], gridWidth: int, gridHeight: int) ‑> List[<a title="polysphere_app.kanoodle.Piece" href="#polysphere_app.kanoodle.Piece">Piece</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pieceDescriptions</code></strong></dt>
+<dd>A list of strings representing the descriptions of the puzzle pieces.</dd>
+<dt><strong><code>gridWidth</code></strong></dt>
+<dd>An integer representing the width of the puzzle grid.</dd>
+<dt><strong><code>gridHeight</code></strong></dt>
+<dd>An integer representing the height of the puzzle grid.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A list of Piece objects.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def createPieces(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -&gt; List[&#39;Piece&#39;]:
+    &#34;&#34;&#34;
+    Creates a list of Piece objects based on the piece descriptions, grid width, and grid height.
+
+    Args:
+        pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+        gridWidth: An integer representing the width of the puzzle grid.
+        gridHeight: An integer representing the height of the puzzle grid.
+
+    Returns:
+        A list of Piece objects.
+    &#34;&#34;&#34;
+    return [Piece(desc, i, gridWidth, gridHeight) for i, desc in enumerate(pieceDescriptions)]</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.kanoodle.Kanoodle.createSearchRows"><code class="name flex">
+<span>def <span class="ident">createSearchRows</span></span>(<span>pieces: List[ForwardRef('<a title="polysphere_app.kanoodle.Piece" href="#polysphere_app.kanoodle.Piece">Piece</a>')], gridWidth: int, gridHeight: int) ‑> List[<a title="polysphere_app.kanoodle.SearchRow" href="#polysphere_app.kanoodle.SearchRow">SearchRow</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates a list of SearchRow objects based on the pieces, grid width, and grid height.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pieces</code></strong></dt>
+<dd>A list of Piece objects representing the puzzle pieces.</dd>
+<dt><strong><code>gridWidth</code></strong></dt>
+<dd>An integer representing the width of the puzzle grid.</dd>
+<dt><strong><code>gridHeight</code></strong></dt>
+<dd>An integer representing the height of the puzzle grid.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A list of SearchRow objects.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def createSearchRows(pieces: List[&#39;Piece&#39;], gridWidth: int, gridHeight: int) -&gt; List[&#39;SearchRow&#39;]:
+    &#34;&#34;&#34;
+    Creates a list of SearchRow objects based on the pieces, grid width, and grid height.
+
+    Args:
+        pieces: A list of Piece objects representing the puzzle pieces.
+        gridWidth: An integer representing the width of the puzzle grid.
+        gridHeight: An integer representing the height of the puzzle grid.
+
+    Returns:
+        A list of SearchRow objects.
+    &#34;&#34;&#34;
+    rotations = list(Rotation)
+    flipStates = [False, True]
+    maxPiecePermutations = len(pieces) * len(rotations) * len(flipStates)
+    rows = []
+    pieceSignatures: Set[int] = set()
+
+    for piece in pieces:
+        for rotation in rotations:
+            for flip in flipStates:
+                signature = piece.get_signature(rotation, flip)
+                if signature not in pieceSignatures:
+                    pieceSignatures.add(signature)
+                    maxCol = gridWidth - piece.getWidth(rotation)
+                    maxRow = gridHeight - piece.getHeight(rotation)
+                    for row in range(maxRow + 1):
+                        for col in range(maxCol + 1):
+                            rows.append(SearchRow(piece, rotation, col, row, flip))
+    return rows</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.kanoodle.Kanoodle.findAllSolutions"><code class="name flex">
+<span>def <span class="ident">findAllSolutions</span></span>(<span>pieceDescriptions: List[str], gridWidth: int, gridHeight: int) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds all solutions for the Kanoodle puzzle.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pieceDescriptions</code></strong></dt>
+<dd>A list of strings representing the descriptions of the puzzle pieces.</dd>
+<dt><strong><code>gridWidth</code></strong></dt>
+<dd>An integer representing the width of the puzzle grid.</dd>
+<dt><strong><code>gridHeight</code></strong></dt>
+<dd>An integer representing the height of the puzzle grid.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A string representing the formatted solutions of the puzzle, or "No solution found" if no solution is found.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def findAllSolutions(pieceDescriptions: List[str], gridWidth: int, gridHeight: int) -&gt; str:
+    &#34;&#34;&#34;
+    Finds all solutions for the Kanoodle puzzle.
+
+    Args:
+        pieceDescriptions: A list of strings representing the descriptions of the puzzle pieces.
+        gridWidth: An integer representing the width of the puzzle grid.
+        gridHeight: An integer representing the height of the puzzle grid.
+
+    Returns:
+        A string representing the formatted solutions of the puzzle, or &#34;No solution found&#34; if no solution is found.
+    &#34;&#34;&#34;
+    pieces = Kanoodle.createPieces(pieceDescriptions, gridWidth, gridHeight)
+
+    rows = Kanoodle.createSearchRows(pieces, gridWidth, gridHeight)
+    solutions = DLX.solveAll(rows, gridWidth * gridHeight + len(pieces))
+    if solutions:
+        return Kanoodle.formatGrid(solutions, gridWidth, gridHeight)
+
+    return &#34;No solution found&#34;</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.kanoodle.Kanoodle.formatGrid"><code class="name flex">
+<span>def <span class="ident">formatGrid</span></span>(<span>solutions: List[List[ForwardRef('<a title="polysphere_app.kanoodle.SearchRow" href="#polysphere_app.kanoodle.SearchRow">SearchRow</a>')]], gridWidth: int, gridHeight: int) ‑> List[List[List[str]]]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Formats the solutions as a grid of strings.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>solutions</code></strong></dt>
+<dd>A list of lists of SearchRow objects representing the solutions.</dd>
+<dt><strong><code>gridWidth</code></strong></dt>
+<dd>An integer representing the width of the puzzle grid.</dd>
+<dt><strong><code>gridHeight</code></strong></dt>
+<dd>An integer representing the height of the puzzle grid.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A list of lists of strings representing the formatted solutions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def formatGrid(solutions: List[List[&#39;SearchRow&#39;]], gridWidth: int, gridHeight: int) -&gt; List[List[List[str]]]:
+    &#34;&#34;&#34;
+    Formats the solutions as a grid of strings.
+
+    Args:
+        solutions: A list of lists of SearchRow objects representing the solutions.
+        gridWidth: An integer representing the width of the puzzle grid.
+        gridHeight: An integer representing the height of the puzzle grid.
+
+    Returns:
+        A list of lists of strings representing the formatted solutions.
+    &#34;&#34;&#34;
+    formattedSolutions = []
+
+    # Define a helper function to format a single grid as a string
+    def formatSingleGrid(grid):
+        formatted = []
+        for row in grid:
+            formatted_row = &#39;&#39;.join(row)
+            formatted.append(formatted_row)
+        return &#39;\n&#39;.join(formatted)
+
+    for sol in solutions:
+        grid = [[&#39; &#39; for _ in range(gridWidth)] for _ in range(gridHeight)]
+        for row in sol:
+            for r in range(row.piece.getHeight(row.rotation)):
+                for c in range(row.piece.getWidth(row.rotation)):
+                    if row.piece.is_tile_at(c, r, row.rotation, row.flipped):
+                        grid[row.row + r][row.col + c] = row.piece.symbol
+        formattedSolutions.append(formatSingleGrid(grid))
+    return &#39;\n\n&#39;.join(formattedSolutions)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="polysphere_app.kanoodle.Piece"><code class="flex name class">
+<span>class <span class="ident">Piece</span></span>
+<span>(</span><span>src: str, index: int, gridWidth: int, gridHeight: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializes a Piece object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>src</code></strong> :&ensp;<code>str</code></dt>
+<dd>The source string representing the piece.</dd>
+<dt><strong><code>index</code></strong> :&ensp;<code>int</code></dt>
+<dd>The index of the piece.</dd>
+<dt><strong><code>gridWidth</code></strong> :&ensp;<code>int</code></dt>
+<dd>The width of the grid.</dd>
+<dt><strong><code>gridHeight</code></strong> :&ensp;<code>int</code></dt>
+<dd>The height of the grid.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Piece:
+    def __init__(self, src: str, index: int, gridWidth: int, gridHeight: int):
+        &#34;&#34;&#34;
+        Initializes a Piece object.
+
+        Args:
+            src (str): The source string representing the piece.
+            index (int): The index of the piece.
+            gridWidth (int): The width of the grid.
+            gridHeight (int): The height of the grid.
+        &#34;&#34;&#34;
+        self.index = index
+        self.source = src
+        self.symbol = src.strip()[0]
+        self.gridWidth = gridWidth
+        self.gridHeight = gridHeight
+        self.dimensions = Tile(0, 0)
+        tiles = self.extractTiles(src, self.dimensions)
+        self.bitfield = self.buildBitfield(tiles, self.dimensions)
+
+    ...
+
+    def get_signature(self, rotation, flipped):
+        &#34;&#34;&#34;
+        Calculates the signature of the piece based on its rotation and flipped status.
+
+        Args:
+            rotation: The rotation of the piece.
+            flipped: The flipped status of the piece.
+
+        Returns:
+            int: The signature of the piece.
+        &#34;&#34;&#34;
+        signature = 0
+        for r in range(8):
+            for c in range(8):
+                if self.is_tile_at(c, r, rotation, flipped):
+                    signature |= 1 &lt;&lt; (r * 8 + c)
+        return signature</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="polysphere_app.kanoodle.Piece.get_signature"><code class="name flex">
+<span>def <span class="ident">get_signature</span></span>(<span>self, rotation, flipped)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the signature of the piece based on its rotation and flipped status.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>rotation</code></strong></dt>
+<dd>The rotation of the piece.</dd>
+<dt><strong><code>flipped</code></strong></dt>
+<dd>The flipped status of the piece.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The signature of the piece.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_signature(self, rotation, flipped):
+    &#34;&#34;&#34;
+    Calculates the signature of the piece based on its rotation and flipped status.
+
+    Args:
+        rotation: The rotation of the piece.
+        flipped: The flipped status of the piece.
+
+    Returns:
+        int: The signature of the piece.
+    &#34;&#34;&#34;
+    signature = 0
+    for r in range(8):
+        for c in range(8):
+            if self.is_tile_at(c, r, rotation, flipped):
+                signature |= 1 &lt;&lt; (r * 8 + c)
+    return signature</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="polysphere_app.kanoodle.Rotation"><code class="flex name class">
+<span>class <span class="ident">Rotation</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enum representing different rotation angles.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>ROTATION_0</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents a rotation angle of 0 degrees.</dd>
+<dt><strong><code>ROTATION_90</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents a rotation angle of 90 degrees.</dd>
+<dt><strong><code>ROTATION_180</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents a rotation angle of 180 degrees.</dd>
+<dt><strong><code>ROTATION_270</code></strong> :&ensp;<code>int</code></dt>
+<dd>Represents a rotation angle of 270 degrees.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Rotation(Enum):
+    &#34;&#34;&#34;
+    Enum representing different rotation angles.
+    
+    Attributes:
+        ROTATION_0 (int): Represents a rotation angle of 0 degrees.
+        ROTATION_90 (int): Represents a rotation angle of 90 degrees.
+        ROTATION_180 (int): Represents a rotation angle of 180 degrees.
+        ROTATION_270 (int): Represents a rotation angle of 270 degrees.
+    &#34;&#34;&#34;
+    ROTATION_0 = 0
+    ROTATION_90 = 1
+    ROTATION_180 = 2
+    ROTATION_270 = 3
+
+    @classmethod
+    def __iter__(cls):
+        return iter([cls.ROTATION_0, cls.ROTATION_90, cls.ROTATION_180, cls.ROTATION_270])</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="polysphere_app.kanoodle.Rotation.ROTATION_0"><code class="name">var <span class="ident">ROTATION_0</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="polysphere_app.kanoodle.Rotation.ROTATION_180"><code class="name">var <span class="ident">ROTATION_180</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="polysphere_app.kanoodle.Rotation.ROTATION_270"><code class="name">var <span class="ident">ROTATION_270</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="polysphere_app.kanoodle.Rotation.ROTATION_90"><code class="name">var <span class="ident">ROTATION_90</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="polysphere_app.kanoodle.SearchRow"><code class="flex name class">
+<span>class <span class="ident">SearchRow</span></span>
+<span>(</span><span>piece: <a title="polysphere_app.kanoodle.Piece" href="#polysphere_app.kanoodle.Piece">Piece</a>, rotation: <a title="polysphere_app.kanoodle.Rotation" href="#polysphere_app.kanoodle.Rotation">Rotation</a>, col: int, row: int, flipped: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<p>Initializes a SearchRow object.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>piece</code></strong> :&ensp;<code><a title="polysphere_app.kanoodle.Piece" href="#polysphere_app.kanoodle.Piece">Piece</a></code></dt>
+<dd>The piece associated with the row.</dd>
+<dt><strong><code>rotation</code></strong> :&ensp;<code><a title="polysphere_app.kanoodle.Rotation" href="#polysphere_app.kanoodle.Rotation">Rotation</a></code></dt>
+<dd>The rotation of the piece.</dd>
+<dt><strong><code>col</code></strong> :&ensp;<code>int</code></dt>
+<dd>The column position of the piece.</dd>
+<dt><strong><code>row</code></strong> :&ensp;<code>int</code></dt>
+<dd>The row position of the piece.</dd>
+<dt><strong><code>flipped</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Indicates if the piece is flipped or not.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SearchRow(DLX.RowSupplier):
+    def __init__(self, piece: Piece, rotation: Rotation, col: int, row: int, flipped: bool):
+        &#34;&#34;&#34;
+        Initializes a SearchRow object.
+
+        Args:
+            piece (Piece): The piece associated with the row.
+            rotation (Rotation): The rotation of the piece.
+            col (int): The column position of the piece.
+            row (int): The row position of the piece.
+            flipped (bool): Indicates if the piece is flipped or not.
+        &#34;&#34;&#34;
+        self.piece = piece
+        self.rotation = rotation
+        self.col = col
+        self.row = row
+        self.flipped = flipped
+
+    def is_tile_at(self, c, r):
+        &#34;&#34;&#34;
+        Checks if there is a tile at the specified column and row position.
+
+        Args:
+            c (int): The column position.
+            r (int): The row position.
+
+        Returns:
+            bool: True if there is a tile at the specified position, False otherwise.
+        &#34;&#34;&#34;
+        return self.piece.is_tile_at(c - self.col, r - self.row, self.rotation, self.flipped)
+
+    def isColumnOccupied(self, col):
+        &#34;&#34;&#34;
+        Checks if the specified column is occupied.
+
+        Args:
+            col (int): The column index.
+
+        Returns:
+            bool: True if the column is occupied, False otherwise.
+        &#34;&#34;&#34;
+        if col &gt;= self.piece.gridWidth * self.piece.gridHeight:
+            return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
+
+        return self.is_tile_at(col % self.piece.gridWidth, col // self.piece.gridWidth)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="polysphere_app.DLX.DLX.RowSupplier" href="DLX.html#polysphere_app.DLX.DLX.RowSupplier">DLX.RowSupplier</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="polysphere_app.kanoodle.SearchRow.isColumnOccupied"><code class="name flex">
+<span>def <span class="ident">isColumnOccupied</span></span>(<span>self, col)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks if the specified column is occupied.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>col</code></strong> :&ensp;<code>int</code></dt>
+<dd>The column index.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the column is occupied, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def isColumnOccupied(self, col):
+    &#34;&#34;&#34;
+    Checks if the specified column is occupied.
+
+    Args:
+        col (int): The column index.
+
+    Returns:
+        bool: True if the column is occupied, False otherwise.
+    &#34;&#34;&#34;
+    if col &gt;= self.piece.gridWidth * self.piece.gridHeight:
+        return self.piece.index == col - (self.piece.gridWidth * self.piece.gridHeight)
+
+    return self.is_tile_at(col % self.piece.gridWidth, col // self.piece.gridWidth)</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.kanoodle.SearchRow.is_tile_at"><code class="name flex">
+<span>def <span class="ident">is_tile_at</span></span>(<span>self, c, r)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks if there is a tile at the specified column and row position.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>c</code></strong> :&ensp;<code>int</code></dt>
+<dd>The column position.</dd>
+<dt><strong><code>r</code></strong> :&ensp;<code>int</code></dt>
+<dd>The row position.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if there is a tile at the specified position, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_tile_at(self, c, r):
+    &#34;&#34;&#34;
+    Checks if there is a tile at the specified column and row position.
+
+    Args:
+        c (int): The column position.
+        r (int): The row position.
+
+    Returns:
+        bool: True if there is a tile at the specified position, False otherwise.
+    &#34;&#34;&#34;
+    return self.piece.is_tile_at(c - self.col, r - self.row, self.rotation, self.flipped)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="polysphere_app.kanoodle.Tile"><code class="flex name class">
+<span>class <span class="ident">Tile</span></span>
+<span>(</span><span>col, row)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Tile:
+    def __init__(self, col, row):
+        self.col = col
+        self.row = row</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="polysphere_app" href="index.html">polysphere_app</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="polysphere_app.kanoodle.Kanoodle" href="#polysphere_app.kanoodle.Kanoodle">Kanoodle</a></code></h4>
+<ul class="">
+<li><code><a title="polysphere_app.kanoodle.Kanoodle.createPieces" href="#polysphere_app.kanoodle.Kanoodle.createPieces">createPieces</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.Kanoodle.createSearchRows" href="#polysphere_app.kanoodle.Kanoodle.createSearchRows">createSearchRows</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.Kanoodle.findAllSolutions" href="#polysphere_app.kanoodle.Kanoodle.findAllSolutions">findAllSolutions</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.Kanoodle.formatGrid" href="#polysphere_app.kanoodle.Kanoodle.formatGrid">formatGrid</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="polysphere_app.kanoodle.Piece" href="#polysphere_app.kanoodle.Piece">Piece</a></code></h4>
+<ul class="">
+<li><code><a title="polysphere_app.kanoodle.Piece.get_signature" href="#polysphere_app.kanoodle.Piece.get_signature">get_signature</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="polysphere_app.kanoodle.Rotation" href="#polysphere_app.kanoodle.Rotation">Rotation</a></code></h4>
+<ul class="">
+<li><code><a title="polysphere_app.kanoodle.Rotation.ROTATION_0" href="#polysphere_app.kanoodle.Rotation.ROTATION_0">ROTATION_0</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.Rotation.ROTATION_180" href="#polysphere_app.kanoodle.Rotation.ROTATION_180">ROTATION_180</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.Rotation.ROTATION_270" href="#polysphere_app.kanoodle.Rotation.ROTATION_270">ROTATION_270</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.Rotation.ROTATION_90" href="#polysphere_app.kanoodle.Rotation.ROTATION_90">ROTATION_90</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="polysphere_app.kanoodle.SearchRow" href="#polysphere_app.kanoodle.SearchRow">SearchRow</a></code></h4>
+<ul class="">
+<li><code><a title="polysphere_app.kanoodle.SearchRow.isColumnOccupied" href="#polysphere_app.kanoodle.SearchRow.isColumnOccupied">isColumnOccupied</a></code></li>
+<li><code><a title="polysphere_app.kanoodle.SearchRow.is_tile_at" href="#polysphere_app.kanoodle.SearchRow.is_tile_at">is_tile_at</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="polysphere_app.kanoodle.Tile" href="#polysphere_app.kanoodle.Tile">Tile</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

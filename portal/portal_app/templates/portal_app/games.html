@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>Puzzle Realms | ACS Group 6</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="EndGam Gaming Magazine Template">
+	<meta name="keywords" content="endGam,gGaming, magazine, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="{% static 'portal_app/img/favicon.ico' %}" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/slicknav.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/magnific-popup.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/animate.css' %}">
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/style.css' %}">
+
+
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
+
+	<!-- Header section -->
+	<header class="header-section">
+		<div class="header-warp">
+			<div class="header-bar-warp d-flex">
+				<!-- site logo -->
+				<a href="{% url 'portal' %}" class="site-logo">
+					<img src="{% static 'portal_app/img/logo-no-background.png' %}" alt="">
+				</a>
+				<nav class="top-nav-area w-100">
+					<div class="user-panel">
+						{% if user.is_authenticated %}
+						<ul class="main-menu primary-menu">
+							<li><a>Welcome, {{ user.username }}</a>
+								<ul class="sub-menu">
+									<li><a href="{% url 'logout' %}">Logout</a></li>
+								</ul>
+							</li>
+						</ul>
+						{% else %}
+						<a href="{% url 'login' %}">Login</a> / <a href="{% url 'register' %}">Register</a>
+						{% endif %}
+					</div>
+					<!-- Menu -->
+					<ul class="main-menu primary-menu">
+						<li><a href="#">Home</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'portal' %}">Dashboard</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Games</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'nqueens_game' %}">N-Queens</a></li>
+								<li><a href="{% url 'polysphere_game' %}">Polysphere Pro</a></li>
+								<li><a href="{% url 'polysphere3D_game' %}">Polysphere Extreme</a></li>
+							</ul>
+						</li>
+						<li><a href="#">About</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'team' %}">Meet the Team</a></li>
+								<li><a href="{% static 'portal_app/doc/technical.pdf' %}" target="_blank">Documentation</a></li>
+								<li><a href="https://github.com/thepercyj/ASE-Group-6">Source Code</a></li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- Header section end -->
+
+	<!-- Page top section -->
+	<section class="page-top-section set-bg" data-setbg="{% static 'portal_app/img/games-bg.jpg' %}">
+		<div class="page-info">
+			<h2>Games</h2>
+			<div class="site-breadcrumb">
+				<a href="{% url 'portal' %}">Home</a>  /
+				<span>Games</span>
+			</div>
+		</div>
+	</section>
+	<!-- Page top end-->
+
+	<!-- Review section -->
+	<section class="review-section">
+		<div class="container">
+			<div class="review-item">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="review-pic">
+							<a href="{% url 'nqueens_game' %}" ><img src="{% static 'portal_app/img/n-queens-demo.gif' %}" alt="#"></a>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="review-content text-box text-white">
+							<div class="rating">
+								<ul class="blog-filter">
+									<li><a href="{% url 'nqueens:landing' %}">Play</a></li>
+								</ul>
+							</div>
+							<h3>N-Queens Solver</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<a href="{% url 'nqueens_game' %}" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="review-item">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="review-pic">
+							<a href="{% url 'polysphere_game' %}" ><img src="{% static 'portal_app/img/polysphere-pro-demo.gif' %}" alt="#"></a>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="review-content text-box text-white">
+							<div class="rating">
+								<ul class="blog-filter">
+									<li><a href="{% url 'polysphere:landing' %}">Play</a></li>
+								</ul>
+							</div>
+							<h3>Polysphere Pro</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<a href="{% url 'polysphere_game' %}" class="read-more">Read More <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="review-item">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="review-pic">
+							<a href="{% url 'polysphere3D_game' %}" ><img src="{% static 'portal_app/img/kanoodle-extreme-demo.gif' %}" alt="#"></a>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="review-content text-box text-white">
+							<div class="rating">
+								<ul class="blog-filter">
+									<li><a href="{% url 'polysphere3D:landing' %}">Play</a></li>
+								</ul>
+							</div>
+							<h3>Polysphere Extreme</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<a href="{% url 'polysphere3D_game' %}" class="read-more">Read More <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Review section end-->
+
+	<!-- Featured section -->
+	<section class="featured-section">
+		<div class="featured-bg set-bg" data-setbg="{% static 'portal_app/img/kid.webp' %}"></div>
+		<div class="featured-box">
+			<div class="text-box">
+				<h3>This games are design to help develop your cognitive ability</h3>
+				<p> The games have been created with a combination of educational and entertainment goals. They serve as tools for learning and cognitive development while providing an engaging and enjoyable experience for individuals and groups.</p>
+				<a href="#" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+			</div>
+		</div>
+	</section>
+	<!-- Featured section end-->
+
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<a href="#" class="footer-logo">
+				<img src="{% static 'portal_app/img/logo-no-background.png' %}" alt="">
+			</a>
+			<br>
+			<br>
+			<br>
+			<div class="copyright">&copy; <a href="">ASE-Group-6</a>. All Rights Reserved.</div>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+	<script src="{% static 'portal_app/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/jquery.slicknav.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/jquery.sticky-sidebar.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'portal_app/js/main.js' %}"></script>
+
+	</body>
+</html>
