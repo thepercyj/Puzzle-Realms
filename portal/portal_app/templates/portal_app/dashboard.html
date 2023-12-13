@@ -121,8 +121,12 @@
 
 	<!-- Intro section -->
 	<section class="intro-video-section set-bg d-flex align-items-end " data-setbg="{% static 'portal_app/img/promo-bg.webp' %}">
-		<a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img src="{% static 'portal_app/img/icons/solid-right-arrow.png' %}" alt="#"></a>
+
 		<div class="container">
+            <video width="640" height="360" controls>
+    <source src="{% static 'portal_app/img/puzzle-preview.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 			<div class="video-text">
 				<h2>Promo video of the game</h2>
 				<p>A short video of showcasing the games you are about to play.</p>
