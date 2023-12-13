@@ -28,7 +28,7 @@ DEBUG = True
 
 AUTH_USER_MODEL = 'portal_app.CustomUser'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
