@@ -370,7 +370,7 @@ function onSolveButton() {
         state.solutions = [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
         console.log("Solve", pyramid_layers)
-        drawPosition(pyramid_layers);
+        sol_drawPosition(pyramid_layers);
     });
 }
 
@@ -380,8 +380,6 @@ function onClearButton() {
     inputShapes.clear();
     inputCoords.clear();
     new resetFirstPlacementCoord()
-
-
 
     // Set pyramid to empty and render empty pyramid
     const empty_position = new Array(5);
@@ -396,9 +394,30 @@ function onClearButton() {
         }
     }
     drawPosition(empty_position);
+    sol_drawPosition(empty_position);
 }
 
 function drawPosition(position) {
+
+    for (let layer = 0; layer < position.length; layer++) {
+        for (let i = 0; i < position[layer].length; i++) {
+            for (let j = 0; j < position[layer].length; j++) {
+                if (["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].indexOf(position[layer][i][j]) !== -1) {
+                    // Set to shape colour
+                    worker.getLayer(5 - layer).set(i, j, Colours[position[layer][i][j]]);
+
+                } else {
+                    // Set to black to indicate empty
+                    worker.getLayer(5 - layer).set(i, j, 0x999999);
+
+                }
+            }
+        }
+    }
+    renderPyramid();
+}
+
+function sol_drawPosition(position) {
 
     for (let layer = 0; layer < position.length; layer++) {
         for (let i = 0; i < position[layer].length; i++) {
@@ -409,8 +428,7 @@ function drawPosition(position) {
 
                 } else {
                     // Set to black to indicate empty
-                    sol_worker.getLayer(5 - layer).set(i, j, 0x999999);
-
+                   sol_worker.getLayer(5 - layer).set(i, j, 0x999999);
 
                 }
             }
@@ -418,7 +436,6 @@ function drawPosition(position) {
     }
     sol_renderPyramid();
 }
-
 
 function checkInput(shapes, coords) {
     console.log("Shapes:", shapes, "Coords:", coords)
@@ -436,7 +453,7 @@ function onNextButton() {
     const solutions = [...state.solutions];
     console.log(state.solutions)
     if (solutions.length > 0) {
-        drawPosition(state.solutions.pop());
+        sol_drawPosition(state.solutions.pop());
     }
 }
 
@@ -445,7 +462,7 @@ function onPrevButton() {
     const solutions = [...state.solutions];
     console.log(state.solutions)
     if (solutions.length > 0) {
-        drawPosition(state.solutions.shift());
+        sol_drawPosition(state.solutions.shift());
     }
 }
 

@@ -137,38 +137,25 @@ export function initScene(canvas) {
         const intersects = raycaster.intersectObjects(scene.children);
 
         for (let i = 0; i < intersects.length; i++) {
-            if (intersects[i].object.visible === true && intersects[i].object.name[0] === "s" &&
-                intersects[i].object.material.color.equals(new Color(0x999999))) {
-
-                let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
-                let shapeIndex = inputShapes.get().indexOf(shape);
-                let lastCoord = shapeIndex >= 0 && inputCoords.get()[shapeIndex].length > 0 ? inputCoords.get()[shapeIndex][inputCoords.get()[shapeIndex].length - 1] : null;
-
-                // if (!lastCoord ||
-                    // (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-                    // (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) {
-                    // if (isPlacementValid(coord, currentShape, lastCoord)) {
+            if (intersects[i].object.visible === true) {
+                // Get only visibile objects
+                if (intersects[i].object.name[0] === "s") {
+                    // Get only sphere's
+                    if (intersects[i].object.material.color.equals(new Color(0x999999))) {
+                        // Get only empty spheres (colour = black)
                         intersects[i].object.material.color.set(Colours[shape]);
+                        let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
                         setInput(shape, coord);
-                        console.log("Placed sphere for shape:", shape, "at coordinates:", coord);
-                        firstPlacementCoord = coord;
-                        // break;
-                    //  else {
-                    //     alert("Invalid placement: Sphere is not correctly adjacent.");
-                    // }
+                        console.log(inputShapes.get());
+                        console.log(inputCoords.get());
+                        break;
+                    }
                 }
             }
         }
-    
+    }
 
-    // function isPlacementValid(coord, shape, lastCoord) {
-    //     return (
-    //         !lastCoord ||
-    //         (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-    //         (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
-    //         (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
-    //     );
-    // }
+
 
     window.addEventListener('click', onClick);
 
