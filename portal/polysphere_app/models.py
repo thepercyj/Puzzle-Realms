@@ -39,7 +39,7 @@ class KanoodleSolution(models.Model):
 
     def get_solution_data(self):
             """Parses and returns the solution data from JSON if needed.
-            
+
             Returns:
                 The solution data stored in the object.
             """
