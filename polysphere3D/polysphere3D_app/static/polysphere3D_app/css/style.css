@@ -1,4 +1,51 @@
-.container {
+@import 'https://fonts.googleapis.com/css?family=Rubik+One';
+.board {
+    display: grid;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 2px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #696464;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.cell:hover {
+    background-color: lightgray;
+}
+
+/*-----------------------------*/
+
+/* Center the entire page content vertically and horizontally*/
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the entire page content vertically and horizontally */
+html {
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add background color and styling to the main content*/
+body {
+    background-image: url("../images/background-without-title.webp");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding: 20px;
     text-align: center;
 }
 
@@ -28,72 +75,12 @@
     left:0;
 }
 
-.wrapper {
-    flex: 1;
-    background-color: #BCF4FA;
-    padding: 20px;
-    border-radius: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
-    text-align: center;
-    max-width: 1000px;
-    margin: 0 auto;
-}
 
-.content {
-    font-size: 16px;
-    color:#333;
-    text-align: center;
-}
-
+/* Style the title and description with the specified color */
 .title-image {
     max-width: 70vw;
 
      /* Updated color */
-}
-
-.display-mode {
-    background-color: #BCF4FA;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 70vw;
-    margin: 0 auto;
-    text-align: center;
-    display: flex;
-    gap: 20px; /* Adjust the gap between the columns */
-
-}
-
-.solution-container {
-    max-height: 900px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    background-color: #BCF4FA;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 500px; /* Adjust the value according to your design */
-}
-
-/* Optional: Customize scrollbar styles */
-.solution-container::-webkit-scrollbar {
-    width: 10px;
-}
-
-.solution-container::-webkit-scrollbar-thumb {
-    background-color: #6c757d;
-    border-radius: 10px;
-}
-
-.solution-container::-webkit-scrollbar-track {
-    background-color: #f9f9f9;
-}
-
-html {
-    height: 50%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 h3 {
@@ -119,6 +106,21 @@ b {
     color: #017176;
 }
 
+/* Style the chessboard and solution container */
+.display-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
+
+}
+
 .info-mode {
     background-color: #BCF4FA;
     padding: 20px;
@@ -132,10 +134,30 @@ b {
     gap: 20px; /* Adjust the gap between the columns */
 }
 
-#rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
-    margin: 5px;
-    padding: 8px;
-    font-size: 16px;
+.display-mode img {
+    max-width: 60%; /* Make the images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: Add border-radius to the images */
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20vh; /* Use 100% of the viewport height */
+}
+
+.result-mode {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 70vw;
+    margin: 0 auto;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 3fr 3fr; /* Two columns in the grid */
+    gap: 20px; /* Adjust the gap between the columns */
 }
 
 .imageContainer {
@@ -155,6 +177,58 @@ b {
     justify-content: center;
 }
 
+
+.button-container button {
+    width: 150px; /* Adjust the width as needed */
+    margin: 0 5px; /* Add margin between buttons */
+}
+
+.display-mode {
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+.edit-mode {
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+.wrapper {
+    flex: 1;
+    background-color: #BCF4FA;
+    padding: 20px;
+    border-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer {
+    background-color: #f4f4f4;
+    text-align:center;
+}
+
+.content {
+    font-size: 16px;
+    color:#333;
+    text-align: center;
+}
+
+/*Button CSS
+/* Center the button container and style the game buttons */
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 .btn {
   box-sizing: border-box;
   -webkit-appearance: none;
@@ -169,7 +243,6 @@ b {
   align-self: center;
   font-weight: 400;
   line-height: 1;
-  margin: 20px;
   padding: 1.2em 2.8em;
   text-decoration: none;
   text-align: center;
@@ -273,20 +346,25 @@ b {
   box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
 
-body {
-    background-image: url("../images/background-without-title.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    justify-content: center;
-    background-color: #f4f4f4;
-    padding-top: 20px;
+.futuristic-text-field {
+    position: relative;
+    width: 300px;
+    display: inline-block;
+}
+
+.futuristic-text-field input {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    font-size: 16px;
+    outline: none;
     text-align: center;
-    /*display: flex;*/  /*This is causing the non clickable issue*/
-    align-items: center;
-    margin: 0;
-    height: 215vh;
+    font-family: 'Maybe But Not Always', sans-serif;
 }
 
 .futuristic-text-field input:focus {
@@ -320,72 +398,36 @@ body {
     font-family: 'Maybe But Not Always', sans-serif;
 }
 
-.display-mode img {
-    max-width: 60%; /* Make the images responsive */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 5px; /* Optional: Add border-radius to the images */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
 }
 
-/* Double slider CSS*/
-
-input[type=range] {
-  box-sizing: border-box;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 200px;
-  margin: 0;
-  padding: 0 2px;
-  /* Add some L/R padding to ensure box shadow of handle is shown */
-  overflow: hidden;
-  border: 0;
-  border-radius: 1px;
-  outline: none;
-  background: linear-gradient(grey, grey) no-repeat center;
-  /* Use a linear gradient to generate only the 2px height background */
-  background-size: 100% 2px;
-  pointer-events: none;
-}
-input[type=range]:active,
-input[type=range]:focus {
-  outline: none;
-}
-input[type=range]::-webkit-slider-thumb {
-  height: 28px;
-  width: 28px;
-  border-radius: 28px;
-  background-color: #f00;
-  position: relative;
-  margin: 5px 0;
-  /* Add some margin to ensure box shadow is shown */
-  cursor: pointer;
-  -webkit-appearance: none;
-          appearance: none;
-  pointer-events: all;
-  box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
-}
-.multi-range {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  height: 50px;
-}
-.multi-range input[type=range] {
-  position: absolute;
-}
-.multi-range input[type=range]:nth-child(1)::-webkit-slider-thumb::before {
-  background-color: red;
-}
-.multi-range input[type=range]:nth-child(2) {
-  background: none;
-}
-.multi-range input[type=range]:nth-child(2)::-webkit-slider-thumb::before {
-  background-color: grey;
+.solution-container {
+    max-height: 900px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #BCF4FA;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-height: 500px; /* Adjust the value according to your design */
 }
 
-label{
 
+/* Optional: Customize scrollbar styles */
+.solution-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.solution-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 10px;
+}
+
+.solution-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
 }
 
 /*CSS FOR CHECKBOX*/
@@ -394,7 +436,7 @@ input[type="checkbox"] {
     display: none; /* Hide the default checkbox */
 }
 
-label {
+label1 {
     border: 2px solid #4CAF50; /* Green border color, change as needed */
     border-radius: 20%;
     display: inline-block;
@@ -407,7 +449,7 @@ label {
 
 }
 
-label:hover {
+label1:hover {
     transform: scale(1.7); /* Adjust the scale factor as needed */
     background-color: #A6FF96;
 }
@@ -416,8 +458,6 @@ label:hover {
     display: inline-block;
     margin: 3px; /* Adjust the margin as needed */
 }
-
-
 
 .list-item {
   margin: 1em;

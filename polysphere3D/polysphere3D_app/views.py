@@ -4,13 +4,15 @@ from django.shortcuts import render, redirect
 
 
 def landing(request):
-    if request.method == 'POST':
-        data_from_landing = request.POST.get('data_from_landing', '')
-        request.session['data_from_landing'] = data_from_landing
-        return redirect('ui_template')
-    else:
-        return render(request, 'polysphere3D_app/landing.html')
+    return render(request, 'polysphere3D_app/landing.html')
 
 
 def ui_template(request):
-    return render(request, 'polysphere3D_app/polysphere3d.html')
+    if request.method == 'POST':
+        data_from_landing = request.POST.get('data_from_landing', '')
+        request.session['data_from_landing'] = data_from_landing
+        return render(request,'polysphere3D_app/polysphere3d.html', {'data_from_landing': data_from_landing})
+    else:
+        return render(request, 'polysphere3D_app/polysphere3d.html')
+
+
