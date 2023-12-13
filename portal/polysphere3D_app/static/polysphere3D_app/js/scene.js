@@ -1,14 +1,16 @@
 import { OrbitControls } from "./OrbitControls.js";
 import {
-    Scene, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight,
+    Scene, Vector4, MeshBasicMaterial, ShapeGeometry, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
     SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
 } from "./three.js";
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
+
 const scene = new Scene();
 const camera = new PerspectiveCamera();
 scene.background = new Color("rgb(188,244,250)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
+
 const light = new PointLight(0xBCF4FA, 15, 0);
 light.castShadow = true;
 const helper = new PointLightHelper(light, 2);
@@ -16,11 +18,13 @@ scene.add(light);
 scene.add(helper);
 light.intensity = 0.5;
 light.position.set(0, 0, 1).normalize();
+
 const renderer = new WebGLRenderer({ antialias: true });
+
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
 renderer.setClearColor(0x999999);
-renderer.setPixelRatio(window.devicePixelRatio);
+
 let resizeObeserver;
 let firstPlacementCoord = null;
 let currentShapePlacements = [];
@@ -35,7 +39,7 @@ export let inputShapes = {
     clear() {
         this.store = [];
     },
-    store:[]
+    store: []
 };
 
 export let inputCoords = {
@@ -48,7 +52,7 @@ export let inputCoords = {
     clear() {
         this.store = [];
     },
-    store:[]
+    store: []
 };
 
 const Colours = {
@@ -67,19 +71,13 @@ const Colours = {
 };
 
 export function initScene(canvas) {
-    // console.log(canvas)
-    //const axesHelper = new AxesHelper( 5 );
-    //scene.add( axesHelper );
     camera.fov = 75;
-    // camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.near = 0.2;
     camera.far = 300;
     camera.position.z = 18;
-    camera.position.x = -0
+    camera.position.x = -0;
     camera.position.y = 0;
-    camera.addEventListener('onCameraChange', (e) => {
-        console.log('change');
-    })
+
     renderer.setSize(canvas.clientWidth, canvas.clientWidth);
     resizeObeserver = new ResizeObserver(entries => {
         entries.forEach(entry => {
@@ -92,7 +90,7 @@ export function initScene(canvas) {
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
-    controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+    controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
     controls.maxDistance = 300;
@@ -107,23 +105,18 @@ export function initScene(canvas) {
         if (layer % 2 === 1) {
             x_index = (x - 1 - 1 * layer) / 2;
             y_index = (y - 1 - 1 * layer) / 2;
-        }
-        else {
+        } else {
             x_index = (x - 1 - 1 * layer) / 2;
             y_index = (y - 1 - 1 * layer) / 2;
         }
         return [x_index, y_index, layer];
     }
 
-    function setInput (shape, coord) {
+    function setInput(shape, coord) {
         if (!(inputShapes.get().includes(shape))) {
-            // Add shape if not already added
             inputShapes.add(shape);
-            // Add array for shape coords
             inputCoords.add(new Array(coord));
-        }
-        else {
-            // Add coordinate
+        } else {
             inputCoords.get()[inputShapes.get().indexOf(shape)].push(coord);
         }
     }
@@ -131,21 +124,19 @@ export function initScene(canvas) {
     const raycaster = new Raycaster();
     const pointer = new Vector2();
 
-
     function onClick(event) {
-    const canvasBounds = canvas.getBoundingClientRect();
-    pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
-    pointer.y = - ((event.clientY - canvasBounds.top) / canvas.clientHeight) * 2 + 1;
-    raycaster.setFromCamera(pointer, camera);
+        const canvasBounds = canvas.getBoundingClientRect();
+        pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
+        pointer.y = -((event.clientY - canvasBounds.top) / canvas.clientHeight) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
 
-    let currentShapeElement = document.getElementById("currentImage");
-    let shape = currentShapeElement.className;
-    let currentShape = shapeStore[shape]
-    console.log("Current shape:", shape);
+        let currentShapeElement = document.getElementById("currentImage");
+        let shape = currentShapeElement.className;
+        let currentShape = shapeStore[shape]
 
-    const intersects = raycaster.intersectObjects(scene.children);
+        const intersects = raycaster.intersectObjects(scene.children);
 
-    for (let i = 0; i < intersects.length; i++) {
+        for (let i = 0; i < intersects.length; i++) {
             if (intersects[i].object.visible === true) {
                 // Get only visibile objects
                 if (intersects[i].object.name[0] === "s") {
@@ -162,22 +153,11 @@ export function initScene(canvas) {
                 }
             }
         }
-}
+    }
 
 
-// function isPlacementValid(coord, shape, lastCoord) {
-//     // Check for correct adjacency
-//     return (
-//         !lastCoord ||
-//         (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-//         (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
-//         (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
-//     );
-// }
 
-window.addEventListener('click', onClick);
-
-
+    window.addEventListener('click', onClick);
 
     function animate() {
         renderer.render(scene, camera);
@@ -196,12 +176,11 @@ window.addEventListener('click', onClick);
     )
     meshfloor.rotation.x -= Math.PI / 2;
     meshfloor.receiveShadow = true;
-    // scene.add(meshfloor);
+
     light.position.set(4, 20, 4);
 
     animate();
 }
-
 function createSphere(x, y, z, color, radius, segs) {
     let mat = new MeshPhongMaterial({
         color: color,
@@ -237,8 +216,6 @@ export default class {
     }
 
     init(dom) {
-        console.log("Accessing scene");
-        console.log(dom)
         initScene(dom);
     }
 
@@ -247,8 +224,9 @@ export default class {
         cancelAnimationFrame();
     }
 };
+
 function resetFirstPlacementCoord() {
     firstPlacementCoord = null;
-    console.log(firstPlacementCoord)
 }
-export {Colours }
+
+export { Colours };
