@@ -1,13 +1,12 @@
 import { OrbitControls } from "./OrbitControls.js";
 import {
-    Scene, Vector4, ShapeGeometry, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
+    Scene, Vector4, MeshBasicMaterial, ShapeGeometry, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
     SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
 } from "./three.js";
 import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 
 const scene = new Scene();
 const camera = new PerspectiveCamera();
-//const sol_camera = new PerspectiveCamera(40, ASPECT_RATIO, 0.1, 10 );
 scene.background = new Color("rgb(188,244,250)");
 const globalLight = new AmbientLight(0xeeeeee);
 scene.add(globalLight);
@@ -195,120 +194,6 @@ export function initScene(canvas) {
 
     animate();
 }
-
-let sol_scene;
-let mesh;
-const AMOUNT = 6;
-//Solution INIT
-export function solinit(sol_canvas) {
-    const ASPECT_RATIO = sol_canvas.clientWidth/sol_canvas.clientHeight;
-    const WIDTH = (sol_canvas.clientWidth/AMOUNT) * window.devicePixelRatio;
-    const HEIGHT = (sol_canvas.clientHeight/AMOUNT) * window.devicePixelRatio;
-    console.log("WIDTH HEIGHT IN SOLINIT",WIDTH, HEIGHT);
-
-    const cameras = [];
-
-    for (let y = 0; y < AMOUNT; y++) {
-        for (let x = 0; x < AMOUNT; x++) {
-            const subcamera = new PerspectiveCamera(40, ASPECT_RATIO, 0.1, 10 );
-            subcamera.viewport = new Vector4(Math.floor(x * WIDTH), Math.floor(y * HEIGHT), Math.ceil(WIDTH), Math.ceil(HEIGHT));
-//            subcamera.fov = 75;
-//            subcamera.near = 0.2;
-//            subcamera.far = 300;
-            subcamera.position.x = (x / AMOUNT) - 0.5;
-            subcamera.position.y = 0.5 - (y / AMOUNT);
-            subcamera.position.z = 1.5;
-            subcamera.position.multiplyScalar(2);
-            subcamera.lookAt(0, 0, 0);
-            subcamera.updateMatrixWorld();
-            cameras.push(subcamera);
-        }
-    }
-
-    let sol_camera = new ArrayCamera(cameras);
-    sol_camera.position.z = 3;
-
-    const sol_controls = new OrbitControls(camera, renderer.domElement);
-    sol_controls.enablePan = false;
-    sol_controls.enableDamping = true;
-    sol_controls.dampingFactor = 0.05;
-    sol_controls.screenSpacePanning = false;
-    sol_controls.maxDistance = 300;
-
-    sol_controls.target = new Vector3(5, 3.8, 5);
-    sol_controls.maxPolarAngle = Math.PI / 2;
-    sol_scene = new Scene();
-
-
-    sol_scene.add(new AmbientLight(0x999999));
-
-    const light = new DirectionalLight(0xffffff, 3);
-    light.position.set(0.5, 0.5, 1);
-    light.castShadow = true;
-    light.shadow.camera.zoom = 4;
-    sol_scene.add(light);
-
-    const geometryBackground = new PlaneGeometry(130, 130, 10, 10);
-    const materialBackground = new MeshPhongMaterial({ color: 0x000066 });
-
-    const background = new Mesh(geometryBackground, materialBackground);
-    background.receiveShadow = true;
-    background.position.set(0, 0, -1);
-    sol_scene.add(background);
-
-    const geometryCylinder = new ShapeGeometry; //shape of the render
-    const materialCylinder = new MeshPhongMaterial({ color: 0xff0000 });
-
-    mesh = new Mesh(geometryCylinder, materialCylinder);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    sol_scene.add(mesh);
-
-    const sol_renderer = new WebGLRenderer({ antialias: true });
-    sol_renderer.setPixelRatio(window.devicePixelRatio);
-    sol_renderer.setSize(WIDTH, HEIGHT);
-    sol_renderer.shadowMap.enabled = true;
-    document.body.appendChild(sol_renderer.domElement);
-
-    function onWindowResize() {
-        const ASPECT_RATIO = sol_canvas.clientWidth/sol_canvas.clientHeight;
-        const WIDTH = sol_canvas.clientWidth;
-        const HEIGHT = sol_canvas.clientHeight;
-
-        camera.aspect = ASPECT_RATIO;
-        camera.updateProjectionMatrix();
-
-        for (let y = 0; y < AMOUNT; y++) {
-            for (let x = 0; x < AMOUNT; x++) {
-                const subcamera = sol_camera.cameras[AMOUNT * y + x];
-                subcamera.viewport.set(
-                    Math.floor(x * WIDTH),
-                    Math.floor(y * HEIGHT),
-                    Math.ceil(WIDTH),
-                    Math.ceil(HEIGHT)
-                );
-                subcamera.aspect = ASPECT_RATIO;
-                subcamera.updateProjectionMatrix();
-
-            }
-        }
-
-        sol_renderer.setSize(WIDTH, HEIGHT);
-    }
-
-    function solanimate() {
-        mesh.rotation.y += 0.005;
-
-        sol_renderer.render(sol_scene, sol_camera);
-        sol_controls.update();
-        requestAnimationFrame( solanimate );
-    }
-
-    sol_canvas.appendChild(sol_renderer.domElement);
-    window.addEventListener('resize', onWindowResize);
-    solanimate();
-}
-
 function createSphere(x, y, z, color, radius, segs) {
     let mat = new MeshPhongMaterial({
         color: color,
@@ -345,9 +230,6 @@ export default class {
 
     init(dom) {
         initScene(dom);
-    }
-    init2(dom) {
-        solinit(dom);
     }
 
     dispose() {

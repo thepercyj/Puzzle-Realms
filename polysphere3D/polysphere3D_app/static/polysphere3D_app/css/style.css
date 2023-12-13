@@ -11,9 +11,9 @@
 }
 
 #c {
-    /*display: flex;*/
+ /*display: flex;*/
     margin: 0 auto;
-    width: 900px;
+    width: 500px;
     height: 500px;
     background-color: #000;
 }
@@ -143,6 +143,13 @@ b {
     align-items: center;
     justify-content: center;
 }
+
+#SolContainer {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .btn {
   box-sizing: border-box;

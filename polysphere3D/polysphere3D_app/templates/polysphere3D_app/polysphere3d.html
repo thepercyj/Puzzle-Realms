@@ -25,7 +25,7 @@
 
         <div class="display-mode">
             <div id="container1">
-
+                    
                 <div id="panel"></div>
             </div>
             <div id="mainContainer">
@@ -67,10 +67,8 @@
                                         id="onSolveButtonClick">
                                     Solve
                                 </button>
-                                <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"
-                                        id="onNextButtonClick">
-                                    Display Next
-                                </button>
+
+
                                 <button class="btn third" type="button" style="margin-left: 3px; margin-right: 3px;"
                                         id="onClearButtonClick">
                                     Clear
@@ -80,7 +78,6 @@
                                     Stop
                                 </button>
                             </form>
-                            <p id="solutionCount">Number of solutions: 0</p>
                             <br>
                             <p> Select the Layer of Pyramid:</p>
                             <br>
@@ -111,10 +108,20 @@
         <br>
         <div class="solution-container">
             <div id="solutionContainer">
-                <div id="container1">
-                <div id="c"></div>
-                </div>
+                <p id="solutionCount">Number of solutions: 0</p>
 
+                <div id="SolContainer">
+
+                    <button class="btn third" id="onPrevButtonClick">
+                        <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+                    </button>
+                    <div id="c"></div>
+
+
+                    <button class="btn third" id="onNextButtonClick">
+                        <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+                    </button>
+                </div>
             </div>
         </div>
 

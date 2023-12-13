@@ -1,6 +1,8 @@
 ////import React, { useEffect, useState, useRef, createRef } from "react";
 //import "../css/style.css";
 import Scene, { inputShapes, inputCoords, Colours } from "../js/scene.js"
+import Sol_Scene, { sol_inputShapes, sol_inputCoords, sol_Colours } from "../js/sol_scene.js"
+
 import Pyramid from '../js/pyramid.js'
 import { convert_to_pyramid_layers } from "../Logic/PolyPyramidLogic/ConvertSolutionFormat.js";
 import { generate_headers, populate_problem_matrix3D, reduce_problem_matrix } from "../Logic/PolyPyramidLogic/Generate_problem_matrix3D.js";
@@ -69,8 +71,10 @@ window.onload = function () {
 
 }
 let worker = new Pyramid(5, 1);
+let sol_worker = new Pyramid(5, 1);
+
 let scene = new Scene();
-let sol_scene = new Scene();
+let sol_scene = new Sol_Scene();
 const FPS = 30;
 let uiTimer = null;
 let visibilityStates = [true, true, true, true, true];
@@ -118,6 +122,32 @@ function renderPyramid() {
     }
 }
 
+function sol_renderPyramid() {
+    for (let i = 0; i < sol_worker.layers.length; i++) {
+        const spheres = sol_worker.layers[i].matrix;
+        for (let x = 0; x < sol_worker.layers[i].size; x++) {
+            for (let y = 0; y < sol_worker.layers[i].size; y++) {
+                let pos = spheres[x][y].pos;
+                let color = spheres[x][y].color;
+
+                if (!spheres[x][y].userData) {
+                    spheres[x][y].userData = sol_scene.createSphere(
+                        pos[0],
+                        pos[1],
+                        pos[2],
+                        color,
+                        sol_worker.radius()
+                    );
+                    sol_scene.add(spheres[x][y].userData);
+                } else {
+                    spheres[x][y].userData.material.color.set(color);
+                    spheres[x][y].userData.material.specular.set(color);
+                }
+            }
+        }
+    }
+}
+
 function disposePyramid() {
     for (let i = 0; i < worker.layers.length; i++) {
         const spheres = worker.layers[i].matrix;
@@ -151,6 +181,25 @@ function layerVisible(idx, v) {
     }
 }
 
+function sol_layerVisible(idx, v) {
+    console.log("Layer Visible",idx, v)
+    // Updates the visibilityStates to match change
+    visibilityStates[idx - 1] = v
+    //console.log("New States", visibilityStates)
+    let layer = sol_worker.getLayer(idx);
+    const spheres = layer.matrix;
+    for (let x = 0; x < layer.size; x++) {
+        for (let y = 0; y < layer.size; y++) {
+            if (spheres[x][y].userData) {
+                spheres[x][y].userData.visible = v;
+                spheres[x][y].visible = v;
+                spheres[x][y].userData.needsUpdate = true;
+                //console.log("?");
+            }
+        }
+    }
+}
+
 let input;
 let input_shapes;
 let input_squares;
@@ -163,6 +212,8 @@ const canvas = document.getElementById('panel');
 const sol_canvas = document.getElementById('c');
 //const FourCheck = document.getElementById('isFourCheck'); Hiding this function for now because it has no implementation currently
 const NextButton = document.getElementById('onNextButtonClick');
+const PrevButton = document.getElementById('onPrevButtonClick');
+
 const ClearButton = document.getElementById('onClearButtonClick');
 const StopButton = document.getElementById('onStopButtonClick');
 // const shapeInput = document.getElementById('inputShape');
@@ -171,10 +222,32 @@ const solveButton = document.getElementById('onSolveButtonClick');
 solveButton.addEventListener('click', onSolveButton);
 // shapeInput.addEventListener('keyup', handleKeyUp);
 NextButton.addEventListener('click', onNextButton);
+PrevButton.addEventListener('click', onPrevButton);
+
 ClearButton.addEventListener('click', onClearButton);
 StopButton.addEventListener('click', onStopButton);
 
 const layerCheckboxes = [];
+const toggle = document.getElementById('toggleButton');
+const toggleDiv = document.getElementById('SolContainer');
+
+toggleButton.addEventListener('click', function () {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Toggle the display property of the div
+        if (toggleDiv.style.display === 'none' || toggleDiv.style.display === '') {
+            toggleDiv.style.display = 'flex';
+            toggleButton.textContent = 'Hide';
+
+        } else {
+            toggleDiv.style.display = 'none';
+            toggleButton.textContent = 'Show Solutions';
+
+        }
+    });
+
+
 
 for (let i = 1; i <= 5; i++) {
     const checkbox = document.getElementById('l'+i);
@@ -287,16 +360,19 @@ function drawPosition(position) {
             for (let j = 0; j < position[layer].length; j++) {
                 if (["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].indexOf(position[layer][i][j]) !== -1) {
                     // Set to shape colour
-                    worker.getLayer(5 - layer).set(i, j, Colours[position[layer][i][j]]);
+                    sol_worker.getLayer(5 - layer).set(i, j, sol_Colours[position[layer][i][j]]);
+
                 }
                 else {
                     // Set to black to indicate empty
-                    worker.getLayer(5 - layer).set(i, j, 0x999999);
+                    sol_worker.getLayer(5 - layer).set(i, j, 0x999999);
+
+
                 }
             }
         }
     }
-    renderPyramid();
+    sol_renderPyramid();
 }
 
 
@@ -320,6 +396,15 @@ if (solutions.length > 0) {
 }
 }
 
+function onPrevButton() {
+console.log("Clicked Prev");
+const solutions = [...state.solutions];
+console.log(state.solutions)
+if (solutions.length > 0) {
+    drawPosition(state.solutions.shift());
+}
+}
+
 function onStopButton() {
 let stopExecution = true;
 clearInterval(uiTimer);
@@ -328,8 +413,9 @@ uiTimer = null;
 
 function componentDidMount() {
 scene.init(panel);
-sol_scene.init2(c);
+sol_scene.sol_init(c);
 renderPyramid();
+sol_renderPyramid();
 }
 
 function componentWillUnmount() {
@@ -345,11 +431,13 @@ console.log(inputRef.inputZ.value);
 }
 
 scene.init(panel);
-sol_scene.init2(c);
+sol_scene.sol_init(c);
 renderPyramid();
+sol_renderPyramid();
 
-export { worker};
+export { worker, sol_worker};
 window.worker = worker;
+window.sol_worker = sol_worker;
 
 // *********************** unused code will use if required *****************************************************
 //    // Assuming you have a simple timer function
