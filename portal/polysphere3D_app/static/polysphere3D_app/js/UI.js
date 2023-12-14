@@ -307,6 +307,7 @@ function createState() {
         solutionCount: 0,
         solutions: [],
         isFourLevel: false,
+        currentIndex: 0,
     };
 }
 
@@ -468,29 +469,27 @@ function checkInput(shapes, coords) {
 
 /**
  * Handles the click event of the next button.
- * Pops a solution from the state's solutions array and calls sol_drawPosition to draw it.
+ * Traverses to the next solution in the state's solutions array and calls sol_drawPosition to draw it.
  */
 function onNextButton() {
     console.log("Clicked next");
-    const solutions = [...state.solutions];
-    console.log(state.solutions)
-    if (solutions.length > 0) {
-        sol_drawPosition(state.solutions.pop());
+    if (state.currentIndex < state.solutions.length - 1) {
+        state.currentIndex++;
+        sol_drawPosition(state.solutions[state.currentIndex]);
     }
 }
 
 /**
  * Handles the click event of the "Prev" button.
+ * Traverses to the previous solution in the state's solutions array and calls sol_drawPosition to draw it.
  */
 function onPrevButton() {
     console.log("Clicked Prev");
-    const solutions = [...state.solutions];
-    console.log(state.solutions)
-    if (solutions.length > 0) {
-        sol_drawPosition(state.solutions.shift());
+    if (state.currentIndex > 0) {
+        state.currentIndex--;
+        sol_drawPosition(state.solutions[state.currentIndex]);
     }
 }
-
 /**
  * Stops the execution and clears the interval timer.
  */
