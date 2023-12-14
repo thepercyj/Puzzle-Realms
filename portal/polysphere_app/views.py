@@ -23,6 +23,19 @@ end_time = 0
 
 
 def landing(request):
+    """
+    Renders the landing page and handles the form submission.
+
+    If the request method is POST, it retrieves the data from the landing form,
+    stores it in the session, and redirects to the 'levels' view.
+    If the request method is GET, it renders the landing.html template.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+    """
     if request.method == 'POST':
         data_from_landing = request.POST.get('data_from_landing', '')
         request.session['data_from_landing'] = data_from_landing
@@ -32,12 +45,30 @@ def landing(request):
 
 
 def levels(request):
+    """
+    Renders the 'levels.html' template and passes the 'data_from_landing' variable from the session to the template.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered response.
+    """
     data_from_landing = request.session.get('data_from_landing', '')
     return render(request, 'polysphere_app/levels.html', {'data_from_landing': data_from_landing})
 
 
 @require_http_methods(["POST"])
 def submit_kanoodle_problem(request):
+    """
+    Submits a Kanoodle problem to the server and returns the solution.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response containing the problem ID, solution, and time taken in milliseconds.
+    """
     # Assume data is now coming from a predefined function or file
     piece_descriptions = get_pieces_data()
     grid_width = 3
@@ -68,6 +99,19 @@ def submit_kanoodle_problem(request):
 
 @require_http_methods(["GET"])
 def get_kanoodle_solution(request, problem_id):
+    """
+    Retrieve the Kanoodle problem and its solutions.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        problem_id (int): The ID of the Kanoodle problem.
+
+    Returns:
+        JsonResponse: The JSON response containing the problem ID and its solutions.
+
+    Raises:
+        KanoodleProblem.DoesNotExist: If the Kanoodle problem with the given ID does not exist.
+    """
     try:
         # Retrieve the problem and its solutions
         problem = KanoodleProblem.objects.get(id=problem_id)
@@ -84,6 +128,12 @@ def get_kanoodle_solution(request, problem_id):
 
 
 def get_pieces_data():
+    """
+    Retrieves the data of puzzle pieces.
+
+    Returns:
+        dict: A dictionary containing the data of puzzle pieces, including shape, grid, image path, and rotation.
+    """
     puzzle_pieces_data = PuzzlePieces.pieces_data.copy()
     for piece in PuzzlePiece.objects.all():
         puzzle_pieces_data[piece.shape] = {
@@ -97,6 +147,17 @@ def get_pieces_data():
 
 
 def generate_solution_image(solution_matrix, pieces_data, block_size=50):
+    """
+    Generate a solution image based on the solution matrix and pieces data.
+
+    Args:
+        solution_matrix (list): A 2D matrix representing the solution.
+        pieces_data (dict): A dictionary mapping piece symbols to their corresponding image data.
+        block_size (int, optional): The size of each block in pixels. Defaults to 50.
+
+    Returns:
+        BytesIO: An in-memory file containing the generated solution image.
+    """
     solution_width = len(solution_matrix[0]) * block_size
     solution_height = len(solution_matrix) * block_size
     solution_image = Image.new('RGB', (solution_width, solution_height),
@@ -121,6 +182,12 @@ def generate_solution_image(solution_matrix, pieces_data, block_size=50):
 
 # Django view that returns an image response
 def get_list_of_solution_matrices():
+    """
+    Retrieves a list of solution matrices for the Kanoodle puzzle.
+
+    Returns:
+        list: A list of solution matrices.
+    """
     kanoodle_solver = Kanoodle()
 
     # Directly use the pieces_data to get the list of grids
@@ -139,6 +206,16 @@ def get_list_of_solution_matrices():
 
 
 def generate_solution_gallery(request):
+    """
+    Generates a solution gallery by looping through each solution,
+    generating an image for it, and adding the path to the file.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+    """
     # solutions = get_list_of_solution_matrices()
     # solutions = [solution.split("\n") for solution in solutions]
     # time_taken = end_time - start_time
@@ -175,6 +252,15 @@ def generate_solution_gallery(request):
 
 
 def clear_solutions(directory):
+    """
+    Clears all the solution files and directories in the given directory.
+
+    Args:
+        directory (str): The path to the directory containing the solution files.
+
+    Returns:
+        None
+    """
     for filename in os.listdir(directory):
         if filename.startswith("solution"):
             file_path = os.path.join(directory, filename)
@@ -188,7 +274,19 @@ def clear_solutions(directory):
 
 
 def display_piece(piece_data, position, block_size, solution_image):
-    image_path = piece_data('image_path')
+    """
+    Display a piece on the solution image at the specified position.
+
+    Args:
+        piece_data (dict): The data of the piece, including its image path and rotation.
+        position (tuple): The position where the piece should be placed on the solution image.
+        block_size (int): The size of each block in the solution image.
+        solution_image (PIL.Image.Image): The solution image.
+
+    Returns:
+        None
+    """
+    image_path = piece_data['image_path']
     # Open the image file corresponding to the piece
     with Image.open(image_path) as piece_image:
         # Apply rotations to images
@@ -206,6 +304,15 @@ def display_piece(piece_data, position, block_size, solution_image):
 
 
 def generate_regex_pattern(partial_solution):
+    """
+    Generate a regular expression pattern based on a partial solution.
+
+    Args:
+        partial_solution (list): A 2D list representing a partial solution.
+
+    Returns:
+        str: The regular expression pattern generated from the partial solution.
+    """
     pattern = ""
     for row in partial_solution:
         row_pattern = ""
@@ -219,6 +326,15 @@ def generate_regex_pattern(partial_solution):
 
 
 def find_partial_solutions(request):
+    """
+    Finds partial solutions based on the given request.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: The JSON response containing the partial solutions or an error message.
+    """
     # If a request sent from the webpage
     if request.method == 'POST':
         # Assigns a variable to the partial configuration and generates a regex pattern from it
@@ -247,6 +363,15 @@ def find_partial_solutions(request):
 
 
 def get_partial_solutions(matching_solutions):
+    """
+    Retrieves partial solutions from the database based on the given matching solutions.
+
+    Args:
+        matching_solutions (list): A list of matching solutions.
+
+    Returns:
+        dict: A JSON response containing the image paths of the matching patterns.
+    """
     # Establish database connection
     conn = mysql.connector.connect(host='144.21.52.245', port='6969', user='asegroup6', passwd='ASEgroup6mysql@2023##',
                                    db='group_6_project')
