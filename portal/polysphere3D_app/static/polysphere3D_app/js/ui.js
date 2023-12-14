@@ -12,45 +12,22 @@ import Sol_Scene, {
 import Pyramid from '../js/pyramid.js'
 import {
     convert_to_pyramid_layers
-} from "../Logic/PolyPyramidLogic/ConvertSolutionFormat.js";
+} from "./ConvertSolutionFormat.js";
 import {
     generate_headers,
     populate_problem_matrix3D,
     reduce_problem_matrix
-} from "../Logic/PolyPyramidLogic/Generate_problem_matrix3D.js";
+} from "./GenerateProblemMatrix.js";
 import {
     create_dicts
-} from "../Logic/PolyPyramidLogic/Create_dict_objects.js";
+} from "./CreateObjects.js";
 import {
     solve
-} from "../Logic/PolyPyramidLogic/Solver.js";
+} from "./Solver.js";
 import {
     shapeStore
-} from "../Logic/PolyPyramidLogic/Shapes3D.js";
+} from "./Shapes3D.js";
 import resetFirstPlacementCoord from "../js/scene.js";
-import {
-    DodecahedronGeometry,
-    DirectionalLight,
-    MeshLambertMaterial,
-    CylinderGeometry,
-    BoxGeometry,
-    PerspectiveCamera,
-    AmbientLight,
-    PointLightHelper,
-    WebGLRenderer,
-    PointLight,
-    SphereGeometry,
-    MeshPhongMaterial,
-    Mesh,
-    PlaneGeometry,
-    Color,
-    PCFSoftShadowMap,
-    Raycaster,
-    Vector2,
-    Vector3,
-    RectAreaLight,
-    AxesHelper
-} from "./three.js";
 
 
 
@@ -63,39 +40,44 @@ window.onload = function() {
     ];
 
 
-    let rotationAngle = 0;
-    let rotationAngles = Array(12).fill(0);
     let currentIndex = 0;
     let currentAlphabetIndex = 0;
     let currentImageName = "A"
     currentImage.className = currentImageName
 
-    // Function to update the displayed alphabet
+    /**
+     * Updates the alphabet container with the current alphabet index.
+     */
     function updateAlphabet() {
         const alphabetContainer = document.getElementById('currentAlphabet');
         alphabetContainer.textContent = image_names[currentAlphabetIndex];
     }
 
+    /**
+     * Updates the image source, name, class, and rotation angle of the current image.
+     */
     function updateImage() {
         currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
         currentImageName = image_names[currentIndex]
-
         console.log(currentImageName)
         currentImage.className = currentImageName
-        currentImage.style.transform = `rotate(${rotationAngle}deg)`;
     }
 
+    /**
+     * Moves to the previous image in the sequence.
+     */
     function previousImage() {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
-        rotationAngle = 0; // Reset rotation when changing images
         updateImage();
         currentAlphabetIndex = (currentAlphabetIndex - 1 + image_names.length) % image_names.length;
         updateAlphabet();
     }
 
+    /**
+     * Advances to the next image and updates the UI accordingly.
+     */
     function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
-        rotationAngle = 0; // Reset rotation when changing images
         updateImage();
         currentAlphabetIndex = (currentAlphabetIndex + 1) % image_names.length;
         updateAlphabet();
@@ -108,7 +90,15 @@ window.onload = function() {
 
 
 }
+/**
+ * Represents a worker object.
+ * @type {Pyramid}
+ */
 let worker = new Pyramid(5, 1);
+/**
+ * Represents a sol_worker object.
+ * @type {Pyramid}
+ */
 let sol_worker = new Pyramid(5, 1);
 
 let scene = new Scene();
@@ -117,6 +107,10 @@ const FPS = 30;
 let uiTimer = null;
 let visibilityStates = [true, true, true, true, true];
 
+/**
+ * Creates a timer that repeatedly calls the specified function at a given frame rate.
+ * @param {Function} func - The function to be called repeatedly by the timer.
+ */
 function createTimer(func) {
     if (uiTimer) {
         clearInterval(uiTimer);
@@ -129,6 +123,9 @@ function createTimer(func) {
 }
 
 
+/**
+ * Renders the pyramid by iterating through the layers of spheres and updating their positions and colors.
+ */
 function renderPyramid() {
     for (let i = 0; i < worker.layers.length; i++) {
         const spheres = worker.layers[i].matrix;
@@ -155,6 +152,9 @@ function renderPyramid() {
     }
 }
 
+/**
+ * Renders the solution pyramid by updating the positions and colors of the spheres in the scene.
+ */
 function sol_renderPyramid() {
     for (let i = 0; i < sol_worker.layers.length; i++) {
         const spheres = sol_worker.layers[i].matrix;
@@ -181,25 +181,15 @@ function sol_renderPyramid() {
     }
 }
 
-function disposePyramid() {
-    for (let i = 0; i < worker.layers.length; i++) {
-        const spheres = worker.layers[i].matrix;
-        for (let x = 0; x < worker.layers[i].size; x++) {
-            for (let y = 0; y < worker.layers[i].size; y++) {
-                if (spheres[x][y].userData) {
-                    scene.disposeSphere(spheres[x][y].userData);
-                }
-            }
-        }
-    }
-}
-
-// Makes layers visible
+/**
+ * Updates the visibility of a layer and its spheres.
+ * @param {number} idx - The index of the layer.
+ * @param {boolean} v - The new visibility state.
+ */
 function layerVisible(idx, v) {
     console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
     visibilityStates[idx - 1] = v
-    //console.log("New States", visibilityStates)
     let layer = worker.getLayer(idx);
     const spheres = layer.matrix;
     for (let x = 0; x < layer.size; x++) {
@@ -208,12 +198,17 @@ function layerVisible(idx, v) {
                 spheres[x][y].userData.visible = v;
                 spheres[x][y].visible = v;
                 spheres[x][y].userData.needsUpdate = true;
-                //console.log("?");
             }
         }
     }
 }
 
+/**
+ * Updates the visibility of a layer in the solution pyramid object.
+ * 
+ * @param {number} idx - The index of the layer.
+ * @param {boolean} v - The new visibility state of the layer.
+ */
 function sol_layerVisible(idx, v) {
     console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
@@ -243,17 +238,13 @@ let dicts;
 
 const canvas = document.getElementById('panel');
 const sol_canvas = document.getElementById('c');
-//const FourCheck = document.getElementById('isFourCheck'); Hiding this function for now because it has no implementation currently
 const NextButton = document.getElementById('onNextButtonClick');
 const PrevButton = document.getElementById('onPrevButtonClick');
-
 const ClearButton = document.getElementById('onClearButtonClick');
 const StopButton = document.getElementById('onStopButtonClick');
-// const shapeInput = document.getElementById('inputShape');
 const scount = document.getElementById('solutionCount');
 const solveButton = document.getElementById('onSolveButtonClick');
 solveButton.addEventListener('click', onSolveButton);
-// shapeInput.addEventListener('keyup', handleKeyUp);
 NextButton.addEventListener('click', onNextButton);
 PrevButton.addEventListener('click', onPrevButton);
 
@@ -297,6 +288,7 @@ for (let i = 1; i <= 5; i++) {
     });
     const label = document.getElementById('l' + i + 'sLabel');
     const sol_label = document.getElementById('ls' + i + 'Label');
+    console.log(checkbox, label);
     layerCheckboxes.push(checkbox, label);
     sol_layerCheckboxes.push(sol_checkbox, sol_label);
 }
@@ -305,6 +297,10 @@ for (let i = 1; i <= 5; i++) {
 
 const state = createState();
 
+/**
+ * Creates a new state object.
+ * @returns {Object} The newly created state object.
+ */
 function createState() {
     return {
         stopExecution: false,
@@ -314,12 +310,15 @@ function createState() {
     };
 }
 
+/**
+ * Handles the event when the solve button is clicked.
+ */
 function onSolveButton() {
     state.solutions = []
     var allSolutions = [];
     let solutionCount = 0;
     let solutions = [];
-    let stopExecution = false;
+
 
     const input_shapes = inputShapes.get();
     const input_squares = inputCoords.get();
@@ -335,9 +334,15 @@ function onSolveButton() {
     const updatedProblemMat = problem_def[0];
     const headers = problem_def[1];
 
+    console.log(updatedProblemMat);
+    console.log(headers);
 
     const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
 
+    console.log(Object.keys(dicts[0]).length);
+    console.log(dicts[0]);
+    console.log(dicts[1]);
+    console.log(headers);
 
     const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
     let cnt = 0;
@@ -353,6 +358,7 @@ function onSolveButton() {
             return;
         }
 
+        console.log(arr);
 
         cnt++;
         scount.textContent = "Number of solutions: " + cnt;
@@ -366,6 +372,9 @@ function onSolveButton() {
     });
 }
 
+/**
+ * Clears the UI and resets the state.
+ */
 function onClearButton() {
     scount.textContent = "Number of solutions: 0"
     state.solutions = []
@@ -389,6 +398,11 @@ function onClearButton() {
     sol_drawPosition(empty_position);
 }
 
+/**
+ * Draws the position on the pyramid.
+ * 
+ * @param {Array<Array<Array<string>>>} position - The position to be drawn.
+ */
 function drawPosition(position) {
 
     for (let layer = 0; layer < position.length; layer++) {
@@ -409,6 +423,12 @@ function drawPosition(position) {
     renderPyramid();
 }
 
+/**
+ * Draws the position on the solution pyramid.
+ * 
+ * @param {Array<Array<Array<string>>>} position - The position to be drawn on the pyramid.
+ * @returns {void}
+ */
 function sol_drawPosition(position) {
 
     for (let layer = 0; layer < position.length; layer++) {
@@ -429,6 +449,12 @@ function sol_drawPosition(position) {
     sol_renderPyramid();
 }
 
+/**
+ * Checks if the number of spheres for each shape matches the number of coordinates provided.
+ * @param {string[]} shapes - An array of shape names.
+ * @param {number[][]} coords - An array of coordinate arrays, where each array represents the coordinates for a shape.
+ * @returns {boolean} - Returns true if the number of spheres for each shape matches the number of coordinates, otherwise false.
+ */
 function checkInput(shapes, coords) {
     console.log("Shapes:", shapes, "Coords:", coords)
     for (let i = 0; i < shapes.length; i++) {
@@ -440,6 +466,10 @@ function checkInput(shapes, coords) {
     return true;
 }
 
+/**
+ * Handles the click event of the next button.
+ * Pops a solution from the state's solutions array and calls sol_drawPosition to draw it.
+ */
 function onNextButton() {
     console.log("Clicked next");
     const solutions = [...state.solutions];
@@ -449,6 +479,9 @@ function onNextButton() {
     }
 }
 
+/**
+ * Handles the click event of the "Prev" button.
+ */
 function onPrevButton() {
     console.log("Clicked Prev");
     const solutions = [...state.solutions];
@@ -458,12 +491,18 @@ function onPrevButton() {
     }
 }
 
+/**
+ * Stops the execution and clears the interval timer.
+ */
 function onStopButton() {
     let stopExecution = true;
     clearInterval(uiTimer);
     uiTimer = null;
 }
 
+/**
+ * Initializes the component and sets up the scene and pyramid rendering.
+ */
 function componentDidMount() {
     scene.init(panel);
     sol_scene.sol_init(c);
@@ -471,16 +510,12 @@ function componentDidMount() {
     sol_renderPyramid();
 }
 
+/**
+ * Cleans up resources before the component is unmounted.
+ */
 function componentWillUnmount() {
     scene.dispose();
     sol_scene.dispose();
-}
-
-function onInputClick() {
-    console.log(inputRef.shape.value);
-    console.log(inputRef.inputX.value);
-    console.log(inputRef.inputY.value);
-    console.log(inputRef.inputZ.value);
 }
 
 scene.init(panel);

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sol_scene.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sol_scene.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { OrbitControl } from "./OrbitControl.js";
+import {
+    Scene, Vector4, MeshBasicMaterial, ShapeGeometry, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
+    SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
+} from "./three.js";
+
+/**
+ * Represents the sol_scene object.
+ * @type {Scene}
+ */
+const sol_scene = new Scene();
+/**
+ * Represents a camera in the 3D scene.
+ * @type {PerspectiveCamera}
+ */
+const camera = new PerspectiveCamera();
+sol_scene.background = new Color("rgb(188,244,250)");
+const globalLight = new AmbientLight(0xeeeeee);
+sol_scene.add(globalLight);
+
+const light = new PointLight(0xBCF4FA, 15, 0);
+light.castShadow = true;
+const helper = new PointLightHelper(light, 2);
+sol_scene.add(light);
+sol_scene.add(helper);
+light.intensity = 0.5;
+light.position.set(0, 0, 1).normalize();
+
+const renderer = new WebGLRenderer({ antialias: true });
+
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = PCFSoftShadowMap;
+renderer.setClearColor(0x999999);
+
+let resizeObeserver;
+let firstPlacementCoord = null;
+let currentShapePlacements = [];
+
+/**
+ * Represents the input shapes for the sol scene.
+ * @typedef {Object} sol_inputShapes
+ * @property {Function} get - Retrieves the input shapes.
+ * @property {Function} add - Adds a shape to the input shapes.
+ * @property {Function} clear - Clears the input shapes.
+ * @property {Array} store - The array that stores the input shapes.
+ */
+export let sol_inputShapes = {
+    get() {
+        return this.store;
+    },
+    add(shape_name) {
+        this.store.push(shape_name);
+    },
+    clear() {
+        this.store = [];
+    },
+    store: []
+};
+
+export let sol_inputCoords = {
+    get() {
+        return this.store;
+    },
+    add(coord) {
+        this.store.push(coord);
+    },
+    clear() {
+        this.store = [];
+    },
+    store: []
+};
+
+/**
+ * Object representing the colours used in the sol scene.
+ * @typedef {Object} sol_Colours
+ * @property {number} A - Colour A represented as hexadecimal value.
+ * @property {number} B - Colour B represented as hexadecimal value.
+ * @property {number} C - Colour C represented as hexadecimal value.
+ * @property {number} D - Colour D represented as hexadecimal value.
+ * @property {number} E - Colour E represented as hexadecimal value.
+ * @property {number} F - Colour F represented as hexadecimal value.
+ * @property {number} G - Colour G represented as hexadecimal value.
+ * @property {number} H - Colour H represented as hexadecimal value.
+ * @property {number} I - Colour I represented as hexadecimal value.
+ * @property {number} J - Colour J represented as hexadecimal value.
+ * @property {number} K - Colour K represented as hexadecimal value.
+ * @property {number} L - Colour L represented as hexadecimal value.
+ */
+const sol_Colours = {
+    A: 0x228B1E,
+    B: 0x6D359A,
+    C: 0x1E9195,
+    D: 0x931515,
+    E: 0xA2A42C,
+    F: 0x9F1B92,
+    G: 0x904512,
+    H: 0x0E2B0C,
+    I: 0x272899,
+    J: 0x966E9A,
+    K: 0x205F90,
+    L: 0x9DA15E,
+};
+
+/**
+ * Initializes the scene with the given canvas element.
+ * 
+ * @param {HTMLCanvasElement} sol_canvas - The canvas element to render the scene on.
+ */
+export function initScene(sol_canvas) {
+    camera.fov = 75;
+    camera.near = 0.2;
+    camera.far = 300;
+    camera.position.z = 18;
+    camera.position.x = -0;
+    camera.position.y = 0;
+
+    renderer.setSize(sol_canvas.clientWidth, sol_canvas.clientWidth);
+    resizeObeserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            camera.aspect = sol_canvas.clientWidth / sol_canvas.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(sol_canvas.clientWidth, sol_canvas.clientWidth);
+        })
+    });
+    resizeObeserver.observe(sol_canvas);
+
+    const controls = new OrbitControl(camera, renderer.domElement);
+    controls.enablePan = false;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.maxDistance = 300;
+
+    controls.target = new Vector3(5, 3.8, 5);
+    controls.maxPolarAngle = Math.PI / 2;
+
+    function arrayCoordsFromWorldCoords(x, y, height) {
+        let layer = Math.round((height - 1) / Math.sqrt(2));
+        let x_index;
+        let y_index;
+        if (layer % 2 === 1) {
+            x_index = (x - 1 - 1 * layer) / 2;
+            y_index = (y - 1 - 1 * layer) / 2;
+        } else {
+            x_index = (x - 1 - 1 * layer) / 2;
+            y_index = (y - 1 - 1 * layer) / 2;
+        }
+        return [x_index, y_index, layer];
+    }
+
+    function setInput(shape, coord) {
+        if (!(sol_inputShapes.get().includes(shape))) {
+            sol_inputShapes.add(shape);
+            sol_inputCoords.add(new Array(coord));
+        } else {
+            sol_inputCoords.get()[sol_inputShapes.get().indexOf(shape)].push(coord);
+        }
+    }
+
+    const raycaster = new Raycaster();
+    const pointer = new Vector2();
+    function animate() {
+        renderer.render(sol_scene, camera);
+        controls.update();
+        requestAnimationFrame(animate);
+    }
+
+    sol_canvas.appendChild(renderer.domElement);
+
+    const meshfloor = new Mesh(
+        new PlaneGeometry(130, 130, 10, 10),
+        new MeshPhongMaterial({
+            color: 0xBCF4FA,
+            wireframe: false
+        })
+    )
+    meshfloor.rotation.x -= Math.PI / 2;
+    meshfloor.receiveShadow = true;
+
+    light.position.set(4, 20, 4);
+
+    animate();
+}
+/**
+ * Creates a sphere with the specified position, color, radius, and number of segments.
+ * @param {number} x - The x-coordinate of the sphere's position.
+ * @param {number} y - The y-coordinate of the sphere's position.
+ * @param {number} z - The z-coordinate of the sphere's position.
+ * @param {string} color - The color of the sphere.
+ * @param {number} radius - The radius of the sphere.
+ * @param {number} segs - The number of segments used to create the sphere.
+ * @returns {Mesh} The created sphere mesh.
+ */
+function createSphere(x, y, z, color, radius, segs) {
+    let mat = new MeshPhongMaterial({
+        color: color,
+        specular: color,
+        shininess: 30
+    });
+    mat.castShadow = true;
+    mat.receiveShadow = true;
+    let sphere = new Mesh(new SphereGeometry(radius, segs, segs), mat);
+    sphere.position.set(x, z, y);
+    sphere.castShadow = true;
+    sphere.receiveShadow = true;
+    sphere.name = ["s", x, y, z].join(",");
+    return sphere;
+}
+
+function disposeSphere(instance) {
+    sol_scene.remove(instance);
+    instance.material.dispose();
+    instance.dispose();
+}
+
+/**
+ * Represents a SolScene object.
+ * @class
+ */
+export default class {
+    /**
+     * Creates a sphere object.
+     * @param {number} x - The x-coordinate of the sphere.
+     * @param {number} y - The y-coordinate of the sphere.
+     * @param {number} z - The z-coordinate of the sphere.
+     * @param {string} color - The color of the sphere.
+     * @param {number} [radius=1] - The radius of the sphere.
+     * @param {number} [segs=15] - The number of segments of the sphere.
+     * @returns {object} The created sphere object.
+     */
+    createSphere(x, y, z, color, radius = 1, segs = 15) {
+        return createSphere(x, y, z, color, radius, segs);
+    }
+
+    /**
+     * Disposes a sphere object.
+     * @param {object} sphere - The sphere object to dispose.
+     */
+    disposeSphere(sphere) {
+        disposeSphere(sphere);
+    }
+
+    /**
+     * Adds an object to the SolScene.
+     * @param {object} obj - The object to add.
+     */
+    add(obj) {
+        sol_scene.add(obj);
+    }
+
+    /**
+     * Initializes the SolScene.
+     * @param {object} dom - The DOM element to attach the scene to.
+     */
+    sol_init(dom) {
+        initScene(dom);
+    }
+
+    /**
+     * Disposes the SolScene.
+     */
+    dispose() {
+        resizeObeserver.disconnect();
+        cancelAnimationFrame();
+    }
+};
+
+function resetFirstPlacementCoord() {
+    firstPlacementCoord = null;
+}
+
+export { sol_Colours };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnimationObjectGroup.html">AnimationObjectGroup</a></li><li><a href="BooleanKeyframeTrack.html">BooleanKeyframeTrack</a></li><li><a href="CameraHelper.html">CameraHelper</a></li><li><a href="ColorKeyframeTrack.html">ColorKeyframeTrack</a></li><li><a href="CompressedTextureLoader.html">CompressedTextureLoader</a></li><li><a href="CubicInterpolant.html">CubicInterpolant</a></li><li><a href="Curve.html">Curve</a></li><li><a href="Cylindrical.html">Cylindrical</a></li><li><a href="DataTextureLoader.html">DataTextureLoader</a></li><li><a href="DiscreteInterpolant.html">DiscreteInterpolant</a></li><li><a href="EventDispatcher.html">EventDispatcher</a></li><li><a href="ExtrudeGeometry.html">ExtrudeGeometry</a></li><li><a href="Interpolant.html">Interpolant</a></li><li><a href="NumberKeyframeTrack.html">NumberKeyframeTrack</a></li><li><a href="OrbitControl.html">OrbitControl</a></li><li><a href="PMREMGenerator.html">PMREMGenerator</a></li><li><a href="Pyramid.html">Pyramid</a></li><li><a href="PyramidLayer.html">PyramidLayer</a></li><li><a href="QuaternionKeyframeTrack.html">QuaternionKeyframeTrack</a></li><li><a href="QuaternionLinearInterpolant.html">QuaternionLinearInterpolant</a></li><li><a href="Shape3D.html">Shape3D</a></li><li><a href="Spherical.html">Spherical</a></li><li><a href="SphericalHarmonics3.html">SphericalHarmonics3</a></li><li><a href="StringKeyframeTrack.html">StringKeyframeTrack</a></li><li><a href="VectorKeyframeTrack.html">VectorKeyframeTrack</a></li><li><a href="module.exports.html">exports</a></li><li><a href="scene.html">scene</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CatmullRom">CatmullRom</a></li><li><a href="global.html#Earcut">Earcut</a></li><li><a href="global.html#REVISION">REVISION</a></li><li><a href="global.html#STEP">STEP</a></li><li><a href="global.html#UniformsLib">UniformsLib</a></li><li><a href="global.html#add">add</a></li><li><a href="global.html#add_row_for_diags_if_valid">add_row_for_diags_if_valid</a></li><li><a href="global.html#add_rows_for_shape_in_horizontal_and_vertical_slices">add_rows_for_shape_in_horizontal_and_vertical_slices</a></li><li><a href="global.html#calculatePosition">calculatePosition</a></li><li><a href="global.html#camera">camera</a></li><li><a href="global.html#checkInput">checkInput</a></li><li><a href="global.html#cloneUniforms">cloneUniforms</a></li><li><a href="global.html#componentDidMount">componentDidMount</a></li><li><a href="global.html#componentWillUnmount">componentWillUnmount</a></li><li><a href="global.html#convert_rect_coords_to_diags">convert_rect_coords_to_diags</a></li><li><a href="global.html#convert_to_pyramid_layers">convert_to_pyramid_layers</a></li><li><a href="global.html#coord_to_col">coord_to_col</a></li><li><a href="global.html#cover">cover</a></li><li><a href="global.html#createSphere">createSphere</a></li><li><a href="global.html#createState">createState</a></li><li><a href="global.html#createTimer">createTimer</a></li><li><a href="global.html#create_dicts">create_dicts</a></li><li><a href="global.html#dispose">dispose</a></li><li><a href="global.html#disposeSphere">disposeSphere</a></li><li><a href="global.html#dlx">dlx</a></li><li><a href="global.html#drawPosition">drawPosition</a></li><li><a href="global.html#emptyTexture">emptyTexture</a></li><li><a href="global.html#generate_headers">generate_headers</a></li><li><a href="global.html#get_diag_slices">get_diag_slices</a></li><li><a href="global.html#get_horizontal_slices">get_horizontal_slices</a></li><li><a href="global.html#globalLight">globalLight</a></li><li><a href="global.html#helper">helper</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initScene">initScene</a></li><li><a href="global.html#initialiseScene">initialiseScene</a></li><li><a href="global.html#layerVisible">layerVisible</a></li><li><a href="global.html#light">light</a></li><li><a href="global.html#onClearButton">onClearButton</a></li><li><a href="global.html#onNextButton">onNextButton</a></li><li><a href="global.html#onPrevButton">onPrevButton</a></li><li><a href="global.html#onSolveButton">onSolveButton</a></li><li><a href="global.html#onStopButton">onStopButton</a></li><li><a href="global.html#populate_problem_matrix3D">populate_problem_matrix3D</a></li><li><a href="global.html#reduce_problem_matrix">reduce_problem_matrix</a></li><li><a href="global.html#renderPyramid">renderPyramid</a></li><li><a href="global.html#renderer">renderer</a></li><li><a href="global.html#shape_cols">shape_cols</a></li><li><a href="global.html#shape_to_row">shape_to_row</a></li><li><a href="global.html#sol_drawPosition">sol_drawPosition</a></li><li><a href="global.html#sol_init">sol_init</a></li><li><a href="global.html#sol_layerVisible">sol_layerVisible</a></li><li><a href="global.html#sol_renderPyramid">sol_renderPyramid</a></li><li><a href="global.html#sol_scene">sol_scene</a></li><li><a href="global.html#sol_worker">sol_worker</a></li><li><a href="global.html#solve">solve</a></li><li><a href="global.html#uncover">uncover</a></li><li><a href="global.html#worker">worker</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 14 2023 15:58:46 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
