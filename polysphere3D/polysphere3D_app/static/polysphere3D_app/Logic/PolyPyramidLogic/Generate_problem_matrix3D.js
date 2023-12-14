@@ -1,5 +1,9 @@
 import { Shape3D } from "../PolyPyramidLogic/Shape3D.js";
 import {A, B, C, D, E, F, G, H, I, J, K, L} from "../PolyPyramidLogic/Shapes3D.js";
+/**
+ * Object representing the shape columns.
+ * @type {Object.<string, number>}
+ */
 let shape_cols = {
     "A": 0,
     "B": 1,
@@ -15,6 +19,11 @@ let shape_cols = {
     "L": 11
 };
 
+/**
+ * Converts a 3D coordinate to a column index in the problem matrix.
+ * @param {number[]} coord - The 3D coordinate [x, y, z].
+ * @returns {number} - The column index in the problem matrix.
+ */
 function coord_to_col(coord) {
     let out = 12;
     let z_diff = 0;
@@ -42,6 +51,11 @@ function coord_to_col(coord) {
     return out;
 }
 
+/**
+ * Converts a shape object to a row in the problem matrix.
+ * @param {Object} shape - The shape object to convert.
+ * @returns {Array} - The row representing the shape in the problem matrix.
+ */
 function shape_to_row(shape) {
     let row = new Array(67);
     for (let i = 0; i < 67; i++) {
@@ -55,6 +69,10 @@ function shape_to_row(shape) {
     return row;
 }
 
+/**
+ * Generates headers for a matrix based on shape names and coordinates.
+ * @returns {string[]} An array of headers.
+ */
 function generate_headers() {
     let headers = [];
     let shape_names = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
@@ -75,6 +93,10 @@ function generate_headers() {
 
 let shapes = [A, B, C, D, E, F, G, H, I, J, K, L];
 
+/**
+ * Generates the horizontal slices for a polyhedron.
+ * @returns {Array<Array<number>>} The horizontal slices of the polyhedron.
+ */
 function get_horizontal_slices() {
     let horizontal_slices = [];
     for (let i = 4; i >= 0; i--) {
@@ -88,6 +110,10 @@ function get_horizontal_slices() {
     return horizontal_slices;
 }
 
+/**
+ * Retrieves the diagonal slices from the horizontal slices.
+ * @returns {Array<Array<Array<Array<number>>>>} The diagonal slices.
+ */
 function get_diag_slices() {
     let diag_slices = [[new Array(), new Array(), new Array(), new Array()],
                        [new Array(), new Array(), new Array(), new Array()],
@@ -138,6 +164,12 @@ function get_diag_slices() {
 
 let diag_slices = get_diag_slices();
 
+/**
+ * Converts rectangular coordinates to diagonal coordinates based on the shape layout and size.
+ * @param {Array<Array<number>>} shape_layout - The layout of the shape in rectangular coordinates.
+ * @param {number} size - The size of the shape.
+ * @returns {Array<Array<number>>} - The converted diagonal coordinates.
+ */
 function convert_rect_coords_to_diags(shape_layout, size) {
     let out = new Array();
 
@@ -172,6 +204,13 @@ function convert_rect_coords_to_diags(shape_layout, size) {
     return out;
 }
 
+/**
+ * Adds rows to the problem matrix if the shape's layout is valid.
+ * @param {Array<Array<number>>} problem_mat - The problem matrix.
+ * @param {Object} shape - The shape object.
+ * @param {number} size - The size of the shape.
+ * @returns {boolean} - True if rows were added, false otherwise.
+ */
 function add_row_for_diags_if_valid(problem_mat, shape, size) {
     for (let coord of shape.layout) {
         if (coord[0] > coord[1]) {
@@ -189,6 +228,12 @@ function add_row_for_diags_if_valid(problem_mat, shape, size) {
 
 let diags = get_diag_slices();
 
+/**
+ * Adds rows for a given shape in horizontal and vertical slices to the problem matrix.
+ * @param {Array<Array<number>>} prob_mat - The problem matrix to add rows to.
+ * @param {Shape} shape - The shape to add rows for.
+ * @returns {Array<Array<number>>} - The updated problem matrix.
+ */
 function add_rows_for_shape_in_horizontal_and_vertical_slices(prob_mat, shape) {
     let max_size = 0;
 
@@ -263,6 +308,11 @@ function add_rows_for_shape_in_horizontal_and_vertical_slices(prob_mat, shape) {
     return prob_mat;
 }
 
+/**
+ * Populates a problem matrix for 3D shapes.
+ * 
+ * @returns {Array} The problem matrix.
+ */
 function populate_problem_matrix3D() {
     let problem_matrix = [];
 
@@ -272,6 +322,15 @@ function populate_problem_matrix3D() {
     return problem_matrix;
 }
 
+/**
+ * Reduces the problem matrix by removing rows and columns based on the shapes and squares used.
+ * @param {Array<Array<number>>} problem_matrix - The problem matrix to be reduced.
+ * @param {Array<string>} problem_headers - The headers of the problem matrix.
+ * @param {Array<string>} shapes_used - The shapes used in the problem.
+ * @param {Array<Array<string>>} squares_used - The squares used in the problem.
+ * @param {boolean} isFourLevel - Indicates if the problem is a four-level problem.
+ * @returns {Array<Array<number>>} - The reduced problem matrix.
+ */
 function reduce_problem_matrix(problem_matrix, problem_headers, shapes_used, squares_used, isFourLevel) {
     console.log(problem_headers);
     let used_cols = [];

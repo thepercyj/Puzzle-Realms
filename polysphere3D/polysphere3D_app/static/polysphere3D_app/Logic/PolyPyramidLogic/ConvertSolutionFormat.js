@@ -1,3 +1,13 @@
+/**
+ * Converts a solution format to a pyramid layers format.
+ * 
+ * @param {number[]} solution - The solution format to convert.
+ * @param {number[][]} problem_matrix - The problem matrix.
+ * @param {string[]} mat_header - The matrix header.
+ * @param {string[]} start_shapes - The starting shapes.
+ * @param {number[][][]} start_squares - The starting squares.
+ * @returns {number[][][]} The converted pyramid layers format.
+ */
 function convert_to_pyramid_layers(solution, problem_matrix, mat_header, start_shapes, start_squares) {
     let num_unused_shapes = 12 - start_shapes.length;
     let out_mat = new Array(5);

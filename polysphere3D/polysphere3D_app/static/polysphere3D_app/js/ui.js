@@ -70,12 +70,17 @@ window.onload = function() {
     let currentImageName = "A"
     currentImage.className = currentImageName
 
-    // Function to update the displayed alphabet
+    /**
+     * Updates the alphabet container with the current alphabet index.
+     */
     function updateAlphabet() {
         const alphabetContainer = document.getElementById('currentAlphabet');
         alphabetContainer.textContent = image_names[currentAlphabetIndex];
     }
 
+    /**
+     * Updates the image source, name, class, and rotation angle of the current image.
+     */
     function updateImage() {
         currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
         currentImageName = image_names[currentIndex]
@@ -85,6 +90,9 @@ window.onload = function() {
         currentImage.style.transform = `rotate(${rotationAngle}deg)`;
     }
 
+    /**
+     * Moves to the previous image in the sequence.
+     */
     function previousImage() {
         currentIndex = (currentIndex - 1 + imageIds.length) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
@@ -93,6 +101,9 @@ window.onload = function() {
         updateAlphabet();
     }
 
+    /**
+     * Advances to the next image and updates the UI accordingly.
+     */
     function nextImage() {
         currentIndex = (currentIndex + 1) % imageIds.length;
         rotationAngle = 0; // Reset rotation when changing images
@@ -108,7 +119,15 @@ window.onload = function() {
 
 
 }
+/**
+ * Represents a worker object.
+ * @type {Pyramid}
+ */
 let worker = new Pyramid(5, 1);
+/**
+ * Represents a sol_worker object.
+ * @type {Pyramid}
+ */
 let sol_worker = new Pyramid(5, 1);
 
 let scene = new Scene();
@@ -117,6 +136,10 @@ const FPS = 30;
 let uiTimer = null;
 let visibilityStates = [true, true, true, true, true];
 
+/**
+ * Creates a timer that repeatedly calls the specified function at a given frame rate.
+ * @param {Function} func - The function to be called repeatedly by the timer.
+ */
 function createTimer(func) {
     if (uiTimer) {
         clearInterval(uiTimer);
@@ -129,6 +152,9 @@ function createTimer(func) {
 }
 
 
+/**
+ * Renders the pyramid by iterating through the layers of spheres and updating their positions and colors.
+ */
 function renderPyramid() {
     for (let i = 0; i < worker.layers.length; i++) {
         const spheres = worker.layers[i].matrix;
@@ -155,6 +181,9 @@ function renderPyramid() {
     }
 }
 
+/**
+ * Renders the solution pyramid by updating the positions and colors of the spheres in the scene.
+ */
 function sol_renderPyramid() {
     for (let i = 0; i < sol_worker.layers.length; i++) {
         const spheres = sol_worker.layers[i].matrix;
@@ -181,6 +210,9 @@ function sol_renderPyramid() {
     }
 }
 
+/**
+ * Disposes all spheres in the pyramid.
+ */
 function disposePyramid() {
     for (let i = 0; i < worker.layers.length; i++) {
         const spheres = worker.layers[i].matrix;
@@ -194,7 +226,11 @@ function disposePyramid() {
     }
 }
 
-// Makes layers visible
+/**
+ * Updates the visibility of a layer and its spheres.
+ * @param {number} idx - The index of the layer.
+ * @param {boolean} v - The new visibility state.
+ */
 function layerVisible(idx, v) {
     console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
@@ -214,6 +250,12 @@ function layerVisible(idx, v) {
     }
 }
 
+/**
+ * Updates the visibility of a layer in the solution pyramid object.
+ * 
+ * @param {number} idx - The index of the layer.
+ * @param {boolean} v - The new visibility state of the layer.
+ */
 function sol_layerVisible(idx, v) {
     console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
@@ -306,6 +348,10 @@ for (let i = 1; i <= 5; i++) {
 
 const state = createState();
 
+/**
+ * Creates a new state object.
+ * @returns {Object} The newly created state object.
+ */
 function createState() {
     return {
         stopExecution: false,
@@ -315,6 +361,9 @@ function createState() {
     };
 }
 
+/**
+ * Handles the event when the solve button is clicked.
+ */
 function onSolveButton() {
     state.solutions = []
     var allSolutions = [];
@@ -374,6 +423,9 @@ function onSolveButton() {
     });
 }
 
+/**
+ * Clears the UI and resets the state.
+ */
 function onClearButton() {
     scount.textContent = "Number of solutions: 0"
     state.solutions = []
@@ -397,6 +449,11 @@ function onClearButton() {
     sol_drawPosition(empty_position);
 }
 
+/**
+ * Draws the position on the pyramid.
+ * 
+ * @param {Array<Array<Array<string>>>} position - The position to be drawn.
+ */
 function drawPosition(position) {
 
     for (let layer = 0; layer < position.length; layer++) {
@@ -417,6 +474,12 @@ function drawPosition(position) {
     renderPyramid();
 }
 
+/**
+ * Draws the position on the solution pyramid.
+ * 
+ * @param {Array<Array<Array<string>>>} position - The position to be drawn on the pyramid.
+ * @returns {void}
+ */
 function sol_drawPosition(position) {
 
     for (let layer = 0; layer < position.length; layer++) {
@@ -437,6 +500,12 @@ function sol_drawPosition(position) {
     sol_renderPyramid();
 }
 
+/**
+ * Checks if the number of spheres for each shape matches the number of coordinates provided.
+ * @param {string[]} shapes - An array of shape names.
+ * @param {number[][]} coords - An array of coordinate arrays, where each array represents the coordinates for a shape.
+ * @returns {boolean} - Returns true if the number of spheres for each shape matches the number of coordinates, otherwise false.
+ */
 function checkInput(shapes, coords) {
     console.log("Shapes:", shapes, "Coords:", coords)
     for (let i = 0; i < shapes.length; i++) {
@@ -448,6 +517,10 @@ function checkInput(shapes, coords) {
     return true;
 }
 
+/**
+ * Handles the click event of the next button.
+ * Pops a solution from the state's solutions array and calls sol_drawPosition to draw it.
+ */
 function onNextButton() {
     console.log("Clicked next");
     const solutions = [...state.solutions];
@@ -457,6 +530,9 @@ function onNextButton() {
     }
 }
 
+/**
+ * Handles the click event of the "Prev" button.
+ */
 function onPrevButton() {
     console.log("Clicked Prev");
     const solutions = [...state.solutions];
@@ -466,12 +542,18 @@ function onPrevButton() {
     }
 }
 
+/**
+ * Stops the execution and clears the interval timer.
+ */
 function onStopButton() {
     let stopExecution = true;
     clearInterval(uiTimer);
     uiTimer = null;
 }
 
+/**
+ * Initializes the component and sets up the scene and pyramid rendering.
+ */
 function componentDidMount() {
     scene.init(panel);
     sol_scene.sol_init(c);
@@ -479,11 +561,18 @@ function componentDidMount() {
     sol_renderPyramid();
 }
 
+/**
+ * Cleans up resources before the component is unmounted.
+ */
 function componentWillUnmount() {
     scene.dispose();
     sol_scene.dispose();
 }
 
+/**
+ * Handles the click event on the input element.
+ * Logs the values of shape, inputX, inputY, and inputZ to the console.
+ */
 function onInputClick() {
     console.log(inputRef.shape.value);
     console.log(inputRef.inputX.value);

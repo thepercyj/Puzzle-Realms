@@ -25,8 +25,32 @@ const _ray = new Ray();
 const _plane = new Plane();
 const TILT_LIMIT = Math.cos( 70 * MathUtils.DEG2RAD );
 
+/**
+ * OrbitControls class provides an interface for controlling the orbiting behavior of a 3D object.
+ * @class
+ * @extends EventDispatcher
+ * @param {Object3D} object - The object to be controlled.
+ * @param {HTMLElement} domElement - The DOM element to which the controls will be attached.
+ */
 class OrbitControls extends EventDispatcher {
 
+	/**
+	 * Constructs a new instance of the OrbitControls class.
+	 * @param {Object3D} object - The object to be controlled.
+	 * @param {HTMLElement} domElement - The DOM element to which the controls will be attached.
+	 */
+	/**
+	 * Creates a new instance of OrbitControls.
+	 * @constructor
+	 * @param {Object3D} object - The object to be controlled.
+	 * @param {HTMLElement} domElement - The DOM element to which the controls will be attached.
+	 */
+	/**
+	 * Creates a new instance of OrbitControls.
+	 * @constructor
+	 * @param {Object3D} object - The object to be controlled.
+	 * @param {HTMLElement} domElement - The DOM element to which the controls will be attached.
+	 */
 	constructor( object, domElement ) {
 
 		super();
@@ -168,7 +192,7 @@ class OrbitControls extends EventDispatcher {
 
 		};
 
-		// this method is exposed, but perhaps it would be better if we can make it private...
+		
 		this.update = function () {
 
 			const offset = new Vector3();
@@ -429,7 +453,6 @@ class OrbitControls extends EventDispatcher {
 
 			}
 
-			//scope.dispatchEvent( { type: 'dispose' } ); // should this be added here?
 
 		};
 
@@ -480,6 +503,11 @@ class OrbitControls extends EventDispatcher {
 		const pointers = [];
 		const pointerPositions = {};
 
+		/**
+		 * Calculates the auto rotation angle based on the given delta time.
+		 * @param {number} deltaTime - The time difference between the current frame and the previous frame.
+		 * @returns {number} The auto rotation angle.
+		 */
 		function getAutoRotationAngle( deltaTime ) {
 
 			if ( deltaTime !== null ) {
@@ -494,24 +522,44 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Calculates the zoom scale based on the zoom speed.
+		 * @returns {number} The zoom scale.
+		 */
 		function getZoomScale() {
 
 			return Math.pow( 0.95, scope.zoomSpeed );
 
 		}
 
+		/**
+		 * Rotates the camera to the left by the specified angle.
+		 *
+		 * @param {number} angle - The angle in radians.
+		 */
 		function rotateLeft( angle ) {
 
 			sphericalDelta.theta -= angle;
 
 		}
 
+		/**
+		 * Rotates the camera upwards by the specified angle.
+		 *
+		 * @param {number} angle - The angle (in radians) by which to rotate the camera upwards.
+		 */
 		function rotateUp( angle ) {
 
 			sphericalDelta.phi -= angle;
 
 		}
 
+		/**
+		 * Pans the camera to the left by a given distance.
+		 * 
+		 * @param {number} distance - The distance to pan the camera.
+		 * @param {Matrix4} objectMatrix - The matrix representing the object's transformation.
+		 */
 		const panLeft = function () {
 
 			const v = new Vector3();
@@ -593,6 +641,10 @@ class OrbitControls extends EventDispatcher {
 
 		}();
 
+		/**
+		 * Dolly out the camera.
+		 * @param {number} dollyScale - The scale factor for the dolly operation.
+		 */
 		function dollyOut( dollyScale ) {
 
 			if ( scope.object.isPerspectiveCamera || scope.object.isOrthographicCamera ) {
@@ -608,6 +660,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Dolly in the camera.
+		 * @param {number} dollyScale - The scale factor for the dolly operation.
+		 */
 		function dollyIn( dollyScale ) {
 
 			if ( scope.object.isPerspectiveCamera || scope.object.isOrthographicCamera ) {
@@ -623,6 +679,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Updates the mouse parameters based on the event.
+		 * @param {MouseEvent} event - The mouse event.
+		 */
 		function updateMouseParameters( event ) {
 
 			if ( ! scope.zoomToCursor ) {
@@ -646,6 +706,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Clamps the distance value between the minimum and maximum distance.
+		 * @param {number} dist - The distance value to be clamped.
+		 * @returns {number} - The clamped distance value.
+		 */
 		function clampDistance( dist ) {
 
 			return Math.max( scope.minDistance, Math.min( scope.maxDistance, dist ) );
@@ -656,12 +721,22 @@ class OrbitControls extends EventDispatcher {
 		// event callbacks - update the object state
 		//
 
+		/**
+		 * Handles the mouse down event for rotating.
+		 *
+		 * @param {MouseEvent} event - The mouse down event.
+		 */
 		function handleMouseDownRotate( event ) {
 
 			rotateStart.set( event.clientX, event.clientY );
 
 		}
 
+		/**
+		 * Handles the mouse down event for dolly operation.
+		 * 
+		 * @param {MouseEvent} event - The mouse event object.
+		 */
 		function handleMouseDownDolly( event ) {
 
 			updateMouseParameters( event );
@@ -669,12 +744,22 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse down event for panning.
+		 *
+		 * @param {MouseEvent} event - The mouse down event.
+		 */
 		function handleMouseDownPan( event ) {
 
 			panStart.set( event.clientX, event.clientY );
 
 		}
 
+		/**
+		 * Handles the mouse move event for rotating the object.
+		 * 
+		 * @param {MouseEvent} event - The mouse move event.
+		 */
 		function handleMouseMoveRotate( event ) {
 
 			rotateEnd.set( event.clientX, event.clientY );
@@ -693,6 +778,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse move event for dolly operation.
+		 * @param {MouseEvent} event - The mouse move event.
+		 */
 		function handleMouseMoveDolly( event ) {
 
 			dollyEnd.set( event.clientX, event.clientY );
@@ -715,6 +804,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse move event for panning.
+		 *
+		 * @param {MouseEvent} event - The mouse move event.
+		 */
 		function handleMouseMovePan( event ) {
 
 			panEnd.set( event.clientX, event.clientY );
@@ -729,6 +823,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse wheel event.
+		 * @param {Event} event - The mouse wheel event.
+		 */
 		function handleMouseWheel( event ) {
 
 			updateMouseParameters( event );
@@ -747,6 +845,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the keydown event for the OrbitControls.
+		 *
+		 * @param {Event} event - The keydown event.
+		 */
 		function handleKeyDown( event ) {
 
 			let needsUpdate = false;
@@ -827,6 +930,9 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch start event for rotation.
+		 */
 		function handleTouchStartRotate() {
 
 			if ( pointers.length === 1 ) {
@@ -844,6 +950,9 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch start event for panning.
+		 */
 		function handleTouchStartPan() {
 
 			if ( pointers.length === 1 ) {
@@ -861,6 +970,9 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch start event for dolly operation.
+		 */
 		function handleTouchStartDolly() {
 
 			const dx = pointers[ 0 ].pageX - pointers[ 1 ].pageX;
@@ -872,6 +984,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch start event for both dolly and pan actions.
+		 * If zoom is enabled, it calls handleTouchStartDolly.
+		 * If pan is enabled, it calls handleTouchStartPan.
+		 */
 		function handleTouchStartDollyPan() {
 
 			if ( scope.enableZoom ) handleTouchStartDolly();
@@ -880,6 +997,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch start event for dolly and rotate actions.
+		 * If zoom is enabled, it calls handleTouchStartDolly.
+		 * If rotate is enabled, it calls handleTouchStartRotate.
+		 */
 		function handleTouchStartDollyRotate() {
 
 			if ( scope.enableZoom ) handleTouchStartDolly();
@@ -888,6 +1010,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch move event for rotating the object.
+		 * @param {Event} event - The touch move event.
+		 */
 		function handleTouchMoveRotate( event ) {
 
 			if ( pointers.length == 1 ) {
@@ -917,6 +1043,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch move event for panning.
+		 * @param {Event} event - The touch move event.
+		 */
 		function handleTouchMovePan( event ) {
 
 			if ( pointers.length === 1 ) {
@@ -942,6 +1072,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch move event for dolly operation.
+		 * 
+		 * @param {Event} event - The touch move event.
+		 */
 		function handleTouchMoveDolly( event ) {
 
 			const position = getSecondPointerPosition( event );
@@ -961,6 +1096,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles touch move event for dolly and pan actions.
+		 * @param {Event} event - The touch move event.
+		 */
 		function handleTouchMoveDollyPan( event ) {
 
 			if ( scope.enableZoom ) handleTouchMoveDolly( event );
@@ -969,6 +1108,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles touch move event for dolly and rotate actions.
+		 * @param {Event} event - The touch move event.
+		 */
 		function handleTouchMoveDollyRotate( event ) {
 
 			if ( scope.enableZoom ) handleTouchMoveDolly( event );
@@ -977,10 +1120,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
-		//
-		// event handlers - FSM: listen for events and reset state
-		//
 
+		/**
+		 * Handles the pointer down event.
+		 * @param {Event} event - The pointer down event.
+		 */
 		function onPointerDown( event ) {
 
 			if ( scope.enabled === false ) return;
@@ -1010,6 +1154,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the pointer move event.
+		 * @param {Event} event - The pointer move event.
+		 */
 		function onPointerMove( event ) {
 
 			if ( scope.enabled === false ) return;
@@ -1026,6 +1174,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the pointer up event.
+		 *
+		 * @param {Event} event - The pointer up event.
+		 */
 		function onPointerUp( event ) {
 
 			removePointer( event );
@@ -1045,6 +1198,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse down event.
+		 * 
+		 * @param {MouseEvent} event - The mouse event object.
+		 */
 		function onMouseDown( event ) {
 
 			let mouseAction;
@@ -1142,6 +1300,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse move event.
+		 * @param {MouseEvent} event - The mouse move event.
+		 */
 		function onMouseMove( event ) {
 
 			switch ( state ) {
@@ -1174,6 +1336,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the mouse wheel event.
+		 * @param {Event} event - The mouse wheel event.
+		 */
 		function onMouseWheel( event ) {
 
 			if ( scope.enabled === false || scope.enableZoom === false || state !== STATE.NONE ) return;
@@ -1188,6 +1354,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the keydown event for the OrbitControls.
+		 * @param {Event} event - The keydown event.
+		 */
 		function onKeyDown( event ) {
 
 			if ( scope.enabled === false || scope.enablePan === false ) return;
@@ -1196,6 +1366,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the touch start event.
+		 * @param {TouchEvent} event - The touch event.
+		 */
 		function onTouchStart( event ) {
 
 			trackPointer( event );
@@ -1334,6 +1508,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Handles the context menu event.
+		 * @param {Event} event - The context menu event.
+		 */
 		function onContextMenu( event ) {
 
 			if ( scope.enabled === false ) return;
@@ -1342,12 +1520,20 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Adds a pointer to the pointers array.
+		 * @param {Event} event - The event object representing the pointer.
+		 */
 		function addPointer( event ) {
 
 			pointers.push( event );
 
 		}
 
+		/**
+		 * Removes the pointer from the pointerPositions and pointers arrays.
+		 * @param {Event} event - The pointer event.
+		 */
 		function removePointer( event ) {
 
 			delete pointerPositions[ event.pointerId ];
@@ -1365,6 +1551,10 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Tracks the pointer position for the given event.
+		 * @param {Event} event - The pointer event.
+		 */
 		function trackPointer( event ) {
 
 			let position = pointerPositions[ event.pointerId ];
@@ -1380,6 +1570,11 @@ class OrbitControls extends EventDispatcher {
 
 		}
 
+		/**
+		 * Retrieves the position of the second pointer in the event.
+		 * @param {Event} event - The event object containing pointer information.
+		 * @returns {Object} - The position of the second pointer.
+		 */
 		function getSecondPointerPosition( event ) {
 
 			const pointer = ( event.pointerId === pointers[ 0 ].pointerId ) ? pointers[ 1 ] : pointers[ 0 ];
@@ -1396,7 +1591,6 @@ class OrbitControls extends EventDispatcher {
 		scope.domElement.addEventListener( 'pointercancel', onPointerUp );
 		scope.domElement.addEventListener( 'wheel', onMouseWheel, { passive: false } );
 
-		// force an update at start
 
 		this.update();
 

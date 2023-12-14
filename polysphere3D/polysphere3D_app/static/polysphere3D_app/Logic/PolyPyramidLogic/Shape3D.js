@@ -1,3 +1,62 @@
+/**
+ * Represents a 3D shape.
+ * @constructor
+ * @param {string} name - The name of the shape.
+ * @param {string} layout - The layout of the shape.
+ */
+function Shape3D(name, layout) {
+    this.name = name;
+    this.layout = layout;
+}
+
+/**
+ * Checks if the layout of this shape is equal to the layout of another shape.
+ * @param {Array} other_shape_layout - The layout of the other shape.
+ * @returns {boolean} - True if the layouts are equal, false otherwise.
+ */
+Shape3D.prototype.equal_layouts = function (other_shape_layout) {
+    // implementation
+};
+
+/**
+ * Rotates the shape by 90 degrees.
+ */
+Shape3D.prototype.rotate = function () {
+    // implementation
+};
+
+/**
+ * Flips the shape vertically.
+ */
+Shape3D.prototype.flip = function () {
+    // implementation
+};
+
+/**
+ * Translates the shape by the specified number of rows and columns.
+ * @param {number} rows - The number of rows to translate.
+ * @param {number} cols - The number of columns to translate.
+ * @param {number} grid_size - The size of the grid.
+ * @returns {boolean} - True if the translation is successful, false otherwise.
+ */
+Shape3D.prototype.translate = function (rows, cols, grid_size) {
+    // implementation
+};
+
+/**
+ * Resets the coordinates of the shape to start from (0, 0).
+ */
+Shape3D.prototype.reset_coord = function () {
+    // implementation
+};
+
+export { Shape3D };
+/**
+ * Represents a 3D shape.
+ * @constructor
+ * @param {string} name - The name of the shape.
+ * @param {string} layout - The layout of the shape.
+ */
 function Shape3D(name, layout) {
     this.name = name;
     this.layout = layout;

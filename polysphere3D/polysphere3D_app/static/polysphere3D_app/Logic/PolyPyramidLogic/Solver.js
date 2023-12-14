@@ -18,6 +18,16 @@ let sets = {
     7: new Set(['A', 'C', 'E', 'F'])
 };
 
+/**
+ * Solves the given problem using a backtracking algorithm.
+ * 
+ * @generator
+ * @function solve
+ * @param {Object} X - The input object containing the problem data.
+ * @param {Object} Y - The input object containing the problem constraints.
+ * @param {Array} [solution=[]] - The current solution being built.
+ * @yields {Array} - The next valid solution found.
+ */
 function* solve(X, Y, solution = []) {
     if (Object.keys(X).length === 0) {
         yield Array.from(solution);
@@ -44,6 +54,13 @@ function* solve(X, Y, solution = []) {
     }
 }
 
+/**
+ * Removes redundant elements from the input set and returns the remaining elements as an array.
+ * @param {Object} X - The input set represented as an object.
+ * @param {Array} Y - The input set represented as an array.
+ * @param {number} r - The index of the element to be covered.
+ * @returns {Array} - The remaining elements after removing redundancies.
+ */
 function cover(X, Y, r) {
     let cols = [];
     for (let j of Y[r]) {
@@ -60,6 +77,16 @@ function cover(X, Y, r) {
     return cols;
 }
 
+/**
+ * Uncover function assigns colors to the vertices of a graph in a specific order.
+ * It starts from the last row and assigns colors to the vertices in reverse order.
+ * For each vertex, it assigns a color and updates the adjacent vertices' colors.
+ * 
+ * @param {Array<Set<number>>} X - An array of sets representing the vertices and their assigned colors.
+ * @param {Array<Array<number>>} Y - An array of arrays representing the adjacency list of the graph.
+ * @param {number} r - The index of the row to start uncovering from.
+ * @param {Array<any>} cols - An array of colors to assign to the vertices.
+ */
 function uncover(X, Y, r, cols) {
     for (let j of Y[r].slice().reverse()) {
         X[j] = cols.pop();
@@ -73,6 +100,13 @@ function uncover(X, Y, r, cols) {
     }
 }
 
+/**
+ * Solves the exact cover problem using the Dancing Links algorithm.
+ * 
+ * @param {Object} items - The items to be covered.
+ * @param {Object} sets - The sets of items.
+ * @returns {Array} - The solution to the exact cover problem.
+ */
 export function dlx(items, sets) {
     let X = {};
     let Y = {};
