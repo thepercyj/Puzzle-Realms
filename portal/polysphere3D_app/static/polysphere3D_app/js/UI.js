@@ -59,7 +59,6 @@ window.onload = function() {
     function updateImage() {
         currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
         currentImageName = image_names[currentIndex]
-        console.log(currentImageName)
         currentImage.className = currentImageName
     }
 
@@ -187,7 +186,6 @@ function sol_renderPyramid() {
  * @param {boolean} v - The new visibility state.
  */
 function layerVisible(idx, v) {
-    console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
     visibilityStates[idx - 1] = v
     let layer = worker.getLayer(idx);
@@ -210,10 +208,8 @@ function layerVisible(idx, v) {
  * @param {boolean} v - The new visibility state of the layer.
  */
 function sol_layerVisible(idx, v) {
-    console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
     visibilityStates[idx - 1] = v
-    //console.log("New States", visibilityStates)
     let layer = sol_worker.getLayer(idx);
     const spheres = layer.matrix;
     for (let x = 0; x < layer.size; x++) {
@@ -222,7 +218,6 @@ function sol_layerVisible(idx, v) {
                 spheres[x][y].userData.visible = v;
                 spheres[x][y].visible = v;
                 spheres[x][y].userData.needsUpdate = true;
-                //console.log("?");
             }
         }
     }
@@ -288,7 +283,6 @@ for (let i = 1; i <= 5; i++) {
     });
     const label = document.getElementById('l' + i + 'sLabel');
     const sol_label = document.getElementById('ls' + i + 'Label');
-    console.log(checkbox, label);
     layerCheckboxes.push(checkbox, label);
     sol_layerCheckboxes.push(sol_checkbox, sol_label);
 }
@@ -334,15 +328,11 @@ function onSolveButton() {
     const updatedProblemMat = problem_def[0];
     const headers = problem_def[1];
 
-    console.log(updatedProblemMat);
-    console.log(headers);
+
 
     const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
 
-    console.log(Object.keys(dicts[0]).length);
-    console.log(dicts[0]);
-    console.log(dicts[1]);
-    console.log(headers);
+
 
     const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
     let cnt = 0;
@@ -367,7 +357,6 @@ function onSolveButton() {
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
         state.solutions = [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
-        console.log("Solve", pyramid_layers)
         sol_drawPosition(pyramid_layers);
     });
 }
@@ -456,7 +445,7 @@ function sol_drawPosition(position) {
  * @returns {boolean} - Returns true if the number of spheres for each shape matches the number of coordinates, otherwise false.
  */
 function checkInput(shapes, coords) {
-    console.log("Shapes:", shapes, "Coords:", coords)
+    console.log("Shapes:", shapes, "Coords:", coords);
     for (let i = 0; i < shapes.length; i++) {
         if (shapeStore[shapes[i]].layout.length !== coords[i].length) {
             // Wrong number of spheres for shape, abort.
