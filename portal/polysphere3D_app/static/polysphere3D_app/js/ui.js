@@ -297,7 +297,6 @@ for (let i = 1; i <= 5; i++) {
     });
     const label = document.getElementById('l' + i + 'sLabel');
     const sol_label = document.getElementById('ls' + i + 'Label');
-    console.log(checkbox, label);
     layerCheckboxes.push(checkbox, label);
     sol_layerCheckboxes.push(sol_checkbox, sol_label);
 }
@@ -336,15 +335,9 @@ function onSolveButton() {
     const updatedProblemMat = problem_def[0];
     const headers = problem_def[1];
 
-    console.log(updatedProblemMat);
-    console.log(headers);
 
     const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
 
-    console.log(Object.keys(dicts[0]).length);
-    console.log(dicts[0]);
-    console.log(dicts[1]);
-    console.log(headers);
 
     const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
     let cnt = 0;
@@ -360,7 +353,6 @@ function onSolveButton() {
             return;
         }
 
-        console.log(arr);
 
         cnt++;
         scount.textContent = "Number of solutions: " + cnt;

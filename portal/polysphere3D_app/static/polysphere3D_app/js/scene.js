@@ -146,8 +146,8 @@ export function initScene(canvas) {
                         intersects[i].object.material.color.set(Colours[shape]);
                         let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
                         setInput(shape, coord);
-                        console.log(inputShapes.get());
-                        console.log(inputCoords.get());
+                        console.log("This is",inputShapes.get());
+                        console.log("That is",inputCoords.get());
                         break;
                     }
                 }
