@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include('portal_app.urls')),
     path('nqueens/', include('nqueens_app.urls', namespace='nqueens')),
     path('polysphere/', include('polysphere_app.urls', namespace='polysphere')),
-    path('polysphere3D/', include('polysphere3D_app.urls', namespace='polysphere3D')),
+    path('polysphere3D/', include('polysphere3D_app.urls')),
 
 ]
 
