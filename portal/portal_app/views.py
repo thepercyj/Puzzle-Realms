@@ -29,6 +29,10 @@ def polysphere3D_game(request):
     return render(request, 'portal_app/game3.html')
 
 
+def doc(request):
+    return render(request, 'portal_app/documentation.html')
+
+
 def custom_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')

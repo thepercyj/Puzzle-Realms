@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>polysphere_app.views API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>polysphere_app.views</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import shutil
+import time
+from io import BytesIO
+from PIL import Image
+from django.db.backends import mysql
+import mysql.connector
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_http_methods
+from .kanoodle import Kanoodle
+from .models import *
+from .puzzle_pieces import PuzzlePieces
+import re
+
+# Sets the grid height and width
+grid_width = 11
+grid_height = 5
+
+# Set global start_time
+start_time = time.time()
+end_time = 0
+
+
+def landing(request):
+    &#34;&#34;&#34;
+    Renders the landing page and handles the form submission.
+
+    If the request method is POST, it retrieves the data from the landing form,
+    stores it in the session, and redirects to the &#39;levels&#39; view.
+    If the request method is GET, it renders the landing.html template.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+    &#34;&#34;&#34;
+    if request.method == &#39;POST&#39;:
+        data_from_landing = request.POST.get(&#39;data_from_landing&#39;, &#39;&#39;)
+        request.session[&#39;data_from_landing&#39;] = data_from_landing
+        return redirect(&#39;polysphere:levels&#39;)
+    else:
+        return render(request, &#39;polysphere_app/landing.html&#39;)
+
+
+def levels(request):
+    &#34;&#34;&#34;
+    Renders the &#39;levels.html&#39; template and passes the &#39;data_from_landing&#39; variable from the session to the template.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered response.
+    &#34;&#34;&#34;
+    data_from_landing = request.session.get(&#39;data_from_landing&#39;, &#39;&#39;)
+    return render(request, &#39;polysphere_app/levels.html&#39;, {&#39;data_from_landing&#39;: data_from_landing})
+
+
+@require_http_methods([&#34;POST&#34;])
+def submit_kanoodle_problem(request):
+    &#34;&#34;&#34;
+    Submits a Kanoodle problem to the server and returns the solution.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response containing the problem ID, solution, and time taken in milliseconds.
+    &#34;&#34;&#34;
+    # Assume data is now coming from a predefined function or file
+    piece_descriptions = get_pieces_data()
+    grid_width = 3
+    grid_height = 3
+
+    # Create a KanoodleProblem instance and store in the database
+    problem = KanoodleProblem.objects.create(
+        piece_descriptions=json.dumps(piece_descriptions),
+        grid_width=grid_width,
+        grid_height=grid_height
+    )
+
+    # Solve the problem using Kanoodle logic
+    start_time = time.time()
+    solutions_str = Kanoodle.findAllSolutions(piece_descriptions, grid_width, grid_height)
+    end_time = time.time()
+
+    # Create a KanoodleSolution instance and store in the database
+    KanoodleSolution.objects.create(problem=problem, solution_data=solutions_str)
+
+    # Return the response
+    return JsonResponse({
+        &#39;problem_id&#39;: problem.id,
+        &#39;solution&#39;: solutions_str,
+        &#39;time_taken_ms&#39;: (end_time - start_time) * 1000
+    }, status=201)
+
+
+@require_http_methods([&#34;GET&#34;])
+def get_kanoodle_solution(request, problem_id):
+    &#34;&#34;&#34;
+    Retrieve the Kanoodle problem and its solutions.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        problem_id (int): The ID of the Kanoodle problem.
+
+    Returns:
+        JsonResponse: The JSON response containing the problem ID and its solutions.
+
+    Raises:
+        KanoodleProblem.DoesNotExist: If the Kanoodle problem with the given ID does not exist.
+    &#34;&#34;&#34;
+    try:
+        # Retrieve the problem and its solutions
+        problem = KanoodleProblem.objects.get(id=problem_id)
+        solutions = problem.solutions.all()
+
+        # Format the solutions for the response
+        solutions_data = [sol.get_solution_data() for sol in solutions]
+        return JsonResponse({
+            &#39;problem_id&#39;: problem_id,
+            &#39;solutions&#39;: solutions_data
+        })
+    except KanoodleProblem.DoesNotExist:
+        return JsonResponse({&#39;error&#39;: &#39;Problem not found.&#39;}, status=404)
+
+
+def get_pieces_data():
+    &#34;&#34;&#34;
+    Retrieves the data of puzzle pieces.
+
+    Returns:
+        dict: A dictionary containing the data of puzzle pieces, including shape, grid, image path, and rotation.
+    &#34;&#34;&#34;
+    puzzle_pieces_data = PuzzlePieces.pieces_data.copy()
+    for piece in PuzzlePiece.objects.all():
+        puzzle_pieces_data[piece.shape] = {
+            &#39;shape&#39;: piece.shape,
+            &#39;grid&#39;: piece.get_grid(),
+            &#39;image_path&#39;: piece.image_path,
+            &#39;rotation&#39;: piece.rotation
+        }
+
+    return puzzle_pieces_data
+
+
+def generate_solution_image(solution_matrix, pieces_data, block_size=50):
+    &#34;&#34;&#34;
+    Generate a solution image based on the solution matrix and pieces data.
+
+    Args:
+        solution_matrix (list): A 2D matrix representing the solution.
+        pieces_data (dict): A dictionary mapping piece symbols to their corresponding image data.
+        block_size (int, optional): The size of each block in pixels. Defaults to 50.
+
+    Returns:
+        BytesIO: An in-memory file containing the generated solution image.
+    &#34;&#34;&#34;
+    solution_width = len(solution_matrix[0]) * block_size
+    solution_height = len(solution_matrix) * block_size
+    solution_image = Image.new(&#39;RGB&#39;, (solution_width, solution_height),
+                               (128, 128, 128))  # Create grey background image
+
+    for row_idx, row in enumerate(solution_matrix):
+        for col_idx, piece_symbol in enumerate(row):
+            if piece_symbol in pieces_data:  # Make sure the piece symbol exists in the data
+                piece_symbol = pieces_data[piece_symbol]
+                # Ensure the position is calculated correctly: (x, y) format
+                position = (col_idx * block_size, row_idx * block_size)
+                # print(f&#34;Placeing {piece_symbol} at {position}, Image Size: {solution_image.size}&#34;)
+                display_piece(piece_symbol, position, block_size, solution_image)
+
+    # Instead of showing the image, save it to an in-memory file
+    image_io = BytesIO()
+    solution_image.save(image_io, &#39;WebP&#39;)
+    image_io.seek(0)
+
+    return image_io
+
+
+# Django view that returns an image response
+def get_list_of_solution_matrices():
+    &#34;&#34;&#34;
+    Retrieves a list of solution matrices for the Kanoodle puzzle.
+
+    Returns:
+        list: A list of solution matrices.
+    &#34;&#34;&#34;
+    kanoodle_solver = Kanoodle()
+
+    # Directly use the pieces_data to get the list of grids
+    list_of_grids = [value[&#39;grid&#39;] for key, value in PuzzlePieces.pieces_data.items()]
+    grid_strings = []
+    for grid in list_of_grids:
+        grid_strings.append(&#34;\n&#34;.join(grid))
+
+    # Call the findAllSolutions method with the list of grids and the puzzle dimensions
+    solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
+
+    global end_time
+    end_time = time.time()
+    solutions = solutions.split(&#34;\n\n&#34;)
+    return solutions
+
+
+def generate_solution_gallery(request):
+    &#34;&#34;&#34;
+    Generates a solution gallery by looping through each solution,
+    generating an image for it, and adding the path to the file.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+    &#34;&#34;&#34;
+    # solutions = get_list_of_solution_matrices()
+    # solutions = [solution.split(&#34;\n&#34;) for solution in solutions]
+    # time_taken = end_time - start_time
+    # print(f&#34;{len(solutions)} solutions found in {time_taken}&#34;)
+    # pieces_data = get_pieces_data()
+
+    # Create a temporary directory within MEDIA_ROOT
+    # media_dir = os.path.join(settings.MEDIA_ROOT)
+    # if not os.path.exists(media_dir):
+    #     os.makedirs(media_dir)
+    #
+    # # Temporary storage for images
+    # fs = FileSystemStorage(location=media_dir)
+
+    # Clears the media folder of existing files before generating the new ones
+    # clear_solutions(media_dir)
+
+    # List to hold the paths of the generated images
+    image_paths = []
+
+    # Loop through each solution, generating an image for it and adding the path to the file
+    for idx in range(0, 80444):
+        # image_io = generate_solution_image(solution_matrix, pieces_data)
+        # filename = f&#39;media/solution_{idx}.webp&#39;
+        # image_path = fs.url(filename)
+        image_path = f&#39;media/solution_{idx}.webp&#39;
+        image_paths.append(image_path)
+
+        data_from_landing = request.session.get(&#39;data_from_landing&#39;, &#39;&#39;)
+        return render(request, &#39;polysphere_app/kanoodle-solver.html&#39;, {&#39;data_from_landing&#39;: data_from_landing})
+
+    # return render(request, &#39;polysphere_app/kanoodle-solver.html&#39;)
+    # return render(request, &#39;polysphere_app/dashboard.html&#39;, {&#39;image_paths&#39;: image_paths})
+
+
+def clear_solutions(directory):
+    &#34;&#34;&#34;
+    Clears all the solution files and directories in the given directory.
+
+    Args:
+        directory (str): The path to the directory containing the solution files.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    for filename in os.listdir(directory):
+        if filename.startswith(&#34;solution&#34;):
+            file_path = os.path.join(directory, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(&#39;Failed to delete %s. Reason: %s&#39; % (file_path, e))
+
+
+def display_piece(piece_data, position, block_size, solution_image):
+    &#34;&#34;&#34;
+    Display a piece on the solution image at the specified position.
+
+    Args:
+        piece_data (dict): The data of the piece, including its image path and rotation.
+        position (tuple): The position where the piece should be placed on the solution image.
+        block_size (int): The size of each block in the solution image.
+        solution_image (PIL.Image.Image): The solution image.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    image_path = piece_data[&#39;image_path&#39;]
+    # Open the image file corresponding to the piece
+    with Image.open(image_path) as piece_image:
+        # Apply rotations to images
+        if piece_data[&#39;rotation&#39;] != 0:
+            piece_image = piece_image.rotate(piece_data[&#39;rotation&#39;], expand=True)
+
+        # Resize the image if necessary
+        piece_image = piece_image.resize((block_size, block_size))
+
+        # Check if the piece fits within the solution image
+        if position[0] + piece_image.width &lt;= solution_image.width and position[
+            1] + piece_image.height &lt;= solution_image.height:
+            # Paste the piece image onto the solution image at the calculated position
+            solution_image.paste(piece_image, position, piece_image)
+
+
+def generate_regex_pattern(partial_solution):
+    &#34;&#34;&#34;
+    Generate a regular expression pattern based on a partial solution.
+
+    Args:
+        partial_solution (list): A 2D list representing a partial solution.
+
+    Returns:
+        str: The regular expression pattern generated from the partial solution.
+    &#34;&#34;&#34;
+    pattern = &#34;&#34;
+    for row in partial_solution:
+        row_pattern = &#34;&#34;
+        for cell in row:
+            if cell == &#39; &#39;:
+                row_pattern += &#39;.&#39;  # Any character
+            else:
+                row_pattern += cell  # Specific character
+        pattern += row_pattern + &#34;\n&#34;
+    return pattern.rstrip(&#34;\n&#34;)
+
+
+def find_partial_solutions(request):
+    &#34;&#34;&#34;
+    Finds partial solutions based on the given request.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: The JSON response containing the partial solutions or an error message.
+    &#34;&#34;&#34;
+    # If a request sent from the webpage
+    if request.method == &#39;POST&#39;:
+        # Assigns a variable to the partial configuration and generates a regex pattern from it
+        configuration = json.loads(request.body)
+        regex_pattern = generate_regex_pattern(configuration)
+        # Opens the solutions.txt file
+        with open(
+                r&#39;polysphere_app/solutions/all_solutions.txt&#39;,
+                &#39;r&#39;) as file:
+            solutions_text = file.read()
+        # Split the text into individual solutions
+        raw_solutions = solutions_text.strip().split(&#39;\n\n&#39;)
+        # Format each solution with newline characters
+        formatted_solutions = [&#39;\n&#39;.join(solution.split(&#39;\n&#39;)) for solution in raw_solutions]
+
+        # Matches pattern to solutions
+        matching_solutions = []
+        for solution in formatted_solutions:
+            if re.match(regex_pattern, solution, re.DOTALL):
+                matching_solutions.append(solution)
+        # Gets the matching solutions&#39; image_paths from database
+        return get_partial_solutions(matching_solutions)
+
+    else:
+        return JsonResponse({&#39;error:&#39;: &#39;Invalid request&#39;}, status=400)
+
+
+def get_partial_solutions(matching_solutions):
+    &#34;&#34;&#34;
+    Retrieves partial solutions from the database based on the given matching solutions.
+
+    Args:
+        matching_solutions (list): A list of matching solutions.
+
+    Returns:
+        dict: A JSON response containing the image paths of the matching patterns.
+    &#34;&#34;&#34;
+    # Establish database connection
+    conn = mysql.connector.connect(host=&#39;144.21.52.245&#39;, port=&#39;6969&#39;, user=&#39;asegroup6&#39;, passwd=&#39;ASEgroup6mysql@2023##&#39;,
+                                   db=&#39;group_6_project&#39;)
+    # conn = mysql.connector.connect(host=&#39;localhost&#39;, port=&#39;3306&#39;, user=&#39;root&#39;, passwd=&#39;&#39;,
+    #                                db=&#39;group_6_project&#39;)
+    cursor = conn.cursor()
+    print(len(matching_solutions))
+    # Gets matching patterns from the database
+    img_paths = []
+    for match in matching_solutions:
+        print(&#34;Match found:&#34;, match)
+        query = &#34;SELECT img_path FROM kanoodle_solver WHERE mapping LIKE %s&#34;
+        match_with_wildcard = f&#34;%{match}%&#34;
+        cursor.execute(query, (match_with_wildcard,))
+        img_paths.extend([row[0] for row in cursor.fetchall()])
+    cursor.close()
+    conn.close()
+    # Returns a Json response
+    return JsonResponse({&#39;img_paths&#39;: img_paths})</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="polysphere_app.views.clear_solutions"><code class="name flex">
+<span>def <span class="ident">clear_solutions</span></span>(<span>directory)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Clears all the solution files and directories in the given directory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>directory</code></strong> :&ensp;<code>str</code></dt>
+<dd>The path to the directory containing the solution files.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clear_solutions(directory):
+    &#34;&#34;&#34;
+    Clears all the solution files and directories in the given directory.
+
+    Args:
+        directory (str): The path to the directory containing the solution files.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    for filename in os.listdir(directory):
+        if filename.startswith(&#34;solution&#34;):
+            file_path = os.path.join(directory, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(&#39;Failed to delete %s. Reason: %s&#39; % (file_path, e))</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.display_piece"><code class="name flex">
+<span>def <span class="ident">display_piece</span></span>(<span>piece_data, position, block_size, solution_image)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Display a piece on the solution image at the specified position.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>piece_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The data of the piece, including its image path and rotation.</dd>
+<dt><strong><code>position</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>The position where the piece should be placed on the solution image.</dd>
+<dt><strong><code>block_size</code></strong> :&ensp;<code>int</code></dt>
+<dd>The size of each block in the solution image.</dd>
+<dt><strong><code>solution_image</code></strong> :&ensp;<code>PIL.Image.Image</code></dt>
+<dd>The solution image.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_piece(piece_data, position, block_size, solution_image):
+    &#34;&#34;&#34;
+    Display a piece on the solution image at the specified position.
+
+    Args:
+        piece_data (dict): The data of the piece, including its image path and rotation.
+        position (tuple): The position where the piece should be placed on the solution image.
+        block_size (int): The size of each block in the solution image.
+        solution_image (PIL.Image.Image): The solution image.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+    image_path = piece_data[&#39;image_path&#39;]
+    # Open the image file corresponding to the piece
+    with Image.open(image_path) as piece_image:
+        # Apply rotations to images
+        if piece_data[&#39;rotation&#39;] != 0:
+            piece_image = piece_image.rotate(piece_data[&#39;rotation&#39;], expand=True)
+
+        # Resize the image if necessary
+        piece_image = piece_image.resize((block_size, block_size))
+
+        # Check if the piece fits within the solution image
+        if position[0] + piece_image.width &lt;= solution_image.width and position[
+            1] + piece_image.height &lt;= solution_image.height:
+            # Paste the piece image onto the solution image at the calculated position
+            solution_image.paste(piece_image, position, piece_image)</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.find_partial_solutions"><code class="name flex">
+<span>def <span class="ident">find_partial_solutions</span></span>(<span>request)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Finds partial solutions based on the given request.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
+<dd>The HTTP request object.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>JsonResponse</code></dt>
+<dd>The JSON response containing the partial solutions or an error message.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_partial_solutions(request):
+    &#34;&#34;&#34;
+    Finds partial solutions based on the given request.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: The JSON response containing the partial solutions or an error message.
+    &#34;&#34;&#34;
+    # If a request sent from the webpage
+    if request.method == &#39;POST&#39;:
+        # Assigns a variable to the partial configuration and generates a regex pattern from it
+        configuration = json.loads(request.body)
+        regex_pattern = generate_regex_pattern(configuration)
+        # Opens the solutions.txt file
+        with open(
+                r&#39;polysphere_app/solutions/all_solutions.txt&#39;,
+                &#39;r&#39;) as file:
+            solutions_text = file.read()
+        # Split the text into individual solutions
+        raw_solutions = solutions_text.strip().split(&#39;\n\n&#39;)
+        # Format each solution with newline characters
+        formatted_solutions = [&#39;\n&#39;.join(solution.split(&#39;\n&#39;)) for solution in raw_solutions]
+
+        # Matches pattern to solutions
+        matching_solutions = []
+        for solution in formatted_solutions:
+            if re.match(regex_pattern, solution, re.DOTALL):
+                matching_solutions.append(solution)
+        # Gets the matching solutions&#39; image_paths from database
+        return get_partial_solutions(matching_solutions)
+
+    else:
+        return JsonResponse({&#39;error:&#39;: &#39;Invalid request&#39;}, status=400)</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.generate_regex_pattern"><code class="name flex">
+<span>def <span class="ident">generate_regex_pattern</span></span>(<span>partial_solution)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a regular expression pattern based on a partial solution.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>partial_solution</code></strong> :&ensp;<code>list</code></dt>
+<dd>A 2D list representing a partial solution.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The regular expression pattern generated from the partial solution.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_regex_pattern(partial_solution):
+    &#34;&#34;&#34;
+    Generate a regular expression pattern based on a partial solution.
+
+    Args:
+        partial_solution (list): A 2D list representing a partial solution.
+
+    Returns:
+        str: The regular expression pattern generated from the partial solution.
+    &#34;&#34;&#34;
+    pattern = &#34;&#34;
+    for row in partial_solution:
+        row_pattern = &#34;&#34;
+        for cell in row:
+            if cell == &#39; &#39;:
+                row_pattern += &#39;.&#39;  # Any character
+            else:
+                row_pattern += cell  # Specific character
+        pattern += row_pattern + &#34;\n&#34;
+    return pattern.rstrip(&#34;\n&#34;)</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.generate_solution_gallery"><code class="name flex">
+<span>def <span class="ident">generate_solution_gallery</span></span>(<span>request)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates a solution gallery by looping through each solution,
+generating an image for it, and adding the path to the file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
+<dd>The HTTP request object.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>HttpResponse</code></dt>
+<dd>The HTTP response object.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_solution_gallery(request):
+    &#34;&#34;&#34;
+    Generates a solution gallery by looping through each solution,
+    generating an image for it, and adding the path to the file.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+    &#34;&#34;&#34;
+    # solutions = get_list_of_solution_matrices()
+    # solutions = [solution.split(&#34;\n&#34;) for solution in solutions]
+    # time_taken = end_time - start_time
+    # print(f&#34;{len(solutions)} solutions found in {time_taken}&#34;)
+    # pieces_data = get_pieces_data()
+
+    # Create a temporary directory within MEDIA_ROOT
+    # media_dir = os.path.join(settings.MEDIA_ROOT)
+    # if not os.path.exists(media_dir):
+    #     os.makedirs(media_dir)
+    #
+    # # Temporary storage for images
+    # fs = FileSystemStorage(location=media_dir)
+
+    # Clears the media folder of existing files before generating the new ones
+    # clear_solutions(media_dir)
+
+    # List to hold the paths of the generated images
+    image_paths = []
+
+    # Loop through each solution, generating an image for it and adding the path to the file
+    for idx in range(0, 80444):
+        # image_io = generate_solution_image(solution_matrix, pieces_data)
+        # filename = f&#39;media/solution_{idx}.webp&#39;
+        # image_path = fs.url(filename)
+        image_path = f&#39;media/solution_{idx}.webp&#39;
+        image_paths.append(image_path)
+
+        data_from_landing = request.session.get(&#39;data_from_landing&#39;, &#39;&#39;)
+        return render(request, &#39;polysphere_app/kanoodle-solver.html&#39;, {&#39;data_from_landing&#39;: data_from_landing})
+
+    # return render(request, &#39;polysphere_app/kanoodle-solver.html&#39;)
+    # return render(request, &#39;polysphere_app/dashboard.html&#39;, {&#39;image_paths&#39;: image_paths})</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.generate_solution_image"><code class="name flex">
+<span>def <span class="ident">generate_solution_image</span></span>(<span>solution_matrix, pieces_data, block_size=50)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a solution image based on the solution matrix and pieces data.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>solution_matrix</code></strong> :&ensp;<code>list</code></dt>
+<dd>A 2D matrix representing the solution.</dd>
+<dt><strong><code>pieces_data</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary mapping piece symbols to their corresponding image data.</dd>
+<dt><strong><code>block_size</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The size of each block in pixels. Defaults to 50.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>BytesIO</code></dt>
+<dd>An in-memory file containing the generated solution image.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_solution_image(solution_matrix, pieces_data, block_size=50):
+    &#34;&#34;&#34;
+    Generate a solution image based on the solution matrix and pieces data.
+
+    Args:
+        solution_matrix (list): A 2D matrix representing the solution.
+        pieces_data (dict): A dictionary mapping piece symbols to their corresponding image data.
+        block_size (int, optional): The size of each block in pixels. Defaults to 50.
+
+    Returns:
+        BytesIO: An in-memory file containing the generated solution image.
+    &#34;&#34;&#34;
+    solution_width = len(solution_matrix[0]) * block_size
+    solution_height = len(solution_matrix) * block_size
+    solution_image = Image.new(&#39;RGB&#39;, (solution_width, solution_height),
+                               (128, 128, 128))  # Create grey background image
+
+    for row_idx, row in enumerate(solution_matrix):
+        for col_idx, piece_symbol in enumerate(row):
+            if piece_symbol in pieces_data:  # Make sure the piece symbol exists in the data
+                piece_symbol = pieces_data[piece_symbol]
+                # Ensure the position is calculated correctly: (x, y) format
+                position = (col_idx * block_size, row_idx * block_size)
+                # print(f&#34;Placeing {piece_symbol} at {position}, Image Size: {solution_image.size}&#34;)
+                display_piece(piece_symbol, position, block_size, solution_image)
+
+    # Instead of showing the image, save it to an in-memory file
+    image_io = BytesIO()
+    solution_image.save(image_io, &#39;WebP&#39;)
+    image_io.seek(0)
+
+    return image_io</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.get_kanoodle_solution"><code class="name flex">
+<span>def <span class="ident">get_kanoodle_solution</span></span>(<span>request, problem_id)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieve the Kanoodle problem and its solutions.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
+<dd>The HTTP request object.</dd>
+<dt><strong><code>problem_id</code></strong> :&ensp;<code>int</code></dt>
+<dd>The ID of the Kanoodle problem.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>JsonResponse</code></dt>
+<dd>The JSON response containing the problem ID and its solutions.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>KanoodleProblem.DoesNotExist</code></dt>
+<dd>If the Kanoodle problem with the given ID does not exist.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@require_http_methods([&#34;GET&#34;])
+def get_kanoodle_solution(request, problem_id):
+    &#34;&#34;&#34;
+    Retrieve the Kanoodle problem and its solutions.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        problem_id (int): The ID of the Kanoodle problem.
+
+    Returns:
+        JsonResponse: The JSON response containing the problem ID and its solutions.
+
+    Raises:
+        KanoodleProblem.DoesNotExist: If the Kanoodle problem with the given ID does not exist.
+    &#34;&#34;&#34;
+    try:
+        # Retrieve the problem and its solutions
+        problem = KanoodleProblem.objects.get(id=problem_id)
+        solutions = problem.solutions.all()
+
+        # Format the solutions for the response
+        solutions_data = [sol.get_solution_data() for sol in solutions]
+        return JsonResponse({
+            &#39;problem_id&#39;: problem_id,
+            &#39;solutions&#39;: solutions_data
+        })
+    except KanoodleProblem.DoesNotExist:
+        return JsonResponse({&#39;error&#39;: &#39;Problem not found.&#39;}, status=404)</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.get_list_of_solution_matrices"><code class="name flex">
+<span>def <span class="ident">get_list_of_solution_matrices</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieves a list of solution matrices for the Kanoodle puzzle.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>A list of solution matrices.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_list_of_solution_matrices():
+    &#34;&#34;&#34;
+    Retrieves a list of solution matrices for the Kanoodle puzzle.
+
+    Returns:
+        list: A list of solution matrices.
+    &#34;&#34;&#34;
+    kanoodle_solver = Kanoodle()
+
+    # Directly use the pieces_data to get the list of grids
+    list_of_grids = [value[&#39;grid&#39;] for key, value in PuzzlePieces.pieces_data.items()]
+    grid_strings = []
+    for grid in list_of_grids:
+        grid_strings.append(&#34;\n&#34;.join(grid))
+
+    # Call the findAllSolutions method with the list of grids and the puzzle dimensions
+    solutions = kanoodle_solver.findAllSolutions(grid_strings, grid_width, grid_height)
+
+    global end_time
+    end_time = time.time()
+    solutions = solutions.split(&#34;\n\n&#34;)
+    return solutions</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.get_partial_solutions"><code class="name flex">
+<span>def <span class="ident">get_partial_solutions</span></span>(<span>matching_solutions)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieves partial solutions from the database based on the given matching solutions.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>matching_solutions</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of matching solutions.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>A JSON response containing the image paths of the matching patterns.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_partial_solutions(matching_solutions):
+    &#34;&#34;&#34;
+    Retrieves partial solutions from the database based on the given matching solutions.
+
+    Args:
+        matching_solutions (list): A list of matching solutions.
+
+    Returns:
+        dict: A JSON response containing the image paths of the matching patterns.
+    &#34;&#34;&#34;
+    # Establish database connection
+    conn = mysql.connector.connect(host=&#39;144.21.52.245&#39;, port=&#39;6969&#39;, user=&#39;asegroup6&#39;, passwd=&#39;ASEgroup6mysql@2023##&#39;,
+                                   db=&#39;group_6_project&#39;)
+    # conn = mysql.connector.connect(host=&#39;localhost&#39;, port=&#39;3306&#39;, user=&#39;root&#39;, passwd=&#39;&#39;,
+    #                                db=&#39;group_6_project&#39;)
+    cursor = conn.cursor()
+    print(len(matching_solutions))
+    # Gets matching patterns from the database
+    img_paths = []
+    for match in matching_solutions:
+        print(&#34;Match found:&#34;, match)
+        query = &#34;SELECT img_path FROM kanoodle_solver WHERE mapping LIKE %s&#34;
+        match_with_wildcard = f&#34;%{match}%&#34;
+        cursor.execute(query, (match_with_wildcard,))
+        img_paths.extend([row[0] for row in cursor.fetchall()])
+    cursor.close()
+    conn.close()
+    # Returns a Json response
+    return JsonResponse({&#39;img_paths&#39;: img_paths})</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.get_pieces_data"><code class="name flex">
+<span>def <span class="ident">get_pieces_data</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Retrieves the data of puzzle pieces.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>A dictionary containing the data of puzzle pieces, including shape, grid, image path, and rotation.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pieces_data():
+    &#34;&#34;&#34;
+    Retrieves the data of puzzle pieces.
+
+    Returns:
+        dict: A dictionary containing the data of puzzle pieces, including shape, grid, image path, and rotation.
+    &#34;&#34;&#34;
+    puzzle_pieces_data = PuzzlePieces.pieces_data.copy()
+    for piece in PuzzlePiece.objects.all():
+        puzzle_pieces_data[piece.shape] = {
+            &#39;shape&#39;: piece.shape,
+            &#39;grid&#39;: piece.get_grid(),
+            &#39;image_path&#39;: piece.image_path,
+            &#39;rotation&#39;: piece.rotation
+        }
+
+    return puzzle_pieces_data</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.landing"><code class="name flex">
+<span>def <span class="ident">landing</span></span>(<span>request)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renders the landing page and handles the form submission.</p>
+<p>If the request method is POST, it retrieves the data from the landing form,
+stores it in the session, and redirects to the 'levels' view.
+If the request method is GET, it renders the landing.html template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
+<dd>The HTTP request object.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>HttpResponse</code></dt>
+<dd>The HTTP response object.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def landing(request):
+    &#34;&#34;&#34;
+    Renders the landing page and handles the form submission.
+
+    If the request method is POST, it retrieves the data from the landing form,
+    stores it in the session, and redirects to the &#39;levels&#39; view.
+    If the request method is GET, it renders the landing.html template.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+    &#34;&#34;&#34;
+    if request.method == &#39;POST&#39;:
+        data_from_landing = request.POST.get(&#39;data_from_landing&#39;, &#39;&#39;)
+        request.session[&#39;data_from_landing&#39;] = data_from_landing
+        return redirect(&#39;polysphere:levels&#39;)
+    else:
+        return render(request, &#39;polysphere_app/landing.html&#39;)</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.levels"><code class="name flex">
+<span>def <span class="ident">levels</span></span>(<span>request)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renders the 'levels.html' template and passes the 'data_from_landing' variable from the session to the template.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong> :&ensp;<code>HttpRequest</code></dt>
+<dd>The HTTP request object.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>HttpResponse</code></dt>
+<dd>The rendered response.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def levels(request):
+    &#34;&#34;&#34;
+    Renders the &#39;levels.html&#39; template and passes the &#39;data_from_landing&#39; variable from the session to the template.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered response.
+    &#34;&#34;&#34;
+    data_from_landing = request.session.get(&#39;data_from_landing&#39;, &#39;&#39;)
+    return render(request, &#39;polysphere_app/levels.html&#39;, {&#39;data_from_landing&#39;: data_from_landing})</code></pre>
+</details>
+</dd>
+<dt id="polysphere_app.views.submit_kanoodle_problem"><code class="name flex">
+<span>def <span class="ident">submit_kanoodle_problem</span></span>(<span>request)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Submits a Kanoodle problem to the server and returns the solution.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong></dt>
+<dd>The HTTP request object.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A JSON response containing the problem ID, solution, and time taken in milliseconds.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@require_http_methods([&#34;POST&#34;])
+def submit_kanoodle_problem(request):
+    &#34;&#34;&#34;
+    Submits a Kanoodle problem to the server and returns the solution.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A JSON response containing the problem ID, solution, and time taken in milliseconds.
+    &#34;&#34;&#34;
+    # Assume data is now coming from a predefined function or file
+    piece_descriptions = get_pieces_data()
+    grid_width = 3
+    grid_height = 3
+
+    # Create a KanoodleProblem instance and store in the database
+    problem = KanoodleProblem.objects.create(
+        piece_descriptions=json.dumps(piece_descriptions),
+        grid_width=grid_width,
+        grid_height=grid_height
+    )
+
+    # Solve the problem using Kanoodle logic
+    start_time = time.time()
+    solutions_str = Kanoodle.findAllSolutions(piece_descriptions, grid_width, grid_height)
+    end_time = time.time()
+
+    # Create a KanoodleSolution instance and store in the database
+    KanoodleSolution.objects.create(problem=problem, solution_data=solutions_str)
+
+    # Return the response
+    return JsonResponse({
+        &#39;problem_id&#39;: problem.id,
+        &#39;solution&#39;: solutions_str,
+        &#39;time_taken_ms&#39;: (end_time - start_time) * 1000
+    }, status=201)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="polysphere_app" href="{% url 'polysphere:polysphere_doc' %}">polysphere_app</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="polysphere_app.views.clear_solutions" href="#polysphere_app.views.clear_solutions">clear_solutions</a></code></li>
+<li><code><a title="polysphere_app.views.display_piece" href="#polysphere_app.views.display_piece">display_piece</a></code></li>
+<li><code><a title="polysphere_app.views.find_partial_solutions" href="#polysphere_app.views.find_partial_solutions">find_partial_solutions</a></code></li>
+<li><code><a title="polysphere_app.views.generate_regex_pattern" href="#polysphere_app.views.generate_regex_pattern">generate_regex_pattern</a></code></li>
+<li><code><a title="polysphere_app.views.generate_solution_gallery" href="#polysphere_app.views.generate_solution_gallery">generate_solution_gallery</a></code></li>
+<li><code><a title="polysphere_app.views.generate_solution_image" href="#polysphere_app.views.generate_solution_image">generate_solution_image</a></code></li>
+<li><code><a title="polysphere_app.views.get_kanoodle_solution" href="#polysphere_app.views.get_kanoodle_solution">get_kanoodle_solution</a></code></li>
+<li><code><a title="polysphere_app.views.get_list_of_solution_matrices" href="#polysphere_app.views.get_list_of_solution_matrices">get_list_of_solution_matrices</a></code></li>
+<li><code><a title="polysphere_app.views.get_partial_solutions" href="#polysphere_app.views.get_partial_solutions">get_partial_solutions</a></code></li>
+<li><code><a title="polysphere_app.views.get_pieces_data" href="#polysphere_app.views.get_pieces_data">get_pieces_data</a></code></li>
+<li><code><a title="polysphere_app.views.landing" href="#polysphere_app.views.landing">landing</a></code></li>
+<li><code><a title="polysphere_app.views.levels" href="#polysphere_app.views.levels">levels</a></code></li>
+<li><code><a title="polysphere_app.views.submit_kanoodle_problem" href="#polysphere_app.views.submit_kanoodle_problem">submit_kanoodle_problem</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

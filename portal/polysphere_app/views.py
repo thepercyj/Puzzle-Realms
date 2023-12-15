@@ -22,6 +22,46 @@ start_time = time.time()
 end_time = 0
 
 
+def polysphere_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/index.html')
+
+
+def polysphere_admin_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/admin.html')
+
+
+def polysphere_apps_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/apps.html')
+
+
+def polysphere_dlx_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/DLX.html')
+
+
+def polysphere_kanoodle_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/kanoodle.html')
+
+
+def polysphere_models_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/models.html')
+
+
+def polysphere_puzzle_pieces_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/puzzle_pieces.html')
+
+
+def polysphere_tests_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/tests.html')
+
+
+def polysphere_urls_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/urls.html')
+
+
+def polysphere_views_doc(request):
+    return render(request, 'polysphere_app/html/polysphere_app/views.html')
+
+
 def landing(request):
     """
     Renders the landing page and handles the form submission.
