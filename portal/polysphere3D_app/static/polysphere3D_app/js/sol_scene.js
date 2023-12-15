@@ -1,11 +1,18 @@
-import { OrbitControls } from "./OrbitControls.js";
+import { OrbitControl } from "./OrbitControl.js";
 import {
     Scene, Vector4, MeshBasicMaterial, ShapeGeometry, ArrayCamera, MeshLambertMaterial, DirectionalLight, PerspectiveCamera, AmbientLight, PointLightHelper, WebGLRenderer, PointLight, BoxGeometry, DodecahedronGeometry, CylinderGeometry,
     SphereGeometry, MeshPhongMaterial, Mesh, PlaneGeometry, Color, PCFSoftShadowMap, Raycaster, Vector2, Vector3, RectAreaLight, AxesHelper
 } from "./three.js";
-import { shapeStore } from "../Logic/PolyPyramidLogic/Shapes3D.js";
 
+/**
+ * Represents the sol_scene object.
+ * @type {Scene}
+ */
 const sol_scene = new Scene();
+/**
+ * Represents a camera in the 3D scene.
+ * @type {PerspectiveCamera}
+ */
 const camera = new PerspectiveCamera();
 sol_scene.background = new Color("rgb(188,244,250)");
 const globalLight = new AmbientLight(0xeeeeee);
@@ -29,6 +36,14 @@ let resizeObeserver;
 let firstPlacementCoord = null;
 let currentShapePlacements = [];
 
+/**
+ * Represents the input shapes for the sol scene.
+ * @typedef {Object} sol_inputShapes
+ * @property {Function} get - Retrieves the input shapes.
+ * @property {Function} add - Adds a shape to the input shapes.
+ * @property {Function} clear - Clears the input shapes.
+ * @property {Array} store - The array that stores the input shapes.
+ */
 export let sol_inputShapes = {
     get() {
         return this.store;
@@ -55,6 +70,22 @@ export let sol_inputCoords = {
     store: []
 };
 
+/**
+ * Object representing the colours used in the sol scene.
+ * @typedef {Object} sol_Colours
+ * @property {number} A - Colour A represented as hexadecimal value.
+ * @property {number} B - Colour B represented as hexadecimal value.
+ * @property {number} C - Colour C represented as hexadecimal value.
+ * @property {number} D - Colour D represented as hexadecimal value.
+ * @property {number} E - Colour E represented as hexadecimal value.
+ * @property {number} F - Colour F represented as hexadecimal value.
+ * @property {number} G - Colour G represented as hexadecimal value.
+ * @property {number} H - Colour H represented as hexadecimal value.
+ * @property {number} I - Colour I represented as hexadecimal value.
+ * @property {number} J - Colour J represented as hexadecimal value.
+ * @property {number} K - Colour K represented as hexadecimal value.
+ * @property {number} L - Colour L represented as hexadecimal value.
+ */
 const sol_Colours = {
     A: 0x228B1E,
     B: 0x6D359A,
@@ -70,6 +101,11 @@ const sol_Colours = {
     L: 0x9DA15E,
 };
 
+/**
+ * Initializes the scene with the given canvas element.
+ * 
+ * @param {HTMLCanvasElement} sol_canvas - The canvas element to render the scene on.
+ */
 export function initScene(sol_canvas) {
     camera.fov = 75;
     camera.near = 0.2;
@@ -88,7 +124,7 @@ export function initScene(sol_canvas) {
     });
     resizeObeserver.observe(sol_canvas);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControl(camera, renderer.domElement);
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
@@ -145,6 +181,16 @@ export function initScene(sol_canvas) {
 
     animate();
 }
+/**
+ * Creates a sphere with the specified position, color, radius, and number of segments.
+ * @param {number} x - The x-coordinate of the sphere's position.
+ * @param {number} y - The y-coordinate of the sphere's position.
+ * @param {number} z - The z-coordinate of the sphere's position.
+ * @param {string} color - The color of the sphere.
+ * @param {number} radius - The radius of the sphere.
+ * @param {number} segs - The number of segments used to create the sphere.
+ * @returns {Mesh} The created sphere mesh.
+ */
 function createSphere(x, y, z, color, radius, segs) {
     let mat = new MeshPhongMaterial({
         color: color,
@@ -167,22 +213,52 @@ function disposeSphere(instance) {
     instance.dispose();
 }
 
+/**
+ * Represents a SolScene object.
+ * @class
+ */
 export default class {
+    /**
+     * Creates a sphere object.
+     * @param {number} x - The x-coordinate of the sphere.
+     * @param {number} y - The y-coordinate of the sphere.
+     * @param {number} z - The z-coordinate of the sphere.
+     * @param {string} color - The color of the sphere.
+     * @param {number} [radius=1] - The radius of the sphere.
+     * @param {number} [segs=15] - The number of segments of the sphere.
+     * @returns {object} The created sphere object.
+     */
     createSphere(x, y, z, color, radius = 1, segs = 15) {
         return createSphere(x, y, z, color, radius, segs);
     }
+
+    /**
+     * Disposes a sphere object.
+     * @param {object} sphere - The sphere object to dispose.
+     */
     disposeSphere(sphere) {
         disposeSphere(sphere);
     }
 
+    /**
+     * Adds an object to the SolScene.
+     * @param {object} obj - The object to add.
+     */
     add(obj) {
         sol_scene.add(obj);
     }
 
+    /**
+     * Initializes the SolScene.
+     * @param {object} dom - The DOM element to attach the scene to.
+     */
     sol_init(dom) {
         initScene(dom);
     }
 
+    /**
+     * Disposes the SolScene.
+     */
     dispose() {
         resizeObeserver.disconnect();
         cancelAnimationFrame();
