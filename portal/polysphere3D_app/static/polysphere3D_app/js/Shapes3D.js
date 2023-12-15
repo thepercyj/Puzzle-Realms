@@ -52,6 +52,10 @@ let L = new Shape3D("L", [[0, 0, 0], [0, 1, 0],
                                                 [2, 2, 0]
                 ]);
 
+/**
+ * Object that stores shapes with their corresponding keys.
+ * @type {Object}
+ */
 let shapeStore = {
     "A": A,
     "B": B,
@@ -63,7 +67,8 @@ let shapeStore = {
     "H": H,
     "I": I,
     "J": J,
-    "K": K
+    "K": K,
+    "L": L
 };
 
 export { shapeStore };
