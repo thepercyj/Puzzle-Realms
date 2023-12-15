@@ -18,7 +18,7 @@ Short video of the games can be watched from [Demo](https://objectstorage.uk-lon
 ### Code Documentation
 - [N-Queens](./portal/portal_app/nqueens_app/html/nqueens_app/index.html)
 - [Polysphere Pro](./portal/portal_app/polysphere_app/html/polysphere_app/index.html)
-- [Polsyphere Extreme](./portal/portal_app/polysphere3D_app/html/polysphere3D_app/index.html)
+- [Polsyphere Extreme](./portal/portal_app/polysphere3D_app/static/polysphere3D_app/js/out/index.html)
 
 ### Games
 ### N-Queens Solver
