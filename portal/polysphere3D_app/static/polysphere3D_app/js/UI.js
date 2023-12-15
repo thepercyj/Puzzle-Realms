@@ -373,6 +373,9 @@ function onSolveButton() {
     });
 }
 
+/**
+ * Resets the shape object by updating the shape_obj and shape_placed_obj properties.
+ */
 function resetShapeObj() {
     for (let shape in shapeStore) {
         shape_obj[shape] = shapeStore[shape].layout.length;

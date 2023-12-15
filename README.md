@@ -4,13 +4,30 @@ A web-based portal for various kinds of puzzle games that help improve logical t
 ### Objectives
 The portal is designed in order to check various algorithm efficiency and how well it can be optimized when solving puzzle logics at the same time used for entertainment for people of all ages.
 
-### Games
-- N-Queens Solver
-- Polysphere Pro
-- Polysphere Extreme
-
 ### Website
 Portal can be accessed from [Puzzle Realms by ASE-Group-6](http://portal.amanthapa.com.np)
+
+### Demo
+Short video of the games can be watched from [Demo](https://objectstorage.uk-london-1.oraclecloud.com/p/0bb5W0hwEnplJ7RNQzBcHZhx7DEEzJSlUNvr5kyVnzxL_l7gZ0x1sCKt24ivtAAH/n/lryugqbopb6d/b/thepercyj/o/promo/puzzle-preview.mp4)
+
+### Documentation
+- [Project Plan](./Documents/Project-Plan-Grp-6.pdf)
+- [Reflective Essay](./Documents/947G5_Group_6_Reflective_Essay.pdf)
+- [Technical Documentation](./portal/portal_app/static/portal_app/doc/technical.pdf)
+
+### Code Documentation
+- [N-Queens](./portal/portal_app/nqueens_app/html/nqueens_app/index.html)
+- [Polysphere Pro](./portal/portal_app/polysphere_app/html/polysphere_app/index.html)
+- [Polsyphere Extreme](./portal/portal_app/polysphere3D_app/html/polysphere3D_app/index.html)
+
+### Games
+### N-Queens Solver
+![N-Queens](./portal/portal_app/static/portal_app/img/n-queens-demo.gif)
+### Polysphere Pro
+![Polysphere Pro](./portal/portal_app/static/portal_app/img/polysphere-pro-demo.gif)
+### Polysphere Extreme
+![Polysphere Extreme](./portal/portal_app/static/portal_app/img/kanoodle-extreme-demo.gif)
+
 
 # Local Installation Guide
 

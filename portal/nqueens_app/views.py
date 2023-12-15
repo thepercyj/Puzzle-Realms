@@ -58,3 +58,35 @@ def nqueens(request):
 
     return render(request, 'nqueens_app/nqueens.html',
                   {'data_from_landing': data_from_landing, 'n': n, 'solutions': solutions})
+
+
+def nqueens_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/index.html')
+
+
+def nqueens_admin_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/admin.html')
+
+
+def nqueens_apps_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/apps.html')
+
+
+def nqueens_models_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/models.html')
+
+
+def nqueens_solver_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/nqueens_solver.html')
+
+
+def nqueens_tests_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/tests.html')
+
+
+def nqueens_urls_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/urls.html')
+
+
+def nqueens_views_doc(request):
+    return render(request, 'nqueens_app/html/nqueens_app/views.html')
