@@ -1,7 +1,9 @@
 import Scene, {
     inputShapes,
     inputCoords,
-    Colours
+    Colours,
+    shape_obj,
+    shape_placed_obj
 } from "../js/scene.js"
 import Sol_Scene, {
     sol_inputShapes,
@@ -57,9 +59,8 @@ window.onload = function() {
      * Updates the image source, name, class, and rotation angle of the current image.
      */
     function updateImage() {
-        currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
+        currentImage.src = `/static/polysphere3D_app/img/shapes/${imageIds[currentIndex]}.png`;
         currentImageName = image_names[currentIndex]
-        console.log(currentImageName)
         currentImage.className = currentImageName
     }
 
@@ -187,7 +188,6 @@ function sol_renderPyramid() {
  * @param {boolean} v - The new visibility state.
  */
 function layerVisible(idx, v) {
-    console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
     visibilityStates[idx - 1] = v
     let layer = worker.getLayer(idx);
@@ -210,10 +210,8 @@ function layerVisible(idx, v) {
  * @param {boolean} v - The new visibility state of the layer.
  */
 function sol_layerVisible(idx, v) {
-    console.log("Layer Visible", idx, v)
     // Updates the visibilityStates to match change
     visibilityStates[idx - 1] = v
-    //console.log("New States", visibilityStates)
     let layer = sol_worker.getLayer(idx);
     const spheres = layer.matrix;
     for (let x = 0; x < layer.size; x++) {
@@ -222,7 +220,6 @@ function sol_layerVisible(idx, v) {
                 spheres[x][y].userData.visible = v;
                 spheres[x][y].visible = v;
                 spheres[x][y].userData.needsUpdate = true;
-                //console.log("?");
             }
         }
     }
@@ -288,7 +285,6 @@ for (let i = 1; i <= 5; i++) {
     });
     const label = document.getElementById('l' + i + 'sLabel');
     const sol_label = document.getElementById('ls' + i + 'Label');
-    console.log(checkbox, label);
     layerCheckboxes.push(checkbox, label);
     sol_layerCheckboxes.push(sol_checkbox, sol_label);
 }
@@ -306,8 +302,7 @@ function createState() {
         stopExecution: false,
         solutionCount: 0,
         solutions: [],
-        isFourLevel: false,
-        currentIndex: 0,
+
     };
 }
 
@@ -320,6 +315,7 @@ function onSolveButton() {
     let solutionCount = 0;
     let solutions = [];
 
+    const startTime = performance.now();
 
     const input_shapes = inputShapes.get();
     const input_squares = inputCoords.get();
@@ -331,21 +327,17 @@ function onSolveButton() {
 
 
     const problem_mat = populate_problem_matrix3D();
-    const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
+    const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares);
     const updatedProblemMat = problem_def[0];
     const headers = problem_def[1];
 
-    console.log(updatedProblemMat);
-    console.log(headers);
 
-    const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
 
-    console.log(Object.keys(dicts[0]).length);
-    console.log(dicts[0]);
-    console.log(dicts[1]);
-    console.log(headers);
+    const dicts = create_dicts(updatedProblemMat, headers);
 
-    const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
+
+
+    const ret = solve(dicts[0], dicts[1], [], headers);
     let cnt = 0;
 
     const uiTimer = createTimer(() => {
@@ -366,23 +358,51 @@ function onSolveButton() {
         // Push the current pyramid_layers into the array
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
+        console.log("Pyramid layers");
+        console.log("arr",arr);
+        console.log("updatedProblemMat",updatedProblemMat);
+        console.log("headers",headers);
+        console.log("input_shapes",input_shapes);
+        console.log("input_squares",input_squares);
         state.solutions = [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
-        console.log("Solve", pyramid_layers)
         sol_drawPosition(pyramid_layers);
+        const endTime = performance.now();
+        const totalTime = ((endTime - startTime) / 1000).toFixed(1); // Convert to seconds and round to 1 decimal place
+        document.getElementById('timeTakenLabel').textContent = `Time taken: ${totalTime} seconds`;
     });
+}
+
+function resetShapeObj() {
+    for (let shape in shapeStore) {
+        shape_obj[shape] = shapeStore[shape].layout.length;
+        shape_placed_obj[shape] = 0;
+    }
 }
 
 /**
  * Clears the UI and resets the state.
  */
 function onClearButton() {
-    scount.textContent = "Number of solutions: 0"
-    state.solutions = []
+    // Reset counts to 0 when clearing
+    for (let shape in shape_obj) {
+        shape_obj[shape] = 0;
+        shape_placed_obj[shape] = 0;
+    }
+
+    // Reset the count display
+    scount.textContent = "Number of solutions: 0";
+
+    // Clear state solutions
+    state.solutions = [];
+
+    // Clear input shapes and coords
     inputShapes.clear();
     inputCoords.clear();
-    new resetFirstPlacementCoord()
 
+    // Reset the firstPlacementCoord
+    new resetFirstPlacementCoord();
+    new resetShapeObj();
     // Set pyramid to empty and render empty pyramid
     const empty_position = new Array(5);
     for (let i = 0; i < 5; i++) {
@@ -395,6 +415,8 @@ function onClearButton() {
             empty_position[layer][row].fill(0);
         }
     }
+
+    // Draw the empty pyramid
     drawPosition(empty_position);
     sol_drawPosition(empty_position);
 }
@@ -457,7 +479,7 @@ function sol_drawPosition(position) {
  * @returns {boolean} - Returns true if the number of spheres for each shape matches the number of coordinates, otherwise false.
  */
 function checkInput(shapes, coords) {
-    console.log("Shapes:", shapes, "Coords:", coords)
+    console.log("Shapes:", shapes, "Coords:", coords);
     for (let i = 0; i < shapes.length; i++) {
         if (shapeStore[shapes[i]].layout.length !== coords[i].length) {
             // Wrong number of spheres for shape, abort.
@@ -467,29 +489,35 @@ function checkInput(shapes, coords) {
     return true;
 }
 
+let currentSolutionIndex = 0;  // Initialize the index at the beginning
+
 /**
  * Handles the click event of the next button.
- * Traverses to the next solution in the state's solutions array and calls sol_drawPosition to draw it.
+ * Pops a solution from the state's solutions array and calls sol_drawPosition to draw it.
  */
 function onNextButton() {
     console.log("Clicked next");
-    if (state.currentIndex < state.solutions.length - 1) {
-        state.currentIndex++;
-        sol_drawPosition(state.solutions[state.currentIndex]);
+    const solutions = state.solutions;
+
+    if (currentSolutionIndex < solutions.length - 1) {
+        currentSolutionIndex++;
+        sol_drawPosition(solutions[currentSolutionIndex]);
     }
 }
 
 /**
  * Handles the click event of the "Prev" button.
- * Traverses to the previous solution in the state's solutions array and calls sol_drawPosition to draw it.
  */
 function onPrevButton() {
     console.log("Clicked Prev");
-    if (state.currentIndex > 0) {
-        state.currentIndex--;
-        sol_drawPosition(state.solutions[state.currentIndex]);
+    const solutions = state.solutions;
+
+    if (currentSolutionIndex > 0) {
+        currentSolutionIndex--;
+        sol_drawPosition(solutions[currentSolutionIndex]);
     }
 }
+
 /**
  * Stops the execution and clears the interval timer.
  */

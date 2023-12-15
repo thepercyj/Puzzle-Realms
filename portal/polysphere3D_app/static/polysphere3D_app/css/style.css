@@ -38,7 +38,7 @@ html {
 
 /* Add background color and styling to the main content*/
 body {
-    background-image: url("../images/background-without-title.webp");
+    background-image: url("../img/background-without-title.webp");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
