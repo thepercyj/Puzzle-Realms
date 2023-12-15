@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CreateObjects.js</title>
+
+    <script src="{% static 'polysphere3D_app/js/scripts/prettify/prettify.js' %}"> </script>
+    <script src="{% static 'polysphere3D_app/js/scripts/prettify/lang-css.js' %}"> </script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="{% static 'polysphere3D_app/css/styles/prettify-tomorrow.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'polysphere3D_app/css/styles/jsdoc-default.css' %}">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CreateObjects.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Generates headers for a dictionary of objects.
+ * @returns {Array} An array of headers.
+ */
+function generate_headers() {
+    let headers = [];
+    let shape_names = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+    for (let i of shape_names) {
+        headers.push(i);
+    }
+    for (let z = 0; z &lt; 5; z++) {
+        for (let i = 0; i &lt; 5 - z; i++) {
+            for (let j = 0; j &lt; 5 - z; j++) {
+                headers.push(i.toString() + "," + j.toString() + "," + z.toString());
+            }
+        }
+    }
+    return headers;
+}
+
+/**
+ * Creates dictionaries X and Y based on the given problem matrix and headers.
+ * @param {Array&lt;Array&lt;boolean>>} problem_matrix_reduced - The reduced problem matrix.
+ * @param {Array&lt;string>} headers_reduced - The reduced headers.
+ * @returns {Array&lt;Object>} - An array containing the dictionaries X and Y.
+ */
+function create_dicts(problem_matrix_reduced, headers_reduced) {
+    let X = {};
+    let Y = {};
+    for (let i = 0; i &lt; problem_matrix_reduced.length; i++) {
+        Y[i] = [];
+        for (let j = 0; j &lt; problem_matrix_reduced[0].length; j++) {
+            if (i === 0) {
+                let elem = problem_matrix_reduced[i][j];
+                if (elem) {
+                    X[headers_reduced[j]] = new Set([i]);
+                    Y[i].push(headers_reduced[j]);
+                } else {
+                    X[headers_reduced[j]] = new Set([]);
+                }
+            } else {
+                let elem = problem_matrix_reduced[i][j];
+                if (elem) {
+                    X[headers_reduced[j]].add(i);
+                    Y[i].push(headers_reduced[j]);
+                    if (X[headers_reduced[j]].size === 6) {
+                        continue;
+                    }
+                }
+            }
+        }
+    }
+    return [X, Y];
+}
+
+export { create_dicts };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+    <h3>Classes</h3>
+    <ul>
+        <li><a href="{% url 'polysphere3D_AnimationObjectGroup_doc' %}">AnimationObjectGroup Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_CreateObjects_doc' %}">CreateObjects.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_CubicInterpolant_doc' %}">CubicInterpolant Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Curve_doc' %}">Curve Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Cylindrical_doc' %}">Cylindrical Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_DataTextureLoader_doc' %}">DataTextureLoader Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_DiscreteInterpolant_doc' %}">DiscreteInterpolant Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_EventDispatcher_doc' %}">EventDispatcher Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_ExtrudeGeometry_doc' %}">ExtrudeGeometry Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_GenerateProblemMatrix_doc' %}">GenerateProblemMatrix.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_global_doc' %}">Global Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_doc' %}">Index Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Interpolant_doc' %}">Interpolant Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_module_exports_doc' %}">Module Exports Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_NumberKeyframeTrack_doc' %}">NumberKeyframeTrack Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_OrbitControl_doc' %}">OrbitControl Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_OrbitControl_js_doc' %}">OrbitControl.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_PMREMGenerator_doc' %}">PMREMGenerator Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Pyramid_doc' %}">Pyramid Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_pyramid_js_doc' %}">Pyramid.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_PyramidLayer_doc' %}">PyramidLayer Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_QuaternionKeyframeTrack_doc' %}">QuaternionKeyframeTrack Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_QuaternionLinearInterpolant_doc' %}">QuaternionLinearInterpolant Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_scene_doc' %}">Scene Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_scene_js_doc' %}">Scene.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Shape3D_doc' %}">Shape3D Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Shapes3D_js_doc' %}">Shapes3D.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_sol_scene_js_doc' %}">sol_scene.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Solver_js_doc' %}">Solver.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_Spherical_doc' %}">Spherical Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_SphericalHarmonics3_doc' %}">SphericalHarmonics3 Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_StringKeyframeTrack_doc' %}">StringKeyframeTrack Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_three_js_doc' %}">Three.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_UI_js_doc' %}">UI.js Documentation</a></li>
+        <li><a href="{% url 'polysphere3D_VectorKeyframeTrack_doc' %}">VectorKeyframeTrack Documentation</a>
+        </li>
+    </ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Dec 15 2023 12:05:55 GMT+0000 (Greenwich Mean Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -13,6 +13,7 @@ urlpatterns = [
     path('polysphere3D_game/', views.polysphere3D_game, name='polysphere3D_game'),
     path('team/', views.team, name='team'),
     path('games/', views.games, name='games'),
+    path('doc/', views.doc, name='doc'),
     path('login/', LoginView.as_view(template_name='portal_app/login.html', next_page='portal', authentication_form=CustomUserLoginForm),
          name='login'),
     path('logout/', LogoutView.as_view(next_page='portal'), name='logout'),
