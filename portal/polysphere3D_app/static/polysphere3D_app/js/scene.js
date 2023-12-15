@@ -130,7 +130,7 @@ const shape_obj = {
     "I": 5,
     "J": 5,
     "K": 3,
-    "L": 5
+    "L": 5,
 };
 
 const shape_placed_obj = {
@@ -145,7 +145,7 @@ const shape_placed_obj = {
     "I": 0,
     "J": 0,
     "K": 0,
-    "L": 0
+    "L": 0,
 };
 
 
@@ -267,26 +267,29 @@ export function initialiseScene(canvas) {
         function updateCounts(shape) {
             // Check if the shape exists in shape_obj
             if (shape_obj.hasOwnProperty(shape)) {
-                // Subtract count from shape_obj and add to shape_placed_obj
-                shape_obj[shape] -= 1;
-                    // Check if count becomes negative
-                    if (shape_obj[shape] < 0) {
-                        // Display an alert
-                        alert("Shape spheres out of bounds. Please input the same no. of spheres as defined for the piece");
-                        // Reset the count to 0
-                        shape_obj[shape] = 0;
-                        return false;
-                    }
-                shape_placed_obj[shape] += 1;
+                // Check if there are available shapes to place
+                if (shape_obj[shape] > 0) {
+                    // Subtract count from shape_obj and add to shape_placed_obj
+                    shape_obj[shape] -= 1;
+                    shape_placed_obj[shape] += 1;
+                    return true;
+                } else {
+                    // Display an alert if shape count is exhausted
+                    alert("Shape spheres out of bounds. Please input the same no. of spheres as defined for the piece");
+                    return false;
+                }
             } else {
                 console.error(`Shape ${shape} not found in shape_obj.`);
+                return false;
             }
-
-            // Log the updated counts (you can remove this in your actual implementation)
-            console.log("Updated shape_obj:", shape_obj);
-            console.log("Updated shape_placed_obj:", shape_placed_obj);
-            return true;
+             // Log the updated counts (you can remove this in your actual implementation)
+//            console.log("Updated shape_obj:", shape_obj);
+//            console.log("Updated shape_placed_obj:", shape_placed_obj);
+//            return true;
         }
+
+
+
 
     function isPlacementValid(coord, shape, lastCoord) {
         return (
@@ -411,4 +414,4 @@ export default class {
     }
 };
 
-export { Colours };
+export { Colours, shape_obj, shape_placed_obj };

@@ -1,6 +1,6 @@
 
 /**
- * Solves the given problem using a backtracking algorithm.
+ * Solves the given problem using a Dancing Link algorithm.
  * 
  * @generator
  * @function solve
@@ -110,4 +110,4 @@ export function dlx(items, sets) {
 //    console.log(solution);
 //}
 
-export {solve };
+export { solve };
