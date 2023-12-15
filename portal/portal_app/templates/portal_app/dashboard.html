@@ -8,7 +8,7 @@
 	<meta name="keywords" content="endGam,gGaming, magazine, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
-	<link href="img/favicon.ico" rel="shortcut icon"/>
+	<link href="{% static 'portal_app/img/favicon.ico' %}" rel="shortcut icon"/>
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -77,8 +77,8 @@
 						<li><a href="#">About</a>
 							<ul class="sub-menu">
 								<li><a href="{% url 'team' %}">Meet the Team</a></li>
-								<li><a href="#">Documentation</a></li>
-								<li><a href="#">Source Code</a></li>
+								<li><a href="{% static 'portal_app/doc/technical.pdf' %}" target="_blank">Documentation</a></li>
+								<li><a href="https://github.com/thepercyj/ASE-Group-6">Source Code</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -112,7 +112,7 @@
 					<h2>Polysphere Extreme</h2>
 					<br>
 					<p>Another One, but with a bit of twist, its 3D !!!!! <br> Do you have what it takes to master the 3D space ?</p>
-					<a href="{% url 'polysphere3D:landing' %}" class="site-btn">Play  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
+					<a href="{% url 'landing' %}" class="site-btn">Play  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
 				</div>
 			</div>
 		</div>
@@ -121,8 +121,12 @@
 
 	<!-- Intro section -->
 	<section class="intro-video-section set-bg d-flex align-items-end " data-setbg="{% static 'portal_app/img/promo-bg.webp' %}">
-		<a href="https://www.youtube.com/watch?v=uFsGy5x_fyQ" class="video-play-btn video-popup"><img src="{% static 'portal_app/img/icons/solid-right-arrow.png' %}" alt="#"></a>
-		<div class="container">
+
+		<div class="promocontainer">
+            <video controls>
+    <source src="{% static 'portal_app/img/puzzle-preview.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 			<div class="video-text">
 				<h2>Promo video of the game</h2>
 				<p>A short video of showcasing the games you are about to play.</p>

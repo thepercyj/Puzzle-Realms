@@ -59,9 +59,9 @@ $(window).on('load', function() {
 	dot.each(function() {
 		var index = $(this).index() + 1;
 		if(index < 10){
-			$(this).html('0').append(index + '.');
+			$(this).html('0').append(index + '');
 		}else{
-			$(this).html(index + '.');
+			$(this).html(index + '');
 		}
 	});
 

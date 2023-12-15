@@ -8,7 +8,7 @@
 	<meta name="keywords" content="endGam,gGaming, magazine, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
-	<link href="img/favicon.ico" rel="shortcut icon"/>
+	<link href="{% static 'portal_app/img/favicon.ico' %}" rel="shortcut icon"/>
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -78,8 +78,8 @@
 						<li><a href="#">About</a>
 							<ul class="sub-menu">
 								<li><a href="{% url 'team' %}">Meet the Team</a></li>
-								<li><a href="#">Documentation</a></li>
-								<li><a href="#">Source Code</a></li>
+								<li><a href="{% static 'portal_app/doc/technical.pdf' %}" target="_blank">Documentation</a></li>
+								<li><a href="https://github.com/thepercyj/ASE-Group-6">Source Code</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -108,7 +108,7 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="review-pic">
-							<a href="{% url 'nqueens_game' %}" ><img src="{% static 'portal_app/img/nqueens-game.png' %}" alt="#"></a>
+							<a href="{% url 'nqueens_game' %}" ><img src="{% static 'portal_app/img/n-queens-demo.gif' %}" alt="#"></a>
 						</div>
 					</div>
 					<div class="col-lg-8">
@@ -119,7 +119,7 @@
 								</ul>
 							</div>
 							<h3>N-Queens Solver</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<p>N-queen is one of the puzzles for the players who are interested in playing the chess. In this puzzle, players have to find out the possible solutions by arranging or picking items based on certain rules or limitations. The movement and placement of the chess pieces need to conform the certain rule. This rule includes the players has to make sure not to place two queens in the same row, column, or diagonal at the same time.</p>
 							<a href="{% url 'nqueens_game' %}" class="read-more">Read More  <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
 						</div>
 					</div>
@@ -129,7 +129,7 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="review-pic">
-							<a href="{% url 'polysphere_game' %}" ><img src="{% static 'portal_app/img/polysphere-game.png' %}" alt="#"></a>
+							<a href="{% url 'polysphere_game' %}" ><img src="{% static 'portal_app/img/polysphere-pro-demo.gif' %}" alt="#"></a>
 						</div>
 					</div>
 					<div class="col-lg-8">
@@ -140,7 +140,7 @@
 								</ul>
 							</div>
 							<h3>Polysphere Pro</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<p>Polysphere Pro is placing a set of 11 colorful pieces into a three-dimensional puzzle board. The pieces have different forms, and the goal is to arrange them so that they fit together. Pattern Matching Puzzles frequently need spatial reasoning, vision, and strategic thinking. Identifying and managing patterns in a spatial context is required to solve them. Arranging parts to match a precise pattern, building structures, or accomplishing objectives within a limited space can all be challenging.</p>
 							<a href="{% url 'polysphere_game' %}" class="read-more">Read More <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
 						</div>
 					</div>
@@ -150,18 +150,18 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="review-pic">
-							<a href="{% url 'polysphere3D_game' %}" ><img src="{% static 'portal_app/img/polysphere3D-game.png' %}" alt="#"></a>
+							<a href="{% url 'polysphere3D_game' %}" ><img src="{% static 'portal_app/img/kanoodle-extreme-demo.gif' %}" alt="#"></a>
 						</div>
 					</div>
 					<div class="col-lg-8">
 						<div class="review-content text-box text-white">
 							<div class="rating">
 								<ul class="blog-filter">
-									<li><a href="{% url 'polysphere3D:landing' %}">Play</a></li>
+									<li><a href="{% url 'landing' %}">Play</a></li>
 								</ul>
 							</div>
 							<h3>Polysphere Extreme</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.Vivamus volutpat nibh ac sollicitudin imperdiet. Donec scelerisque lorem sodales odio ultricies, nec rhoncus ex lobortis. Vivamus tincidunt sit amet sem id varius. Donec elementum aliquet tortor. Curabitur justo mi, efficitur sed eros aliquealiqua.....</p>
+							<p>This game is a professional puzzle solver where players manipulate and solve puzzles with pyramid-shaped structures and three-dimensional spherical objects. Challenges may involve adjusting or placing the different pieces within a three-dimensional space to get a pyramid structure.</p>
 							<a href="{% url 'polysphere3D_game' %}" class="read-more">Read More <img src="{% static 'portal_app/img/icons/double-arrow.png' %}" alt="#"/></a>
 						</div>
 					</div>

@@ -49,6 +49,32 @@ body {
     text-align: center;
 }
 
+#panel {
+    /*display: flex;*/
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    background-color: #000;
+}
+
+#c {
+ /*display: flex;*/
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+    background-color: #000;
+}
+
+.canvas {
+    margin: 0;
+    padding: 0;
+    display:flex;
+    width: 900px;
+    height: 500px;
+    top: 0;
+    left:0;
+}
+
 
 /* Style the title and description with the specified color */
 .title-image {
@@ -140,11 +166,17 @@ b {
     justify-content: center;
 }
 
-.imageContainer1 {
-    display: grid;
+#SolContainer {
+    display: none;
     align-items: center;
     justify-content: center;
 }
+#Levels {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .button-container button {
     width: 150px; /* Adjust the width as needed */
@@ -155,27 +187,6 @@ b {
     position: relative; /* Ensure relative positioning for absolute children */
 }
 
-
-/*
-.corner-image {
-    position: absolute;
-}
-*/
-#rotationButtons {
-    grid-column: span 2; /* Make the buttons span both columns */
-    text-align: center; /* Center-align the buttons */
-}
-
-#rotationButtons button {
-    display: inline-block; /* Ensure buttons are inline-block elements */
-    margin: 5px; /* Add margin between buttons if needed */
-}
-#rotateClockwise, #rotateCounterclockwise, #flipHorizontal, #flipVertical, #previousImageButton, #nextImageButton {
-    margin: 5px;
-    padding: 8px;
-    font-size: 16px;
-}
-
 .edit-mode {
     background-color: #BCF4FA;
     padding: 20px;
@@ -184,19 +195,6 @@ b {
     text-align: center;
     max-width: 70vw;
     margin: 0 auto;
-}
-
-
-.result-mode {
-    background-color: #D0E7D2;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 70vw;
-    margin: 0 auto;
-    max-height: 500px; /* Adjust the value according to your design */
-    overflow:auto;
 }
 
 .wrapper {
@@ -214,6 +212,7 @@ b {
     background-color: #f4f4f4;
     text-align:center;
 }
+
 .content {
     font-size: 16px;
     color:#333;
@@ -244,7 +243,6 @@ b {
   align-self: center;
   font-weight: 400;
   line-height: 1;
-  margin: 20px;
   padding: 1.2em 2.8em;
   text-decoration: none;
   text-align: center;
@@ -257,15 +255,6 @@ b {
   outline: 0;
 }
 
-.first {
-  border-color: #3498db;
-  color: #261616;
-  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
-  transition: all 150ms ease-in-out;
-}
-.first:hover {
-  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
-}
 
 /* Styles for the game buttons */
 .third {
@@ -382,7 +371,7 @@ b {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.futuristic-text-field label {
+.futuristic-text-field label1 {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -392,8 +381,8 @@ b {
     transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
 }
 
-.futuristic-text-field input:focus + label,
-.futuristic-text-field input:not(:placeholder-shown) + label {
+.futuristic-text-field input:focus + label1,
+.futuristic-text-field input:not(:placeholder-shown) + label1 {
     transform: translateY(-100%) scale(0.8);
     font-size: 12px;
     color: #aaa;
@@ -416,7 +405,7 @@ b {
 }
 
 .solution-container {
-    max-height: 500px;
+    max-height: 900px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -425,6 +414,7 @@ b {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-height: 500px; /* Adjust the value according to your design */
 }
+
 
 /* Optional: Customize scrollbar styles */
 .solution-container::-webkit-scrollbar {
@@ -440,9 +430,69 @@ b {
     background-color: #f9f9f9;
 }
 
-.level-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 5vh; /* Use 100% of the viewport height */
+/*CSS FOR CHECKBOX*/
+/* Style for checkboxes */
+input[type="checkbox"] {
+    display: none; /* Hide the default checkbox */
+}
+
+label {
+    border: 2px solid #4CAF50; /* Green border color, change as needed */
+    border-radius: 20%;
+    display: inline-block;
+    font-family: 'Maybe But Not Always', sans-serif;
+    font-size: 16px; /* Slightly larger font size */
+    color: #333; /* Darker text color */
+    padding: 8px 12px; /* Adjusted padding for better spacing */
+    background-color: #f8f8f8; /* Light background color */
+    transition: transform 0.2s ease-in-out; /* Smooth hover transition */
+
+}
+
+label:hover {
+    transform: scale(1.7); /* Adjust the scale factor as needed */
+    background-color: #A6FF96;
+}
+
+#positionInputForm button {
+    display: inline-block;
+    margin: 3px; /* Adjust the margin as needed */
+}
+
+.list-item {
+  margin: 1em;
+  padding: 2em;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+}
+
+.list-item .scene {
+  width: 200px;
+  height: 200px;
+  flex: 0 0 auto;
+  -webkit-flex: 0 0 auto;
+}
+.list-item .description {
+  font-family: sans-serif;
+  font-size: large;
+  padding-left: 2em;
+  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+}
+
+@media only screen and (max-width : 600px) {
+  #content {
+    width: 100%;
+  }
+  .list-item {
+    margin: 0.5em;
+    padding: 0.5em;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+  }
+  .list-item .description {
+    padding-left: 0em;
+  }
 }

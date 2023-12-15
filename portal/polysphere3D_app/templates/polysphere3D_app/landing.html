@@ -6,7 +6,7 @@
     <title>Polysphere Extreme | ACS Group 6</title>
     <link href="https://fonts.cdnfonts.com/css/maybe-but-not-always" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/supply-center" rel="stylesheet">
-    <script src="{% static 'polysphere3D_app/js/kanoodle.js' %}"></script>
+    <script src="{% static 'polysphere3D_app/js/UI.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'polysphere3D_app/css/style.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 </head>
@@ -16,20 +16,17 @@
         <img class=title-image src="{% static 'polysphere3D_app/images/tetris.gif' %}" alt="title image" >
         <h3>What is Polysphere Extreme ?</h3>
         <p class="edit-mode">
-            Polysphere pro is a highly visual three-dimensional puzzle pyramid game that people of any age can enjoy. To play with it, users simply have to arrange a variety of interconnected spheres to duplicate structures into a pyramid or move and manipulate the spheres to create original designs!.
+            Polysphere Extreme is a highly visual three-dimensional puzzle pyramid game that people of any age can enjoy. To play with it, users simply have to arrange a variety of interconnected spheres to duplicate structures into a pyramid or move and manipulate the spheres to create original designs!.
         </p>
         <br>
-        <p class="edit-mode">
-            Start from level 1 with partial configuration if you are a beginner or go EXTREME by selecting level 5.
-        </p>
         <br>
         <!-- Add an image element with an ID -->
         <div class="edit-mode">
             <div class="portalContainer">
-                <form action="{% url 'polysphere3D:ui_template' %}" method="post">
+                <form action="{% url 'ui_template' %}" method="post">
                     {% csrf_token %}
                     <div class="game-text">
-                        <label for="data">Enter Player Name </label>
+                        <label1 class="game-label" for="data">Enter Player Name </label1>
                     </div>
                     <br>
                     <div class="futuristic-text-field">

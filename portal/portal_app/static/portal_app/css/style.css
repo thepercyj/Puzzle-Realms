@@ -1765,3 +1765,8 @@ ol {
 		margin-bottom: 20px;
 	}
 }
+video {
+    width: 640px;
+    aspect-ratio: auto 640 / 360;
+    height: 360px;
+}
