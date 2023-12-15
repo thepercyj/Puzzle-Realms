@@ -15,10 +15,12 @@ Short video of the games can be watched from [Demo](https://objectstorage.uk-lon
 - [Reflective Essay](./Documents/947G5_Group_6_Reflective_Essay.pdf)
 - [Technical Documentation](./portal/portal_app/static/portal_app/doc/technical.pdf)
 
-### Code Documentation
-- [N-Queens](./portal/nqueens_app/html/nqueens_app/index.html)
-- [Polysphere Pro](./portal/polysphere_app/html/polysphere_app/index.html)
-- [Polsyphere Extreme](./portal/polysphere3D_app/static/polysphere3D_app/js/out/index.html)
+### Code Docstrings
+- [N-Queens](http://portal.amanthapa.com.np/nqueens/nqueens_doc/)
+- [Polysphere Pro](http://portal.amanthapa.com.np/polysphere/polysphere_doc/)
+- [Polsyphere Extreme](http://portal.amanthapa.com.np/polysphere3D/polysphere3D_doc/)
+
+All the tickets opened for bugs and issues can be found [Here](https://github.com/thepercyj/ASE-Group-6/issues?q=is%3Aissue+is%3Aclosed).
 
 ### Games
 ### N-Queens Solver
@@ -28,6 +30,14 @@ Short video of the games can be watched from [Demo](https://objectstorage.uk-lon
 ### Polysphere Extreme
 ![Polysphere Extreme](./portal/portal_app/static/portal_app/img/kanoodle-extreme-demo.gif)
 
+Follow us for more exciting future projects below:
+- [Rohan Kadam](https://github.com/Rez27)
+- [Tom Naccarato](https://github.com/tnaccarato)
+- [Jawad Nasar Shah](https://github.com/jawadnasar)
+- [Junkai Ou](https://github.com/JUNKAIOU)
+- [Mya Lwin](https://github.com/Mya2328)
+- [Rimjhm Chakraborty](https://github.com/Togotogo98)
+- [Veerpal Kaur](https://github.com/veerpalkaur98)
 
 # Local Installation Guide
 
