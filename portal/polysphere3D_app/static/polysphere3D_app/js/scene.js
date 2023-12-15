@@ -276,7 +276,7 @@ export function initialiseScene(canvas) {
                                 break;
                             }
                         } else {
-                            alert("Invalid placement: Sphere is not correctly adjacent.");
+                            alert("Invalid placement: Sphere is not adjacent. Please place a sphere adjacent to the last one placed.");
                         }
                 }
             }
@@ -299,7 +299,7 @@ export function initialiseScene(canvas) {
                     return true;
                 } else {
                     // Display an alert if shape count is exhausted
-                    alert("Shape spheres out of bounds. Please input the same no. of spheres as defined for the piece");
+                    alert("You have already input the maximum number of spheres for this shape.");
                     return false;
                 }
             } else {
