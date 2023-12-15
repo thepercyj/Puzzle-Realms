@@ -1,22 +1,3 @@
-let items = {
-    'A': [1, 4, 7],
-    'B': [1, 4],
-    'C': [4, 5, 7],
-    'D': [3, 5, 6],
-    'E': [2, 3, 6, 7],
-    'F': [2, 7],
-    'G': [2, 3, 5, 6]
-};
-
-let sets = {
-    1: new Set(['A', 'B']),
-    2: new Set(['E', 'F', 'G']),
-    3: new Set(['D', 'E', 'G']),
-    4: new Set(['A', 'B', 'C']),
-    5: new Set(['C', 'D', 'G']),
-    6: new Set(['D', 'E', 'G']),
-    7: new Set(['A', 'C', 'E', 'F'])
-};
 
 /**
  * Solves the given problem using a backtracking algorithm.
@@ -129,4 +110,4 @@ export function dlx(items, sets) {
 //    console.log(solution);
 //}
 
-export { items, sets, solve };
+export {solve };

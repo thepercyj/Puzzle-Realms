@@ -328,10 +328,9 @@ function populate_problem_matrix3D() {
  * @param {Array<string>} problem_headers - The headers of the problem matrix.
  * @param {Array<string>} shapes_used - The shapes used in the problem.
  * @param {Array<Array<string>>} squares_used - The squares used in the problem.
- * @param {boolean} isFourLevel - Indicates if the problem is a four-level problem.
  * @returns {Array<Array<number>>} - The reduced problem matrix.
  */
-function reduce_problem_matrix(problem_matrix, problem_headers, shapes_used, squares_used, isFourLevel) {
+function reduce_problem_matrix(problem_matrix, problem_headers, shapes_used, squares_used) {
     console.log(problem_headers);
     let used_cols = [];
 
@@ -366,24 +365,6 @@ function reduce_problem_matrix(problem_matrix, problem_headers, shapes_used, squ
         problem_headers.splice(i, 1);
     }
 
-    if (isFourLevel) {
-        for (let i = 36 - shapes_used.length - squares_used.length; i >= 12 - shapes_used.length; i--) {
-            for (let j = problem_matrix.length - 1; j >= 0; j--) {
-                if (problem_matrix[j][i] === 1) {
-                    problem_matrix.splice(j, 1);
-                }
-            }
-        }
-
-        for (let i = 36 - shapes_used.length - squares_used.length; i > 11 - shapes_used.length; i--) {
-            for (let j = problem_matrix.length - 1; j >= 0; j--) {
-                problem_matrix[j].splice(i, 1);
-            }
-        }
-
-        console.log(problem_headers);
-        problem_headers.splice(12 - shapes_used.length, 25);
-    }
     return [problem_matrix, problem_headers];
 }
 export { generate_headers, populate_problem_matrix3D, reduce_problem_matrix };
