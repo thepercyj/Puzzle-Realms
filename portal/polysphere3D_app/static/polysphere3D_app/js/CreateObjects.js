@@ -22,10 +22,9 @@ function generate_headers() {
  * Creates dictionaries X and Y based on the given problem matrix and headers.
  * @param {Array<Array<boolean>>} problem_matrix_reduced - The reduced problem matrix.
  * @param {Array<string>} headers_reduced - The reduced headers.
- * @param {boolean} isFourLevel - Indicates whether the problem matrix is four-level or not.
  * @returns {Array<Object>} - An array containing the dictionaries X and Y.
  */
-function create_dicts(problem_matrix_reduced, headers_reduced, isFourLevel) {
+function create_dicts(problem_matrix_reduced, headers_reduced) {
     let X = {};
     let Y = {};
     for (let i = 0; i < problem_matrix_reduced.length; i++) {

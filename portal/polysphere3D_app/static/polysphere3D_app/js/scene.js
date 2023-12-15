@@ -118,6 +118,37 @@ const Colours = {
     L: 0x9DA15E,
 };
 
+const shape_obj = {
+    "A": 5,
+    "B": 5,
+    "C": 5,
+    "D": 4,
+    "E": 5,
+    "F": 5,
+    "G": 4,
+    "H": 4,
+    "I": 5,
+    "J": 5,
+    "K": 3,
+    "L": 5
+};
+
+const shape_placed_obj = {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "F": 0,
+    "G": 0,
+    "H": 0,
+    "I": 0,
+    "J": 0,
+    "K": 0,
+    "L": 0
+};
+
+
 /**
  * Initializes the scene with the given canvas.
  * 
@@ -189,37 +220,82 @@ export function initialiseScene(canvas) {
      * Handles the click event on the canvas.
      * @param {MouseEvent} event - The click event object.
      */
+
+
+
     function onClick(event) {
-        const canvasBounds = canvas.getBoundingClientRect();
-        pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
-        pointer.y = -((event.clientY - canvasBounds.top) / canvas.clientHeight) * 2 + 1;
-        raycaster.setFromCamera(pointer, camera);
+            const canvasBounds = canvas.getBoundingClientRect();
+            pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
+            pointer.y = -((event.clientY - canvasBounds.top) / canvas.clientHeight) * 2 + 1;
+            raycaster.setFromCamera(pointer, camera);
 
-        let currentShapeElement = document.getElementById("currentImage");
-        let shape = currentShapeElement.className;
-        let currentShape = shapeStore[shape]
+            let currentShapeElement = document.getElementById("currentImage");
+            let shape = currentShapeElement.className;
+            let currentShape = shapeStore[shape]
+//            console.log("This is onclick", shape, currentShape.layout.length);
 
-        const intersects = raycaster.intersectObjects(scene.children);
+            const intersects = raycaster.intersectObjects(scene.children);
 
-        for (let i = 0; i < intersects.length; i++) {
-            if (intersects[i].object.visible === true) {
-                // Get only visibile objects
-                if (intersects[i].object.name[0] === "s") {
-                    // Get only sphere's
-                    if (intersects[i].object.material.color.equals(new Color(0x999999))) {
-                        // Get only empty spheres (colour = black)
-                        intersects[i].object.material.color.set(Colours[shape]);
-                        let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
-                        setInput(shape, coord);
-                        console.log(inputShapes.get());
-                        console.log(inputCoords.get());
-                        break;
+            for (let i = 0; i < intersects.length; i++) {
+                if (intersects[i].object.visible === true && intersects[i].object.name[0] === "s" &&
+                    intersects[i].object.material.color.equals(new Color(0x999999))) {
+
+                    let coord = arrayCoordsFromWorldCoords(intersects[i].object.position.x, intersects[i].object.position.z, intersects[i].object.position.y);
+                    let shapeIndex = inputShapes.get().indexOf(shape);
+                    let lastCoord = shapeIndex >= 0 && inputCoords.get()[shapeIndex].length > 0 ? inputCoords.get()[shapeIndex][inputCoords.get()[shapeIndex].length - 1] : null;
+
+                    if (!lastCoord ||
+                        (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
+                        (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) {
+                        if (isPlacementValid(coord, currentShape, lastCoord)) {
+                            if(updateCounts(shape)) {
+                                intersects[i].object.material.color.set(Colours[shape]);
+                                setInput(shape, coord);
+                                console.log("Placed sphere for shape:", shape, "at coordinates:", coord);
+                                firstPlacementCoord = coord;
+                                break;
+                            }
+                        } else {
+                            alert("Invalid placement: Sphere is not correctly adjacent.");
+                        }
                     }
                 }
             }
         }
-    }
 
+        // Function to update counts based on the clicked shape
+        function updateCounts(shape) {
+            // Check if the shape exists in shape_obj
+            if (shape_obj.hasOwnProperty(shape)) {
+                // Subtract count from shape_obj and add to shape_placed_obj
+                shape_obj[shape] -= 1;
+                    // Check if count becomes negative
+                    if (shape_obj[shape] < 0) {
+                        // Display an alert
+                        alert("Shape spheres out of bounds. Please input the same no. of spheres as defined for the piece");
+                        // Reset the count to 0
+                        shape_obj[shape] = 0;
+                        return false;
+                    }
+                shape_placed_obj[shape] += 1;
+            } else {
+                console.error(`Shape ${shape} not found in shape_obj.`);
+            }
+
+            // Log the updated counts (you can remove this in your actual implementation)
+            console.log("Updated shape_obj:", shape_obj);
+            console.log("Updated shape_placed_obj:", shape_placed_obj);
+            return true;
+        }
+
+    function isPlacementValid(coord, shape, lastCoord) {
+        return (
+            !lastCoord ||
+            (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
+            (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
+            (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
+        );
+    }
 
 
     window.addEventListener('click', onClick);
