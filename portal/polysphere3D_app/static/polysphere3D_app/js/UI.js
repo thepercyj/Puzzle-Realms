@@ -300,7 +300,7 @@ function createState() {
         stopExecution: false,
         solutionCount: 0,
         solutions: [],
-        isFourLevel: false,
+
     };
 }
 
@@ -324,17 +324,17 @@ function onSolveButton() {
 
 
     const problem_mat = populate_problem_matrix3D();
-    const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares, state.isFourLevel);
+    const problem_def = reduce_problem_matrix(problem_mat, generate_headers(problem_mat), input_shapes, input_squares);
     const updatedProblemMat = problem_def[0];
     const headers = problem_def[1];
 
 
 
-    const dicts = create_dicts(updatedProblemMat, headers, state.isFourLevel);
+    const dicts = create_dicts(updatedProblemMat, headers);
 
 
 
-    const ret = solve(dicts[0], dicts[1], [], state.isFourLevel, headers);
+    const ret = solve(dicts[0], dicts[1], [], headers);
     let cnt = 0;
 
     const uiTimer = createTimer(() => {
@@ -355,6 +355,12 @@ function onSolveButton() {
         // Push the current pyramid_layers into the array
 
         const pyramid_layers = convert_to_pyramid_layers(arr, updatedProblemMat, headers, input_shapes, input_squares);
+        console.log("Pyramid layers");
+        console.log("arr",arr);
+        console.log("updatedProblemMat",updatedProblemMat);
+        console.log("headers",headers);
+        console.log("input_shapes",input_shapes);
+        console.log("input_squares",input_squares);
         state.solutions = [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
         sol_drawPosition(pyramid_layers);
