@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>Puzzle Realms | ASE Group 6</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="EndGam Gaming Magazine Template">
+	<meta name="keywords" content="endGam,gGaming, magazine, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="{% static 'portal_app/img/favicon.ico' %}" rel="shortcut icon"/>
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/slicknav.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/magnific-popup.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/animate.css' %}">
+
+	<!-- Main Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="{% static 'portal_app/css/style.css' %}">
+
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- Header section -->
+<header class="header-section">
+	<div class="header-warp">
+		<div class="header-bar-warp d-flex">
+			<!-- site logo -->
+			<a href="{% url 'portal' %}" class="site-logo">
+				<img src="{% static 'portal_app/img/logo-no-background.png' %}" alt="">
+			</a>
+			<nav class="top-nav-area w-100">
+				<div class="user-panel">
+					{% if user.is_authenticated %}
+					<ul class="main-menu primary-menu">
+						<li><a>Welcome, {{ user.username }}</a>
+							<ul class="sub-menu">
+								<li><a href="{% url 'logout' %}">Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+					{% else %}
+					<a href="{% url 'login' %}">Login</a> / <a href="{% url 'register' %}">Register</a>
+					{% endif %}
+				</div>
+				<!-- Menu -->
+				<ul class="main-menu primary-menu">
+					<li><a href="{% url 'portal' %}">Home</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'portal' %}">Dashboard</a></li>
+						</ul>
+					</li>
+					<li><a href="{% url 'games' %}">Games</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'nqueens_game' %}">N-Queens</a></li>
+							<li><a href="{% url 'polysphere_game' %}">Polysphere Pro</a></li>
+							<li><a href="{% url 'polysphere3D_game' %}">Polysphere Extreme</a></li>
+						</ul>
+					</li>
+					<li><a href="#">About</a>
+						<ul class="sub-menu">
+							<li><a href="{% url 'team' %}">Meet the Team</a></li>
+							<li><a href="#">Documentation</a></li>
+							<li><a href="https://github.com/thepercyj/ASE-Group-6">Source Code</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
+<!-- Header section end -->
+
+<!-- Page top section -->
+<section class="page-top-section set-bg" data-setbg="{% static 'portal_app/img/nqueens.webp' %}">
+	<div class="page-info">
+		<h2>Documentation</h2>
+		<div class="site-breadcrumb">
+			<a href="{% url 'portal' %}">Home</a>  /
+			<span>Doc</span>
+		</div>
+	</div>
+</section>
+<!-- Page top end-->
+
+
+<!-- Blog page -->
+<section class="blog-page">
+	<div class="container">
+		<div class="row">
+			<div class="widget-item">
+				<div class="categories-widget">
+					<h4 class="widget-title">Resources</h4>
+					<ul>
+						<li><a href="{% static 'portal_app/doc/Project-Plan-Grp-6.pdf' %}" target="_blank">Project Plan</a></li>
+						<li><a href="{% static 'portal_app/doc/947G5_Group_6_Reflective_Essay.pdf' %}" target="_blank">Reflective Essay</a></li>
+						<li><a href="{% static 'portal_app/doc/technical.pdf' %}" target="_blank">Technical Documentation</a></li>
+						<li><a href="{% url 'nqueens:nqueens_doc' %}">Nqueens Docstrings</a></li>
+						<li><a href="{% url 'polysphere:polysphere_doc' %}">Polysphere Pro Docstrings</a></li>
+						<li><a href="{% url 'polysphere3D_doc' %}">Polysphere Extreme Docstrings</a></li>
+					</ul>
+				</div>
+				<div class="categories-widget">
+					<h4 class="widget-title">Terms of Use</h4>
+					<ul>
+						<p>
+							The team software code is governed by an open-source license and a free-to-use policy, underscoring our commitment to fostering collaboration and innovation within the community. Users are encouraged to leverage the code for inspiration and learning purposes, benefiting from the transparency and accessibility inherent in open-source development. However, it is crucial to adhere to the stipulations outlined in the license terms. While the code is freely available, users are expressly prohibited from copying it in its entirety and presenting it as their own work. This restriction aims to maintain the integrity of the open-source ecosystem and ensures that contributors receive due credit for their efforts. We believe that by striking a balance between sharing and respecting intellectual property, we can collectively advance technology and foster a collaborative environment that benefits everyone involved.</p>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Blog page end-->
+
+<section class="game-author-section">
+	<div class="container">
+		<div class="game-author-pic set-bg" data-setbg="{% static 'portal_app/img/author.webp' %}"></div>
+		<div class="game-author-info">
+			<h4>Author: ASE Group 6</h4>
+			<p>A group of students from the module Advanced Software Engineering studying at the University of Sussex.</p>
+		</div>
+	</div>
+
+</section>
+
+<!-- Footer section -->
+<footer class="footer-section">
+	<div class="container">
+		<a href="#" class="footer-logo">
+			<img src="{% static 'portal_app/img/logo-no-background.png' %}" alt="">
+		</a>
+		<br>
+		<br>
+		<br>
+		<div class="copyright">&copy; <a href="">ASE-Group-6</a>. All Rights Reserved.</div>
+	</div>
+</footer>
+<!-- Footer section end -->
+
+
+
+<!--====== Javascripts & Jquery ======-->
+<script src="{% static 'portal_app/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'portal_app/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'portal_app/js/jquery.slicknav.min.js' %}"></script>
+<script src="{% static 'portal_app/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'portal_app/js/jquery.sticky-sidebar.min.js' %}"></script>
+<script src="{% static 'portal_app/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'portal_app/js/main.js' %}"></script>
+
+</body>
+</html>

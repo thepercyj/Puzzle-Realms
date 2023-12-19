@@ -1,7 +1,9 @@
 import Scene, {
     inputShapes,
     inputCoords,
-    Colours
+    Colours,
+    shape_obj,
+    shape_placed_obj
 } from "../js/scene.js"
 import Sol_Scene, {
     sol_inputShapes,
@@ -57,7 +59,7 @@ window.onload = function() {
      * Updates the image source, name, class, and rotation angle of the current image.
      */
     function updateImage() {
-        currentImage.src = `/static/polysphere3D_app/images/shapes/${imageIds[currentIndex]}.png`;
+        currentImage.src = `/static/polysphere3D_app/img/shapes/${imageIds[currentIndex]}.png`;
         currentImageName = image_names[currentIndex]
         currentImage.className = currentImageName
     }
@@ -313,6 +315,7 @@ function onSolveButton() {
     let solutionCount = 0;
     let solutions = [];
 
+    const startTime = performance.now();
 
     const input_shapes = inputShapes.get();
     const input_squares = inputCoords.get();
@@ -364,19 +367,45 @@ function onSolveButton() {
         state.solutions = [...state.solutions, pyramid_layers];
         allSolutions.push(pyramid_layers); // All solutions
         sol_drawPosition(pyramid_layers);
+        const endTime = performance.now();
+        const totalTime = ((endTime - startTime) / 1000).toFixed(1); // Convert to seconds and round to 1 decimal place
+        document.getElementById('timeTakenLabel').textContent = `Time taken: ${totalTime} seconds`;
     });
+}
+
+/**
+ * Resets the shape object by updating the shape_obj and shape_placed_obj properties.
+ */
+function resetShapeObj() {
+    for (let shape in shapeStore) {
+        shape_obj[shape] = shapeStore[shape].layout.length;
+        shape_placed_obj[shape] = 0;
+    }
 }
 
 /**
  * Clears the UI and resets the state.
  */
 function onClearButton() {
-    scount.textContent = "Number of solutions: 0"
-    state.solutions = []
+    // Reset counts to 0 when clearing
+    for (let shape in shape_obj) {
+        shape_obj[shape] = 0;
+        shape_placed_obj[shape] = 0;
+    }
+
+    // Reset the count display
+    scount.textContent = "Number of solutions: 0";
+
+    // Clear state solutions
+    state.solutions = [];
+
+    // Clear input shapes and coords
     inputShapes.clear();
     inputCoords.clear();
-    new resetFirstPlacementCoord()
 
+    // Reset the firstPlacementCoord
+    new resetFirstPlacementCoord();
+    new resetShapeObj();
     // Set pyramid to empty and render empty pyramid
     const empty_position = new Array(5);
     for (let i = 0; i < 5; i++) {
@@ -389,6 +418,8 @@ function onClearButton() {
             empty_position[layer][row].fill(0);
         }
     }
+
+    // Draw the empty pyramid
     drawPosition(empty_position);
     sol_drawPosition(empty_position);
 }
@@ -461,16 +492,19 @@ function checkInput(shapes, coords) {
     return true;
 }
 
+let currentSolutionIndex = 0;  // Initialize the index at the beginning
+
 /**
  * Handles the click event of the next button.
  * Pops a solution from the state's solutions array and calls sol_drawPosition to draw it.
  */
 function onNextButton() {
     console.log("Clicked next");
-    const solutions = [...state.solutions];
-    console.log(state.solutions)
-    if (solutions.length > 0) {
-        sol_drawPosition(state.solutions.pop());
+    const solutions = state.solutions;
+
+    if (currentSolutionIndex < solutions.length - 1) {
+        currentSolutionIndex++;
+        sol_drawPosition(solutions[currentSolutionIndex]);
     }
 }
 
@@ -479,10 +513,11 @@ function onNextButton() {
  */
 function onPrevButton() {
     console.log("Clicked Prev");
-    const solutions = [...state.solutions];
-    console.log(state.solutions)
-    if (solutions.length > 0) {
-        sol_drawPosition(state.solutions.shift());
+    const solutions = state.solutions;
+
+    if (currentSolutionIndex > 0) {
+        currentSolutionIndex--;
+        sol_drawPosition(solutions[currentSolutionIndex]);
     }
 }
 

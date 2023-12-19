@@ -118,6 +118,27 @@ const Colours = {
     L: 0x9DA15E,
 };
 
+/**
+ * Represents a number of spheres in a shape object.
+ * @typedef {Object} ShapeObject
+ * @property {number} A - The number of spheres in A.
+ * @property {number} B - The number of spheres in B.
+ * @property {number} C - The number of spheres in C.
+ * @property {number} D - The number of spheres in D.
+ * @property {number} E - The number of spheres in E.
+ * @property {number} F - The number of spheres in F.
+ * @property {number} G - The number of spheres in G.
+ * @property {number} H - The number of spheres in H.
+ * @property {number} I - The number of spheres in I.
+ * @property {number} J - The number of spheres in J.
+ * @property {number} K - The number of spheres in K.
+ * @property {number} L - The number of spheres in L.
+ */
+
+/**
+ * The shape object.
+ * @type {ShapeObject}
+ */
 const shape_obj = {
     "A": 5,
     "B": 5,
@@ -130,9 +151,13 @@ const shape_obj = {
     "I": 5,
     "J": 5,
     "K": 3,
-    "L": 5
+    "L": 5,
 };
 
+/**
+ * Object representing the placement of shapes.
+ * @type {Object.<string, number>}
+ */
 const shape_placed_obj = {
     "A": 0,
     "B": 0,
@@ -145,7 +170,7 @@ const shape_placed_obj = {
     "I": 0,
     "J": 0,
     "K": 0,
-    "L": 0
+    "L": 0,
 };
 
 
@@ -216,13 +241,11 @@ export function initialiseScene(canvas) {
     const raycaster = new Raycaster();
     const pointer = new Vector2();
 
-    /**
+
+        /**
      * Handles the click event on the canvas.
      * @param {MouseEvent} event - The click event object.
      */
-
-
-
     function onClick(event) {
             const canvasBounds = canvas.getBoundingClientRect();
             pointer.x = ((event.clientX - canvasBounds.left) / canvas.clientWidth) * 2 - 1;
@@ -244,9 +267,6 @@ export function initialiseScene(canvas) {
                     let shapeIndex = inputShapes.get().indexOf(shape);
                     let lastCoord = shapeIndex >= 0 && inputCoords.get()[shapeIndex].length > 0 ? inputCoords.get()[shapeIndex][inputCoords.get()[shapeIndex].length - 1] : null;
 
-                    if (!lastCoord ||
-                        (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
-                        (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1])) {
                         if (isPlacementValid(coord, currentShape, lastCoord)) {
                             if(updateCounts(shape)) {
                                 intersects[i].object.material.color.set(Colours[shape]);
@@ -256,50 +276,70 @@ export function initialiseScene(canvas) {
                                 break;
                             }
                         } else {
-                            alert("Invalid placement: Sphere is not correctly adjacent.");
+                            alert("Invalid placement: Sphere is not adjacent. Please place a sphere adjacent to the last one placed.");
                         }
-                    }
                 }
             }
         }
 
-        // Function to update counts based on the clicked shape
+        /**
+         * Updates the counts of a given shape.
+         * 
+         * @param {string} shape - The shape to update the counts for.
+         * @returns {boolean} - Returns true if the counts were successfully updated, false otherwise.
+         */
         function updateCounts(shape) {
             // Check if the shape exists in shape_obj
             if (shape_obj.hasOwnProperty(shape)) {
-                // Subtract count from shape_obj and add to shape_placed_obj
-                shape_obj[shape] -= 1;
-                    // Check if count becomes negative
-                    if (shape_obj[shape] < 0) {
-                        // Display an alert
-                        alert("Shape spheres out of bounds. Please input the same no. of spheres as defined for the piece");
-                        // Reset the count to 0
-                        shape_obj[shape] = 0;
-                        return false;
-                    }
-                shape_placed_obj[shape] += 1;
+                // Check if there are available shapes to place
+                if (shape_obj[shape] > 0) {
+                    // Subtract count from shape_obj and add to shape_placed_obj
+                    shape_obj[shape] -= 1;
+                    shape_placed_obj[shape] += 1;
+                    return true;
+                } else {
+                    // Display an alert if shape count is exhausted
+                    alert("You have already input the maximum number of spheres for this shape.");
+                    return false;
+                }
             } else {
                 console.error(`Shape ${shape} not found in shape_obj.`);
+                return false;
             }
-
-            // Log the updated counts (you can remove this in your actual implementation)
-            console.log("Updated shape_obj:", shape_obj);
-            console.log("Updated shape_placed_obj:", shape_placed_obj);
-            return true;
+             // Log the updated counts (you can remove this in your actual implementation)
+//            console.log("Updated shape_obj:", shape_obj);
+//            console.log("Updated shape_placed_obj:", shape_placed_obj);
+//            return true;
         }
 
+
+
+
+    /**
+     * Checks if a placement coordinate is valid for a given shape.
+     * @param {number[]} coord - The coordinate to check.
+     * @param {string} shape - The shape being placed.
+     * @param {number[]} lastCoord - The last placed coordinate.
+     * @returns {boolean} - True if the placement is valid, false otherwise.
+     */
     function isPlacementValid(coord, shape, lastCoord) {
         return (
             !lastCoord ||
             (lastCoord[2] === coord[2] && (Math.abs(lastCoord[0] - coord[0]) + Math.abs(lastCoord[1] - coord[1]) === 1)) ||
             (Math.abs(lastCoord[2] - coord[2]) === 1 && lastCoord[0] === coord[0] && lastCoord[1] === coord[1]) ||
-            (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2])
+            (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && lastCoord[2] === coord[2]) ||
+            // Diagonal condition
+            (Math.abs(lastCoord[0] - coord[0]) === 1 && Math.abs(lastCoord[1] - coord[1]) === 1 && Math.abs(lastCoord[2] - coord[2]) === 1)
         );
-    }
+}
+
 
 
     window.addEventListener('click', onClick);
 
+    /**
+     * Animates the scene by rendering it, updating the controls, and requesting the next animation frame.
+     */
     function animate() {
         renderer.render(scene, camera);
         controls.update();
@@ -411,4 +451,4 @@ export default class {
     }
 };
 
-export { Colours };
+export { Colours, shape_obj, shape_placed_obj };
