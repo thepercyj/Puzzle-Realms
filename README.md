@@ -8,7 +8,7 @@ The portal is designed in order to check various algorithm efficiency and how we
 Portal can be accessed from [Puzzle Realms by ASE-Group-6](http://portal.amanthapa.com.np)
 
 ### Demo
-Short video of the games can be watched from [Demo](https://objectstorage.uk-london-1.oraclecloud.com/p/0bb5W0hwEnplJ7RNQzBcHZhx7DEEzJSlUNvr5kyVnzxL_l7gZ0x1sCKt24ivtAAH/n/lryugqbopb6d/b/thepercyj/o/promo/puzzle-preview.mp4)
+Short video of the games can be watched from [Demo](https://lryugqbopb6d.objectstorage.uk-london-1.oci.customer-oci.com/p/P1GDAGNWy1wcUuzfeZnai2ixeQ5p09XXkJBUMGeVje_M7hnG1eFRAnxqQkGE4x-X/n/lryugqbopb6d/b/thepercyj/o/promo/puzzle-preview.mp4)
 
 ### Documentation
 - [Project Plan](./Documents/Project-Plan-Grp-6.pdf)
