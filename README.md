@@ -1,4 +1,4 @@
-# Puzzle Realms by ASE-Group-6
+# Puzzle Realms
 A web-based portal for various kinds of puzzle games that help improve logical thinking, spatial reasoning and boost cognitive abilities. Built using Django, Python, HTML, and JavaScript.
 
 ### Objectives
