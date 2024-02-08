@@ -5,7 +5,7 @@ A web-based portal for various kinds of puzzle games that help improve logical t
 The portal is designed in order to check various algorithm efficiency and how well it can be optimized when solving puzzle logics at the same time used for entertainment for people of all ages.
 
 ### Website
-Portal can be accessed from [Puzzle Realms by ASE-Group-6](http://portal.amanthapa.com.np)
+Portal can be accessed from [Puzzle Realms](http://portal.amanthapa.com.np)
 
 ### Demo
 Short video of the games can be watched from [Demo](https://lryugqbopb6d.objectstorage.uk-london-1.oci.customer-oci.com/p/P1GDAGNWy1wcUuzfeZnai2ixeQ5p09XXkJBUMGeVje_M7hnG1eFRAnxqQkGE4x-X/n/lryugqbopb6d/b/thepercyj/o/promo/puzzle-preview.mp4)
