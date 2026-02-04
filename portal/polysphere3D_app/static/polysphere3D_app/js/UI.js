@@ -324,6 +324,10 @@ function onSolveButton() {
     if (!checkInput(input_shapes, input_squares)) {
         return;
     }
+    
+    if (!checkLinearity(input_shapes, input_squares)) {
+        return;
+    }
 
 
     const problem_mat = populate_problem_matrix3D();
@@ -489,6 +493,80 @@ function checkInput(shapes, coords) {
             return false;
         }
     }
+    return true;
+}
+
+// Function to check if the piece is placed in both x and y planes for each shape
+function checkLinearity(shapes, coords) {
+    console.log("Shapes:", shapes, "Coords:", coords);
+
+    for (let i = 0; i < shapes.length; i++) {
+        const shape = shapes[i];
+        const shapeCoords = coords[i];
+
+        if (shape === 'A' || shape === 'B' || shape === 'C' || shape === 'E' || shape === 'F' || shape === 'G'|| shape === 'H' || shape === 'I' || shape === 'J' || shape === 'K' || shape === 'L') {
+            // Check if all x or y coordinates are 0,1,2,3 or 4
+            const allXZero = shapeCoords.every(coord => coord[0] === 0);
+            const allYZero = shapeCoords.every(coord => coord[1] === 0);
+            const allXOne = shapeCoords.every(coord => coord[0] === 1);
+            const allYOne = shapeCoords.every(coord => coord[1] === 1);
+            const allXTwo = shapeCoords.every(coord => coord[0] === 2);
+            const allYTwo = shapeCoords.every(coord => coord[1] === 2);
+            const allXThree = shapeCoords.every(coord => coord[0] === 3);
+            const allYThree = shapeCoords.every(coord => coord[1] === 3);
+            const allXFour = shapeCoords.every(coord => coord[0] === 4);
+            const allYFour = shapeCoords.every(coord => coord[1] === 4);
+
+            if (allXZero || allYZero || allXOne || allYOne || allXTwo || allYTwo || allXThree || allYThree || allXFour || allYFour) {
+                 console.log("Invalid piece design placed, please place a valid design according to the image shown");
+                alert("Invalid piece design placed, please place a valid design according to the image shown");
+                return false;
+            }
+        }
+        else if (shape === 'A' || shape === 'B' || shape === 'C' || shape === 'E' || shape === 'F' || shape === 'G'|| shape === 'H' || shape === 'I' || shape === 'K' || shape === 'L') {
+            // Check if all x-coordinates are 0
+            const allXZero = shapeCoords.every(coord => coord[0] === 0);
+            const allYZero = shapeCoords.every(coord => coord[1] === 0);
+            const allZZero = shapeCoords.every(coord => coord[2] === 0);
+            const allXOne = shapeCoords.every(coord => coord[0] === 1);
+            const allYOne = shapeCoords.every(coord => coord[1] === 1);
+            const allZOne = shapeCoords.every(coord => coord[2] === 1);
+            const allXTwo = shapeCoords.every(coord => coord[0] === 2);
+            const allYTwo = shapeCoords.every(coord => coord[1] === 2);
+            const allZTwo = shapeCoords.every(coord => coord[2] === 2);
+            const allXThree = shapeCoords.every(coord => coord[0] === 3);
+            const allYThree = shapeCoords.every(coord => coord[1] === 3);
+            const allZThree = shapeCoords.every(coord => coord[2] === 3);
+            const allXFour = shapeCoords.every(coord => coord[0] === 4);
+            const allYFour = shapeCoords.every(coord => coord[1] === 4);
+            const allZFour = shapeCoords.every(coord => coord[2] === 4);
+
+            if (allXZero || allYZero || allZZero || allXOne || allYOne || allZOne || allXTwo || allYTwo || allZTwo || allXThree || allYThree || allZThree || allXFour || allYFour || allZFour) {
+                console.log("Invalid piece design placed, please place a valid design according to the image shown");
+                alert("Invalid piece design placed, please place a valid design according to the image shown");
+                return false;
+            }
+        }
+        else if (shape === 'A' || shape === 'B' || shape === 'C' || shape === 'E' || shape === 'F' || shape === 'G'|| shape === 'H' || shape === 'I' || shape === 'J' || shape === 'K' || shape === 'L') {
+            // Check if all x-coordinates are 0
+            const allXZero = shapeCoords.every(coord => coord[0] === 0);
+            const allYZero = shapeCoords.every(coord => coord[1] === 0);
+            const allXOne = shapeCoords.every(coord => coord[0] === 1);
+            const allYOne = shapeCoords.every(coord => coord[1] === 1);
+            const allXTwo = shapeCoords.every(coord => coord[0] === 2);
+            const allYTwo = shapeCoords.every(coord => coord[1] === 2);
+
+            if (allXZero || allYZero || allXOne || allYOne || allXTwo || allYTwo ) {
+                console.log("Invalid piece design placed, please place a valid design according to the image shown");
+                alert("Invalid piece design placed, please place a valid design according to the image shown");
+                return false;
+            }
+        }
+
+        // Additional checks or processing specific to each shape can be added here.
+    }
+
+    // If no invalid pattern is found for shape A, return true.
     return true;
 }
 

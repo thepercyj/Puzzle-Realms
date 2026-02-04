@@ -21,14 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c)(cn-d!_oo2i-3%qs2g(#n+n6asb_-8ewa-&6mns0pr(&=!y4'
+#SECRET_KEY = 'django-insecure-c)(cn-d!_oo2i-3%qs2g(#n+n6asb_-8ewa-&6mns0pr(&=!y4'
+SECRET_KEY_FILE = os.path.join(BASE_DIR, 'portal/.DJANGO_SECRET_KEY')
+
+with open(SECRET_KEY_FILE) as f:
+  SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 AUTH_USER_MODEL = 'portal_app.CustomUser'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','portal.amanthapa.com.np', '144.21.52.245']
+
+#CSRF_TRUSTED_ORIGINS = ['https://portal.amanthapa.com.np']
 
 
 # Application definition
@@ -86,7 +92,7 @@ DATABASES = {
         "NAME": "group_6_project",
         "USER": "asegroup6",
         "PASSWORD": "ASEgroup6mysql@2023##",
-        "HOST": "144.21.52.245",
+        "HOST": "127.0.0.1",
         "PORT": "6969",
     }
 }
@@ -137,11 +143,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = '/var/www/portal/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'nqueens_app/static'),
-    os.path.join(BASE_DIR, 'polysphere_app/static'),
-    os.path.join(BASE_DIR, 'polysphere3D_app/static'),
-    os.path.join(BASE_DIR, 'portal_app/static'),
+    BASE_DIR / 'portal_app/static',
 ]
 
 
