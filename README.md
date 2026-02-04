@@ -1,24 +1,26 @@
-# Puzzle Realms by ASE-Group-6
+# Puzzle Realms
 A web-based portal for various kinds of puzzle games that help improve logical thinking, spatial reasoning and boost cognitive abilities. Built using Django, Python, HTML, and JavaScript.
 
 ### Objectives
 The portal is designed in order to check various algorithm efficiency and how well it can be optimized when solving puzzle logics at the same time used for entertainment for people of all ages.
 
 ### Website
-Portal can be accessed from [Puzzle Realms by ASE-Group-6](http://portal.amanthapa.com.np)
+Portal can be accessed from [Puzzle Realms](http://portal.amanthapa.com.np)
 
 ### Demo
-Short video of the games can be watched from [Demo](https://objectstorage.uk-london-1.oraclecloud.com/p/0bb5W0hwEnplJ7RNQzBcHZhx7DEEzJSlUNvr5kyVnzxL_l7gZ0x1sCKt24ivtAAH/n/lryugqbopb6d/b/thepercyj/o/promo/puzzle-preview.mp4)
+Short video of the games can be watched from [Demo](https://lryugqbopb6d.objectstorage.uk-london-1.oci.customer-oci.com/p/P1GDAGNWy1wcUuzfeZnai2ixeQ5p09XXkJBUMGeVje_M7hnG1eFRAnxqQkGE4x-X/n/lryugqbopb6d/b/thepercyj/o/promo/puzzle-preview.mp4)
 
 ### Documentation
 - [Project Plan](./Documents/Project-Plan-Grp-6.pdf)
 - [Reflective Essay](./Documents/947G5_Group_6_Reflective_Essay.pdf)
 - [Technical Documentation](./portal/portal_app/static/portal_app/doc/technical.pdf)
 
-### Code Documentation
-- [N-Queens](./portal/portal_app/nqueens_app/html/nqueens_app/index.html)
-- [Polysphere Pro](./portal/portal_app/polysphere_app/html/polysphere_app/index.html)
-- [Polsyphere Extreme](./portal/portal_app/polysphere3D_app/html/polysphere3D_app/index.html)
+### Code Docstrings
+- [N-Queens](http://portal.amanthapa.com.np/nqueens/nqueens_doc/)
+- [Polysphere Pro](http://portal.amanthapa.com.np/polysphere/polysphere_doc/)
+- [Polsyphere Extreme](http://portal.amanthapa.com.np/polysphere3D/polysphere3D_doc/)
+
+All the tickets opened for bugs and issues can be found [Here](https://github.com/thepercyj/ASE-Group-6/issues?q=is%3Aissue+is%3Aclosed).
 
 ### Games
 ### N-Queens Solver
@@ -28,6 +30,14 @@ Short video of the games can be watched from [Demo](https://objectstorage.uk-lon
 ### Polysphere Extreme
 ![Polysphere Extreme](./portal/portal_app/static/portal_app/img/kanoodle-extreme-demo.gif)
 
+Follow us for more exciting future projects below:
+- [Rohan Kadam](https://github.com/Rez27)
+- [Tom Naccarato](https://github.com/tnaccarato)
+- [Jawad Nasar Shah](https://github.com/jawadnasar)
+- [Junkai Ou](https://github.com/JUNKAIOU)
+- [Mya Lwin](https://github.com/Mya2328)
+- [Rimjhm Chakraborty](https://github.com/Togotogo98)
+- [Veerpal Kaur](https://github.com/veerpalkaur98)
 
 # Local Installation Guide
 
