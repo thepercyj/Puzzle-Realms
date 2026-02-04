@@ -135,6 +135,8 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+.DJANGO_SECRET_KEY
+
 # Pyre type checker
 .pyre/
 
