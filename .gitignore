@@ -137,6 +137,8 @@ dmypy.json
 
 .DJANGO_SECRET_KEY
 
+upgrade-package.sh
+
 # Pyre type checker
 .pyre/
 
